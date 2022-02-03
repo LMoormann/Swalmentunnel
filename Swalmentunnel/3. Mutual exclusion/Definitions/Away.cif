@@ -1,0 +1,20 @@
+group def Away(alg bool RequestCondition, ReturnCondition):
+
+	alg bool R = Requester.R;
+
+	plant automaton Requester:
+		controllable c_request, c_return;
+		uncontrollable u_receive;
+		disc bool R = false;
+		location Idle:
+		  initial; marked;
+			edge c_request do R := true goto Requested;
+		location Requested:
+			edge u_receive do R:= false goto Received;
+		location Received:
+			edge c_return goto Idle;
+	end
+
+  requirement Requester.c_request needs RequestCondition;
+  requirement Requester.c_return needs ReturnCondition;
+end

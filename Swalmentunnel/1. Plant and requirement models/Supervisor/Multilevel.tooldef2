@@ -1,0 +1,26 @@
+from "lib:cif3" import *;
+
+// Input file
+string input_path = "Tunnel.cif";
+
+// Output folder
+string output_dir = "generated_files/";
+string output_file = output_dir + "Supervisor.cif";
+
+// Create directory for generated files.
+mkdir(output_dir, force=true);
+
+// Simulate the supervisor/hybrid plants simulation model.
+outln("Synthesizing multilevel supervisor for \"%s\"...", input_path);
+outln();
+
+cif3mlsynth(input_path,
+			"-o", output_file,
+			"--forward-reach=true",
+			"--mlstats=ss-size,timing",
+			"--figures=true",
+			"--output-mode=debug",
+			"--clustering-alpha=2",		// [1 .. 10]
+			"--clustering-beta=1.05",		// [1.01 .. 10]
+			"--clustering-mu=1.5", // [1.01 .. 10]
+			"--clustering-gamma=30");

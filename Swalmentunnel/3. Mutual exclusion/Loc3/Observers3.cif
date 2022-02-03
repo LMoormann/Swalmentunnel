@@ -1,0 +1,47 @@
+uncontrollable VB1_BedieningAB_Observer3_c_auto;
+uncontrollable VB1_BedieningAB_Observer3_c_hand;
+
+plant automaton VB1_BedieningAB_Observer3:
+  location auto:
+    initial;
+    marked;
+    edge VB1_BedieningAB_Observer3_c_hand goto hand;
+  location hand:
+    edge VB1_BedieningAB_Observer3_c_auto goto auto;
+end
+
+uncontrollable VB1_BedieningVRI_Observer3_c_auto;
+uncontrollable VB1_BedieningVRI_Observer3_c_hand;
+
+plant automaton VB1_BedieningVRI_Observer3:
+  location auto:
+    initial;
+    marked;
+    edge VB1_BedieningVRI_Observer3_c_hand goto hand;
+  location hand:
+    edge VB1_BedieningVRI_Observer3_c_auto goto auto;
+end
+
+uncontrollable VB2_BedieningAB_Observer3_c_auto;
+uncontrollable VB2_BedieningAB_Observer3_c_hand;
+
+plant automaton VB2_BedieningAB_Observer3:
+  location auto:
+    initial;
+    marked;
+    edge VB2_BedieningAB_Observer3_c_hand goto hand;
+  location hand:
+    edge VB2_BedieningAB_Observer3_c_auto goto auto;
+end
+
+uncontrollable VB2_BedieningVRI_Observer3_c_auto;
+uncontrollable VB2_BedieningVRI_Observer3_c_hand;
+
+plant automaton VB2_BedieningVRI_Observer3:
+  location auto:
+    initial;
+    marked;
+    edge VB2_BedieningVRI_Observer3_c_hand goto hand;
+  location hand:
+    edge VB2_BedieningVRI_Observer3_c_auto goto auto;
+end

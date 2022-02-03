@@ -1,0 +1,31 @@
+from "lib:cif3" import *;
+
+// Input file
+string output_path = "delayedsup.cif";
+string channels = "Channels.cif";
+
+// Merge
+cif3cif(channels,
+  "-o", output_path,
+  "-t elim-comp-def-inst"
+  );
+
+cif3cif(output_path,
+  "-o", output_path,
+  "-t elim-groups"
+  );
+
+cif3cif(output_path,
+  "-o", output_path,
+  "-t lift-events"
+  );
+
+cif3cif(output_path,
+  "-o", output_path,
+  "-t simplify-values"
+  );
+
+// Delay-robustness check
+cif3delaycheck(output_path,
+	"-f", "delayed_events.txt"
+	);

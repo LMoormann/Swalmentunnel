@@ -1,0 +1,51 @@
+uncontrollable VB1_BedienAB_Obs3_c_auto;
+uncontrollable VB1_BedienAB_Obs3_c_hand;
+
+plant automaton VB1_BedienAB_Obs3:
+  input bool I_auto, I_hand;
+  location auto:
+    initial;
+    marked;
+    edge VB1_BedienAB_Obs3_c_hand when I_hand goto hand;
+  location hand:
+    edge VB1_BedienAB_Obs3_c_auto when I_auto goto auto;
+end
+
+uncontrollable VB1_BedienVRI_Obs3_c_auto;
+uncontrollable VB1_BedienVRI_Obs3_c_hand;
+
+plant automaton VB1_BedienVRI_Obs3:
+  input bool I_auto, I_hand;
+  location auto:
+    initial;
+    marked;
+    edge VB1_BedienVRI_Obs3_c_hand when I_hand goto hand;
+  location hand:
+    edge VB1_BedienVRI_Obs3_c_auto when I_auto goto auto;
+end
+
+uncontrollable VB2_BedienAB_Obs3_c_auto;
+uncontrollable VB2_BedienAB_Obs3_c_hand;
+
+plant automaton VB2_BedienAB_Obs3:
+  input bool I_auto, I_hand;
+  location auto:
+    initial;
+    marked;
+    edge VB2_BedienAB_Obs3_c_hand when I_hand goto hand;
+  location hand:
+    edge VB2_BedienAB_Obs3_c_auto when I_auto goto auto;
+end
+
+uncontrollable VB2_BedienVRI_Obs3_c_auto;
+uncontrollable VB2_BedienVRI_Obs3_c_hand;
+
+plant automaton VB2_BedienVRI_Obs3:
+  input bool I_auto, I_hand;
+  location auto:
+    initial;
+    marked;
+    edge VB2_BedienVRI_Obs3_c_hand when I_hand goto hand;
+  location hand:
+    edge VB2_BedienVRI_Obs3_c_auto when I_auto goto auto;
+end

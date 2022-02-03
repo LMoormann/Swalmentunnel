@@ -1,0 +1,107 @@
+uncontrollable VB1_Stand_Observer2_c_operationeel;
+uncontrollable VB1_Stand_Observer2_c_calamiteit;
+uncontrollable VB1_Stand_Observer2_c_standby;
+uncontrollable VB1_Stand_Observer2_c_ondersteunend;
+uncontrollable VB1_Stand_Observer2_c_onderhoud;
+uncontrollable VB1_Stand_Observer2_c_herstelUitCalimiteit;
+uncontrollable VB1_Stand_Observer2_c_herstelUitOndersteunend;
+uncontrollable VB1_Stand_Observer2_c_herstelUitOnderhoud;
+uncontrollable VB1_Stand_Observer2_c_evacuatie;
+
+uncontrollable VB1_SetAuto_Observer2_c_klaar;
+
+plant automaton VB1_Stand_Observer2:
+  location operationeel:
+    initial;
+    marked;
+    edge VB1_Stand_Observer2_c_calamiteit goto calamiteit;
+    edge VB1_Stand_Observer2_c_standby goto standby;
+    edge VB1_Stand_Observer2_c_ondersteunend goto ondersteunend;
+    edge VB1_Stand_Observer2_c_onderhoud goto onderhoud;
+  location standby:
+    edge VB1_Stand_Observer2_c_operationeel goto operationeel;
+    edge VB1_Stand_Observer2_c_calamiteit goto calamiteit;
+    edge VB1_Stand_Observer2_c_ondersteunend goto ondersteunend;
+  location calamiteit:
+    edge VB1_Stand_Observer2_c_herstelUitCalimiteit goto herstel;
+    edge VB1_Stand_Observer2_c_evacuatie goto evacuatie;
+  location evacuatie:
+    edge VB1_Stand_Observer2_c_calamiteit goto calamiteit;
+  location herstel:
+    edge VB1_Stand_Observer2_c_operationeel goto operationeel;
+    edge VB1_Stand_Observer2_c_calamiteit goto calamiteit;
+    edge VB1_Stand_Observer2_c_ondersteunend goto ondersteunend;
+    edge VB1_Stand_Observer2_c_onderhoud goto onderhoud;
+  location ondersteunend:
+    edge VB1_Stand_Observer2_c_herstelUitOndersteunend goto herstel;
+  location onderhoud:
+    edge VB1_Stand_Observer2_c_operationeel goto operationeel;
+    edge VB1_Stand_Observer2_c_herstelUitOnderhoud goto herstel;
+    edge VB1_Stand_Observer2_c_ondersteunend goto ondersteunend;
+    edge VB1_Stand_Observer2_c_calamiteit goto calamiteit;
+end
+
+plant automaton VB1_SetAuto_Observer2:
+  location normaal:
+    initial;
+    marked;
+    edge VB1_Stand_Observer2_c_operationeel, VB1_Stand_Observer2_c_standby, VB1_Stand_Observer2_c_calamiteit, VB1_Stand_Observer2_c_evacuatie,
+         VB1_Stand_Observer2_c_herstelUitCalimiteit, VB1_Stand_Observer2_c_herstelUitOndersteunend, VB1_Stand_Observer2_c_herstelUitOnderhoud,
+         VB1_Stand_Observer2_c_ondersteunend, VB1_Stand_Observer2_c_onderhoud goto setauto;
+  location setauto:
+    edge VB1_SetAuto_Observer2_c_klaar goto normaal;
+end
+
+uncontrollable VB2_Stand_Observer2_c_operationeel;
+uncontrollable VB2_Stand_Observer2_c_calamiteit;
+uncontrollable VB2_Stand_Observer2_c_standby;
+uncontrollable VB2_Stand_Observer2_c_ondersteunend;
+uncontrollable VB2_Stand_Observer2_c_onderhoud;
+uncontrollable VB2_Stand_Observer2_c_herstelUitCalimiteit;
+uncontrollable VB2_Stand_Observer2_c_herstelUitOndersteunend;
+uncontrollable VB2_Stand_Observer2_c_herstelUitOnderhoud;
+uncontrollable VB2_Stand_Observer2_c_evacuatie;
+
+uncontrollable VB2_SetAuto_Observer2_c_klaar;
+
+plant automaton VB2_Stand_Observer2:
+  location operationeel:
+    initial;
+    marked;
+    edge VB2_Stand_Observer2_c_calamiteit goto calamiteit;
+    edge VB2_Stand_Observer2_c_standby goto standby;
+    edge VB2_Stand_Observer2_c_ondersteunend goto ondersteunend;
+    edge VB2_Stand_Observer2_c_onderhoud goto onderhoud;
+  location standby:
+    edge VB2_Stand_Observer2_c_operationeel goto operationeel;
+    edge VB2_Stand_Observer2_c_calamiteit goto calamiteit;
+    edge VB2_Stand_Observer2_c_ondersteunend goto ondersteunend;
+  location calamiteit:
+    edge VB2_Stand_Observer2_c_herstelUitCalimiteit goto herstel;
+    edge VB2_Stand_Observer2_c_evacuatie goto evacuatie;
+  location evacuatie:
+    edge VB2_Stand_Observer2_c_calamiteit goto calamiteit;
+  location herstel:
+    edge VB2_Stand_Observer2_c_operationeel goto operationeel;
+    edge VB2_Stand_Observer2_c_calamiteit goto calamiteit;
+    edge VB2_Stand_Observer2_c_ondersteunend goto ondersteunend;
+    edge VB2_Stand_Observer2_c_onderhoud goto onderhoud;
+  location ondersteunend:
+    edge VB2_Stand_Observer2_c_herstelUitOndersteunend goto herstel;
+  location onderhoud:
+    edge VB2_Stand_Observer2_c_operationeel goto operationeel;
+    edge VB2_Stand_Observer2_c_herstelUitOnderhoud goto herstel;
+    edge VB2_Stand_Observer2_c_ondersteunend goto ondersteunend;
+    edge VB2_Stand_Observer2_c_calamiteit goto calamiteit;
+end
+
+plant automaton VB2_SetAuto_Observer2:
+  location normaal:
+    initial;
+    marked;
+    edge VB2_Stand_Observer2_c_operationeel, VB2_Stand_Observer2_c_standby, VB2_Stand_Observer2_c_calamiteit, VB2_Stand_Observer2_c_evacuatie,
+         VB2_Stand_Observer2_c_herstelUitCalimiteit, VB2_Stand_Observer2_c_herstelUitOndersteunend, VB2_Stand_Observer2_c_herstelUitOnderhoud,
+         VB2_Stand_Observer2_c_ondersteunend, VB2_Stand_Observer2_c_onderhoud goto setauto;
+  location setauto:
+    edge VB2_SetAuto_Observer2_c_klaar goto normaal;
+end

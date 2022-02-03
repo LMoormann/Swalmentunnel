@@ -1,0 +1,21 @@
+group def Home(alg bool ReturnCondition):
+
+	input bool R;
+
+	plant automaton TT:
+
+	  disc bool Here = true;
+    disc bool SendingAway = false;
+    input bool SendingHere;
+
+    controllable c_send;
+    uncontrollable u_receive;
+		location Home:
+		  initial; marked;
+			edge c_send when not SendingHere and Here do SendingAway := true, Here := false goto Away;
+		location Away:
+			edge u_receive when SendingHere do SendingAway := false, Here := true goto Home;
+	end
+
+  requirement TT.c_send needs ReturnCondition and R;
+end

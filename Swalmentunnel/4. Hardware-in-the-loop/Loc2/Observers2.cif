@@ -1,0 +1,119 @@
+uncontrollable VB1SO_oper;
+uncontrollable VB1SO_cal;
+uncontrollable VB1SO_sb;
+uncontrollable VB1SO_ondst;
+uncontrollable VB1SO_ondh;
+uncontrollable VB1SO_herCal;
+uncontrollable VB1SO_herOnst;
+uncontrollable VB1SO_herOndh;
+uncontrollable VB1SO_evac;
+
+uncontrollable VB1_SetAuto_Obs2_c_klaar;
+
+plant automaton VB1SO:
+  input bool I_oper, I_sb, I_cal, I_evac, I_herst, I_ondst, I_ondh;
+  location operationeel:
+    initial;
+    marked;
+    edge VB1SO_cal when I_cal goto calamiteit;
+    edge VB1SO_sb when I_sb goto standby;
+    edge VB1SO_ondst when I_ondst goto ondersteunend;
+    edge VB1SO_ondh when I_ondh goto onderhoud;
+  location standby:
+    edge VB1SO_oper when I_oper goto operationeel;
+    edge VB1SO_cal when I_cal goto calamiteit;
+    edge VB1SO_ondst when I_ondst goto ondersteunend;
+  location calamiteit:
+    edge VB1SO_herCal when I_herst goto herstel;
+    edge VB1SO_evac when I_evac goto evacuatie;
+  location evacuatie:
+    edge VB1SO_cal when I_cal goto calamiteit;
+  location herstel:
+    edge VB1SO_oper when I_oper goto operationeel;
+    edge VB1SO_cal when I_cal goto calamiteit;
+    edge VB1SO_ondst when I_ondst goto ondersteunend;
+    edge VB1SO_ondh when I_ondh goto onderhoud;
+  location ondersteunend:
+    edge VB1SO_herOnst when I_herst goto herstel;
+  location onderhoud:
+    edge VB1SO_oper when I_oper goto operationeel;
+    edge VB1SO_herOndh when I_herst goto herstel;
+    edge VB1SO_ondst when I_ondst goto ondersteunend;
+    edge VB1SO_cal when I_cal goto calamiteit;
+end
+
+plant automaton VB1_SetAuto_Obs2:
+  input bool I_normaal;
+  location normaal:
+    initial;
+    marked;
+    edge VB1SO_oper when VB1SO.I_oper goto setauto;
+    edge VB1SO_sb when VB1SO.I_sb goto setauto;
+    edge VB1SO_cal when VB1SO.I_cal goto setauto;
+    edge VB1SO_evac when VB1SO.I_evac goto setauto;
+    edge VB1SO_herCal, VB1SO_herOnst, VB1SO_herOndh when VB1SO.I_herst goto setauto;
+    edge VB1SO_ondst when VB1SO.I_ondst goto setauto;
+    edge VB1SO_ondh when VB1SO.I_ondh goto setauto;
+  location setauto:
+    edge VB1_SetAuto_Obs2_c_klaar when I_normaal goto normaal;
+end
+
+uncontrollable VB2SO_oper;
+uncontrollable VB2SO_cal;
+uncontrollable VB2SO_sb;
+uncontrollable VB2SO_ondst;
+uncontrollable VB2SO_ondh;
+uncontrollable VB2SO_herCal;
+uncontrollable VB2SO_herOnst;
+uncontrollable VB2SO_herOndh;
+uncontrollable VB2SO_evac;
+
+uncontrollable VB2_SetAuto_Obs2_c_klaar;
+
+plant automaton VB2SO:
+  input bool I_oper, I_sb, I_cal, I_evac, I_herst, I_ondst, I_ondh;
+  location operationeel:
+    initial;
+    marked;
+    edge VB2SO_cal when I_cal goto calamiteit;
+    edge VB2SO_sb when I_sb goto standby;
+    edge VB2SO_ondst when I_ondst goto ondersteunend;
+    edge VB2SO_ondh when I_ondh goto onderhoud;
+  location standby:
+    edge VB2SO_oper when I_oper goto operationeel;
+    edge VB2SO_cal when I_cal goto calamiteit;
+    edge VB2SO_ondst when I_ondst goto ondersteunend;
+  location calamiteit:
+    edge VB2SO_herCal when I_herst goto herstel;
+    edge VB2SO_evac when I_evac goto evacuatie;
+  location evacuatie:
+    edge VB2SO_cal when I_cal goto calamiteit;
+  location herstel:
+    edge VB2SO_oper when I_oper goto operationeel;
+    edge VB2SO_cal when I_cal goto calamiteit;
+    edge VB2SO_ondst when I_ondst goto ondersteunend;
+    edge VB2SO_ondh when I_ondh goto onderhoud;
+  location ondersteunend:
+    edge VB2SO_herOnst when I_herst goto herstel;
+  location onderhoud:
+    edge VB2SO_oper when I_oper goto operationeel;
+    edge VB2SO_herOndh when I_herst goto herstel;
+    edge VB2SO_ondst when I_ondst goto ondersteunend;
+    edge VB2SO_cal when I_cal goto calamiteit;
+end
+
+plant automaton VB2_SetAuto_Obs2:
+  input bool I_normaal;
+  location normaal:
+    initial;
+    marked;
+    edge VB2SO_oper when VB2SO.I_oper goto setauto;
+    edge VB2SO_sb when VB2SO.I_sb goto setauto;
+    edge VB2SO_cal when VB2SO.I_cal goto setauto;
+    edge VB2SO_evac when VB2SO.I_evac goto setauto;
+    edge VB2SO_herCal, VB2SO_herOnst, VB2SO_herOndh when VB2SO.I_herst goto setauto;
+    edge VB2SO_ondst when VB2SO.I_ondst goto setauto;
+    edge VB2SO_ondh when VB2SO.I_ondh goto setauto;
+  location setauto:
+    edge VB2_SetAuto_Obs2_c_klaar when I_normaal goto normaal;
+end

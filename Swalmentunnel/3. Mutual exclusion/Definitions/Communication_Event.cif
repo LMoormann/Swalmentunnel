@@ -1,0 +1,15 @@
+import "Timer.cif";
+
+group def Communication_Event(event eventIn, eventOut):
+
+	Timer: ^Timer(eventIn);
+
+	automaton Com:
+		location received:
+			initial; marked;
+			edge eventIn  goto sending;
+		location sending:
+			edge eventOut when Timer.Off goto received;
+	end
+
+end

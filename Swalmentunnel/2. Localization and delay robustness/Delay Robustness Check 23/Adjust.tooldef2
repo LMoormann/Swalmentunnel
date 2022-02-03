@@ -1,0 +1,39 @@
+from "lib:cif3" import *;
+
+// Input file
+string input_path1 = "../Loc2/Loc2.cif";
+string input_path2 = "../Loc3/Loc3.cif";
+string output_path1 = "Loc2_Adjusted.cif";
+string output_path2 = "Loc3_Adjusted.cif";
+
+// Adjust PLC1
+cif3cif(input_path1,
+  "-o", output_path1,
+  "-t elim-comp-def-inst"
+  );
+
+cif3cif(output_path1,
+  "-o", output_path1,
+  "-t elim-groups"
+  );
+
+cif3cif(output_path1,
+  "-o", output_path1,
+  "-t lift-events"
+  );
+
+// Adjust PLC2
+cif3cif(input_path2,
+  "-o", output_path2,
+  "-t elim-comp-def-inst"
+  );
+
+cif3cif(output_path2,
+  "-o", output_path2,
+  "-t elim-groups"
+  );
+
+cif3cif(output_path2,
+  "-o", output_path2,
+  "-t lift-events"
+  );

@@ -1,0 +1,501 @@
+plant automaton VB1_HDA_Sensor:
+  uncontrollable u_aan;
+  uncontrollable u_uit;
+  input bool I;
+  location uit:
+    initial;
+    marked;
+    edge u_aan when I goto aan;
+  location aan:
+    edge u_uit when not I goto uit;
+end
+plant automaton VB1_HDA_Lampen:
+  controllable c_aan;
+  controllable c_uit;
+  location uit:
+    initial;
+    marked;
+    edge c_aan goto aan;
+  location aan:
+    edge c_uit goto uit;
+end
+plant automaton VB1_HDA_Timer:
+  controllable c_aan;
+  controllable c_reset;
+  uncontrollable u_timeout;
+  cont t = 0.0 der 1.0;
+  location uit:
+    initial;
+    marked;
+    edge c_aan do t := 0.0 goto lopend;
+  location lopend:
+    edge u_timeout when t >= 5 goto afgelopen;
+  location afgelopen:
+    edge c_reset goto uit;
+end
+plant automaton VB1_HDT_Sensor:
+  uncontrollable u_aan;
+  uncontrollable u_uit;
+  input bool I;
+  location uit:
+    initial;
+    marked;
+    edge u_aan when I goto aan;
+  location aan:
+    edge u_uit when not I goto uit;
+end
+plant automaton VB1_HDT_Lampen:
+  controllable c_aan;
+  controllable c_uit;
+  location uit:
+    initial;
+    marked;
+    edge c_aan goto aan;
+  location aan:
+    edge c_uit goto uit;
+end
+plant automaton VB1_HDT_Timer:
+  controllable c_aan;
+  controllable c_reset;
+  uncontrollable u_timeout;
+  cont t = 0.0 der 1.0;
+  location uit:
+    initial;
+    marked;
+    edge c_aan do t := 0.0 goto lopend;
+  location lopend:
+    edge u_timeout when t >= 5 goto afgelopen;
+  location afgelopen:
+    edge c_reset goto uit;
+end
+plant automaton VB1_CCTV_Schouwen:
+  controllable c_schouwen;
+  controllable c_schouwenH;
+  controllable c_stop;
+  location uit:
+    initial;
+    marked;
+    edge c_schouwen goto schouwen;
+    edge c_schouwenH goto schouwenH;
+  location schouwen:
+    edge c_stop goto uit;
+  location schouwenH:
+    edge c_stop goto uit;
+end
+plant automaton VB1_CCTV_Richting:
+  controllable c_mee;
+  controllable c_tegen;
+  location mee:
+    initial;
+    marked;
+    edge c_tegen goto tegen;
+  location tegen:
+    edge c_mee goto mee;
+end
+plant automaton VB1_CCTV_Selectie:
+  controllable c_rechts;
+  controllable c_links;
+  controllable c_klaar;
+  location geen:
+    initial;
+    marked;
+    edge c_rechts goto rechts;
+    edge c_links goto links;
+  location rechts:
+    edge c_klaar goto geen;
+  location links:
+    edge c_klaar goto geen;
+end
+plant automaton VB1_KnoppenCCTV:
+  uncontrollable u_schouwen;
+  uncontrollable u_shouwenT;
+  uncontrollable u_schouwenH;
+  uncontrollable u_schouwenHT;
+  uncontrollable u_schouwenS;
+  uncontrollable u_rechts;
+  uncontrollable u_links;
+  controllable c_schouwen_klaar;
+  controllable c_shouwenT_klaar;
+  controllable c_schouwenH_klaar;
+  controllable c_schouwenHT_klaar;
+  controllable c_schouwenS_klaar;
+  controllable c_rechts_klaar;
+  controllable c_links_klaar;
+  input bool I_schouwen;
+  input bool I_shouwenT;
+  input bool I_schouwenH;
+  input bool I_schouwenHT;
+  input bool I_schouwenS;
+  input bool I_rechts;
+  input bool I_links;
+  location los:
+    initial;
+    marked;
+    edge u_schouwen when I_schouwen goto schouwen;
+    edge u_shouwenT when I_shouwenT goto schouwenT;
+    edge u_schouwenH when I_schouwenH goto schouwenH;
+    edge u_schouwenHT when I_schouwenHT goto schouwenHT;
+    edge u_schouwenS when I_schouwenS goto schouwenStop;
+    edge u_rechts when I_rechts goto rechts;
+    edge u_links when I_links goto links;
+  location schouwen:
+    edge c_schouwen_klaar when not I_schouwen and VB1_CCTV_Schouwen.schouwen and VB1_CCTV_Richting.mee goto los;
+  location schouwenT:
+    edge c_shouwenT_klaar when not I_shouwenT and VB1_CCTV_Schouwen.schouwen and VB1_CCTV_Richting.tegen goto los;
+  location schouwenH:
+    edge c_schouwenH_klaar when not I_schouwenH and VB1_CCTV_Schouwen.schouwenH and VB1_CCTV_Richting.mee goto los;
+  location schouwenHT:
+    edge c_schouwenHT_klaar when not I_schouwenHT and VB1_CCTV_Schouwen.schouwenH and VB1_CCTV_Richting.tegen goto los;
+  location schouwenStop:
+    edge c_schouwenS_klaar when not I_schouwenS and VB1_CCTV_Schouwen.uit goto los;
+  location rechts:
+    edge c_rechts_klaar when not I_rechts and VB1_CCTV_Selectie.rechts and VB1_CCTV_Schouwen.uit goto los;
+  location links:
+    edge c_links_klaar when not I_links and VB1_CCTV_Selectie.links and VB1_CCTV_Schouwen.uit goto los;
+end
+plant automaton VB1_VD_SensorOpen:
+  uncontrollable u_aan;
+  uncontrollable u_uit;
+  input bool I;
+  location uit:
+    initial;
+    marked;
+    edge u_aan when I goto aan;
+  location aan:
+    edge u_uit when not I goto uit;
+end
+plant automaton VB2_HDT_Sensor:
+  uncontrollable u_aan;
+  uncontrollable u_uit;
+  input bool I;
+  location uit:
+    initial;
+    marked;
+    edge u_aan when I goto aan;
+  location aan:
+    edge u_uit when not I goto uit;
+end
+plant automaton VB2_HDT_Lampen:
+  controllable c_aan;
+  controllable c_uit;
+  location uit:
+    initial;
+    marked;
+    edge c_aan goto aan;
+  location aan:
+    edge c_uit goto uit;
+end
+plant automaton VB2_HDT_Timer:
+  controllable c_aan;
+  controllable c_reset;
+  uncontrollable u_timeout;
+  cont t = 0.0 der 1.0;
+  location uit:
+    initial;
+    marked;
+    edge c_aan do t := 0.0 goto lopend;
+  location lopend:
+    edge u_timeout when t >= 5 goto afgelopen;
+  location afgelopen:
+    edge c_reset goto uit;
+end
+plant automaton VB2_CCTV_Schouwen:
+  controllable c_schouwen;
+  controllable c_schouwenH;
+  controllable c_stop;
+  location uit:
+    initial;
+    marked;
+    edge c_schouwen goto schouwen;
+    edge c_schouwenH goto schouwenH;
+  location schouwen:
+    edge c_stop goto uit;
+  location schouwenH:
+    edge c_stop goto uit;
+end
+plant automaton VB2_CCTV_Richting:
+  controllable c_mee;
+  controllable c_tegen;
+  location mee:
+    initial;
+    marked;
+    edge c_tegen goto tegen;
+  location tegen:
+    edge c_mee goto mee;
+end
+plant automaton VB2_CCTV_Selectie:
+  controllable c_rechts;
+  controllable c_links;
+  controllable c_klaar;
+  location geen:
+    initial;
+    marked;
+    edge c_rechts goto rechts;
+    edge c_links goto links;
+  location rechts:
+    edge c_klaar goto geen;
+  location links:
+    edge c_klaar goto geen;
+end
+plant automaton VB2_KnoppenCCTV:
+  uncontrollable u_schouwen;
+  uncontrollable u_shouwenT;
+  uncontrollable u_schouwenH;
+  uncontrollable u_schouwenHT;
+  uncontrollable u_schouwenS;
+  uncontrollable u_rechts;
+  uncontrollable u_links;
+  controllable c_schouwen_klaar;
+  controllable c_shouwenT_klaar;
+  controllable c_schouwenH_klaar;
+  controllable c_schouwenHT_klaar;
+  controllable c_schouwenS_klaar;
+  controllable c_rechts_klaar;
+  controllable c_links_klaar;
+  input bool I_schouwen;
+  input bool I_shouwenT;
+  input bool I_schouwenH;
+  input bool I_schouwenHT;
+  input bool I_schouwenS;
+  input bool I_rechts;
+  input bool I_links;
+  location los:
+    initial;
+    marked;
+    edge u_schouwen when I_schouwen goto schouwen;
+    edge u_shouwenT when I_shouwenT goto schouwenT;
+    edge u_schouwenH when I_schouwenH goto schouwenH;
+    edge u_schouwenHT when I_schouwenHT goto schouwenHT;
+    edge u_schouwenS when I_schouwenS goto schouwenStop;
+    edge u_rechts when I_rechts goto rechts;
+    edge u_links when I_links goto links;
+  location schouwen:
+    edge c_schouwen_klaar when not I_schouwen and VB2_CCTV_Schouwen.schouwen and VB2_CCTV_Richting.mee goto los;
+  location schouwenT:
+    edge c_shouwenT_klaar when not I_shouwenT and VB2_CCTV_Schouwen.schouwen and VB2_CCTV_Richting.tegen goto los;
+  location schouwenH:
+    edge c_schouwenH_klaar when not I_schouwenH and VB2_CCTV_Schouwen.schouwenH and VB2_CCTV_Richting.mee goto los;
+  location schouwenHT:
+    edge c_schouwenHT_klaar when not I_schouwenHT and VB2_CCTV_Schouwen.schouwenH and VB2_CCTV_Richting.tegen goto los;
+  location schouwenStop:
+    edge c_schouwenS_klaar when not I_schouwenS and VB2_CCTV_Schouwen.uit goto los;
+  location rechts:
+    edge c_rechts_klaar when not I_rechts and VB2_CCTV_Selectie.rechts and VB2_CCTV_Schouwen.uit goto los;
+  location links:
+    edge c_links_klaar when not I_links and VB2_CCTV_Selectie.links and VB2_CCTV_Schouwen.uit goto los;
+end
+plant automaton VB2_VD_SensorOpen:
+  uncontrollable u_aan;
+  uncontrollable u_uit;
+  input bool I;
+  location uit:
+    initial;
+    marked;
+    edge u_aan when I goto aan;
+  location aan:
+    edge u_uit when not I goto uit;
+end
+plant automaton CaDoNoord_Stand:
+  uncontrollable u_op;
+  uncontrollable u_opverlaten;
+  uncontrollable u_neer;
+  input bool I_laag;
+  input bool I_hoog;
+  location op:
+    initial;
+    marked;
+    edge u_opverlaten when not I_hoog goto opverlaten;
+  location opverlaten:
+    edge u_op when I_hoog goto op;
+    edge u_neer when I_laag goto neer;
+  location neer:
+    edge u_opverlaten when not I_laag goto opverlaten;
+end
+plant automaton CaDoNoord_Beweging:
+  uncontrollable u_op;
+  uncontrollable u_neer;
+  uncontrollable u_geen;
+  input bool I_op;
+  input bool I_neer;
+  input bool I_geen;
+  location geen:
+    initial;
+    marked;
+    edge u_op when I_op goto op;
+    edge u_neer when I_neer goto neer;
+  location op:
+    edge u_neer when I_neer goto neer;
+    edge u_geen when I_geen goto geen;
+  location neer:
+    edge u_op when I_op goto op;
+    edge u_geen when I_geen goto geen;
+end
+plant automaton CaDoNoord_Commando:
+  controllable c_opneer;
+  controllable c_opstop;
+  controllable c_neerop;
+  controllable c_neerstop;
+  controllable c_stopneer;
+  controllable c_stopop;
+  location op:
+    initial;
+    marked;
+    edge c_opneer goto neer;
+    edge c_opstop goto stop;
+  location neer:
+    edge c_neerop goto op;
+    edge c_neerstop goto stop;
+  location stop:
+    edge c_stopneer goto neer;
+    edge c_stopop goto op;
+end
+plant automaton CaDoZuid_Stand:
+  uncontrollable u_op;
+  uncontrollable u_opverlaten;
+  uncontrollable u_neer;
+  input bool I_laag;
+  input bool I_hoog;
+  location op:
+    initial;
+    marked;
+    edge u_opverlaten when not I_hoog goto opverlaten;
+  location opverlaten:
+    edge u_op when I_hoog goto op;
+    edge u_neer when I_laag goto neer;
+  location neer:
+    edge u_opverlaten when not I_laag goto opverlaten;
+end
+plant automaton CaDoZuid_Beweging:
+  uncontrollable u_op;
+  uncontrollable u_neer;
+  uncontrollable u_geen;
+  input bool I_op;
+  input bool I_neer;
+  input bool I_geen;
+  location geen:
+    initial;
+    marked;
+    edge u_op when I_op goto op;
+    edge u_neer when I_neer goto neer;
+  location op:
+    edge u_neer when I_neer goto neer;
+    edge u_geen when I_geen goto geen;
+  location neer:
+    edge u_op when I_op goto op;
+    edge u_geen when I_geen goto geen;
+end
+plant automaton CaDoZuid_Commando:
+  controllable c_opneer;
+  controllable c_opstop;
+  controllable c_neerop;
+  controllable c_neerstop;
+  controllable c_stopneer;
+  controllable c_stopop;
+  location op:
+    initial;
+    marked;
+    edge c_opneer goto neer;
+    edge c_opstop goto stop;
+  location neer:
+    edge c_neerop goto op;
+    edge c_neerstop goto stop;
+  location stop:
+    edge c_stopneer goto neer;
+    edge c_stopop goto op;
+end
+plant automaton KnoppenCaDo:
+  uncontrollable u_noordOpen;
+  uncontrollable u_noordSluit;
+  uncontrollable u_noordStop;
+  uncontrollable u_zuidOpen;
+  uncontrollable u_zuidSluit;
+  uncontrollable u_zuidStop;
+  controllable c_noordOpen_klaar;
+  controllable c_noordSluit_klaar;
+  controllable c_noordStop_klaar;
+  controllable c_zuidOpen_klaar;
+  controllable c_zuidSluit_klaar;
+  controllable c_zuidStop_klaar;
+  input bool I_noordOpen;
+  input bool I_noordSluit;
+  input bool I_noordStop;
+  input bool I_zuidOpen;
+  input bool I_zuidSluit;
+  input bool I_zuidStop;
+  location los:
+    initial;
+    marked;
+    edge u_noordOpen when I_noordOpen goto noordOpen;
+    edge u_noordSluit when I_noordSluit goto noordSluit;
+    edge u_noordStop when I_noordStop goto noordStop;
+    edge u_zuidOpen when I_zuidOpen goto zuidOpen;
+    edge u_zuidSluit when I_zuidSluit goto zuidSluit;
+    edge u_zuidStop when I_zuidStop goto zuidStop;
+  location noordOpen:
+    edge c_noordOpen_klaar when not I_noordOpen and CaDoNoord_Commando.op goto los;
+  location noordSluit:
+    edge c_noordSluit_klaar when not I_noordSluit and CaDoNoord_Commando.neer goto los;
+  location noordStop:
+    edge c_noordStop_klaar when not I_noordStop and CaDoNoord_Commando.stop goto los;
+  location zuidOpen:
+    edge c_zuidOpen_klaar when not I_zuidOpen and CaDoZuid_Commando.op goto los;
+  location zuidSluit:
+    edge c_zuidSluit_klaar when not I_zuidSluit and CaDoZuid_Commando.neer goto los;
+  location zuidStop:
+    edge c_zuidStop_klaar when not I_zuidStop and CaDoZuid_Commando.stop goto los;
+end
+requirement invariant CaDoNoord_Commando.c_neerop needs KnoppenCaDo.noordOpen;
+requirement invariant CaDoNoord_Commando.c_stopop needs KnoppenCaDo.noordOpen;
+requirement invariant CaDoNoord_Commando.c_opneer needs KnoppenCaDo.noordSluit;
+requirement invariant CaDoNoord_Commando.c_stopneer needs KnoppenCaDo.noordSluit;
+requirement invariant CaDoNoord_Commando.c_opstop needs KnoppenCaDo.noordStop;
+requirement invariant CaDoNoord_Commando.c_neerstop needs KnoppenCaDo.noordStop;
+requirement invariant CaDoZuid_Commando.c_neerop needs KnoppenCaDo.zuidOpen;
+requirement invariant CaDoZuid_Commando.c_stopop needs KnoppenCaDo.zuidOpen;
+requirement invariant CaDoZuid_Commando.c_opneer needs KnoppenCaDo.zuidSluit;
+requirement invariant CaDoZuid_Commando.c_stopneer needs KnoppenCaDo.zuidSluit;
+requirement invariant CaDoZuid_Commando.c_opstop needs KnoppenCaDo.zuidStop;
+requirement invariant CaDoZuid_Commando.c_neerstop needs KnoppenCaDo.zuidStop;
+requirement invariant VB1_CCTV_Schouwen.c_schouwen needs VB1_KnoppenCCTV.schouwen or VB1_KnoppenCCTV.schouwenT;
+requirement invariant VB1_CCTV_Schouwen.c_schouwenH needs VB1_KnoppenCCTV.schouwenH or VB1_KnoppenCCTV.schouwenHT;
+requirement invariant VB1_CCTV_Schouwen.c_stop needs VB1_KnoppenCCTV.schouwenStop or VB1_KnoppenCCTV.rechts or VB1_KnoppenCCTV.links;
+requirement invariant VB1_CCTV_Richting.c_mee needs VB1_KnoppenCCTV.schouwen or VB1_KnoppenCCTV.schouwenH;
+requirement invariant VB1_CCTV_Richting.c_tegen needs VB1_KnoppenCCTV.schouwenT or VB1_KnoppenCCTV.schouwenHT;
+requirement invariant VB1_CCTV_Selectie.c_rechts needs VB1_KnoppenCCTV.rechts;
+requirement invariant VB1_CCTV_Selectie.c_links needs VB1_KnoppenCCTV.links;
+requirement invariant VB1_CCTV_Selectie.c_klaar needs not VB1_KnoppenCCTV.rechts and not VB1_KnoppenCCTV.links;
+requirement invariant VB1_HDA_Lampen.c_aan needs VB1_HDA_Sensor.aan;
+requirement invariant VB1_HDA_Lampen.c_aan needs VB1_HDA_Timer.uit;
+requirement invariant VB1_HDA_Lampen.c_uit needs VB1_HDA_Timer.afgelopen;
+requirement invariant VB1_HDA_Timer.c_aan needs VB1_HDA_Lampen.aan;
+requirement invariant VB1_HDA_Timer.c_reset needs VB1_HDA_Lampen.uit;
+requirement invariant VB1_HDT_Lampen.c_aan needs VB1_HDT_Sensor.aan;
+requirement invariant VB1_HDT_Lampen.c_aan needs VB1_HDT_Timer.uit;
+requirement invariant VB1_HDT_Lampen.c_uit needs VB1_HDT_Timer.afgelopen;
+requirement invariant VB1_HDT_Timer.c_aan needs VB1_HDT_Lampen.aan;
+requirement invariant VB1_HDT_Timer.c_reset needs VB1_HDT_Lampen.uit;
+requirement invariant VB2_CCTV_Schouwen.c_schouwen needs VB2_KnoppenCCTV.schouwen or VB2_KnoppenCCTV.schouwenT;
+requirement invariant VB2_CCTV_Schouwen.c_schouwenH needs VB2_KnoppenCCTV.schouwenH or VB2_KnoppenCCTV.schouwenHT;
+requirement invariant VB2_CCTV_Schouwen.c_stop needs VB2_KnoppenCCTV.schouwenStop or VB2_KnoppenCCTV.rechts or VB2_KnoppenCCTV.links;
+requirement invariant VB2_CCTV_Richting.c_mee needs VB2_KnoppenCCTV.schouwen or VB2_KnoppenCCTV.schouwenH;
+requirement invariant VB2_CCTV_Richting.c_tegen needs VB2_KnoppenCCTV.schouwenT or VB2_KnoppenCCTV.schouwenHT;
+requirement invariant VB2_CCTV_Selectie.c_rechts needs VB2_KnoppenCCTV.rechts;
+requirement invariant VB2_CCTV_Selectie.c_links needs VB2_KnoppenCCTV.links;
+requirement invariant VB2_CCTV_Selectie.c_klaar needs not VB2_KnoppenCCTV.rechts and not VB2_KnoppenCCTV.links;
+requirement invariant VB2_HDT_Lampen.c_aan needs VB2_HDT_Sensor.aan;
+requirement invariant VB2_HDT_Lampen.c_aan needs VB2_HDT_Timer.uit;
+requirement invariant VB2_HDT_Lampen.c_uit needs VB2_HDT_Timer.afgelopen;
+requirement invariant VB2_HDT_Timer.c_aan needs VB2_HDT_Lampen.aan;
+requirement invariant VB2_HDT_Timer.c_reset needs VB2_HDT_Lampen.uit;
+requirement invariant CaDoNoord_Stand.op or CaDoNoord_Beweging.op disables CaDoNoord_Commando.c_neerop;
+requirement invariant CaDoNoord_Stand.op or CaDoNoord_Beweging.op disables CaDoNoord_Commando.c_stopop;
+requirement invariant CaDoNoord_Stand.neer or CaDoNoord_Beweging.neer disables CaDoNoord_Commando.c_opneer;
+requirement invariant CaDoNoord_Stand.neer or CaDoNoord_Beweging.neer disables CaDoNoord_Commando.c_stopneer;
+requirement invariant CaDoNoord_Beweging.geen disables CaDoNoord_Commando.c_opstop;
+requirement invariant CaDoNoord_Beweging.geen disables CaDoNoord_Commando.c_neerstop;
+requirement invariant CaDoZuid_Stand.op or CaDoZuid_Beweging.op disables CaDoZuid_Commando.c_neerop;
+requirement invariant CaDoZuid_Stand.op or CaDoZuid_Beweging.op disables CaDoZuid_Commando.c_stopop;
+requirement invariant CaDoZuid_Stand.neer or CaDoZuid_Beweging.neer disables CaDoZuid_Commando.c_opneer;
+requirement invariant CaDoZuid_Stand.neer or CaDoZuid_Beweging.neer disables CaDoZuid_Commando.c_stopneer;
+requirement invariant CaDoZuid_Beweging.geen disables CaDoZuid_Commando.c_opstop;
+requirement invariant CaDoZuid_Beweging.geen disables CaDoZuid_Commando.c_neerstop;

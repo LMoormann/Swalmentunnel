@@ -1,0 +1,279 @@
+import "Loc3.cif";
+import "Observers3.cif";
+import "../definitions/Away.cif";
+import "../definitions/Home.cif";
+
+// Allowed booleans
+alg bool VB1_Beeldregistratie_c_uit_allowed = VB1_Beeldregistratie.aan and (not(VB1_Stand.standby or VB1_Stand.calamiteit or VB1_Stand.evacuatie or VB1_Stand.ondersteunend));
+alg bool VB2_PopUp_Venster_c_aan_allowed = VB2_PopUp_Venster.uit and (VB2Knoppen_Waarnemer.calamiteitPopUp and VB1Knoppen_Waarnemer.los or VB2_Stand.standby and VB2_SOS.aan and (VB2_Rookdetectie.stand4 or VB2_Rookdetectie.stand5 or VB2_Rookdetectie.stand6 or VB2_Rookdetectie.stand7 or VB2_Rookdetectie.stand8) and (VB2_HPKA1_SensorOpen.aan and (VB2_HPKA1_Handblusser.aan or VB2_HPKA1_Brandslang.aan or VB2_HPKA1_Noodtelefoon.aan) or VB2_HPKC1_SensorOpen.aan and (VB2_HPKC1_Handblusser.aan or VB2_HPKC1_Noodtelefoon.aan)) and VB1Knoppen_Waarnemer.los and VB2Knoppen_Waarnemer.los and VB1_PopUp_Venster.uit) and (not VB1_Stand.calamiteit) and (VB1_PopUp_Timer.uit) and not (VB1_SOS.aan and (VB1_Rookdetectie.stand4 or VB1_Rookdetectie.stand5 or VB1_Rookdetectie.stand6 or VB1_Rookdetectie.stand7 or VB1_Rookdetectie.stand8) and (VB1_HPKA1_SensorOpen.aan and (VB1_HPKA1_Handblusser.aan or VB1_HPKA1_Brandslang.aan or VB1_HPKA1_Noodtelefoon.aan) or VB1_HPKC1_SensorOpen.aan and (VB1_HPKC1_Handblusser.aan or VB1_HPKC1_Noodtelefoon.aan))) and (VB2_PopUp_Timer.uit);
+alg bool VB2_Beeldregistratie_c_uit_allowed = VB2_Beeldregistratie.aan and (not(VB2_Stand.standby or VB2_Stand.calamiteit or VB2_Stand.evacuatie or VB2_Stand.ondersteunend));
+alg bool MTK_Verlichting_c_uit_allowed = MTK_Verlichting.aan and (MTK_BedieningVerlichting.hand and MTK_KnoppenVerlichting.uit or MTK_BedieningVerlichting.auto and not(VB1_Stand.calamiteit or VB2_Stand.calamiteit or (VB1_Stand.evacuatie or VB2_Stand.evacuatie)));
+alg bool MTK_Overdruk_c_links_allowed = not MTK_Overdruk.links and (MTK_BedieningOverdruk.hand and MTK_KnoppenOverdruk.links or MTK_BedieningOverdruk.auto and ((VB1_Stand.evacuatie or VB1_Stand.calamiteit) and not(VB2_Stand.evacuatie or VB2_Stand.calamiteit)));
+alg bool MTK_Overdruk_c_rechts_allowed = not MTK_Overdruk.rechts and (MTK_BedieningOverdruk.hand and MTK_KnoppenOverdruk.rechts or MTK_BedieningOverdruk.auto and ((VB2_Stand.evacuatie or VB2_Stand.calamiteit) and not(VB1_Stand.evacuatie or VB1_Stand.calamiteit)));
+alg bool MTK_Overdruk_c_uit_allowed = not MTK_Overdruk.uit and (MTK_BedieningOverdruk.hand and MTK_KnoppenOverdruk.uit or MTK_BedieningOverdruk.auto and not(VB1_Stand.calamiteit or VB2_Stand.calamiteit or (VB1_Stand.evacuatie or VB2_Stand.evacuatie)));
+alg bool MTK_DVI_c_oplopend_allowed = not MTK_DVI.oplopend and (MTK_BedieningDVI.hand and MTK_KnoppenDVI.oplopend or MTK_BedieningDVI.auto and ((VB1_Stand.evacuatie or VB1_Stand.calamiteit) and not(VB2_Stand.evacuatie or VB2_Stand.calamiteit)));
+alg bool MTK_DVI_c_aflopend_allowed = not MTK_DVI.aflopend and (MTK_BedieningDVI.hand and MTK_KnoppenDVI.aflopend or MTK_BedieningDVI.auto and ((VB2_Stand.evacuatie or VB2_Stand.calamiteit) and not(VB1_Stand.evacuatie or VB1_Stand.calamiteit)));
+alg bool MTK_DVI_c_uit_allowed = not MTK_DVI.uit and (MTK_BedieningDVI.hand and MTK_KnoppenDVI.uit or MTK_BedieningDVI.auto and not(VB1_Stand.calamiteit or VB2_Stand.calamiteit or (VB1_Stand.evacuatie or VB2_Stand.evacuatie)));
+alg bool BBI_Regime_c_bewaken_allowed = not BBI_Regime.bewaken and (BBI_Bediening.auto and VB1_HPKA1_Brandslang.uit and VB2_HPKA1_Brandslang.uit and not(VB1_Stand.calamiteit or VB1_Stand.evacuatie or VB1_Stand.ondersteunend) and not(VB2_Stand.calamiteit or VB2_Stand.evacuatie or VB2_Stand.ondersteunend) or BBI_Bediening.hand and BBI_Knoppen.bewaken);
+alg bool KelderSchoon_Pomp_c_aan_allowed = KelderSchoon_Pomp.uit and not (KelderSchoon_Regime.uit) and (KelderSchoon_Regime.bergen and KelderSchoon_Sensors.Hooghoogwater or KelderSchoon_Regime.leeghouden and KelderSchoon_Sensors.Startwater);
+alg bool VB1_SetAuto_c_klaar_allowed = VB1_SetAuto.normaal and (MTK_BedieningVerlichting.auto and MTK_BedieningOverdruk.auto and MTK_BedieningDVI.auto and BBI_Bediening.auto and KelderSchoon_Bediening.auto and KelderVuil_Bediening.auto) and (VB1_Ventilatie_Bediening.auto and VB1_BedieningAB_Observer3.auto and VB1_BedieningVRI_Observer3.auto and VB1_Verlichting_Bediening.auto and VB1_Vluchtdeur_BedieningGeluidsbaken.auto and VB1_Vluchtdeur_BedieningContourVerlichting.auto);
+alg bool VB2_SetAuto_c_klaar_allowed = VB2_SetAuto.normaal and (MTK_BedieningVerlichting.auto and MTK_BedieningOverdruk.auto and MTK_BedieningDVI.auto and BBI_Bediening.auto and KelderSchoon_Bediening.auto and KelderVuil_Bediening.auto) and (VB2_Ventilatie_Bediening.auto and VB2_BedieningAB_Observer3.auto and VB2_BedieningVRI_Observer3.auto and VB2_Verlichting_Bediening.auto and VB2_Vluchtdeur_BedieningGeluidsbaken.auto and VB2_Vluchtdeur_BedieningContourVerlichting.auto);
+alg bool VB1_Stand_c_calamiteit_allowed = not VB1_Stand.calamiteit and not VB1_Stand.ondersteunend and (VB1Knoppen_Waarnemer.bevestigen and VB2Knoppen_Waarnemer.los or VB1_PopUp_Timer.afgelopen and VB2Knoppen_Waarnemer.los and VB1Knoppen_Waarnemer.los or VB1_Stand.evacuatie and VB1Knoppen_Waarnemer.calamiteitEvacuatie and VB2Knoppen_Waarnemer.los) and (not VB2_Stand.calamiteit);
+alg bool VB1_Stand_c_evacuatie_allowed = VB1_Stand.calamiteit and (VB1Knoppen_Waarnemer.evacuatie) and (VB1_PopUp_Venster.uit and VB1_PopUp_Timer.uit);
+alg bool VB1_Stand_c_herstelUitCalimiteit_allowed = VB1_Stand.calamiteit and (VB1Knoppen_Waarnemer.herstel) and (VB1_PopUp_Venster.uit and VB1_PopUp_Timer.uit);
+alg bool VB1_Stand_c_herstelUitOnderhoud_allowed = VB1_Stand.onderhoud and (VB1Knoppen_Waarnemer.herstel);
+alg bool VB1_Stand_c_herstelUitOndersteunend_allowed = VB1_Stand.ondersteunend and (VB2_Stand.herstel and (VB1Knoppen_Waarnemer.los and VB2Knoppen_Waarnemer.herstel));
+alg bool VB1_Stand_c_onderhoud_allowed = (VB1_Stand.operationeel or VB1_Stand.herstel) and (VB1Knoppen_Waarnemer.onderhoud);
+alg bool VB1_Stand_c_ondersteunend_allowed = not VB1_Stand.calamiteit and not VB1_Stand.evacuatie and not VB1_Stand.ondersteunend and (VB2_Stand.calamiteit and VB2Knoppen_Waarnemer.bevestigen and VB1Knoppen_Waarnemer.los or VB2_Stand.calamiteit and VB2_PopUp_Timer.afgelopen and VB2Knoppen_Waarnemer.los) and (VB1Knoppen_Waarnemer.los);
+alg bool VB1_Stand_c_operationeel_allowed = (VB1_Stand.standby or VB1_Stand.herstel or VB1_Stand.onderhoud) and (VB1Knoppen_Waarnemer.operationeel);
+alg bool VB1_Stand_c_standby_allowed = VB1_Stand.operationeel and ((VB1_Rookdetectie.stand4 or VB1_Rookdetectie.stand5 or VB1_Rookdetectie.stand6 or VB1_Rookdetectie.stand7 or VB1_Rookdetectie.stand8 or VB1_HPKA1_SensorOpen.aan and (VB1_HPKA1_Handblusser.aan or VB1_HPKA1_Brandslang.aan) or VB1_HPKC1_SensorOpen.aan and VB1_HPKC1_Handblusser.aan) and VB1Knoppen_Waarnemer.los and VB2Knoppen_Waarnemer.los and not VB1_Stand.calamiteit);
+alg bool VB2_Stand_c_calamiteit_allowed = not VB2_Stand.calamiteit and not VB2_Stand.ondersteunend and (VB2Knoppen_Waarnemer.bevestigen and VB1Knoppen_Waarnemer.los or VB2_PopUp_Timer.afgelopen and VB1Knoppen_Waarnemer.los and VB2Knoppen_Waarnemer.los or VB2_Stand.evacuatie and VB2Knoppen_Waarnemer.calamiteitEvacuatie and VB1Knoppen_Waarnemer.los) and (not VB1_Stand.calamiteit);
+alg bool VB2_Stand_c_evacuatie_allowed = VB2_Stand.calamiteit and (VB2Knoppen_Waarnemer.evacuatie) and (VB2_PopUp_Venster.uit and VB2_PopUp_Timer.uit);
+alg bool VB2_Stand_c_herstelUitCalimiteit_allowed = VB2_Stand.calamiteit and (VB2Knoppen_Waarnemer.herstel) and (VB2_PopUp_Venster.uit and VB2_PopUp_Timer.uit);
+alg bool VB2_Stand_c_herstelUitOnderhoud_allowed = VB2_Stand.onderhoud and (VB2Knoppen_Waarnemer.herstel);
+alg bool VB2_Stand_c_herstelUitOndersteunend_allowed = VB2_Stand.ondersteunend and (VB1_Stand.herstel and (VB2Knoppen_Waarnemer.los and VB1Knoppen_Waarnemer.herstel));
+alg bool VB2_Stand_c_onderhoud_allowed = (VB2_Stand.operationeel or VB2_Stand.herstel) and (VB2Knoppen_Waarnemer.onderhoud);
+alg bool VB2_Stand_c_ondersteunend_allowed = not VB2_Stand.calamiteit and not VB2_Stand.evacuatie and not VB2_Stand.ondersteunend and (VB1_Stand.calamiteit and VB1Knoppen_Waarnemer.bevestigen and VB2Knoppen_Waarnemer.los or VB1_Stand.calamiteit and VB1_PopUp_Timer.afgelopen and VB1Knoppen_Waarnemer.los) and (VB2Knoppen_Waarnemer.los);
+alg bool VB2_Stand_c_operationeel_allowed = (VB2_Stand.standby or VB2_Stand.herstel or VB2_Stand.onderhoud) and (VB2Knoppen_Waarnemer.operationeel);
+alg bool VB2_Stand_c_standby_allowed = VB2_Stand.operationeel and ((VB2_Rookdetectie.stand4 or VB2_Rookdetectie.stand5 or VB2_Rookdetectie.stand6 or VB2_Rookdetectie.stand7 or VB2_Rookdetectie.stand8 or VB2_HPKA1_SensorOpen.aan and (VB2_HPKA1_Handblusser.aan or VB2_HPKA1_Brandslang.aan) or VB2_HPKC1_SensorOpen.aan and VB2_HPKC1_Handblusser.aan) and VB1Knoppen_Waarnemer.los and VB2Knoppen_Waarnemer.los and not VB2_Stand.calamiteit);
+
+// Mutex 1 (home): VB1_BedieningAB_c_auto
+alg bool Mutex1HomeSendCondition = not VB1_Beeldregistratie_c_uit_allowed and not VB2_PopUp_Venster_c_aan_allowed and not VB2_Beeldregistratie_c_uit_allowed and
+                                   not MTK_Verlichting_c_uit_allowed and not MTK_Overdruk_c_links_allowed and not MTK_Overdruk_c_rechts_allowed and
+                                   not MTK_Overdruk_c_uit_allowed and not MTK_DVI_c_oplopend_allowed and not MTK_DVI_c_aflopend_allowed and
+                                   not MTK_DVI_c_uit_allowed and not BBI_Regime_c_bewaken_allowed and not KelderSchoon_Pomp_c_aan_allowed;
+Mutex1Home: Home(Mutex1HomeSendCondition);
+requirement VB1_Beeldregistratie.c_uit needs Mutex1Home.TokenTracker.Home;
+requirement VB2_PopUp_Venster.c_aan needs Mutex1Home.TokenTracker.Home;
+requirement VB2_Beeldregistratie.c_uit needs Mutex1Home.TokenTracker.Home;
+requirement MTK_Verlichting.c_uit needs Mutex1Home.TokenTracker.Home;
+requirement MTK_Overdruk.c_links needs Mutex1Home.TokenTracker.Home;
+requirement MTK_Overdruk.c_rechts needs Mutex1Home.TokenTracker.Home;
+requirement MTK_Overdruk.c_uit needs Mutex1Home.TokenTracker.Home;
+requirement MTK_DVI.c_oplopend needs Mutex1Home.TokenTracker.Home;
+requirement MTK_DVI.c_aflopend needs Mutex1Home.TokenTracker.Home;
+requirement MTK_DVI.c_uit needs Mutex1Home.TokenTracker.Home;
+requirement BBI_Regime.c_bewaken needs Mutex1Home.TokenTracker.Home;
+requirement KelderSchoon_Pomp.c_aan needs Mutex1Home.TokenTracker.Home;
+
+// Mutex 2 (home): VB1_BedieningAB_c_hand
+alg bool Mutex2HomeSendCondition = not VB1_Beeldregistratie_c_uit_allowed and not VB2_PopUp_Venster_c_aan_allowed and not VB2_Beeldregistratie_c_uit_allowed and
+                                   not MTK_Verlichting_c_uit_allowed and not MTK_Overdruk_c_links_allowed and not MTK_Overdruk_c_rechts_allowed and
+                                   not MTK_Overdruk_c_uit_allowed and not MTK_DVI_c_oplopend_allowed and not MTK_DVI_c_aflopend_allowed and
+                                   not MTK_DVI_c_uit_allowed and not BBI_Regime_c_bewaken_allowed and not KelderSchoon_Pomp_c_aan_allowed and
+                                   not VB1_SetAuto_c_klaar_allowed;
+Mutex2Home: Home(Mutex2HomeSendCondition);
+requirement VB1_Beeldregistratie.c_uit needs Mutex2Home.TokenTracker.Home;
+requirement VB2_PopUp_Venster.c_aan needs Mutex2Home.TokenTracker.Home;
+requirement VB2_Beeldregistratie.c_uit needs Mutex2Home.TokenTracker.Home;
+requirement MTK_Verlichting.c_uit needs Mutex2Home.TokenTracker.Home;
+requirement MTK_Overdruk.c_links needs Mutex2Home.TokenTracker.Home;
+requirement MTK_Overdruk.c_rechts needs Mutex2Home.TokenTracker.Home;
+requirement MTK_Overdruk.c_uit needs Mutex2Home.TokenTracker.Home;
+requirement MTK_DVI.c_oplopend needs Mutex2Home.TokenTracker.Home;
+requirement MTK_DVI.c_aflopend needs Mutex2Home.TokenTracker.Home;
+requirement MTK_DVI.c_uit needs Mutex2Home.TokenTracker.Home;
+requirement BBI_Regime.c_bewaken needs Mutex2Home.TokenTracker.Home;
+requirement KelderSchoon_Pomp.c_aan needs Mutex2Home.TokenTracker.Home;
+requirement VB1_SetAuto.c_klaar needs Mutex2Home.TokenTracker.Home;
+
+// Mutex 3 (home): VB1_BedieningVRI_c_auto
+alg bool Mutex3HomeSendCondition = not VB1_Beeldregistratie_c_uit_allowed and not VB2_PopUp_Venster_c_aan_allowed and not VB2_Beeldregistratie_c_uit_allowed and
+                                   not MTK_Verlichting_c_uit_allowed and not MTK_Overdruk_c_links_allowed and not MTK_Overdruk_c_rechts_allowed and
+                                   not MTK_Overdruk_c_uit_allowed and not MTK_DVI_c_oplopend_allowed and not MTK_DVI_c_aflopend_allowed and
+                                   not MTK_DVI_c_uit_allowed and not BBI_Regime_c_bewaken_allowed and not KelderSchoon_Pomp_c_aan_allowed;
+Mutex3Home: Home(Mutex3HomeSendCondition);
+requirement VB1_Beeldregistratie.c_uit needs Mutex3Home.TokenTracker.Home;
+requirement VB2_PopUp_Venster.c_aan needs Mutex3Home.TokenTracker.Home;
+requirement VB2_Beeldregistratie.c_uit needs Mutex3Home.TokenTracker.Home;
+requirement MTK_Verlichting.c_uit needs Mutex3Home.TokenTracker.Home;
+requirement MTK_Overdruk.c_links needs Mutex3Home.TokenTracker.Home;
+requirement MTK_Overdruk.c_rechts needs Mutex3Home.TokenTracker.Home;
+requirement MTK_Overdruk.c_uit needs Mutex3Home.TokenTracker.Home;
+requirement MTK_DVI.c_oplopend needs Mutex3Home.TokenTracker.Home;
+requirement MTK_DVI.c_aflopend needs Mutex3Home.TokenTracker.Home;
+requirement MTK_DVI.c_uit needs Mutex3Home.TokenTracker.Home;
+requirement BBI_Regime.c_bewaken needs Mutex3Home.TokenTracker.Home;
+requirement KelderSchoon_Pomp.c_aan needs Mutex3Home.TokenTracker.Home;
+
+// Mutex 4 (home): VB1_BedieningVRI_c_hand
+alg bool Mutex4HomeSendCondition = not VB1_Beeldregistratie_c_uit_allowed and not VB2_PopUp_Venster_c_aan_allowed and not VB2_Beeldregistratie_c_uit_allowed and
+                                   not MTK_Verlichting_c_uit_allowed and not MTK_Overdruk_c_links_allowed and not MTK_Overdruk_c_rechts_allowed and
+                                   not MTK_Overdruk_c_uit_allowed and not MTK_DVI_c_oplopend_allowed and not MTK_DVI_c_aflopend_allowed and
+                                   not MTK_DVI_c_uit_allowed and not BBI_Regime_c_bewaken_allowed and not KelderSchoon_Pomp_c_aan_allowed and
+                                   not VB1_SetAuto_c_klaar_allowed;
+Mutex4Home: Home(Mutex4HomeSendCondition);
+requirement VB1_Beeldregistratie.c_uit needs Mutex4Home.TokenTracker.Home;
+requirement VB2_PopUp_Venster.c_aan needs Mutex4Home.TokenTracker.Home;
+requirement VB2_Beeldregistratie.c_uit needs Mutex4Home.TokenTracker.Home;
+requirement MTK_Verlichting.c_uit needs Mutex4Home.TokenTracker.Home;
+requirement MTK_Overdruk.c_links needs Mutex4Home.TokenTracker.Home;
+requirement MTK_Overdruk.c_rechts needs Mutex4Home.TokenTracker.Home;
+requirement MTK_Overdruk.c_uit needs Mutex4Home.TokenTracker.Home;
+requirement MTK_DVI.c_oplopend needs Mutex4Home.TokenTracker.Home;
+requirement MTK_DVI.c_aflopend needs Mutex4Home.TokenTracker.Home;
+requirement MTK_DVI.c_uit needs Mutex4Home.TokenTracker.Home;
+requirement BBI_Regime.c_bewaken needs Mutex4Home.TokenTracker.Home;
+requirement KelderSchoon_Pomp.c_aan needs Mutex4Home.TokenTracker.Home;
+requirement VB1_SetAuto.c_klaar needs Mutex4Home.TokenTracker.Home;
+
+// Mutex 5 (home): VB2_BedieningAB_c_auto
+alg bool Mutex5HomeSendCondition = not VB1_Beeldregistratie_c_uit_allowed and not VB2_PopUp_Venster_c_aan_allowed and not VB2_Beeldregistratie_c_uit_allowed and
+                                   not MTK_Verlichting_c_uit_allowed and not MTK_Overdruk_c_links_allowed and not MTK_Overdruk_c_rechts_allowed and
+                                   not MTK_Overdruk_c_uit_allowed and not MTK_DVI_c_oplopend_allowed and not MTK_DVI_c_aflopend_allowed and
+                                   not MTK_DVI_c_uit_allowed and not BBI_Regime_c_bewaken_allowed and not KelderSchoon_Pomp_c_aan_allowed;
+
+Mutex5Home: Home(Mutex5HomeSendCondition);
+requirement VB1_Beeldregistratie.c_uit needs Mutex5Home.TokenTracker.Home;
+requirement VB2_PopUp_Venster.c_aan needs Mutex5Home.TokenTracker.Home;
+requirement VB2_Beeldregistratie.c_uit needs Mutex5Home.TokenTracker.Home;
+requirement MTK_Verlichting.c_uit needs Mutex5Home.TokenTracker.Home;
+requirement MTK_Overdruk.c_links needs Mutex5Home.TokenTracker.Home;
+requirement MTK_Overdruk.c_rechts needs Mutex5Home.TokenTracker.Home;
+requirement MTK_Overdruk.c_uit needs Mutex5Home.TokenTracker.Home;
+requirement MTK_DVI.c_oplopend needs Mutex5Home.TokenTracker.Home;
+requirement MTK_DVI.c_aflopend needs Mutex5Home.TokenTracker.Home;
+requirement MTK_DVI.c_uit needs Mutex5Home.TokenTracker.Home;
+requirement BBI_Regime.c_bewaken needs Mutex5Home.TokenTracker.Home;
+requirement KelderSchoon_Pomp.c_aan needs Mutex5Home.TokenTracker.Home;
+
+// Mutex 6 (home): VB2_BedieningAB_c_hand
+alg bool Mutex6HomeSendCondition = not VB1_Beeldregistratie_c_uit_allowed and not VB2_PopUp_Venster_c_aan_allowed and not VB2_Beeldregistratie_c_uit_allowed and
+                                   not MTK_Verlichting_c_uit_allowed and not MTK_Overdruk_c_links_allowed and not MTK_Overdruk_c_rechts_allowed and
+                                   not MTK_Overdruk_c_uit_allowed and not MTK_DVI_c_oplopend_allowed and not MTK_DVI_c_aflopend_allowed and
+                                   not MTK_DVI_c_uit_allowed and not BBI_Regime_c_bewaken_allowed and not KelderSchoon_Pomp_c_aan_allowed and
+                                   not VB2_SetAuto_c_klaar_allowed;
+Mutex6Home: Home(Mutex6HomeSendCondition);
+requirement VB1_Beeldregistratie.c_uit needs Mutex6Home.TokenTracker.Home;
+requirement VB2_PopUp_Venster.c_aan needs Mutex6Home.TokenTracker.Home;
+requirement VB2_Beeldregistratie.c_uit needs Mutex6Home.TokenTracker.Home;
+requirement MTK_Verlichting.c_uit needs Mutex6Home.TokenTracker.Home;
+requirement MTK_Overdruk.c_links needs Mutex6Home.TokenTracker.Home;
+requirement MTK_Overdruk.c_rechts needs Mutex6Home.TokenTracker.Home;
+requirement MTK_Overdruk.c_uit needs Mutex6Home.TokenTracker.Home;
+requirement MTK_DVI.c_oplopend needs Mutex6Home.TokenTracker.Home;
+requirement MTK_DVI.c_aflopend needs Mutex6Home.TokenTracker.Home;
+requirement MTK_DVI.c_uit needs Mutex6Home.TokenTracker.Home;
+requirement BBI_Regime.c_bewaken needs Mutex6Home.TokenTracker.Home;
+requirement KelderSchoon_Pomp.c_aan needs Mutex6Home.TokenTracker.Home;
+requirement VB2_SetAuto.c_klaar needs Mutex6Home.TokenTracker.Home;
+
+// Mutex 7 (home): VB2_BedieningVRI_c_auto
+alg bool Mutex7HomeSendCondition = not VB1_Beeldregistratie_c_uit_allowed and not VB2_PopUp_Venster_c_aan_allowed and not VB2_Beeldregistratie_c_uit_allowed and
+                                   not MTK_Verlichting_c_uit_allowed and not MTK_Overdruk_c_links_allowed and not MTK_Overdruk_c_rechts_allowed and
+                                   not MTK_Overdruk_c_uit_allowed and not MTK_DVI_c_oplopend_allowed and not MTK_DVI_c_aflopend_allowed and
+                                   not MTK_DVI_c_uit_allowed and not BBI_Regime_c_bewaken_allowed and not KelderSchoon_Pomp_c_aan_allowed;
+Mutex7Home: Home(Mutex7HomeSendCondition);
+requirement VB1_Beeldregistratie.c_uit needs Mutex7Home.TokenTracker.Home;
+requirement VB2_PopUp_Venster.c_aan needs Mutex7Home.TokenTracker.Home;
+requirement VB2_Beeldregistratie.c_uit needs Mutex7Home.TokenTracker.Home;
+requirement MTK_Verlichting.c_uit needs Mutex7Home.TokenTracker.Home;
+requirement MTK_Overdruk.c_links needs Mutex7Home.TokenTracker.Home;
+requirement MTK_Overdruk.c_rechts needs Mutex7Home.TokenTracker.Home;
+requirement MTK_Overdruk.c_uit needs Mutex7Home.TokenTracker.Home;
+requirement MTK_DVI.c_oplopend needs Mutex7Home.TokenTracker.Home;
+requirement MTK_DVI.c_aflopend needs Mutex7Home.TokenTracker.Home;
+requirement MTK_DVI.c_uit needs Mutex7Home.TokenTracker.Home;
+requirement BBI_Regime.c_bewaken needs Mutex7Home.TokenTracker.Home;
+requirement KelderSchoon_Pomp.c_aan needs Mutex7Home.TokenTracker.Home;
+
+// Mutex 8 (home): VB2_BedieningVRI_c_hand
+alg bool Mutex8HomeSendCondition = not VB1_Beeldregistratie_c_uit_allowed and not VB2_PopUp_Venster_c_aan_allowed and not VB2_Beeldregistratie_c_uit_allowed and
+                                   not MTK_Verlichting_c_uit_allowed and not MTK_Overdruk_c_links_allowed and not MTK_Overdruk_c_rechts_allowed and
+                                   not MTK_Overdruk_c_uit_allowed and not MTK_DVI_c_oplopend_allowed and not MTK_DVI_c_aflopend_allowed and
+                                   not MTK_DVI_c_uit_allowed and not BBI_Regime_c_bewaken_allowed and not KelderSchoon_Pomp_c_aan_allowed and
+                                   not VB2_SetAuto_c_klaar_allowed;
+Mutex8Home: Home(Mutex8HomeSendCondition);
+requirement VB1_Beeldregistratie.c_uit needs Mutex8Home.TokenTracker.Home;
+requirement VB2_PopUp_Venster.c_aan needs Mutex8Home.TokenTracker.Home;
+requirement VB2_Beeldregistratie.c_uit needs Mutex8Home.TokenTracker.Home;
+requirement MTK_Verlichting.c_uit needs Mutex8Home.TokenTracker.Home;
+requirement MTK_Overdruk.c_links needs Mutex8Home.TokenTracker.Home;
+requirement MTK_Overdruk.c_rechts needs Mutex8Home.TokenTracker.Home;
+requirement MTK_Overdruk.c_uit needs Mutex8Home.TokenTracker.Home;
+requirement MTK_DVI.c_oplopend needs Mutex8Home.TokenTracker.Home;
+requirement MTK_DVI.c_aflopend needs Mutex8Home.TokenTracker.Home;
+requirement MTK_DVI.c_uit needs Mutex8Home.TokenTracker.Home;
+requirement BBI_Regime.c_bewaken needs Mutex8Home.TokenTracker.Home;
+requirement KelderSchoon_Pomp.c_aan needs Mutex8Home.TokenTracker.Home;
+requirement VB2_SetAuto.c_klaar needs Mutex8Home.TokenTracker.Home;
+
+// Mutex 9 (away): VB1_SetAuto_c_klaar
+Mutex9Away: Away(VB1_SetAuto_c_klaar_allowed, not VB1_SetAuto_c_klaar_allowed);
+requirement VB1_SetAuto.c_klaar needs Mutex9Away.Requester.Received;
+
+// Mutex 10 (away): VB1_Stand_c_calamiteit
+Mutex10Away: Away(VB1_Stand_c_calamiteit_allowed, not VB1_Stand_c_calamiteit_allowed);
+requirement VB1_Stand.c_calamiteit needs Mutex10Away.Requester.Received;
+
+// Mutex 11 (away): VB1_Stand_c_evacuatie
+Mutex11Away: Away(VB1_Stand_c_evacuatie_allowed, not VB1_Stand_c_evacuatie_allowed);
+requirement VB1_Stand.c_evacuatie needs Mutex11Away.Requester.Received;
+
+// Mutex 12 (away): VB1_Stand_c_herstelUitCalimiteit
+Mutex12Away: Away(VB1_Stand_c_herstelUitCalimiteit_allowed, not VB1_Stand_c_herstelUitCalimiteit_allowed);
+requirement VB1_Stand.c_herstelUitCalimiteit needs Mutex12Away.Requester.Received;
+
+// Mutex 13 (away): VB1_Stand_c_herstelUitOnderhoud
+Mutex13Away: Away(VB1_Stand_c_herstelUitOnderhoud_allowed, not VB1_Stand_c_herstelUitOnderhoud_allowed);
+requirement VB1_Stand.c_herstelUitOnderhoud needs Mutex13Away.Requester.Received;
+
+// Mutex 14 (away): VB1_Stand_c_herstelUitOndersteunend
+Mutex14Away: Away(VB1_Stand_c_herstelUitOndersteunend_allowed, not VB1_Stand_c_herstelUitOndersteunend_allowed);
+requirement VB1_Stand.c_herstelUitOndersteunend needs Mutex14Away.Requester.Received;
+
+// Mutex 15 (away): VB1_Stand_c_onderhoud
+Mutex15Away: Away(VB1_Stand_c_onderhoud_allowed, not VB1_Stand_c_onderhoud_allowed);
+requirement VB1_Stand.c_onderhoud needs Mutex15Away.Requester.Received;
+
+// Mutex 16 (away): VB1_Stand_c_ondersteunend
+Mutex16Away: Away(VB1_Stand_c_ondersteunend_allowed, not VB1_Stand_c_ondersteunend_allowed);
+requirement VB1_Stand.c_ondersteunend needs Mutex16Away.Requester.Received;
+
+// Mutex 17 (away): VB1_Stand_c_operationeel
+Mutex17Away: Away(VB1_Stand_c_operationeel_allowed, not VB1_Stand_c_operationeel_allowed);
+requirement VB1_Stand.c_operationeel needs Mutex17Away.Requester.Received;
+
+// Mutex 18 (away): VB1_Stand_c_standby
+Mutex18Away: Away(VB1_Stand_c_standby_allowed, not VB1_Stand_c_standby_allowed);
+requirement VB1_Stand.c_standby needs Mutex18Away.Requester.Received;
+
+// Mutex 19 (away): VB2_SetAuto_c_klaar
+Mutex19Away: Away(VB2_SetAuto_c_klaar_allowed, not VB2_SetAuto_c_klaar_allowed);
+requirement VB2_SetAuto.c_klaar needs Mutex19Away.Requester.Received;
+
+// Mutex 20 (away): VB2_Stand_c_calamiteit
+Mutex20Away: Away(VB2_Stand_c_calamiteit_allowed, not VB2_Stand_c_calamiteit_allowed);
+requirement VB2_Stand.c_calamiteit needs Mutex20Away.Requester.Received;
+
+// Mutex 21 (away): VB2_Stand_c_evacuatie
+Mutex21Away: Away(VB2_Stand_c_evacuatie_allowed, not VB2_Stand_c_evacuatie_allowed);
+requirement VB2_Stand.c_evacuatie needs Mutex21Away.Requester.Received;
+
+// Mutex 22 (away): VB2_Stand_c_herstelUitCalimiteit
+Mutex22Away: Away(VB2_Stand_c_herstelUitCalimiteit_allowed, not VB2_Stand_c_herstelUitCalimiteit_allowed);
+requirement VB2_Stand.c_herstelUitCalimiteit needs Mutex22Away.Requester.Received;
+
+// Mutex 23 (away): VB2_Stand_c_herstelUitOnderhoud
+Mutex23Away: Away(VB2_Stand_c_herstelUitOnderhoud_allowed, not VB2_Stand_c_herstelUitOnderhoud_allowed);
+requirement VB2_Stand.c_herstelUitOnderhoud needs Mutex23Away.Requester.Received;
+
+// Mutex 24 (away): VB2_Stand_c_herstelUitOndersteunend
+Mutex24Away: Away(VB2_Stand_c_herstelUitOndersteunend_allowed, not VB2_Stand_c_herstelUitOndersteunend_allowed);
+requirement VB2_Stand.c_herstelUitOndersteunend needs Mutex24Away.Requester.Received;
+
+// Mutex 25 (away): VB2_Stand_c_onderhoud
+Mutex25Away: Away(VB2_Stand_c_onderhoud_allowed, not VB2_Stand_c_onderhoud_allowed);
+requirement VB2_Stand.c_onderhoud needs Mutex25Away.Requester.Received;
+
+// Mutex 26 (away): VB2_Stand_c_ondersteunend
+Mutex26Away: Away(VB2_Stand_c_ondersteunend_allowed, not VB2_Stand_c_ondersteunend_allowed);
+requirement VB2_Stand.c_ondersteunend needs Mutex26Away.Requester.Received;
+
+// Mutex 27 (away): VB2_Stand_c_operationeel
+Mutex27Away: Away(VB2_Stand_c_operationeel_allowed, not VB2_Stand_c_operationeel_allowed);
+requirement VB2_Stand.c_operationeel needs Mutex27Away.Requester.Received;
+
+// Mutex 28 (away): VB2_Stand_c_standby
+Mutex28Away: Away(VB2_Stand_c_standby_allowed, not VB2_Stand_c_standby_allowed);
+requirement VB2_Stand.c_standby needs Mutex28Away.Requester.Received;

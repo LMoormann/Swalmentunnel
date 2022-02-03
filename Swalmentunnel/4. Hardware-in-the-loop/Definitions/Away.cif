@@ -1,0 +1,25 @@
+group def Away(alg bool RequestCondition, ReturnCondition):
+
+	alg bool R = Req.R;
+
+	plant automaton Req:
+		controllable c_request, c_return;
+		uncontrollable u_receive;
+		disc bool R = false;
+
+		disc bool Here = false;
+    disc bool SendingAway = false;
+    input bool SendingHere;
+
+		location Idle:
+		  initial; marked;
+			edge c_request do R := true goto Requested;
+		location Requested:
+			edge u_receive when SendingHere do Here:= true, R:= false goto Received;
+		location Received:
+			edge c_return when not SendingHere and Here do SendingAway := true, Here := false  goto Idle;
+	end
+
+  requirement Req.c_request needs RequestCondition;
+  requirement Req.c_return needs ReturnCondition;
+end

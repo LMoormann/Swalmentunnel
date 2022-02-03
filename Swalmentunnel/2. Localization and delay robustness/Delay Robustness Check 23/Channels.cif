@@ -1,0 +1,42 @@
+import "Channel.cif";
+import "Loc2_Adjusted.cif";
+import "Loc3_Adjusted.cif";
+
+// PLC2 to PLC3
+Channel1: Channel(VB1_Stand_c_operationeel, VB1_Stand_Observer2_c_operationeel);
+Channel2: Channel(VB1_Stand_c_calamiteit, VB1_Stand_Observer2_c_calamiteit);
+Channel3: Channel(VB1_Stand_c_standby, VB1_Stand_Observer2_c_standby);
+Channel4: Channel(VB1_Stand_c_ondersteunend, VB1_Stand_Observer2_c_ondersteunend);
+Channel5: Channel(VB1_Stand_c_onderhoud, VB1_Stand_Observer2_c_onderhoud);
+Channel6: Channel(VB1_Stand_c_herstelUitCalimiteit, VB1_Stand_Observer2_c_herstelUitCalimiteit);
+Channel7: Channel(VB1_Stand_c_herstelUitOndersteunend, VB1_Stand_Observer2_c_herstelUitOndersteunend);
+Channel8: Channel(VB1_Stand_c_herstelUitOnderhoud, VB1_Stand_Observer2_c_herstelUitOnderhoud);
+Channel9: Channel(VB1_Stand_c_evacuatie, VB1_Stand_Observer2_c_evacuatie);
+
+Channel10: Channel(VB1_SetAuto_c_klaar, VB1_SetAuto_Observer2_c_klaar);
+
+Channel11: Channel(VB2_Stand_c_operationeel, VB2_Stand_Observer2_c_operationeel);
+Channel12: Channel(VB2_Stand_c_calamiteit, VB2_Stand_Observer2_c_calamiteit);
+Channel13: Channel(VB2_Stand_c_standby, VB2_Stand_Observer2_c_standby);
+Channel14: Channel(VB2_Stand_c_ondersteunend, VB2_Stand_Observer2_c_ondersteunend);
+Channel15: Channel(VB2_Stand_c_onderhoud, VB2_Stand_Observer2_c_onderhoud);
+Channel16: Channel(VB2_Stand_c_herstelUitCalimiteit, VB2_Stand_Observer2_c_herstelUitCalimiteit);
+Channel17: Channel(VB2_Stand_c_herstelUitOndersteunend, VB2_Stand_Observer2_c_herstelUitOndersteunend);
+Channel18: Channel(VB2_Stand_c_herstelUitOnderhoud, VB2_Stand_Observer2_c_herstelUitOnderhoud);
+Channel19: Channel(VB2_Stand_c_evacuatie, VB2_Stand_Observer2_c_evacuatie);
+
+Channel20: Channel(VB2_SetAuto_c_klaar, VB2_SetAuto_Observer2_c_klaar);
+
+// PLC3 to PLC2
+Channel21: Channel(VB1_BedieningAB_c_auto, VB1_BedieningAB_Observer3_c_auto);
+Channel22: Channel(VB1_BedieningAB_c_hand, VB1_BedieningAB_Observer3_c_hand);
+
+Channel23: Channel(VB1_BedieningVRI_c_auto, VB1_BedieningVRI_Observer3_c_auto);
+Channel24: Channel(VB1_BedieningVRI_c_hand, VB1_BedieningVRI_Observer3_c_hand);
+
+Channel25: Channel(VB2_BedieningAB_c_auto, VB2_BedieningAB_Observer3_c_auto);
+Channel26: Channel(VB2_BedieningAB_c_hand, VB2_BedieningAB_Observer3_c_hand);
+
+Channel27: Channel(VB2_BedieningVRI_c_auto, VB2_BedieningVRI_Observer3_c_auto);
+Channel28: Channel(VB2_BedieningVRI_c_hand, VB2_BedieningVRI_Observer3_c_hand);
+

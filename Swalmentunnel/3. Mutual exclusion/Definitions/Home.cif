@@ -1,0 +1,16 @@
+group def Home(alg bool ReturnCondition):
+
+	input bool R;
+
+	plant automaton TokenTracker:
+    controllable c_send;
+    uncontrollable u_receive;
+		location Home:
+		  initial; marked;
+			edge c_send goto Away;
+		location Away:
+			edge u_receive goto Home;
+	end
+
+  requirement TokenTracker.c_send needs ReturnCondition and R;
+end

@@ -1,0 +1,1850 @@
+///////////////////////////////////////////// Custom variable type: StateStruct /////////////////////////////////////////////
+autVB1_HDA_Sensor_autState	DINT	retain	0
+autVB1_HDA_Sensor_I	BOOL	retain	0
+autVB1_HDA_Lampen_autState	DINT	retain	0
+autVB1_HDA_Timer_autState	DINT	retain	0
+autVB1_HDA_Timer_t	LREAL	retain	0.0
+autVB1_HDA_Timer_tderiv	LREAL	retain	0.0
+autVB1_HDT_Sensor_autState	DINT	retain	0
+autVB1_HDT_Sensor_I	BOOL	retain	0
+autVB1_HDT_Lampen_autState	DINT	retain	0
+autVB1_HDT_Timer_autState	DINT	retain	0
+autVB1_HDT_Timer_t	LREAL	retain	0.0
+autVB1_HDT_Timer_tderiv	LREAL	retain	0.0
+autVB1_CCTV_Schouwen_autState	DINT	retain	0
+autVB1_CCTV_Richting_autState	DINT	retain	0
+autVB1_CCTV_Selectie_autState	DINT	retain	0
+autVB1_KnoppenCCTV_autState	DINT	retain	0
+autVB1_KnoppenCCTV_I_schouwen	BOOL	retain	0
+autVB1_KnoppenCCTV_I_shouwenT	BOOL	retain	0
+autVB1_KnoppenCCTV_I_schouwenH	BOOL	retain	0
+autVB1_KnoppenCCTV_I_schouwenHT	BOOL	retain	0
+autVB1_KnoppenCCTV_I_schouwenS	BOOL	retain	0
+autVB1_KnoppenCCTV_I_rechts	BOOL	retain	0
+autVB1_KnoppenCCTV_I_links	BOOL	retain	0
+autVB1_VD_SensorOpen_autState	DINT	retain	0
+autVB1_VD_SensorOpen_I	BOOL	retain	0
+autVB2_HDT_Sensor_autState	DINT	retain	0
+autVB2_HDT_Sensor_I	BOOL	retain	0
+autVB2_HDT_Lampen_autState	DINT	retain	0
+autVB2_HDT_Timer_autState	DINT	retain	0
+autVB2_HDT_Timer_t	LREAL	retain	0.0
+autVB2_HDT_Timer_tderiv	LREAL	retain	0.0
+autVB2_CCTV_Schouwen_autState	DINT	retain	0
+autVB2_CCTV_Richting_autState	DINT	retain	0
+autVB2_CCTV_Selectie_autState	DINT	retain	0
+autVB2_KnoppenCCTV_autState	DINT	retain	0
+autVB2_KnoppenCCTV_I_schouwen	BOOL	retain	0
+autVB2_KnoppenCCTV_I_shouwenT	BOOL	retain	0
+autVB2_KnoppenCCTV_I_schouwenH	BOOL	retain	0
+autVB2_KnoppenCCTV_I_schouwenHT	BOOL	retain	0
+autVB2_KnoppenCCTV_I_schouwenS	BOOL	retain	0
+autVB2_KnoppenCCTV_I_rechts	BOOL	retain	0
+autVB2_KnoppenCCTV_I_links	BOOL	retain	0
+autVB2_VD_SensorOpen_autState	DINT	retain	0
+autVB2_VD_SensorOpen_I	BOOL	retain	0
+autCaDoNoord_Stand_autState	DINT	retain	0
+autCaDoNoord_Stand_I_laag	BOOL	retain	0
+autCaDoNoord_Stand_I_hoog	BOOL	retain	0
+autCaDoNoord_Beweging_autState	DINT	retain	0
+autCaDoNoord_Beweging_I_op	BOOL	retain	0
+autCaDoNoord_Beweging_I_neer	BOOL	retain	0
+autCaDoNoord_Beweging_I_geen	BOOL	retain	0
+autCaDoNoord_Commando_autState	DINT	retain	0
+autCaDoZuid_Stand_autState	DINT	retain	0
+autCaDoZuid_Stand_I_laag	BOOL	retain	0
+autCaDoZuid_Stand_I_hoog	BOOL	retain	0
+autCaDoZuid_Beweging_autState	DINT	retain	0
+autCaDoZuid_Beweging_I_op	BOOL	retain	0
+autCaDoZuid_Beweging_I_neer	BOOL	retain	0
+autCaDoZuid_Beweging_I_geen	BOOL	retain	0
+autCaDoZuid_Commando_autState	DINT	retain	0
+autKnoppenCaDo_autState	DINT	retain	0
+autKnoppenCaDo_I_noordOpen	BOOL	retain	0
+autKnoppenCaDo_I_noordSluit	BOOL	retain	0
+autKnoppenCaDo_I_noordStop	BOOL	retain	0
+autKnoppenCaDo_I_zuidOpen	BOOL	retain	0
+autKnoppenCaDo_I_zuidSluit	BOOL	retain	0
+autKnoppenCaDo_I_zuidStop	BOOL	retain	0
+
+///////////////////////////////////////////////////////// Variables /////////////////////////////////////////////////////////
+progress	BOOL	retain	0
+feasible	BOOL	retain	0
+b	BOOL	retain	0
+processEvent_c_aanvalue	BOOL	retain	0
+processEvent_c_uitvalue	BOOL	retain	0
+processEvent_c_aanvalue2	BOOL	retain	0
+processEvent_c_resetvalue	BOOL	retain	0
+processEvent_c_aanvalue3	BOOL	retain	0
+processEvent_c_uitvalue2	BOOL	retain	0
+processEvent_c_aanvalue4	BOOL	retain	0
+processEvent_c_resetvalue2	BOOL	retain	0
+processEvent_c_schouwenvalue	BOOL	retain	0
+processEvent_c_schouwenHvalue	BOOL	retain	0
+processEvent_c_stopvalue	BOOL	retain	0
+processEvent_c_tegenvalue	BOOL	retain	0
+processEvent_c_meevalue	BOOL	retain	0
+processEvent_c_rechtsvalue	BOOL	retain	0
+processEvent_c_linksvalue	BOOL	retain	0
+processEvent_c_klaarvalue	BOOL	retain	0
+processEvent_c_aanvalue5	BOOL	retain	0
+processEvent_c_uitvalue3	BOOL	retain	0
+processEvent_c_aanvalue6	BOOL	retain	0
+processEvent_c_resetvalue3	BOOL	retain	0
+processEvent_c_schouwenvalue2	BOOL	retain	0
+processEvent_c_schouwenHvalue2	BOOL	retain	0
+processEvent_c_stopvalue2	BOOL	retain	0
+processEvent_c_tegenvalue2	BOOL	retain	0
+processEvent_c_meevalue2	BOOL	retain	0
+processEvent_c_rechtsvalue2	BOOL	retain	0
+processEvent_c_linksvalue2	BOOL	retain	0
+processEvent_c_klaarvalue2	BOOL	retain	0
+processEvent_c_opneervalue	BOOL	retain	0
+processEvent_c_opstopvalue	BOOL	retain	0
+processEvent_c_neeropvalue	BOOL	retain	0
+processEvent_c_neerstopvalue	BOOL	retain	0
+processEvent_c_stopneervalue	BOOL	retain	0
+processEvent_c_stopopvalue	BOOL	retain	0
+processEvent_c_opneervalue2	BOOL	retain	0
+processEvent_c_opstopvalue2	BOOL	retain	0
+processEvent_c_neeropvalue2	BOOL	retain	0
+processEvent_c_neerstopvalue2	BOOL	retain	0
+processEvent_c_stopneervalue2	BOOL	retain	0
+processEvent_c_stopopvalue2	BOOL	retain	0
+globalState	StateStruct	retain
+initialized	BOOL	retain	0
+curTimerValue	TIME	retain	0s
+lastTimerValue	TIME	retain	0s
+curDeltaTime	TIME	retain	0s
+curDeltaSecs	REAL	retain	0.0
+event_progress	BOOL	retain	0
+loop_count	DINT	retain	0
+
+///////////////////////////////////////////////////////// Main code /////////////////////////////////////////////////////////
+IF NOT (initialized) THEN
+    globalState.autVB1_HDA_Sensor_autState := 10;
+    globalState.autVB1_HDA_Lampen_autState := 20;
+    globalState.autVB1_HDA_Timer_autState := 30;
+    globalState.autVB1_HDT_Sensor_autState := 40;
+    globalState.autVB1_HDT_Lampen_autState := 50;
+    globalState.autVB1_HDT_Timer_autState := 60;
+    globalState.autVB1_CCTV_Schouwen_autState := 70;
+    globalState.autVB1_CCTV_Richting_autState := 80;
+    globalState.autVB1_CCTV_Selectie_autState := 90;
+    globalState.autVB1_KnoppenCCTV_autState := 100;
+    globalState.autVB1_VD_SensorOpen_autState := 110;
+    globalState.autVB2_HDT_Sensor_autState := 120;
+    globalState.autVB2_HDT_Lampen_autState := 130;
+    globalState.autVB2_HDT_Timer_autState := 140;
+    globalState.autVB2_CCTV_Schouwen_autState := 150;
+    globalState.autVB2_CCTV_Richting_autState := 160;
+    globalState.autVB2_CCTV_Selectie_autState := 170;
+    globalState.autVB2_KnoppenCCTV_autState := 180;
+    globalState.autVB2_VD_SensorOpen_autState := 190;
+    globalState.autCaDoNoord_Stand_autState := 200;
+    globalState.autCaDoNoord_Beweging_autState := 210;
+    globalState.autCaDoNoord_Commando_autState := 220;
+    globalState.autCaDoZuid_Stand_autState := 230;
+    globalState.autCaDoZuid_Beweging_autState := 240;
+    globalState.autCaDoZuid_Commando_autState := 250;
+    globalState.autKnoppenCaDo_autState := 260;
+    globalState.autVB1_HDA_Timer_t := 0.0;
+    globalState.autVB1_HDA_Timer_tderiv := 1.0;
+    globalState.autVB1_HDT_Timer_t := 0.0;
+    globalState.autVB1_HDT_Timer_tderiv := 1.0;
+    globalState.autVB2_HDT_Timer_t := 0.0;
+    globalState.autVB2_HDT_Timer_tderiv := 1.0;
+    initialized := TRUE;
+    timer0(IN := TRUE, PT := TIME#365d);
+    curTimerValue := timer0.ET;
+ELSE
+    lastTimerValue := curTimerValue;
+    curTimerValue := timer0.ET;
+    curDeltaTime := (curTimerValue) - (lastTimerValue);
+    curDeltaSecs := (TIME_TO_LREAL(curDeltaTime)) / (1000.0);
+    globalState.autVB1_HDA_Timer_t := (globalState.autVB1_HDA_Timer_t) + ((globalState.autVB1_HDA_Timer_tderiv) * (curDeltaSecs));
+    globalState.autVB1_HDT_Timer_t := (globalState.autVB1_HDT_Timer_t) + ((globalState.autVB1_HDT_Timer_tderiv) * (curDeltaSecs));
+    globalState.autVB2_HDT_Timer_t := (globalState.autVB2_HDT_Timer_t) + ((globalState.autVB2_HDT_Timer_tderiv) * (curDeltaSecs));
+END_IF;
+event_progress := TRUE;
+loop_count := 0;
+WHILE (event_progress) AND ((loop_count) < (100)) DO
+    event_progress := FALSE;
+    loop_count := (loop_count) + (1);
+    progress := FALSE;
+    progress := FALSE;
+    CASE globalState.autVB1_HDA_Sensor_autState OF
+        10:
+            IF globalState.autVB1_HDA_Sensor_I THEN
+                globalState.autVB1_HDA_Sensor_autState := 11;
+                progress := TRUE;
+            END_IF;
+    END_CASE;
+    event_progress := (progress) OR (event_progress);
+    progress := FALSE;
+    progress := FALSE;
+    CASE globalState.autVB1_HDA_Sensor_autState OF
+        11:
+            IF NOT (globalState.autVB1_HDA_Sensor_I) THEN
+                globalState.autVB1_HDA_Sensor_autState := 10;
+                progress := TRUE;
+            END_IF;
+    END_CASE;
+    event_progress := (progress) OR (event_progress);
+    feasible := FALSE;
+    b := FALSE;
+    feasible := TRUE;
+    CASE globalState.autVB1_HDA_Lampen_autState OF
+        20:
+            (* Do nothing. *);
+    ELSE
+        feasible := FALSE;
+    END_CASE;
+    IF feasible THEN
+        b := (globalState.autVB1_HDA_Sensor_autState) = (11);
+        b := (b) AND ((globalState.autVB1_HDA_Timer_autState) = (30));
+        IF NOT (b) THEN
+            feasible := FALSE;
+        END_IF;
+    END_IF;
+    IF feasible THEN
+        globalState.autVB1_HDA_Lampen_autState := 21;
+        processEvent_c_aanvalue := TRUE;
+    ELSE
+        processEvent_c_aanvalue := FALSE;
+    END_IF;
+    event_progress := (processEvent_c_aanvalue) OR (event_progress);
+    feasible := FALSE;
+    feasible := TRUE;
+    CASE globalState.autVB1_HDA_Lampen_autState OF
+        21:
+            (* Do nothing. *);
+    ELSE
+        feasible := FALSE;
+    END_CASE;
+    IF feasible THEN
+        IF (globalState.autVB1_HDA_Timer_autState) <> (32) THEN
+            feasible := FALSE;
+        END_IF;
+    END_IF;
+    IF feasible THEN
+        globalState.autVB1_HDA_Lampen_autState := 20;
+        processEvent_c_uitvalue := TRUE;
+    ELSE
+        processEvent_c_uitvalue := FALSE;
+    END_IF;
+    event_progress := (processEvent_c_uitvalue) OR (event_progress);
+    feasible := FALSE;
+    feasible := TRUE;
+    CASE globalState.autVB1_HDA_Timer_autState OF
+        30:
+            (* Do nothing. *);
+    ELSE
+        feasible := FALSE;
+    END_CASE;
+    IF feasible THEN
+        IF (globalState.autVB1_HDA_Lampen_autState) <> (21) THEN
+            feasible := FALSE;
+        END_IF;
+    END_IF;
+    IF feasible THEN
+        globalState.autVB1_HDA_Timer_t := 0.0;
+        globalState.autVB1_HDA_Timer_autState := 31;
+        processEvent_c_aanvalue2 := TRUE;
+    ELSE
+        processEvent_c_aanvalue2 := FALSE;
+    END_IF;
+    event_progress := (processEvent_c_aanvalue2) OR (event_progress);
+    progress := FALSE;
+    progress := FALSE;
+    CASE globalState.autVB1_HDA_Timer_autState OF
+        31:
+            IF (globalState.autVB1_HDA_Timer_t) >= (5) THEN
+                globalState.autVB1_HDA_Timer_autState := 32;
+                progress := TRUE;
+            END_IF;
+    END_CASE;
+    event_progress := (progress) OR (event_progress);
+    feasible := FALSE;
+    feasible := TRUE;
+    CASE globalState.autVB1_HDA_Timer_autState OF
+        32:
+            (* Do nothing. *);
+    ELSE
+        feasible := FALSE;
+    END_CASE;
+    IF feasible THEN
+        IF (globalState.autVB1_HDA_Lampen_autState) <> (20) THEN
+            feasible := FALSE;
+        END_IF;
+    END_IF;
+    IF feasible THEN
+        globalState.autVB1_HDA_Timer_autState := 30;
+        processEvent_c_resetvalue := TRUE;
+    ELSE
+        processEvent_c_resetvalue := FALSE;
+    END_IF;
+    event_progress := (processEvent_c_resetvalue) OR (event_progress);
+    progress := FALSE;
+    progress := FALSE;
+    CASE globalState.autVB1_HDT_Sensor_autState OF
+        40:
+            IF globalState.autVB1_HDT_Sensor_I THEN
+                globalState.autVB1_HDT_Sensor_autState := 41;
+                progress := TRUE;
+            END_IF;
+    END_CASE;
+    event_progress := (progress) OR (event_progress);
+    progress := FALSE;
+    progress := FALSE;
+    CASE globalState.autVB1_HDT_Sensor_autState OF
+        41:
+            IF NOT (globalState.autVB1_HDT_Sensor_I) THEN
+                globalState.autVB1_HDT_Sensor_autState := 40;
+                progress := TRUE;
+            END_IF;
+    END_CASE;
+    event_progress := (progress) OR (event_progress);
+    feasible := FALSE;
+    b := FALSE;
+    feasible := TRUE;
+    CASE globalState.autVB1_HDT_Lampen_autState OF
+        50:
+            (* Do nothing. *);
+    ELSE
+        feasible := FALSE;
+    END_CASE;
+    IF feasible THEN
+        b := (globalState.autVB1_HDT_Sensor_autState) = (41);
+        b := (b) AND ((globalState.autVB1_HDT_Timer_autState) = (60));
+        IF NOT (b) THEN
+            feasible := FALSE;
+        END_IF;
+    END_IF;
+    IF feasible THEN
+        globalState.autVB1_HDT_Lampen_autState := 51;
+        processEvent_c_aanvalue3 := TRUE;
+    ELSE
+        processEvent_c_aanvalue3 := FALSE;
+    END_IF;
+    event_progress := (processEvent_c_aanvalue3) OR (event_progress);
+    feasible := FALSE;
+    feasible := TRUE;
+    CASE globalState.autVB1_HDT_Lampen_autState OF
+        51:
+            (* Do nothing. *);
+    ELSE
+        feasible := FALSE;
+    END_CASE;
+    IF feasible THEN
+        IF (globalState.autVB1_HDT_Timer_autState) <> (62) THEN
+            feasible := FALSE;
+        END_IF;
+    END_IF;
+    IF feasible THEN
+        globalState.autVB1_HDT_Lampen_autState := 50;
+        processEvent_c_uitvalue2 := TRUE;
+    ELSE
+        processEvent_c_uitvalue2 := FALSE;
+    END_IF;
+    event_progress := (processEvent_c_uitvalue2) OR (event_progress);
+    feasible := FALSE;
+    feasible := TRUE;
+    CASE globalState.autVB1_HDT_Timer_autState OF
+        60:
+            (* Do nothing. *);
+    ELSE
+        feasible := FALSE;
+    END_CASE;
+    IF feasible THEN
+        IF (globalState.autVB1_HDT_Lampen_autState) <> (51) THEN
+            feasible := FALSE;
+        END_IF;
+    END_IF;
+    IF feasible THEN
+        globalState.autVB1_HDT_Timer_t := 0.0;
+        globalState.autVB1_HDT_Timer_autState := 61;
+        processEvent_c_aanvalue4 := TRUE;
+    ELSE
+        processEvent_c_aanvalue4 := FALSE;
+    END_IF;
+    event_progress := (processEvent_c_aanvalue4) OR (event_progress);
+    progress := FALSE;
+    progress := FALSE;
+    CASE globalState.autVB1_HDT_Timer_autState OF
+        61:
+            IF (globalState.autVB1_HDT_Timer_t) >= (5) THEN
+                globalState.autVB1_HDT_Timer_autState := 62;
+                progress := TRUE;
+            END_IF;
+    END_CASE;
+    event_progress := (progress) OR (event_progress);
+    feasible := FALSE;
+    feasible := TRUE;
+    CASE globalState.autVB1_HDT_Timer_autState OF
+        62:
+            (* Do nothing. *);
+    ELSE
+        feasible := FALSE;
+    END_CASE;
+    IF feasible THEN
+        IF (globalState.autVB1_HDT_Lampen_autState) <> (50) THEN
+            feasible := FALSE;
+        END_IF;
+    END_IF;
+    IF feasible THEN
+        globalState.autVB1_HDT_Timer_autState := 60;
+        processEvent_c_resetvalue2 := TRUE;
+    ELSE
+        processEvent_c_resetvalue2 := FALSE;
+    END_IF;
+    event_progress := (processEvent_c_resetvalue2) OR (event_progress);
+    feasible := FALSE;
+    b := FALSE;
+    feasible := TRUE;
+    CASE globalState.autVB1_CCTV_Schouwen_autState OF
+        70:
+            (* Do nothing. *);
+    ELSE
+        feasible := FALSE;
+    END_CASE;
+    IF feasible THEN
+        b := (globalState.autVB1_KnoppenCCTV_autState) = (101);
+        b := (b) OR ((globalState.autVB1_KnoppenCCTV_autState) = (102));
+        IF NOT (b) THEN
+            feasible := FALSE;
+        END_IF;
+    END_IF;
+    IF feasible THEN
+        globalState.autVB1_CCTV_Schouwen_autState := 71;
+        processEvent_c_schouwenvalue := TRUE;
+    ELSE
+        processEvent_c_schouwenvalue := FALSE;
+    END_IF;
+    event_progress := (processEvent_c_schouwenvalue) OR (event_progress);
+    feasible := FALSE;
+    b := FALSE;
+    feasible := TRUE;
+    CASE globalState.autVB1_CCTV_Schouwen_autState OF
+        70:
+            (* Do nothing. *);
+    ELSE
+        feasible := FALSE;
+    END_CASE;
+    IF feasible THEN
+        b := (globalState.autVB1_KnoppenCCTV_autState) = (103);
+        b := (b) OR ((globalState.autVB1_KnoppenCCTV_autState) = (104));
+        IF NOT (b) THEN
+            feasible := FALSE;
+        END_IF;
+    END_IF;
+    IF feasible THEN
+        globalState.autVB1_CCTV_Schouwen_autState := 72;
+        processEvent_c_schouwenHvalue := TRUE;
+    ELSE
+        processEvent_c_schouwenHvalue := FALSE;
+    END_IF;
+    event_progress := (processEvent_c_schouwenHvalue) OR (event_progress);
+    feasible := FALSE;
+    b := FALSE;
+    feasible := TRUE;
+    CASE globalState.autVB1_CCTV_Schouwen_autState OF
+        71:
+            (* Do nothing. *);
+        72:
+            (* Do nothing. *);
+    ELSE
+        feasible := FALSE;
+    END_CASE;
+    IF feasible THEN
+        b := (globalState.autVB1_KnoppenCCTV_autState) = (105);
+        b := (b) OR ((globalState.autVB1_KnoppenCCTV_autState) = (106));
+        b := (b) OR ((globalState.autVB1_KnoppenCCTV_autState) = (107));
+        IF NOT (b) THEN
+            feasible := FALSE;
+        END_IF;
+    END_IF;
+    IF feasible THEN
+        CASE globalState.autVB1_CCTV_Schouwen_autState OF
+            71:
+                globalState.autVB1_CCTV_Schouwen_autState := 70;
+            72:
+                globalState.autVB1_CCTV_Schouwen_autState := 70;
+        END_CASE;
+        processEvent_c_stopvalue := TRUE;
+    ELSE
+        processEvent_c_stopvalue := FALSE;
+    END_IF;
+    event_progress := (processEvent_c_stopvalue) OR (event_progress);
+    feasible := FALSE;
+    b := FALSE;
+    feasible := TRUE;
+    CASE globalState.autVB1_CCTV_Richting_autState OF
+        80:
+            (* Do nothing. *);
+    ELSE
+        feasible := FALSE;
+    END_CASE;
+    IF feasible THEN
+        b := (globalState.autVB1_KnoppenCCTV_autState) = (102);
+        b := (b) OR ((globalState.autVB1_KnoppenCCTV_autState) = (104));
+        IF NOT (b) THEN
+            feasible := FALSE;
+        END_IF;
+    END_IF;
+    IF feasible THEN
+        globalState.autVB1_CCTV_Richting_autState := 81;
+        processEvent_c_tegenvalue := TRUE;
+    ELSE
+        processEvent_c_tegenvalue := FALSE;
+    END_IF;
+    event_progress := (processEvent_c_tegenvalue) OR (event_progress);
+    feasible := FALSE;
+    b := FALSE;
+    feasible := TRUE;
+    CASE globalState.autVB1_CCTV_Richting_autState OF
+        81:
+            (* Do nothing. *);
+    ELSE
+        feasible := FALSE;
+    END_CASE;
+    IF feasible THEN
+        b := (globalState.autVB1_KnoppenCCTV_autState) = (101);
+        b := (b) OR ((globalState.autVB1_KnoppenCCTV_autState) = (103));
+        IF NOT (b) THEN
+            feasible := FALSE;
+        END_IF;
+    END_IF;
+    IF feasible THEN
+        globalState.autVB1_CCTV_Richting_autState := 80;
+        processEvent_c_meevalue := TRUE;
+    ELSE
+        processEvent_c_meevalue := FALSE;
+    END_IF;
+    event_progress := (processEvent_c_meevalue) OR (event_progress);
+    feasible := FALSE;
+    feasible := TRUE;
+    CASE globalState.autVB1_CCTV_Selectie_autState OF
+        90:
+            (* Do nothing. *);
+    ELSE
+        feasible := FALSE;
+    END_CASE;
+    IF feasible THEN
+        IF (globalState.autVB1_KnoppenCCTV_autState) <> (106) THEN
+            feasible := FALSE;
+        END_IF;
+    END_IF;
+    IF feasible THEN
+        globalState.autVB1_CCTV_Selectie_autState := 91;
+        processEvent_c_rechtsvalue := TRUE;
+    ELSE
+        processEvent_c_rechtsvalue := FALSE;
+    END_IF;
+    event_progress := (processEvent_c_rechtsvalue) OR (event_progress);
+    feasible := FALSE;
+    feasible := TRUE;
+    CASE globalState.autVB1_CCTV_Selectie_autState OF
+        90:
+            (* Do nothing. *);
+    ELSE
+        feasible := FALSE;
+    END_CASE;
+    IF feasible THEN
+        IF (globalState.autVB1_KnoppenCCTV_autState) <> (107) THEN
+            feasible := FALSE;
+        END_IF;
+    END_IF;
+    IF feasible THEN
+        globalState.autVB1_CCTV_Selectie_autState := 92;
+        processEvent_c_linksvalue := TRUE;
+    ELSE
+        processEvent_c_linksvalue := FALSE;
+    END_IF;
+    event_progress := (processEvent_c_linksvalue) OR (event_progress);
+    feasible := FALSE;
+    b := FALSE;
+    feasible := TRUE;
+    CASE globalState.autVB1_CCTV_Selectie_autState OF
+        91:
+            (* Do nothing. *);
+        92:
+            (* Do nothing. *);
+    ELSE
+        feasible := FALSE;
+    END_CASE;
+    IF feasible THEN
+        b := NOT ((globalState.autVB1_KnoppenCCTV_autState) = (106));
+        b := (b) AND (NOT ((globalState.autVB1_KnoppenCCTV_autState) = (107)));
+        IF NOT (b) THEN
+            feasible := FALSE;
+        END_IF;
+    END_IF;
+    IF feasible THEN
+        CASE globalState.autVB1_CCTV_Selectie_autState OF
+            91:
+                globalState.autVB1_CCTV_Selectie_autState := 90;
+            92:
+                globalState.autVB1_CCTV_Selectie_autState := 90;
+        END_CASE;
+        processEvent_c_klaarvalue := TRUE;
+    ELSE
+        processEvent_c_klaarvalue := FALSE;
+    END_IF;
+    event_progress := (processEvent_c_klaarvalue) OR (event_progress);
+    progress := FALSE;
+    progress := FALSE;
+    CASE globalState.autVB1_KnoppenCCTV_autState OF
+        100:
+            IF globalState.autVB1_KnoppenCCTV_I_schouwen THEN
+                globalState.autVB1_KnoppenCCTV_autState := 101;
+                progress := TRUE;
+            END_IF;
+    END_CASE;
+    event_progress := (progress) OR (event_progress);
+    progress := FALSE;
+    progress := FALSE;
+    CASE globalState.autVB1_KnoppenCCTV_autState OF
+        100:
+            IF globalState.autVB1_KnoppenCCTV_I_shouwenT THEN
+                globalState.autVB1_KnoppenCCTV_autState := 102;
+                progress := TRUE;
+            END_IF;
+    END_CASE;
+    event_progress := (progress) OR (event_progress);
+    progress := FALSE;
+    progress := FALSE;
+    CASE globalState.autVB1_KnoppenCCTV_autState OF
+        100:
+            IF globalState.autVB1_KnoppenCCTV_I_schouwenH THEN
+                globalState.autVB1_KnoppenCCTV_autState := 103;
+                progress := TRUE;
+            END_IF;
+    END_CASE;
+    event_progress := (progress) OR (event_progress);
+    progress := FALSE;
+    progress := FALSE;
+    CASE globalState.autVB1_KnoppenCCTV_autState OF
+        100:
+            IF globalState.autVB1_KnoppenCCTV_I_schouwenHT THEN
+                globalState.autVB1_KnoppenCCTV_autState := 104;
+                progress := TRUE;
+            END_IF;
+    END_CASE;
+    event_progress := (progress) OR (event_progress);
+    progress := FALSE;
+    progress := FALSE;
+    CASE globalState.autVB1_KnoppenCCTV_autState OF
+        100:
+            IF globalState.autVB1_KnoppenCCTV_I_schouwenS THEN
+                globalState.autVB1_KnoppenCCTV_autState := 105;
+                progress := TRUE;
+            END_IF;
+    END_CASE;
+    event_progress := (progress) OR (event_progress);
+    progress := FALSE;
+    progress := FALSE;
+    CASE globalState.autVB1_KnoppenCCTV_autState OF
+        100:
+            IF globalState.autVB1_KnoppenCCTV_I_rechts THEN
+                globalState.autVB1_KnoppenCCTV_autState := 106;
+                progress := TRUE;
+            END_IF;
+    END_CASE;
+    event_progress := (progress) OR (event_progress);
+    progress := FALSE;
+    progress := FALSE;
+    CASE globalState.autVB1_KnoppenCCTV_autState OF
+        100:
+            IF globalState.autVB1_KnoppenCCTV_I_links THEN
+                globalState.autVB1_KnoppenCCTV_autState := 107;
+                progress := TRUE;
+            END_IF;
+    END_CASE;
+    event_progress := (progress) OR (event_progress);
+    progress := FALSE;
+    b := FALSE;
+    progress := FALSE;
+    CASE globalState.autVB1_KnoppenCCTV_autState OF
+        101:
+            b := NOT (globalState.autVB1_KnoppenCCTV_I_schouwen);
+            b := (b) AND ((globalState.autVB1_CCTV_Schouwen_autState) = (71));
+            b := (b) AND ((globalState.autVB1_CCTV_Richting_autState) = (80));
+            IF b THEN
+                globalState.autVB1_KnoppenCCTV_autState := 100;
+                progress := TRUE;
+            END_IF;
+    END_CASE;
+    event_progress := (progress) OR (event_progress);
+    progress := FALSE;
+    b := FALSE;
+    progress := FALSE;
+    CASE globalState.autVB1_KnoppenCCTV_autState OF
+        102:
+            b := NOT (globalState.autVB1_KnoppenCCTV_I_shouwenT);
+            b := (b) AND ((globalState.autVB1_CCTV_Schouwen_autState) = (71));
+            b := (b) AND ((globalState.autVB1_CCTV_Richting_autState) = (81));
+            IF b THEN
+                globalState.autVB1_KnoppenCCTV_autState := 100;
+                progress := TRUE;
+            END_IF;
+    END_CASE;
+    event_progress := (progress) OR (event_progress);
+    progress := FALSE;
+    b := FALSE;
+    progress := FALSE;
+    CASE globalState.autVB1_KnoppenCCTV_autState OF
+        103:
+            b := NOT (globalState.autVB1_KnoppenCCTV_I_schouwenH);
+            b := (b) AND ((globalState.autVB1_CCTV_Schouwen_autState) = (72));
+            b := (b) AND ((globalState.autVB1_CCTV_Richting_autState) = (80));
+            IF b THEN
+                globalState.autVB1_KnoppenCCTV_autState := 100;
+                progress := TRUE;
+            END_IF;
+    END_CASE;
+    event_progress := (progress) OR (event_progress);
+    progress := FALSE;
+    b := FALSE;
+    progress := FALSE;
+    CASE globalState.autVB1_KnoppenCCTV_autState OF
+        104:
+            b := NOT (globalState.autVB1_KnoppenCCTV_I_schouwenHT);
+            b := (b) AND ((globalState.autVB1_CCTV_Schouwen_autState) = (72));
+            b := (b) AND ((globalState.autVB1_CCTV_Richting_autState) = (81));
+            IF b THEN
+                globalState.autVB1_KnoppenCCTV_autState := 100;
+                progress := TRUE;
+            END_IF;
+    END_CASE;
+    event_progress := (progress) OR (event_progress);
+    progress := FALSE;
+    b := FALSE;
+    progress := FALSE;
+    CASE globalState.autVB1_KnoppenCCTV_autState OF
+        105:
+            b := NOT (globalState.autVB1_KnoppenCCTV_I_schouwenS);
+            b := (b) AND ((globalState.autVB1_CCTV_Schouwen_autState) = (70));
+            IF b THEN
+                globalState.autVB1_KnoppenCCTV_autState := 100;
+                progress := TRUE;
+            END_IF;
+    END_CASE;
+    event_progress := (progress) OR (event_progress);
+    progress := FALSE;
+    b := FALSE;
+    progress := FALSE;
+    CASE globalState.autVB1_KnoppenCCTV_autState OF
+        106:
+            b := NOT (globalState.autVB1_KnoppenCCTV_I_rechts);
+            b := (b) AND ((globalState.autVB1_CCTV_Selectie_autState) = (91));
+            b := (b) AND ((globalState.autVB1_CCTV_Schouwen_autState) = (70));
+            IF b THEN
+                globalState.autVB1_KnoppenCCTV_autState := 100;
+                progress := TRUE;
+            END_IF;
+    END_CASE;
+    event_progress := (progress) OR (event_progress);
+    progress := FALSE;
+    b := FALSE;
+    progress := FALSE;
+    CASE globalState.autVB1_KnoppenCCTV_autState OF
+        107:
+            b := NOT (globalState.autVB1_KnoppenCCTV_I_links);
+            b := (b) AND ((globalState.autVB1_CCTV_Selectie_autState) = (92));
+            b := (b) AND ((globalState.autVB1_CCTV_Schouwen_autState) = (70));
+            IF b THEN
+                globalState.autVB1_KnoppenCCTV_autState := 100;
+                progress := TRUE;
+            END_IF;
+    END_CASE;
+    event_progress := (progress) OR (event_progress);
+    progress := FALSE;
+    progress := FALSE;
+    CASE globalState.autVB1_VD_SensorOpen_autState OF
+        110:
+            IF globalState.autVB1_VD_SensorOpen_I THEN
+                globalState.autVB1_VD_SensorOpen_autState := 111;
+                progress := TRUE;
+            END_IF;
+    END_CASE;
+    event_progress := (progress) OR (event_progress);
+    progress := FALSE;
+    progress := FALSE;
+    CASE globalState.autVB1_VD_SensorOpen_autState OF
+        111:
+            IF NOT (globalState.autVB1_VD_SensorOpen_I) THEN
+                globalState.autVB1_VD_SensorOpen_autState := 110;
+                progress := TRUE;
+            END_IF;
+    END_CASE;
+    event_progress := (progress) OR (event_progress);
+    progress := FALSE;
+    progress := FALSE;
+    CASE globalState.autVB2_HDT_Sensor_autState OF
+        120:
+            IF globalState.autVB2_HDT_Sensor_I THEN
+                globalState.autVB2_HDT_Sensor_autState := 121;
+                progress := TRUE;
+            END_IF;
+    END_CASE;
+    event_progress := (progress) OR (event_progress);
+    progress := FALSE;
+    progress := FALSE;
+    CASE globalState.autVB2_HDT_Sensor_autState OF
+        121:
+            IF NOT (globalState.autVB2_HDT_Sensor_I) THEN
+                globalState.autVB2_HDT_Sensor_autState := 120;
+                progress := TRUE;
+            END_IF;
+    END_CASE;
+    event_progress := (progress) OR (event_progress);
+    feasible := FALSE;
+    b := FALSE;
+    feasible := TRUE;
+    CASE globalState.autVB2_HDT_Lampen_autState OF
+        130:
+            (* Do nothing. *);
+    ELSE
+        feasible := FALSE;
+    END_CASE;
+    IF feasible THEN
+        b := (globalState.autVB2_HDT_Sensor_autState) = (121);
+        b := (b) AND ((globalState.autVB2_HDT_Timer_autState) = (140));
+        IF NOT (b) THEN
+            feasible := FALSE;
+        END_IF;
+    END_IF;
+    IF feasible THEN
+        globalState.autVB2_HDT_Lampen_autState := 131;
+        processEvent_c_aanvalue5 := TRUE;
+    ELSE
+        processEvent_c_aanvalue5 := FALSE;
+    END_IF;
+    event_progress := (processEvent_c_aanvalue5) OR (event_progress);
+    feasible := FALSE;
+    feasible := TRUE;
+    CASE globalState.autVB2_HDT_Lampen_autState OF
+        131:
+            (* Do nothing. *);
+    ELSE
+        feasible := FALSE;
+    END_CASE;
+    IF feasible THEN
+        IF (globalState.autVB2_HDT_Timer_autState) <> (142) THEN
+            feasible := FALSE;
+        END_IF;
+    END_IF;
+    IF feasible THEN
+        globalState.autVB2_HDT_Lampen_autState := 130;
+        processEvent_c_uitvalue3 := TRUE;
+    ELSE
+        processEvent_c_uitvalue3 := FALSE;
+    END_IF;
+    event_progress := (processEvent_c_uitvalue3) OR (event_progress);
+    feasible := FALSE;
+    feasible := TRUE;
+    CASE globalState.autVB2_HDT_Timer_autState OF
+        140:
+            (* Do nothing. *);
+    ELSE
+        feasible := FALSE;
+    END_CASE;
+    IF feasible THEN
+        IF (globalState.autVB2_HDT_Lampen_autState) <> (131) THEN
+            feasible := FALSE;
+        END_IF;
+    END_IF;
+    IF feasible THEN
+        globalState.autVB2_HDT_Timer_t := 0.0;
+        globalState.autVB2_HDT_Timer_autState := 141;
+        processEvent_c_aanvalue6 := TRUE;
+    ELSE
+        processEvent_c_aanvalue6 := FALSE;
+    END_IF;
+    event_progress := (processEvent_c_aanvalue6) OR (event_progress);
+    progress := FALSE;
+    progress := FALSE;
+    CASE globalState.autVB2_HDT_Timer_autState OF
+        141:
+            IF (globalState.autVB2_HDT_Timer_t) >= (5) THEN
+                globalState.autVB2_HDT_Timer_autState := 142;
+                progress := TRUE;
+            END_IF;
+    END_CASE;
+    event_progress := (progress) OR (event_progress);
+    feasible := FALSE;
+    feasible := TRUE;
+    CASE globalState.autVB2_HDT_Timer_autState OF
+        142:
+            (* Do nothing. *);
+    ELSE
+        feasible := FALSE;
+    END_CASE;
+    IF feasible THEN
+        IF (globalState.autVB2_HDT_Lampen_autState) <> (130) THEN
+            feasible := FALSE;
+        END_IF;
+    END_IF;
+    IF feasible THEN
+        globalState.autVB2_HDT_Timer_autState := 140;
+        processEvent_c_resetvalue3 := TRUE;
+    ELSE
+        processEvent_c_resetvalue3 := FALSE;
+    END_IF;
+    event_progress := (processEvent_c_resetvalue3) OR (event_progress);
+    feasible := FALSE;
+    b := FALSE;
+    feasible := TRUE;
+    CASE globalState.autVB2_CCTV_Schouwen_autState OF
+        150:
+            (* Do nothing. *);
+    ELSE
+        feasible := FALSE;
+    END_CASE;
+    IF feasible THEN
+        b := (globalState.autVB2_KnoppenCCTV_autState) = (181);
+        b := (b) OR ((globalState.autVB2_KnoppenCCTV_autState) = (182));
+        IF NOT (b) THEN
+            feasible := FALSE;
+        END_IF;
+    END_IF;
+    IF feasible THEN
+        globalState.autVB2_CCTV_Schouwen_autState := 151;
+        processEvent_c_schouwenvalue2 := TRUE;
+    ELSE
+        processEvent_c_schouwenvalue2 := FALSE;
+    END_IF;
+    event_progress := (processEvent_c_schouwenvalue2) OR (event_progress);
+    feasible := FALSE;
+    b := FALSE;
+    feasible := TRUE;
+    CASE globalState.autVB2_CCTV_Schouwen_autState OF
+        150:
+            (* Do nothing. *);
+    ELSE
+        feasible := FALSE;
+    END_CASE;
+    IF feasible THEN
+        b := (globalState.autVB2_KnoppenCCTV_autState) = (183);
+        b := (b) OR ((globalState.autVB2_KnoppenCCTV_autState) = (184));
+        IF NOT (b) THEN
+            feasible := FALSE;
+        END_IF;
+    END_IF;
+    IF feasible THEN
+        globalState.autVB2_CCTV_Schouwen_autState := 152;
+        processEvent_c_schouwenHvalue2 := TRUE;
+    ELSE
+        processEvent_c_schouwenHvalue2 := FALSE;
+    END_IF;
+    event_progress := (processEvent_c_schouwenHvalue2) OR (event_progress);
+    feasible := FALSE;
+    b := FALSE;
+    feasible := TRUE;
+    CASE globalState.autVB2_CCTV_Schouwen_autState OF
+        151:
+            (* Do nothing. *);
+        152:
+            (* Do nothing. *);
+    ELSE
+        feasible := FALSE;
+    END_CASE;
+    IF feasible THEN
+        b := (globalState.autVB2_KnoppenCCTV_autState) = (185);
+        b := (b) OR ((globalState.autVB2_KnoppenCCTV_autState) = (186));
+        b := (b) OR ((globalState.autVB2_KnoppenCCTV_autState) = (187));
+        IF NOT (b) THEN
+            feasible := FALSE;
+        END_IF;
+    END_IF;
+    IF feasible THEN
+        CASE globalState.autVB2_CCTV_Schouwen_autState OF
+            151:
+                globalState.autVB2_CCTV_Schouwen_autState := 150;
+            152:
+                globalState.autVB2_CCTV_Schouwen_autState := 150;
+        END_CASE;
+        processEvent_c_stopvalue2 := TRUE;
+    ELSE
+        processEvent_c_stopvalue2 := FALSE;
+    END_IF;
+    event_progress := (processEvent_c_stopvalue2) OR (event_progress);
+    feasible := FALSE;
+    b := FALSE;
+    feasible := TRUE;
+    CASE globalState.autVB2_CCTV_Richting_autState OF
+        160:
+            (* Do nothing. *);
+    ELSE
+        feasible := FALSE;
+    END_CASE;
+    IF feasible THEN
+        b := (globalState.autVB2_KnoppenCCTV_autState) = (182);
+        b := (b) OR ((globalState.autVB2_KnoppenCCTV_autState) = (184));
+        IF NOT (b) THEN
+            feasible := FALSE;
+        END_IF;
+    END_IF;
+    IF feasible THEN
+        globalState.autVB2_CCTV_Richting_autState := 161;
+        processEvent_c_tegenvalue2 := TRUE;
+    ELSE
+        processEvent_c_tegenvalue2 := FALSE;
+    END_IF;
+    event_progress := (processEvent_c_tegenvalue2) OR (event_progress);
+    feasible := FALSE;
+    b := FALSE;
+    feasible := TRUE;
+    CASE globalState.autVB2_CCTV_Richting_autState OF
+        161:
+            (* Do nothing. *);
+    ELSE
+        feasible := FALSE;
+    END_CASE;
+    IF feasible THEN
+        b := (globalState.autVB2_KnoppenCCTV_autState) = (181);
+        b := (b) OR ((globalState.autVB2_KnoppenCCTV_autState) = (183));
+        IF NOT (b) THEN
+            feasible := FALSE;
+        END_IF;
+    END_IF;
+    IF feasible THEN
+        globalState.autVB2_CCTV_Richting_autState := 160;
+        processEvent_c_meevalue2 := TRUE;
+    ELSE
+        processEvent_c_meevalue2 := FALSE;
+    END_IF;
+    event_progress := (processEvent_c_meevalue2) OR (event_progress);
+    feasible := FALSE;
+    feasible := TRUE;
+    CASE globalState.autVB2_CCTV_Selectie_autState OF
+        170:
+            (* Do nothing. *);
+    ELSE
+        feasible := FALSE;
+    END_CASE;
+    IF feasible THEN
+        IF (globalState.autVB2_KnoppenCCTV_autState) <> (186) THEN
+            feasible := FALSE;
+        END_IF;
+    END_IF;
+    IF feasible THEN
+        globalState.autVB2_CCTV_Selectie_autState := 171;
+        processEvent_c_rechtsvalue2 := TRUE;
+    ELSE
+        processEvent_c_rechtsvalue2 := FALSE;
+    END_IF;
+    event_progress := (processEvent_c_rechtsvalue2) OR (event_progress);
+    feasible := FALSE;
+    feasible := TRUE;
+    CASE globalState.autVB2_CCTV_Selectie_autState OF
+        170:
+            (* Do nothing. *);
+    ELSE
+        feasible := FALSE;
+    END_CASE;
+    IF feasible THEN
+        IF (globalState.autVB2_KnoppenCCTV_autState) <> (187) THEN
+            feasible := FALSE;
+        END_IF;
+    END_IF;
+    IF feasible THEN
+        globalState.autVB2_CCTV_Selectie_autState := 172;
+        processEvent_c_linksvalue2 := TRUE;
+    ELSE
+        processEvent_c_linksvalue2 := FALSE;
+    END_IF;
+    event_progress := (processEvent_c_linksvalue2) OR (event_progress);
+    feasible := FALSE;
+    b := FALSE;
+    feasible := TRUE;
+    CASE globalState.autVB2_CCTV_Selectie_autState OF
+        171:
+            (* Do nothing. *);
+        172:
+            (* Do nothing. *);
+    ELSE
+        feasible := FALSE;
+    END_CASE;
+    IF feasible THEN
+        b := NOT ((globalState.autVB2_KnoppenCCTV_autState) = (186));
+        b := (b) AND (NOT ((globalState.autVB2_KnoppenCCTV_autState) = (187)));
+        IF NOT (b) THEN
+            feasible := FALSE;
+        END_IF;
+    END_IF;
+    IF feasible THEN
+        CASE globalState.autVB2_CCTV_Selectie_autState OF
+            171:
+                globalState.autVB2_CCTV_Selectie_autState := 170;
+            172:
+                globalState.autVB2_CCTV_Selectie_autState := 170;
+        END_CASE;
+        processEvent_c_klaarvalue2 := TRUE;
+    ELSE
+        processEvent_c_klaarvalue2 := FALSE;
+    END_IF;
+    event_progress := (processEvent_c_klaarvalue2) OR (event_progress);
+    progress := FALSE;
+    progress := FALSE;
+    CASE globalState.autVB2_KnoppenCCTV_autState OF
+        180:
+            IF globalState.autVB2_KnoppenCCTV_I_schouwen THEN
+                globalState.autVB2_KnoppenCCTV_autState := 181;
+                progress := TRUE;
+            END_IF;
+    END_CASE;
+    event_progress := (progress) OR (event_progress);
+    progress := FALSE;
+    progress := FALSE;
+    CASE globalState.autVB2_KnoppenCCTV_autState OF
+        180:
+            IF globalState.autVB2_KnoppenCCTV_I_shouwenT THEN
+                globalState.autVB2_KnoppenCCTV_autState := 182;
+                progress := TRUE;
+            END_IF;
+    END_CASE;
+    event_progress := (progress) OR (event_progress);
+    progress := FALSE;
+    progress := FALSE;
+    CASE globalState.autVB2_KnoppenCCTV_autState OF
+        180:
+            IF globalState.autVB2_KnoppenCCTV_I_schouwenH THEN
+                globalState.autVB2_KnoppenCCTV_autState := 183;
+                progress := TRUE;
+            END_IF;
+    END_CASE;
+    event_progress := (progress) OR (event_progress);
+    progress := FALSE;
+    progress := FALSE;
+    CASE globalState.autVB2_KnoppenCCTV_autState OF
+        180:
+            IF globalState.autVB2_KnoppenCCTV_I_schouwenHT THEN
+                globalState.autVB2_KnoppenCCTV_autState := 184;
+                progress := TRUE;
+            END_IF;
+    END_CASE;
+    event_progress := (progress) OR (event_progress);
+    progress := FALSE;
+    progress := FALSE;
+    CASE globalState.autVB2_KnoppenCCTV_autState OF
+        180:
+            IF globalState.autVB2_KnoppenCCTV_I_schouwenS THEN
+                globalState.autVB2_KnoppenCCTV_autState := 185;
+                progress := TRUE;
+            END_IF;
+    END_CASE;
+    event_progress := (progress) OR (event_progress);
+    progress := FALSE;
+    progress := FALSE;
+    CASE globalState.autVB2_KnoppenCCTV_autState OF
+        180:
+            IF globalState.autVB2_KnoppenCCTV_I_rechts THEN
+                globalState.autVB2_KnoppenCCTV_autState := 186;
+                progress := TRUE;
+            END_IF;
+    END_CASE;
+    event_progress := (progress) OR (event_progress);
+    progress := FALSE;
+    progress := FALSE;
+    CASE globalState.autVB2_KnoppenCCTV_autState OF
+        180:
+            IF globalState.autVB2_KnoppenCCTV_I_links THEN
+                globalState.autVB2_KnoppenCCTV_autState := 187;
+                progress := TRUE;
+            END_IF;
+    END_CASE;
+    event_progress := (progress) OR (event_progress);
+    progress := FALSE;
+    b := FALSE;
+    progress := FALSE;
+    CASE globalState.autVB2_KnoppenCCTV_autState OF
+        181:
+            b := NOT (globalState.autVB2_KnoppenCCTV_I_schouwen);
+            b := (b) AND ((globalState.autVB2_CCTV_Schouwen_autState) = (151));
+            b := (b) AND ((globalState.autVB2_CCTV_Richting_autState) = (160));
+            IF b THEN
+                globalState.autVB2_KnoppenCCTV_autState := 180;
+                progress := TRUE;
+            END_IF;
+    END_CASE;
+    event_progress := (progress) OR (event_progress);
+    progress := FALSE;
+    b := FALSE;
+    progress := FALSE;
+    CASE globalState.autVB2_KnoppenCCTV_autState OF
+        182:
+            b := NOT (globalState.autVB2_KnoppenCCTV_I_shouwenT);
+            b := (b) AND ((globalState.autVB2_CCTV_Schouwen_autState) = (151));
+            b := (b) AND ((globalState.autVB2_CCTV_Richting_autState) = (161));
+            IF b THEN
+                globalState.autVB2_KnoppenCCTV_autState := 180;
+                progress := TRUE;
+            END_IF;
+    END_CASE;
+    event_progress := (progress) OR (event_progress);
+    progress := FALSE;
+    b := FALSE;
+    progress := FALSE;
+    CASE globalState.autVB2_KnoppenCCTV_autState OF
+        183:
+            b := NOT (globalState.autVB2_KnoppenCCTV_I_schouwenH);
+            b := (b) AND ((globalState.autVB2_CCTV_Schouwen_autState) = (152));
+            b := (b) AND ((globalState.autVB2_CCTV_Richting_autState) = (160));
+            IF b THEN
+                globalState.autVB2_KnoppenCCTV_autState := 180;
+                progress := TRUE;
+            END_IF;
+    END_CASE;
+    event_progress := (progress) OR (event_progress);
+    progress := FALSE;
+    b := FALSE;
+    progress := FALSE;
+    CASE globalState.autVB2_KnoppenCCTV_autState OF
+        184:
+            b := NOT (globalState.autVB2_KnoppenCCTV_I_schouwenHT);
+            b := (b) AND ((globalState.autVB2_CCTV_Schouwen_autState) = (152));
+            b := (b) AND ((globalState.autVB2_CCTV_Richting_autState) = (161));
+            IF b THEN
+                globalState.autVB2_KnoppenCCTV_autState := 180;
+                progress := TRUE;
+            END_IF;
+    END_CASE;
+    event_progress := (progress) OR (event_progress);
+    progress := FALSE;
+    b := FALSE;
+    progress := FALSE;
+    CASE globalState.autVB2_KnoppenCCTV_autState OF
+        185:
+            b := NOT (globalState.autVB2_KnoppenCCTV_I_schouwenS);
+            b := (b) AND ((globalState.autVB2_CCTV_Schouwen_autState) = (150));
+            IF b THEN
+                globalState.autVB2_KnoppenCCTV_autState := 180;
+                progress := TRUE;
+            END_IF;
+    END_CASE;
+    event_progress := (progress) OR (event_progress);
+    progress := FALSE;
+    b := FALSE;
+    progress := FALSE;
+    CASE globalState.autVB2_KnoppenCCTV_autState OF
+        186:
+            b := NOT (globalState.autVB2_KnoppenCCTV_I_rechts);
+            b := (b) AND ((globalState.autVB2_CCTV_Selectie_autState) = (171));
+            b := (b) AND ((globalState.autVB2_CCTV_Schouwen_autState) = (150));
+            IF b THEN
+                globalState.autVB2_KnoppenCCTV_autState := 180;
+                progress := TRUE;
+            END_IF;
+    END_CASE;
+    event_progress := (progress) OR (event_progress);
+    progress := FALSE;
+    b := FALSE;
+    progress := FALSE;
+    CASE globalState.autVB2_KnoppenCCTV_autState OF
+        187:
+            b := NOT (globalState.autVB2_KnoppenCCTV_I_links);
+            b := (b) AND ((globalState.autVB2_CCTV_Selectie_autState) = (172));
+            b := (b) AND ((globalState.autVB2_CCTV_Schouwen_autState) = (150));
+            IF b THEN
+                globalState.autVB2_KnoppenCCTV_autState := 180;
+                progress := TRUE;
+            END_IF;
+    END_CASE;
+    event_progress := (progress) OR (event_progress);
+    progress := FALSE;
+    progress := FALSE;
+    CASE globalState.autVB2_VD_SensorOpen_autState OF
+        190:
+            IF globalState.autVB2_VD_SensorOpen_I THEN
+                globalState.autVB2_VD_SensorOpen_autState := 191;
+                progress := TRUE;
+            END_IF;
+    END_CASE;
+    event_progress := (progress) OR (event_progress);
+    progress := FALSE;
+    progress := FALSE;
+    CASE globalState.autVB2_VD_SensorOpen_autState OF
+        191:
+            IF NOT (globalState.autVB2_VD_SensorOpen_I) THEN
+                globalState.autVB2_VD_SensorOpen_autState := 190;
+                progress := TRUE;
+            END_IF;
+    END_CASE;
+    event_progress := (progress) OR (event_progress);
+    progress := FALSE;
+    progress := FALSE;
+    CASE globalState.autCaDoNoord_Stand_autState OF
+        200:
+            IF NOT (globalState.autCaDoNoord_Stand_I_hoog) THEN
+                globalState.autCaDoNoord_Stand_autState := 201;
+                progress := TRUE;
+            END_IF;
+        202:
+            IF NOT (globalState.autCaDoNoord_Stand_I_laag) THEN
+                globalState.autCaDoNoord_Stand_autState := 201;
+                progress := TRUE;
+            END_IF;
+    END_CASE;
+    event_progress := (progress) OR (event_progress);
+    progress := FALSE;
+    progress := FALSE;
+    CASE globalState.autCaDoNoord_Stand_autState OF
+        201:
+            IF globalState.autCaDoNoord_Stand_I_hoog THEN
+                globalState.autCaDoNoord_Stand_autState := 200;
+                progress := TRUE;
+            END_IF;
+    END_CASE;
+    event_progress := (progress) OR (event_progress);
+    progress := FALSE;
+    progress := FALSE;
+    CASE globalState.autCaDoNoord_Stand_autState OF
+        201:
+            IF globalState.autCaDoNoord_Stand_I_laag THEN
+                globalState.autCaDoNoord_Stand_autState := 202;
+                progress := TRUE;
+            END_IF;
+    END_CASE;
+    event_progress := (progress) OR (event_progress);
+    progress := FALSE;
+    progress := FALSE;
+    CASE globalState.autCaDoNoord_Beweging_autState OF
+        210:
+            IF globalState.autCaDoNoord_Beweging_I_op THEN
+                globalState.autCaDoNoord_Beweging_autState := 211;
+                progress := TRUE;
+            END_IF;
+        212:
+            IF globalState.autCaDoNoord_Beweging_I_op THEN
+                globalState.autCaDoNoord_Beweging_autState := 211;
+                progress := TRUE;
+            END_IF;
+    END_CASE;
+    event_progress := (progress) OR (event_progress);
+    progress := FALSE;
+    progress := FALSE;
+    CASE globalState.autCaDoNoord_Beweging_autState OF
+        210:
+            IF globalState.autCaDoNoord_Beweging_I_neer THEN
+                globalState.autCaDoNoord_Beweging_autState := 212;
+                progress := TRUE;
+            END_IF;
+        211:
+            IF globalState.autCaDoNoord_Beweging_I_neer THEN
+                globalState.autCaDoNoord_Beweging_autState := 212;
+                progress := TRUE;
+            END_IF;
+    END_CASE;
+    event_progress := (progress) OR (event_progress);
+    progress := FALSE;
+    progress := FALSE;
+    CASE globalState.autCaDoNoord_Beweging_autState OF
+        211:
+            IF globalState.autCaDoNoord_Beweging_I_geen THEN
+                globalState.autCaDoNoord_Beweging_autState := 210;
+                progress := TRUE;
+            END_IF;
+        212:
+            IF globalState.autCaDoNoord_Beweging_I_geen THEN
+                globalState.autCaDoNoord_Beweging_autState := 210;
+                progress := TRUE;
+            END_IF;
+    END_CASE;
+    event_progress := (progress) OR (event_progress);
+    feasible := FALSE;
+    b := FALSE;
+    feasible := TRUE;
+    CASE globalState.autCaDoNoord_Commando_autState OF
+        220:
+            (* Do nothing. *);
+    ELSE
+        feasible := FALSE;
+    END_CASE;
+    IF feasible THEN
+        b := (globalState.autKnoppenCaDo_autState) = (262);
+        b := (b) AND (NOT (((globalState.autCaDoNoord_Stand_autState) = (202)) OR ((globalState.autCaDoNoord_Beweging_autState) = (212))));
+        IF NOT (b) THEN
+            feasible := FALSE;
+        END_IF;
+    END_IF;
+    IF feasible THEN
+        globalState.autCaDoNoord_Commando_autState := 221;
+        processEvent_c_opneervalue := TRUE;
+    ELSE
+        processEvent_c_opneervalue := FALSE;
+    END_IF;
+    event_progress := (processEvent_c_opneervalue) OR (event_progress);
+    feasible := FALSE;
+    b := FALSE;
+    feasible := TRUE;
+    CASE globalState.autCaDoNoord_Commando_autState OF
+        220:
+            (* Do nothing. *);
+    ELSE
+        feasible := FALSE;
+    END_CASE;
+    IF feasible THEN
+        b := (globalState.autKnoppenCaDo_autState) = (263);
+        b := (b) AND (NOT ((globalState.autCaDoNoord_Beweging_autState) = (210)));
+        IF NOT (b) THEN
+            feasible := FALSE;
+        END_IF;
+    END_IF;
+    IF feasible THEN
+        globalState.autCaDoNoord_Commando_autState := 222;
+        processEvent_c_opstopvalue := TRUE;
+    ELSE
+        processEvent_c_opstopvalue := FALSE;
+    END_IF;
+    event_progress := (processEvent_c_opstopvalue) OR (event_progress);
+    feasible := FALSE;
+    b := FALSE;
+    feasible := TRUE;
+    CASE globalState.autCaDoNoord_Commando_autState OF
+        221:
+            (* Do nothing. *);
+    ELSE
+        feasible := FALSE;
+    END_CASE;
+    IF feasible THEN
+        b := (globalState.autKnoppenCaDo_autState) = (261);
+        b := (b) AND (NOT (((globalState.autCaDoNoord_Stand_autState) = (200)) OR ((globalState.autCaDoNoord_Beweging_autState) = (211))));
+        IF NOT (b) THEN
+            feasible := FALSE;
+        END_IF;
+    END_IF;
+    IF feasible THEN
+        globalState.autCaDoNoord_Commando_autState := 220;
+        processEvent_c_neeropvalue := TRUE;
+    ELSE
+        processEvent_c_neeropvalue := FALSE;
+    END_IF;
+    event_progress := (processEvent_c_neeropvalue) OR (event_progress);
+    feasible := FALSE;
+    b := FALSE;
+    feasible := TRUE;
+    CASE globalState.autCaDoNoord_Commando_autState OF
+        221:
+            (* Do nothing. *);
+    ELSE
+        feasible := FALSE;
+    END_CASE;
+    IF feasible THEN
+        b := (globalState.autKnoppenCaDo_autState) = (263);
+        b := (b) AND (NOT ((globalState.autCaDoNoord_Beweging_autState) = (210)));
+        IF NOT (b) THEN
+            feasible := FALSE;
+        END_IF;
+    END_IF;
+    IF feasible THEN
+        globalState.autCaDoNoord_Commando_autState := 222;
+        processEvent_c_neerstopvalue := TRUE;
+    ELSE
+        processEvent_c_neerstopvalue := FALSE;
+    END_IF;
+    event_progress := (processEvent_c_neerstopvalue) OR (event_progress);
+    feasible := FALSE;
+    b := FALSE;
+    feasible := TRUE;
+    CASE globalState.autCaDoNoord_Commando_autState OF
+        222:
+            (* Do nothing. *);
+    ELSE
+        feasible := FALSE;
+    END_CASE;
+    IF feasible THEN
+        b := (globalState.autKnoppenCaDo_autState) = (262);
+        b := (b) AND (NOT (((globalState.autCaDoNoord_Stand_autState) = (202)) OR ((globalState.autCaDoNoord_Beweging_autState) = (212))));
+        IF NOT (b) THEN
+            feasible := FALSE;
+        END_IF;
+    END_IF;
+    IF feasible THEN
+        globalState.autCaDoNoord_Commando_autState := 221;
+        processEvent_c_stopneervalue := TRUE;
+    ELSE
+        processEvent_c_stopneervalue := FALSE;
+    END_IF;
+    event_progress := (processEvent_c_stopneervalue) OR (event_progress);
+    feasible := FALSE;
+    b := FALSE;
+    feasible := TRUE;
+    CASE globalState.autCaDoNoord_Commando_autState OF
+        222:
+            (* Do nothing. *);
+    ELSE
+        feasible := FALSE;
+    END_CASE;
+    IF feasible THEN
+        b := (globalState.autKnoppenCaDo_autState) = (261);
+        b := (b) AND (NOT (((globalState.autCaDoNoord_Stand_autState) = (200)) OR ((globalState.autCaDoNoord_Beweging_autState) = (211))));
+        IF NOT (b) THEN
+            feasible := FALSE;
+        END_IF;
+    END_IF;
+    IF feasible THEN
+        globalState.autCaDoNoord_Commando_autState := 220;
+        processEvent_c_stopopvalue := TRUE;
+    ELSE
+        processEvent_c_stopopvalue := FALSE;
+    END_IF;
+    event_progress := (processEvent_c_stopopvalue) OR (event_progress);
+    progress := FALSE;
+    progress := FALSE;
+    CASE globalState.autCaDoZuid_Stand_autState OF
+        230:
+            IF NOT (globalState.autCaDoZuid_Stand_I_hoog) THEN
+                globalState.autCaDoZuid_Stand_autState := 231;
+                progress := TRUE;
+            END_IF;
+        232:
+            IF NOT (globalState.autCaDoZuid_Stand_I_laag) THEN
+                globalState.autCaDoZuid_Stand_autState := 231;
+                progress := TRUE;
+            END_IF;
+    END_CASE;
+    event_progress := (progress) OR (event_progress);
+    progress := FALSE;
+    progress := FALSE;
+    CASE globalState.autCaDoZuid_Stand_autState OF
+        231:
+            IF globalState.autCaDoZuid_Stand_I_hoog THEN
+                globalState.autCaDoZuid_Stand_autState := 230;
+                progress := TRUE;
+            END_IF;
+    END_CASE;
+    event_progress := (progress) OR (event_progress);
+    progress := FALSE;
+    progress := FALSE;
+    CASE globalState.autCaDoZuid_Stand_autState OF
+        231:
+            IF globalState.autCaDoZuid_Stand_I_laag THEN
+                globalState.autCaDoZuid_Stand_autState := 232;
+                progress := TRUE;
+            END_IF;
+    END_CASE;
+    event_progress := (progress) OR (event_progress);
+    progress := FALSE;
+    progress := FALSE;
+    CASE globalState.autCaDoZuid_Beweging_autState OF
+        240:
+            IF globalState.autCaDoZuid_Beweging_I_op THEN
+                globalState.autCaDoZuid_Beweging_autState := 241;
+                progress := TRUE;
+            END_IF;
+        242:
+            IF globalState.autCaDoZuid_Beweging_I_op THEN
+                globalState.autCaDoZuid_Beweging_autState := 241;
+                progress := TRUE;
+            END_IF;
+    END_CASE;
+    event_progress := (progress) OR (event_progress);
+    progress := FALSE;
+    progress := FALSE;
+    CASE globalState.autCaDoZuid_Beweging_autState OF
+        240:
+            IF globalState.autCaDoZuid_Beweging_I_neer THEN
+                globalState.autCaDoZuid_Beweging_autState := 242;
+                progress := TRUE;
+            END_IF;
+        241:
+            IF globalState.autCaDoZuid_Beweging_I_neer THEN
+                globalState.autCaDoZuid_Beweging_autState := 242;
+                progress := TRUE;
+            END_IF;
+    END_CASE;
+    event_progress := (progress) OR (event_progress);
+    progress := FALSE;
+    progress := FALSE;
+    CASE globalState.autCaDoZuid_Beweging_autState OF
+        241:
+            IF globalState.autCaDoZuid_Beweging_I_geen THEN
+                globalState.autCaDoZuid_Beweging_autState := 240;
+                progress := TRUE;
+            END_IF;
+        242:
+            IF globalState.autCaDoZuid_Beweging_I_geen THEN
+                globalState.autCaDoZuid_Beweging_autState := 240;
+                progress := TRUE;
+            END_IF;
+    END_CASE;
+    event_progress := (progress) OR (event_progress);
+    feasible := FALSE;
+    b := FALSE;
+    feasible := TRUE;
+    CASE globalState.autCaDoZuid_Commando_autState OF
+        250:
+            (* Do nothing. *);
+    ELSE
+        feasible := FALSE;
+    END_CASE;
+    IF feasible THEN
+        b := (globalState.autKnoppenCaDo_autState) = (265);
+        b := (b) AND (NOT (((globalState.autCaDoZuid_Stand_autState) = (232)) OR ((globalState.autCaDoZuid_Beweging_autState) = (242))));
+        IF NOT (b) THEN
+            feasible := FALSE;
+        END_IF;
+    END_IF;
+    IF feasible THEN
+        globalState.autCaDoZuid_Commando_autState := 251;
+        processEvent_c_opneervalue2 := TRUE;
+    ELSE
+        processEvent_c_opneervalue2 := FALSE;
+    END_IF;
+    event_progress := (processEvent_c_opneervalue2) OR (event_progress);
+    feasible := FALSE;
+    b := FALSE;
+    feasible := TRUE;
+    CASE globalState.autCaDoZuid_Commando_autState OF
+        250:
+            (* Do nothing. *);
+    ELSE
+        feasible := FALSE;
+    END_CASE;
+    IF feasible THEN
+        b := (globalState.autKnoppenCaDo_autState) = (266);
+        b := (b) AND (NOT ((globalState.autCaDoZuid_Beweging_autState) = (240)));
+        IF NOT (b) THEN
+            feasible := FALSE;
+        END_IF;
+    END_IF;
+    IF feasible THEN
+        globalState.autCaDoZuid_Commando_autState := 252;
+        processEvent_c_opstopvalue2 := TRUE;
+    ELSE
+        processEvent_c_opstopvalue2 := FALSE;
+    END_IF;
+    event_progress := (processEvent_c_opstopvalue2) OR (event_progress);
+    feasible := FALSE;
+    b := FALSE;
+    feasible := TRUE;
+    CASE globalState.autCaDoZuid_Commando_autState OF
+        251:
+            (* Do nothing. *);
+    ELSE
+        feasible := FALSE;
+    END_CASE;
+    IF feasible THEN
+        b := (globalState.autKnoppenCaDo_autState) = (264);
+        b := (b) AND (NOT (((globalState.autCaDoZuid_Stand_autState) = (230)) OR ((globalState.autCaDoZuid_Beweging_autState) = (241))));
+        IF NOT (b) THEN
+            feasible := FALSE;
+        END_IF;
+    END_IF;
+    IF feasible THEN
+        globalState.autCaDoZuid_Commando_autState := 250;
+        processEvent_c_neeropvalue2 := TRUE;
+    ELSE
+        processEvent_c_neeropvalue2 := FALSE;
+    END_IF;
+    event_progress := (processEvent_c_neeropvalue2) OR (event_progress);
+    feasible := FALSE;
+    b := FALSE;
+    feasible := TRUE;
+    CASE globalState.autCaDoZuid_Commando_autState OF
+        251:
+            (* Do nothing. *);
+    ELSE
+        feasible := FALSE;
+    END_CASE;
+    IF feasible THEN
+        b := (globalState.autKnoppenCaDo_autState) = (266);
+        b := (b) AND (NOT ((globalState.autCaDoZuid_Beweging_autState) = (240)));
+        IF NOT (b) THEN
+            feasible := FALSE;
+        END_IF;
+    END_IF;
+    IF feasible THEN
+        globalState.autCaDoZuid_Commando_autState := 252;
+        processEvent_c_neerstopvalue2 := TRUE;
+    ELSE
+        processEvent_c_neerstopvalue2 := FALSE;
+    END_IF;
+    event_progress := (processEvent_c_neerstopvalue2) OR (event_progress);
+    feasible := FALSE;
+    b := FALSE;
+    feasible := TRUE;
+    CASE globalState.autCaDoZuid_Commando_autState OF
+        252:
+            (* Do nothing. *);
+    ELSE
+        feasible := FALSE;
+    END_CASE;
+    IF feasible THEN
+        b := (globalState.autKnoppenCaDo_autState) = (265);
+        b := (b) AND (NOT (((globalState.autCaDoZuid_Stand_autState) = (232)) OR ((globalState.autCaDoZuid_Beweging_autState) = (242))));
+        IF NOT (b) THEN
+            feasible := FALSE;
+        END_IF;
+    END_IF;
+    IF feasible THEN
+        globalState.autCaDoZuid_Commando_autState := 251;
+        processEvent_c_stopneervalue2 := TRUE;
+    ELSE
+        processEvent_c_stopneervalue2 := FALSE;
+    END_IF;
+    event_progress := (processEvent_c_stopneervalue2) OR (event_progress);
+    feasible := FALSE;
+    b := FALSE;
+    feasible := TRUE;
+    CASE globalState.autCaDoZuid_Commando_autState OF
+        252:
+            (* Do nothing. *);
+    ELSE
+        feasible := FALSE;
+    END_CASE;
+    IF feasible THEN
+        b := (globalState.autKnoppenCaDo_autState) = (264);
+        b := (b) AND (NOT (((globalState.autCaDoZuid_Stand_autState) = (230)) OR ((globalState.autCaDoZuid_Beweging_autState) = (241))));
+        IF NOT (b) THEN
+            feasible := FALSE;
+        END_IF;
+    END_IF;
+    IF feasible THEN
+        globalState.autCaDoZuid_Commando_autState := 250;
+        processEvent_c_stopopvalue2 := TRUE;
+    ELSE
+        processEvent_c_stopopvalue2 := FALSE;
+    END_IF;
+    event_progress := (processEvent_c_stopopvalue2) OR (event_progress);
+    progress := FALSE;
+    progress := FALSE;
+    CASE globalState.autKnoppenCaDo_autState OF
+        260:
+            IF globalState.autKnoppenCaDo_I_noordOpen THEN
+                globalState.autKnoppenCaDo_autState := 261;
+                progress := TRUE;
+            END_IF;
+    END_CASE;
+    event_progress := (progress) OR (event_progress);
+    progress := FALSE;
+    progress := FALSE;
+    CASE globalState.autKnoppenCaDo_autState OF
+        260:
+            IF globalState.autKnoppenCaDo_I_noordSluit THEN
+                globalState.autKnoppenCaDo_autState := 262;
+                progress := TRUE;
+            END_IF;
+    END_CASE;
+    event_progress := (progress) OR (event_progress);
+    progress := FALSE;
+    progress := FALSE;
+    CASE globalState.autKnoppenCaDo_autState OF
+        260:
+            IF globalState.autKnoppenCaDo_I_noordStop THEN
+                globalState.autKnoppenCaDo_autState := 263;
+                progress := TRUE;
+            END_IF;
+    END_CASE;
+    event_progress := (progress) OR (event_progress);
+    progress := FALSE;
+    progress := FALSE;
+    CASE globalState.autKnoppenCaDo_autState OF
+        260:
+            IF globalState.autKnoppenCaDo_I_zuidOpen THEN
+                globalState.autKnoppenCaDo_autState := 264;
+                progress := TRUE;
+            END_IF;
+    END_CASE;
+    event_progress := (progress) OR (event_progress);
+    progress := FALSE;
+    progress := FALSE;
+    CASE globalState.autKnoppenCaDo_autState OF
+        260:
+            IF globalState.autKnoppenCaDo_I_zuidSluit THEN
+                globalState.autKnoppenCaDo_autState := 265;
+                progress := TRUE;
+            END_IF;
+    END_CASE;
+    event_progress := (progress) OR (event_progress);
+    progress := FALSE;
+    progress := FALSE;
+    CASE globalState.autKnoppenCaDo_autState OF
+        260:
+            IF globalState.autKnoppenCaDo_I_zuidStop THEN
+                globalState.autKnoppenCaDo_autState := 266;
+                progress := TRUE;
+            END_IF;
+    END_CASE;
+    event_progress := (progress) OR (event_progress);
+    progress := FALSE;
+    b := FALSE;
+    progress := FALSE;
+    CASE globalState.autKnoppenCaDo_autState OF
+        261:
+            b := NOT (globalState.autKnoppenCaDo_I_noordOpen);
+            b := (b) AND ((globalState.autCaDoNoord_Commando_autState) = (220));
+            IF b THEN
+                globalState.autKnoppenCaDo_autState := 260;
+                progress := TRUE;
+            END_IF;
+    END_CASE;
+    event_progress := (progress) OR (event_progress);
+    progress := FALSE;
+    b := FALSE;
+    progress := FALSE;
+    CASE globalState.autKnoppenCaDo_autState OF
+        262:
+            b := NOT (globalState.autKnoppenCaDo_I_noordSluit);
+            b := (b) AND ((globalState.autCaDoNoord_Commando_autState) = (221));
+            IF b THEN
+                globalState.autKnoppenCaDo_autState := 260;
+                progress := TRUE;
+            END_IF;
+    END_CASE;
+    event_progress := (progress) OR (event_progress);
+    progress := FALSE;
+    b := FALSE;
+    progress := FALSE;
+    CASE globalState.autKnoppenCaDo_autState OF
+        263:
+            b := NOT (globalState.autKnoppenCaDo_I_noordStop);
+            b := (b) AND ((globalState.autCaDoNoord_Commando_autState) = (222));
+            IF b THEN
+                globalState.autKnoppenCaDo_autState := 260;
+                progress := TRUE;
+            END_IF;
+    END_CASE;
+    event_progress := (progress) OR (event_progress);
+    progress := FALSE;
+    b := FALSE;
+    progress := FALSE;
+    CASE globalState.autKnoppenCaDo_autState OF
+        264:
+            b := NOT (globalState.autKnoppenCaDo_I_zuidOpen);
+            b := (b) AND ((globalState.autCaDoZuid_Commando_autState) = (250));
+            IF b THEN
+                globalState.autKnoppenCaDo_autState := 260;
+                progress := TRUE;
+            END_IF;
+    END_CASE;
+    event_progress := (progress) OR (event_progress);
+    progress := FALSE;
+    b := FALSE;
+    progress := FALSE;
+    CASE globalState.autKnoppenCaDo_autState OF
+        265:
+            b := NOT (globalState.autKnoppenCaDo_I_zuidSluit);
+            b := (b) AND ((globalState.autCaDoZuid_Commando_autState) = (251));
+            IF b THEN
+                globalState.autKnoppenCaDo_autState := 260;
+                progress := TRUE;
+            END_IF;
+    END_CASE;
+    event_progress := (progress) OR (event_progress);
+    progress := FALSE;
+    b := FALSE;
+    progress := FALSE;
+    CASE globalState.autKnoppenCaDo_autState OF
+        266:
+            b := NOT (globalState.autKnoppenCaDo_I_zuidStop);
+            b := (b) AND ((globalState.autCaDoZuid_Commando_autState) = (252));
+            IF b THEN
+                globalState.autKnoppenCaDo_autState := 260;
+                progress := TRUE;
+            END_IF;
+    END_CASE;
+    event_progress := (progress) OR (event_progress);
+END_WHILE;

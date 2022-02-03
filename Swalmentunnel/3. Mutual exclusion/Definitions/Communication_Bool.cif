@@ -1,0 +1,20 @@
+import "Timer.cif";
+
+group def Communication_Bool(alg bool initial_val, bool_in):
+
+	event send, receive;
+
+	Timer: ^Timer(send);
+
+	automaton Com:
+		disc bool bool_out = initial_val;
+		location received:
+			initial; marked;
+			edge send when bool_in != bool_out goto sending;
+		location sending:
+			edge receive when Timer.Off do bool_out := bool_in goto received;
+	end
+
+	alg bool out = Com.bool_out;
+
+end

@@ -1,0 +1,2001 @@
+uncontrollable VB1SO_oper;
+uncontrollable VB1SO_cal;
+uncontrollable VB1SO_sb;
+uncontrollable VB1SO_ondst;
+uncontrollable VB1SO_ondh;
+uncontrollable VB1SO_herCal;
+uncontrollable VB1SO_herOnst;
+uncontrollable VB1SO_herOndh;
+uncontrollable VB1SO_evac;
+uncontrollable VB1_SetAuto_Obs2_c_klaar;
+uncontrollable VB2SO_oper;
+uncontrollable VB2SO_cal;
+uncontrollable VB2SO_sb;
+uncontrollable VB2SO_ondst;
+uncontrollable VB2SO_ondh;
+uncontrollable VB2SO_herCal;
+uncontrollable VB2SO_herOnst;
+uncontrollable VB2SO_herOndh;
+uncontrollable VB2SO_evac;
+uncontrollable VB2_SetAuto_Obs2_c_klaar;
+input bool Mutex9Home_R;
+input bool Mutex10Home_R;
+input bool Mutex11Home_R;
+input bool Mutex12Home_R;
+input bool Mutex13Home_R;
+input bool Mutex14Home_R;
+input bool Mutex15Home_R;
+input bool Mutex16Home_R;
+input bool Mutex17Home_R;
+input bool Mutex18Home_R;
+input bool Mutex19Home_R;
+input bool Mutex20Home_R;
+input bool Mutex21Home_R;
+input bool Mutex22Home_R;
+input bool Mutex23Home_R;
+input bool Mutex24Home_R;
+input bool Mutex25Home_R;
+input bool Mutex26Home_R;
+input bool Mutex27Home_R;
+input bool Mutex28Home_R;
+plant automaton Mutex1Away_Req:
+  controllable c_request;
+  controllable c_return;
+  uncontrollable u_receive;
+  disc bool R = false;
+  disc bool Here = false;
+  disc bool SendingAway = false;
+  input bool SendingHere;
+  location Idle:
+    initial;
+    marked;
+    edge c_request do R := true goto Requested;
+  location Requested:
+    edge u_receive when SendingHere do Here := true, R := false goto Received;
+  location Received:
+    edge c_return when not SendingHere and Here do SendingAway := true, Here := false goto Idle;
+end
+plant automaton Mutex2Away_Req:
+  controllable c_request;
+  controllable c_return;
+  uncontrollable u_receive;
+  disc bool R = false;
+  disc bool Here = false;
+  disc bool SendingAway = false;
+  input bool SendingHere;
+  location Idle:
+    initial;
+    marked;
+    edge c_request do R := true goto Requested;
+  location Requested:
+    edge u_receive when SendingHere do Here := true, R := false goto Received;
+  location Received:
+    edge c_return when not SendingHere and Here do SendingAway := true, Here := false goto Idle;
+end
+plant automaton Mutex3Away_Req:
+  controllable c_request;
+  controllable c_return;
+  uncontrollable u_receive;
+  disc bool R = false;
+  disc bool Here = false;
+  disc bool SendingAway = false;
+  input bool SendingHere;
+  location Idle:
+    initial;
+    marked;
+    edge c_request do R := true goto Requested;
+  location Requested:
+    edge u_receive when SendingHere do Here := true, R := false goto Received;
+  location Received:
+    edge c_return when not SendingHere and Here do SendingAway := true, Here := false goto Idle;
+end
+plant automaton Mutex4Away_Req:
+  controllable c_request;
+  controllable c_return;
+  uncontrollable u_receive;
+  disc bool R = false;
+  disc bool Here = false;
+  disc bool SendingAway = false;
+  input bool SendingHere;
+  location Idle:
+    initial;
+    marked;
+    edge c_request do R := true goto Requested;
+  location Requested:
+    edge u_receive when SendingHere do Here := true, R := false goto Received;
+  location Received:
+    edge c_return when not SendingHere and Here do SendingAway := true, Here := false goto Idle;
+end
+plant automaton Mutex5Away_Req:
+  controllable c_request;
+  controllable c_return;
+  uncontrollable u_receive;
+  disc bool R = false;
+  disc bool Here = false;
+  disc bool SendingAway = false;
+  input bool SendingHere;
+  location Idle:
+    initial;
+    marked;
+    edge c_request do R := true goto Requested;
+  location Requested:
+    edge u_receive when SendingHere do Here := true, R := false goto Received;
+  location Received:
+    edge c_return when not SendingHere and Here do SendingAway := true, Here := false goto Idle;
+end
+plant automaton Mutex6Away_Req:
+  controllable c_request;
+  controllable c_return;
+  uncontrollable u_receive;
+  disc bool R = false;
+  disc bool Here = false;
+  disc bool SendingAway = false;
+  input bool SendingHere;
+  location Idle:
+    initial;
+    marked;
+    edge c_request do R := true goto Requested;
+  location Requested:
+    edge u_receive when SendingHere do Here := true, R := false goto Received;
+  location Received:
+    edge c_return when not SendingHere and Here do SendingAway := true, Here := false goto Idle;
+end
+plant automaton Mutex7Away_Req:
+  controllable c_request;
+  controllable c_return;
+  uncontrollable u_receive;
+  disc bool R = false;
+  disc bool Here = false;
+  disc bool SendingAway = false;
+  input bool SendingHere;
+  location Idle:
+    initial;
+    marked;
+    edge c_request do R := true goto Requested;
+  location Requested:
+    edge u_receive when SendingHere do Here := true, R := false goto Received;
+  location Received:
+    edge c_return when not SendingHere and Here do SendingAway := true, Here := false goto Idle;
+end
+plant automaton Mutex8Away_Req:
+  controllable c_request;
+  controllable c_return;
+  uncontrollable u_receive;
+  disc bool R = false;
+  disc bool Here = false;
+  disc bool SendingAway = false;
+  input bool SendingHere;
+  location Idle:
+    initial;
+    marked;
+    edge c_request do R := true goto Requested;
+  location Requested:
+    edge u_receive when SendingHere do Here := true, R := false goto Received;
+  location Received:
+    edge c_return when not SendingHere and Here do SendingAway := true, Here := false goto Idle;
+end
+plant automaton Mutex9Home_TT:
+  disc bool Here = true;
+  disc bool SendingAway = false;
+  input bool SendingHere;
+  controllable c_send;
+  uncontrollable u_receive;
+  location Home:
+    initial;
+    marked;
+    edge c_send when not SendingHere and Here do SendingAway := true, Here := false goto Away;
+  location Away:
+    edge u_receive when SendingHere do SendingAway := false, Here := true goto Home;
+end
+plant automaton Mutex10Home_TT:
+  disc bool Here = true;
+  disc bool SendingAway = false;
+  input bool SendingHere;
+  controllable c_send;
+  uncontrollable u_receive;
+  location Home:
+    initial;
+    marked;
+    edge c_send when not SendingHere and Here do SendingAway := true, Here := false goto Away;
+  location Away:
+    edge u_receive when SendingHere do SendingAway := false, Here := true goto Home;
+end
+plant automaton Mutex11Home_TT:
+  disc bool Here = true;
+  disc bool SendingAway = false;
+  input bool SendingHere;
+  controllable c_send;
+  uncontrollable u_receive;
+  location Home:
+    initial;
+    marked;
+    edge c_send when not SendingHere and Here do SendingAway := true, Here := false goto Away;
+  location Away:
+    edge u_receive when SendingHere do SendingAway := false, Here := true goto Home;
+end
+plant automaton Mutex12Home_TT:
+  disc bool Here = true;
+  disc bool SendingAway = false;
+  input bool SendingHere;
+  controllable c_send;
+  uncontrollable u_receive;
+  location Home:
+    initial;
+    marked;
+    edge c_send when not SendingHere and Here do SendingAway := true, Here := false goto Away;
+  location Away:
+    edge u_receive when SendingHere do SendingAway := false, Here := true goto Home;
+end
+plant automaton Mutex13Home_TT:
+  disc bool Here = true;
+  disc bool SendingAway = false;
+  input bool SendingHere;
+  controllable c_send;
+  uncontrollable u_receive;
+  location Home:
+    initial;
+    marked;
+    edge c_send when not SendingHere and Here do SendingAway := true, Here := false goto Away;
+  location Away:
+    edge u_receive when SendingHere do SendingAway := false, Here := true goto Home;
+end
+plant automaton Mutex14Home_TT:
+  disc bool Here = true;
+  disc bool SendingAway = false;
+  input bool SendingHere;
+  controllable c_send;
+  uncontrollable u_receive;
+  location Home:
+    initial;
+    marked;
+    edge c_send when not SendingHere and Here do SendingAway := true, Here := false goto Away;
+  location Away:
+    edge u_receive when SendingHere do SendingAway := false, Here := true goto Home;
+end
+plant automaton Mutex15Home_TT:
+  disc bool Here = true;
+  disc bool SendingAway = false;
+  input bool SendingHere;
+  controllable c_send;
+  uncontrollable u_receive;
+  location Home:
+    initial;
+    marked;
+    edge c_send when not SendingHere and Here do SendingAway := true, Here := false goto Away;
+  location Away:
+    edge u_receive when SendingHere do SendingAway := false, Here := true goto Home;
+end
+plant automaton Mutex16Home_TT:
+  disc bool Here = true;
+  disc bool SendingAway = false;
+  input bool SendingHere;
+  controllable c_send;
+  uncontrollable u_receive;
+  location Home:
+    initial;
+    marked;
+    edge c_send when not SendingHere and Here do SendingAway := true, Here := false goto Away;
+  location Away:
+    edge u_receive when SendingHere do SendingAway := false, Here := true goto Home;
+end
+plant automaton Mutex17Home_TT:
+  disc bool Here = true;
+  disc bool SendingAway = false;
+  input bool SendingHere;
+  controllable c_send;
+  uncontrollable u_receive;
+  location Home:
+    initial;
+    marked;
+    edge c_send when not SendingHere and Here do SendingAway := true, Here := false goto Away;
+  location Away:
+    edge u_receive when SendingHere do SendingAway := false, Here := true goto Home;
+end
+plant automaton Mutex18Home_TT:
+  disc bool Here = true;
+  disc bool SendingAway = false;
+  input bool SendingHere;
+  controllable c_send;
+  uncontrollable u_receive;
+  location Home:
+    initial;
+    marked;
+    edge c_send when not SendingHere and Here do SendingAway := true, Here := false goto Away;
+  location Away:
+    edge u_receive when SendingHere do SendingAway := false, Here := true goto Home;
+end
+plant automaton Mutex19Home_TT:
+  disc bool Here = true;
+  disc bool SendingAway = false;
+  input bool SendingHere;
+  controllable c_send;
+  uncontrollable u_receive;
+  location Home:
+    initial;
+    marked;
+    edge c_send when not SendingHere and Here do SendingAway := true, Here := false goto Away;
+  location Away:
+    edge u_receive when SendingHere do SendingAway := false, Here := true goto Home;
+end
+plant automaton Mutex20Home_TT:
+  disc bool Here = true;
+  disc bool SendingAway = false;
+  input bool SendingHere;
+  controllable c_send;
+  uncontrollable u_receive;
+  location Home:
+    initial;
+    marked;
+    edge c_send when not SendingHere and Here do SendingAway := true, Here := false goto Away;
+  location Away:
+    edge u_receive when SendingHere do SendingAway := false, Here := true goto Home;
+end
+plant automaton Mutex21Home_TT:
+  disc bool Here = true;
+  disc bool SendingAway = false;
+  input bool SendingHere;
+  controllable c_send;
+  uncontrollable u_receive;
+  location Home:
+    initial;
+    marked;
+    edge c_send when not SendingHere and Here do SendingAway := true, Here := false goto Away;
+  location Away:
+    edge u_receive when SendingHere do SendingAway := false, Here := true goto Home;
+end
+plant automaton Mutex22Home_TT:
+  disc bool Here = true;
+  disc bool SendingAway = false;
+  input bool SendingHere;
+  controllable c_send;
+  uncontrollable u_receive;
+  location Home:
+    initial;
+    marked;
+    edge c_send when not SendingHere and Here do SendingAway := true, Here := false goto Away;
+  location Away:
+    edge u_receive when SendingHere do SendingAway := false, Here := true goto Home;
+end
+plant automaton Mutex23Home_TT:
+  disc bool Here = true;
+  disc bool SendingAway = false;
+  input bool SendingHere;
+  controllable c_send;
+  uncontrollable u_receive;
+  location Home:
+    initial;
+    marked;
+    edge c_send when not SendingHere and Here do SendingAway := true, Here := false goto Away;
+  location Away:
+    edge u_receive when SendingHere do SendingAway := false, Here := true goto Home;
+end
+plant automaton Mutex24Home_TT:
+  disc bool Here = true;
+  disc bool SendingAway = false;
+  input bool SendingHere;
+  controllable c_send;
+  uncontrollable u_receive;
+  location Home:
+    initial;
+    marked;
+    edge c_send when not SendingHere and Here do SendingAway := true, Here := false goto Away;
+  location Away:
+    edge u_receive when SendingHere do SendingAway := false, Here := true goto Home;
+end
+plant automaton Mutex25Home_TT:
+  disc bool Here = true;
+  disc bool SendingAway = false;
+  input bool SendingHere;
+  controllable c_send;
+  uncontrollable u_receive;
+  location Home:
+    initial;
+    marked;
+    edge c_send when not SendingHere and Here do SendingAway := true, Here := false goto Away;
+  location Away:
+    edge u_receive when SendingHere do SendingAway := false, Here := true goto Home;
+end
+plant automaton Mutex26Home_TT:
+  disc bool Here = true;
+  disc bool SendingAway = false;
+  input bool SendingHere;
+  controllable c_send;
+  uncontrollable u_receive;
+  location Home:
+    initial;
+    marked;
+    edge c_send when not SendingHere and Here do SendingAway := true, Here := false goto Away;
+  location Away:
+    edge u_receive when SendingHere do SendingAway := false, Here := true goto Home;
+end
+plant automaton Mutex27Home_TT:
+  disc bool Here = true;
+  disc bool SendingAway = false;
+  input bool SendingHere;
+  controllable c_send;
+  uncontrollable u_receive;
+  location Home:
+    initial;
+    marked;
+    edge c_send when not SendingHere and Here do SendingAway := true, Here := false goto Away;
+  location Away:
+    edge u_receive when SendingHere do SendingAway := false, Here := true goto Home;
+end
+plant automaton Mutex28Home_TT:
+  disc bool Here = true;
+  disc bool SendingAway = false;
+  input bool SendingHere;
+  controllable c_send;
+  uncontrollable u_receive;
+  location Home:
+    initial;
+    marked;
+    edge c_send when not SendingHere and Here do SendingAway := true, Here := false goto Away;
+  location Away:
+    edge u_receive when SendingHere do SendingAway := false, Here := true goto Home;
+end
+plant automaton VB1_KnoppenVBA:
+  uncontrollable u_priVRIrood;
+  uncontrollable u_priVRIuit;
+  uncontrollable u_priVBdicht;
+  uncontrollable u_priVBopen;
+  uncontrollable u_VRIrood;
+  uncontrollable u_VRIknipper;
+  uncontrollable u_VRIuit;
+  uncontrollable u_ABstop;
+  uncontrollable u_ABopen;
+  uncontrollable u_ABsluit;
+  uncontrollable u_ABsluitOnv;
+  uncontrollable u_resetHD;
+  controllable c_priVRIrood_klaar;
+  controllable c_priVRIuit_klaar;
+  controllable c_priVBdicht_klaar;
+  controllable c_priVBopen_klaar;
+  controllable c_VRIrood_klaar;
+  controllable c_VRIknipper_klaar;
+  controllable c_VRIuit_klaar;
+  controllable c_ABstop_klaar;
+  controllable c_ABopen_klaar;
+  controllable c_ABsluit_klaar;
+  controllable c_ABsluitOnv_klaar;
+  controllable c_resetHD_klaar;
+  input bool I_priVRIrood;
+  input bool I_priVRIuit;
+  input bool I_priVBdicht;
+  input bool I_priVBopen;
+  input bool I_VRIrood;
+  input bool I_VRIknipper;
+  input bool I_VRIuit;
+  input bool I_ABstop;
+  input bool I_ABopen;
+  input bool I_ABsluit;
+  input bool I_ABsluitOnv;
+  input bool I_resetHD;
+  location los:
+    initial;
+    marked;
+    edge u_priVRIrood when I_priVRIrood and VB1_BedieningVRI.auto and not VB1_PrimairVRI.rood goto priVRIrood;
+    edge u_priVRIuit when I_priVRIuit and VB1_BedieningVRI.auto and not VB1_PrimairVRI.uit goto priVRIuit;
+    edge u_priVBdicht when I_priVBdicht and VB1_BedieningVRI.auto and VB1_BedieningAB.auto and (not VB1_PrimairVRI.rood or not VB1_PrimairAB.dicht) goto priVBdicht;
+    edge u_priVBopen when I_priVBopen and VB1_BedieningVRI.auto and VB1_BedieningAB.auto and (not VB1_PrimairVRI.uit or not VB1_PrimairAB.open) goto priVBopen;
+    edge u_VRIrood when I_VRIrood and VB1_BedieningVRI.hand goto VRIrood;
+    edge u_VRIknipper when I_VRIknipper and VB1_BedieningVRI.hand goto VRIknipper;
+    edge u_VRIuit when I_VRIuit and VB1_BedieningVRI.hand goto VRIuit;
+    edge u_ABstop when I_ABstop and VB1_BedieningAB.hand goto ABstop;
+    edge u_ABopen when I_ABopen and VB1_BedieningAB.hand goto ABopen;
+    edge u_ABsluit when I_ABsluit and VB1_BedieningAB.hand goto ABsluit;
+    edge u_ABsluitOnv when I_ABsluitOnv and VB1_BedieningAB.hand goto ABsluitOnv;
+    edge u_resetHD when I_resetHD and VB1_HDR_Lampen.aan and VB1_HDR_Timer.afgelopen goto resetHD;
+  location priVRIrood:
+    edge c_priVRIrood_klaar when not I_priVRIrood and VB1_PrimairVRI.rood goto los;
+  location priVRIuit:
+    edge c_priVRIuit_klaar when not I_priVRIuit and VB1_PrimairVRI.uit goto los;
+  location priVBdicht:
+    edge c_priVBdicht_klaar when not I_priVBdicht and VB1_PrimairVRI.rood and VB1_PrimairAB.dicht goto los;
+  location priVBopen:
+    edge c_priVBopen_klaar when not I_priVBopen and VB1_PrimairVRI.uit and VB1_PrimairAB.open goto los;
+  location VRIrood:
+    edge c_VRIrood_klaar when not I_VRIrood and VB1_ToegangVRI.rood goto los;
+  location VRIknipper:
+    edge c_VRIknipper_klaar when not I_VRIknipper and VB1_ToegangVRI.knipper goto los;
+  location VRIuit:
+    edge c_VRIuit_klaar when not I_VRIuit and VB1_ToegangVRI.uit goto los;
+  location ABstop:
+    edge c_ABstop_klaar when not I_ABstop and VB1_ToegangAB.stop goto los;
+  location ABopen:
+    edge c_ABopen_klaar when not I_ABopen and VB1_ToegangAB.op goto los;
+  location ABsluit:
+    edge c_ABsluit_klaar when not I_ABsluit and VB1_ToegangAB.neer goto los;
+  location ABsluitOnv:
+    edge c_ABsluitOnv_klaar when not I_ABsluitOnv and VB1_ToegangAB.neeronvoorwaardelijk goto los;
+  location resetHD:
+    edge c_resetHD_klaar when not I_resetHD and VB1_HDR_Lampen.uit goto los;
+end
+plant automaton VB1_PrimairVRI:
+  controllable c_uitauto;
+  controllable c_roodauto;
+  controllable c_uit;
+  controllable c_rood;
+  location auto:
+    initial;
+    marked;
+    edge c_uit goto uit;
+    edge c_rood goto rood;
+  location uit:
+    edge c_uitauto goto auto;
+    edge c_rood goto rood;
+  location rood:
+    edge c_roodauto goto auto;
+    edge c_uit goto uit;
+end
+plant automaton VB1_PrimairAB:
+  controllable c_auto;
+  controllable c_open;
+  controllable c_dicht;
+  location auto:
+    initial;
+    marked;
+    edge c_open goto open;
+    edge c_dicht goto dicht;
+  location open:
+    edge c_dicht goto dicht;
+    edge c_auto goto auto;
+  location dicht:
+    edge c_open goto open;
+    edge c_auto goto auto;
+end
+plant automaton VB1_HDW_Sensor:
+  uncontrollable u_aan;
+  uncontrollable u_uit;
+  input bool I;
+  location uit:
+    initial;
+    marked;
+    edge u_aan when I goto aan;
+  location aan:
+    edge u_uit when not I goto uit;
+end
+plant automaton VB1_HDW_Lampen:
+  controllable c_aan;
+  controllable c_uit;
+  location uit:
+    initial;
+    marked;
+    edge c_aan goto aan;
+  location aan:
+    edge c_uit goto uit;
+end
+plant automaton VB1_HDW_Timer:
+  controllable c_aan;
+  controllable c_reset;
+  uncontrollable u_timeout;
+  cont t = 0.0 der 1.0;
+  location uit:
+    initial;
+    marked;
+    edge c_aan do t := 0.0 goto lopend;
+  location lopend:
+    edge u_timeout when t >= 5 goto afgelopen;
+  location afgelopen:
+    edge c_reset goto uit;
+end
+plant automaton VB1_HDR_Sensor:
+  uncontrollable u_aan;
+  uncontrollable u_uit;
+  input bool I;
+  location uit:
+    initial;
+    marked;
+    edge u_aan when I goto aan;
+  location aan:
+    edge u_uit when not I goto uit;
+end
+plant automaton VB1_HDR_Lampen:
+  controllable c_aan;
+  controllable c_uit;
+  location uit:
+    initial;
+    marked;
+    edge c_aan goto aan;
+  location aan:
+    edge c_uit goto uit;
+end
+plant automaton VB1_HDR_Timer:
+  controllable c_aan;
+  controllable c_reset;
+  uncontrollable u_timeout;
+  cont t = 0.0 der 1.0;
+  location uit:
+    initial;
+    marked;
+    edge c_aan do t := 0.0 goto lopend;
+  location lopend:
+    edge u_timeout when t >= 5 goto afgelopen;
+  location afgelopen:
+    edge c_reset goto uit;
+end
+plant automaton VB1_J32_Stand:
+  controllable c_aan;
+  controllable c_uit;
+  location uit:
+    initial;
+    marked;
+    edge c_aan goto aan;
+  location aan:
+    edge c_uit goto uit;
+end
+plant automaton VB1_VRI_Stand:
+  controllable c_uit;
+  controllable c_geel;
+  controllable c_Uknipper;
+  controllable c_Gknipper;
+  controllable c_Rknipper;
+  controllable c_rood;
+  location uit:
+    initial;
+    marked;
+    edge c_Uknipper goto knipper;
+  location knipper:
+    edge c_uit goto uit;
+    edge c_geel goto geel;
+  location geel:
+    edge c_Gknipper goto knipper;
+    edge c_rood goto rood;
+  location rood:
+    edge c_Rknipper goto knipper;
+end
+plant automaton VB1_VRI_TimerAan:
+  controllable c_aan;
+  controllable c_reset;
+  uncontrollable u_timeout;
+  cont t = 0.0 der 1.0;
+  location uit:
+    initial;
+    marked;
+    edge c_aan do t := 0.0 goto lopend;
+  location lopend:
+    edge u_timeout when t >= 4 goto afgelopen;
+  location afgelopen:
+    edge c_reset goto uit;
+end
+plant automaton VB1_VRI_TimerGeel:
+  controllable c_aan;
+  controllable c_reset;
+  uncontrollable u_timeout;
+  cont t = 0.0 der 1.0;
+  location uit:
+    initial;
+    marked;
+    edge c_aan do t := 0.0 goto lopend;
+  location lopend:
+    edge u_timeout when t >= 4 goto afgelopen;
+  location afgelopen:
+    edge c_reset goto uit;
+end
+plant automaton VB1_VRI_TimerRood:
+  controllable c_aan;
+  controllable c_reset;
+  uncontrollable u_timeout;
+  cont t = 0.0 der 1.0;
+  location uit:
+    initial;
+    marked;
+    edge c_aan do t := 0.0 goto lopend;
+  location lopend:
+    edge u_timeout when t >= 4 goto afgelopen;
+  location afgelopen:
+    edge c_reset goto uit;
+end
+plant automaton VB1_VRI_TimerUit:
+  controllable c_aan;
+  controllable c_reset;
+  uncontrollable u_timeout;
+  cont t = 0.0 der 1.0;
+  location uit:
+    initial;
+    marked;
+    edge c_aan do t := 0.0 goto lopend;
+  location lopend:
+    edge u_timeout when t >= 4 goto afgelopen;
+  location afgelopen:
+    edge c_reset goto uit;
+end
+plant automaton VB1_VRI_VGS:
+  uncontrollable u_aan;
+  uncontrollable u_uit;
+  location uit:
+    initial;
+    marked;
+    edge u_aan goto aan;
+  location aan:
+    edge u_uit goto uit;
+end
+plant automaton VB1_VRI_TimerVGS:
+  controllable c_aan;
+  controllable c_reset;
+  controllable c_resetL;
+  uncontrollable u_timeout;
+  cont t = 0.0 der 1.0;
+  location uit:
+    initial;
+    marked;
+    edge c_aan do t := 0.0 goto lopend;
+  location lopend:
+    edge c_resetL goto uit;
+    edge u_timeout when t >= 5 goto afgelopen;
+  location afgelopen:
+    edge c_reset goto uit;
+end
+plant automaton VB1_VRI_Relatie:
+  location:
+    initial;
+    marked;
+    edge VB1_VRI_VGS.u_aan when VB1_VRI_Stand.rood and VB1_VRI_TimerVGS.afgelopen;
+    edge VB1_VRI_VGS.u_uit when not VB1_VRI_Stand.rood;
+end
+plant automaton VB1_ToegangVRI:
+  controllable c_Urood;
+  controllable c_Uknipper;
+  controllable c_Krood;
+  controllable c_Kuit;
+  controllable c_Ruit;
+  controllable c_Rknipper;
+  location uit:
+    initial;
+    marked;
+    edge c_Urood goto rood;
+    edge c_Uknipper goto knipper;
+  location knipper:
+    edge c_Krood goto rood;
+    edge c_Kuit goto uit;
+  location rood:
+    edge c_Ruit goto uit;
+    edge c_Rknipper goto knipper;
+end
+plant automaton VB1_BedieningVRI:
+  controllable c_auto;
+  controllable c_hand;
+  disc bool Q_auto = true;
+  disc bool Q_hand = false;
+  location auto:
+    initial;
+    marked;
+    edge c_hand do Q_hand := true, Q_auto := false goto hand;
+  location hand:
+    edge c_auto do Q_auto := true, Q_hand := false goto auto;
+end
+plant automaton VB1_KnopBedienVRI:
+  uncontrollable u_auto;
+  uncontrollable u_hand;
+  controllable c_auto_klaar;
+  controllable c_hand_klaar;
+  input bool I_hand;
+  input bool I_auto;
+  location los:
+    initial;
+    marked;
+    edge u_auto when I_auto goto auto;
+    edge u_hand when I_hand goto hand;
+  location auto:
+    edge c_auto_klaar when not I_auto and VB1_BedieningVRI.auto goto los;
+  location hand:
+    edge c_hand_klaar when not I_hand and VB1_BedieningVRI.hand goto los;
+end
+plant automaton VB1_AB_Stand:
+  uncontrollable u_op;
+  uncontrollable u_opverlaten;
+  uncontrollable u_neer;
+  input bool I_laag;
+  input bool I_hoog;
+  location op:
+    initial;
+    marked;
+    edge u_opverlaten when not I_hoog goto opverlaten;
+  location opverlaten:
+    edge u_op when I_hoog goto op;
+    edge u_neer when I_laag goto neer;
+  location neer:
+    edge u_opverlaten when not I_laag goto opverlaten;
+end
+plant automaton VB1_AB_Beweging:
+  uncontrollable u_op;
+  uncontrollable u_neer;
+  uncontrollable u_geen;
+  input bool I_op;
+  input bool I_neer;
+  input bool I_geen;
+  location geen:
+    initial;
+    marked;
+    edge u_op when I_op goto op;
+    edge u_neer when I_neer goto neer;
+  location op:
+    edge u_neer when I_neer goto neer;
+    edge u_geen when I_geen goto geen;
+  location neer:
+    edge u_op when I_op goto op;
+    edge u_geen when I_geen goto geen;
+end
+plant automaton VB1_AB_Commando:
+  controllable c_opneer;
+  controllable c_opstop;
+  controllable c_opNeerO;
+  controllable c_neerop;
+  controllable c_neerstop;
+  controllable c_neerNeerO;
+  controllable c_stopneer;
+  controllable c_stopop;
+  controllable c_stopNeerO;
+  controllable c_neerOneer;
+  controllable c_neerOstop;
+  controllable c_neerOop;
+  location op:
+    initial;
+    marked;
+    edge c_opneer goto neer;
+    edge c_opstop goto stop;
+    edge c_opNeerO goto neeronvoorwaardelijk;
+  location neer:
+    edge c_neerop goto op;
+    edge c_neerstop goto stop;
+    edge c_neerNeerO goto neeronvoorwaardelijk;
+  location stop:
+    edge c_stopneer goto neer;
+    edge c_stopop goto op;
+    edge c_stopNeerO goto neeronvoorwaardelijk;
+  location neeronvoorwaardelijk:
+    edge c_neerOneer goto neer;
+    edge c_neerOstop goto stop;
+    edge c_neerOop goto op;
+end
+plant automaton VB1_AB_OD:
+  uncontrollable u_aan;
+  uncontrollable u_uit;
+  input bool I;
+  location uit:
+    initial;
+    marked;
+    edge u_aan when I goto aan;
+  location aan:
+    edge u_uit when not I goto uit;
+end
+plant automaton VB1_ToegangAB:
+  controllable c_opneer;
+  controllable c_opstop;
+  controllable c_opNeerO;
+  controllable c_neerop;
+  controllable c_neerstop;
+  controllable c_neerNeerO;
+  controllable c_stopneer;
+  controllable c_stopop;
+  controllable c_stopNeerO;
+  controllable c_neerOneer;
+  controllable c_neerOstop;
+  controllable c_neerOop;
+  location op:
+    initial;
+    marked;
+    edge c_opneer goto neer;
+    edge c_opstop goto stop;
+    edge c_opNeerO goto neeronvoorwaardelijk;
+  location neer:
+    edge c_neerop goto op;
+    edge c_neerstop goto stop;
+    edge c_neerNeerO goto neeronvoorwaardelijk;
+  location stop:
+    edge c_stopneer goto neer;
+    edge c_stopop goto op;
+    edge c_stopNeerO goto neeronvoorwaardelijk;
+  location neeronvoorwaardelijk:
+    edge c_neerOneer goto neer;
+    edge c_neerOstop goto stop;
+    edge c_neerOop goto op;
+end
+plant automaton VB1_BedieningAB:
+  controllable c_auto;
+  controllable c_hand;
+  disc bool Q_auto = true;
+  disc bool Q_hand = false;
+  location auto:
+    initial;
+    marked;
+    edge c_hand do Q_hand := true, Q_auto := false goto hand;
+  location hand:
+    edge c_auto do Q_auto := true, Q_hand := false goto auto;
+end
+plant automaton VB1_KnopBedienAB:
+  uncontrollable u_auto;
+  uncontrollable u_hand;
+  controllable c_auto_klaar;
+  controllable c_hand_klaar;
+  input bool I_hand;
+  input bool I_auto;
+  location los:
+    initial;
+    marked;
+    edge u_auto when I_auto goto auto;
+    edge u_hand when I_hand goto hand;
+  location auto:
+    edge c_auto_klaar when not I_auto and VB1_BedieningAB.auto goto los;
+  location hand:
+    edge c_hand_klaar when not I_hand and VB1_BedieningAB.hand goto los;
+end
+plant automaton VB2_KnoppenVBA:
+  uncontrollable u_priVRIrood;
+  uncontrollable u_priVRIuit;
+  uncontrollable u_priVBdicht;
+  uncontrollable u_priVBopen;
+  uncontrollable u_VRIrood;
+  uncontrollable u_VRIknipper;
+  uncontrollable u_VRIuit;
+  uncontrollable u_ABstop;
+  uncontrollable u_ABopen;
+  uncontrollable u_ABsluit;
+  uncontrollable u_ABsluitOnv;
+  controllable c_priVRIrood_klaar;
+  controllable c_priVRIuit_klaar;
+  controllable c_priVBdicht_klaar;
+  controllable c_priVBopen_klaar;
+  controllable c_VRIrood_klaar;
+  controllable c_VRIknipper_klaar;
+  controllable c_VRIuit_klaar;
+  controllable c_ABstop_klaar;
+  controllable c_ABopen_klaar;
+  controllable c_ABsluit_klaar;
+  controllable c_ABsluitOnv_klaar;
+  input bool I_priVRIrood;
+  input bool I_priVRIuit;
+  input bool I_priVBdicht;
+  input bool I_priVBopen;
+  input bool I_VRIrood;
+  input bool I_VRIknipper;
+  input bool I_VRIuit;
+  input bool I_ABstop;
+  input bool I_ABopen;
+  input bool I_ABsluit;
+  input bool I_ABsluitOnv;
+  location los:
+    initial;
+    marked;
+    edge u_priVRIrood when I_priVRIrood and VB2_BedieningVRI.auto and not VB2_PrimairVRI.rood goto priVRIrood;
+    edge u_priVRIuit when I_priVRIuit and VB2_BedieningVRI.auto and not VB2_PrimairVRI.uit goto priVRIuit;
+    edge u_priVBdicht when I_priVBdicht and VB2_BedieningVRI.auto and VB2_BedieningAB.auto and (not VB2_PrimairVRI.rood or not VB2_PrimairAB.dicht) goto priVBdicht;
+    edge u_priVBopen when I_priVBopen and VB2_BedieningVRI.auto and VB2_BedieningAB.auto and (not VB2_PrimairVRI.uit or not VB2_PrimairAB.open) goto priVBopen;
+    edge u_VRIrood when I_VRIrood and VB2_BedieningVRI.hand goto VRIrood;
+    edge u_VRIknipper when I_VRIknipper and VB2_BedieningVRI.hand goto VRIknipper;
+    edge u_VRIuit when I_VRIuit and VB2_BedieningVRI.hand goto VRIuit;
+    edge u_ABstop when I_ABstop and VB2_BedieningAB.hand goto ABstop;
+    edge u_ABopen when I_ABopen and VB2_BedieningAB.hand goto ABopen;
+    edge u_ABsluit when I_ABsluit and VB2_BedieningAB.hand goto ABsluit;
+    edge u_ABsluitOnv when I_ABsluitOnv and VB2_BedieningAB.hand goto ABsluitOnv;
+  location priVRIrood:
+    edge c_priVRIrood_klaar when not I_priVRIrood and VB2_PrimairVRI.rood goto los;
+  location priVRIuit:
+    edge c_priVRIuit_klaar when not I_priVRIuit and VB2_PrimairVRI.uit goto los;
+  location priVBdicht:
+    edge c_priVBdicht_klaar when not I_priVBdicht and VB2_PrimairVRI.rood and VB2_PrimairAB.dicht goto los;
+  location priVBopen:
+    edge c_priVBopen_klaar when not I_priVBopen and VB2_PrimairVRI.uit and VB2_PrimairAB.open goto los;
+  location VRIrood:
+    edge c_VRIrood_klaar when not I_VRIrood and VB2_ToegangVRI.rood goto los;
+  location VRIknipper:
+    edge c_VRIknipper_klaar when not I_VRIknipper and VB2_ToegangVRI.knipper goto los;
+  location VRIuit:
+    edge c_VRIuit_klaar when not I_VRIuit and VB2_ToegangVRI.uit goto los;
+  location ABstop:
+    edge c_ABstop_klaar when not I_ABstop and VB2_ToegangAB.stop goto los;
+  location ABopen:
+    edge c_ABopen_klaar when not I_ABopen and VB2_ToegangAB.op goto los;
+  location ABsluit:
+    edge c_ABsluit_klaar when not I_ABsluit and VB2_ToegangAB.neer goto los;
+  location ABsluitOnv:
+    edge c_ABsluitOnv_klaar when not I_ABsluitOnv and VB2_ToegangAB.neeronvoorwaardelijk goto los;
+end
+plant automaton VB2_PrimairVRI:
+  controllable c_uitauto;
+  controllable c_roodauto;
+  controllable c_uit;
+  controllable c_rood;
+  location auto:
+    initial;
+    marked;
+    edge c_uit goto uit;
+    edge c_rood goto rood;
+  location uit:
+    edge c_uitauto goto auto;
+    edge c_rood goto rood;
+  location rood:
+    edge c_roodauto goto auto;
+    edge c_uit goto uit;
+end
+plant automaton VB2_PrimairAB:
+  controllable c_auto;
+  controllable c_open;
+  controllable c_dicht;
+  location auto:
+    initial;
+    marked;
+    edge c_open goto open;
+    edge c_dicht goto dicht;
+  location open:
+    edge c_dicht goto dicht;
+    edge c_auto goto auto;
+  location dicht:
+    edge c_open goto open;
+    edge c_auto goto auto;
+end
+plant automaton VB2_J32_Stand:
+  controllable c_aan;
+  controllable c_uit;
+  location uit:
+    initial;
+    marked;
+    edge c_aan goto aan;
+  location aan:
+    edge c_uit goto uit;
+end
+plant automaton VB2_VRI_Stand:
+  controllable c_uit;
+  controllable c_geel;
+  controllable c_Uknipper;
+  controllable c_Gknipper;
+  controllable c_Rknipper;
+  controllable c_rood;
+  location uit:
+    initial;
+    marked;
+    edge c_Uknipper goto knipper;
+  location knipper:
+    edge c_uit goto uit;
+    edge c_geel goto geel;
+  location geel:
+    edge c_Gknipper goto knipper;
+    edge c_rood goto rood;
+  location rood:
+    edge c_Rknipper goto knipper;
+end
+plant automaton VB2_VRI_TimerAan:
+  controllable c_aan;
+  controllable c_reset;
+  uncontrollable u_timeout;
+  cont t = 0.0 der 1.0;
+  location uit:
+    initial;
+    marked;
+    edge c_aan do t := 0.0 goto lopend;
+  location lopend:
+    edge u_timeout when t >= 4 goto afgelopen;
+  location afgelopen:
+    edge c_reset goto uit;
+end
+plant automaton VB2_VRI_TimerGeel:
+  controllable c_aan;
+  controllable c_reset;
+  uncontrollable u_timeout;
+  cont t = 0.0 der 1.0;
+  location uit:
+    initial;
+    marked;
+    edge c_aan do t := 0.0 goto lopend;
+  location lopend:
+    edge u_timeout when t >= 4 goto afgelopen;
+  location afgelopen:
+    edge c_reset goto uit;
+end
+plant automaton VB2_VRI_TimerRood:
+  controllable c_aan;
+  controllable c_reset;
+  uncontrollable u_timeout;
+  cont t = 0.0 der 1.0;
+  location uit:
+    initial;
+    marked;
+    edge c_aan do t := 0.0 goto lopend;
+  location lopend:
+    edge u_timeout when t >= 4 goto afgelopen;
+  location afgelopen:
+    edge c_reset goto uit;
+end
+plant automaton VB2_VRI_TimerUit:
+  controllable c_aan;
+  controllable c_reset;
+  uncontrollable u_timeout;
+  cont t = 0.0 der 1.0;
+  location uit:
+    initial;
+    marked;
+    edge c_aan do t := 0.0 goto lopend;
+  location lopend:
+    edge u_timeout when t >= 4 goto afgelopen;
+  location afgelopen:
+    edge c_reset goto uit;
+end
+plant automaton VB2_VRI_VGS:
+  uncontrollable u_aan;
+  uncontrollable u_uit;
+  location uit:
+    initial;
+    marked;
+    edge u_aan goto aan;
+  location aan:
+    edge u_uit goto uit;
+end
+plant automaton VB2_VRI_TimerVGS:
+  controllable c_aan;
+  controllable c_reset;
+  controllable c_resetL;
+  uncontrollable u_timeout;
+  cont t = 0.0 der 1.0;
+  location uit:
+    initial;
+    marked;
+    edge c_aan do t := 0.0 goto lopend;
+  location lopend:
+    edge c_resetL goto uit;
+    edge u_timeout when t >= 5 goto afgelopen;
+  location afgelopen:
+    edge c_reset goto uit;
+end
+plant automaton VB2_VRI_Relatie:
+  location:
+    initial;
+    marked;
+    edge VB2_VRI_VGS.u_aan when VB2_VRI_Stand.rood and VB2_VRI_TimerVGS.afgelopen;
+    edge VB2_VRI_VGS.u_uit when not VB2_VRI_Stand.rood;
+end
+plant automaton VB2_ToegangVRI:
+  controllable c_Urood;
+  controllable c_Uknipper;
+  controllable c_Krood;
+  controllable c_Kuit;
+  controllable c_Ruit;
+  controllable c_Rknipper;
+  location uit:
+    initial;
+    marked;
+    edge c_Urood goto rood;
+    edge c_Uknipper goto knipper;
+  location knipper:
+    edge c_Krood goto rood;
+    edge c_Kuit goto uit;
+  location rood:
+    edge c_Ruit goto uit;
+    edge c_Rknipper goto knipper;
+end
+plant automaton VB2_BedieningVRI:
+  controllable c_auto;
+  controllable c_hand;
+  disc bool Q_auto = true;
+  disc bool Q_hand = false;
+  location auto:
+    initial;
+    marked;
+    edge c_hand do Q_hand := true, Q_auto := false goto hand;
+  location hand:
+    edge c_auto do Q_auto := true, Q_hand := false goto auto;
+end
+plant automaton VB2_KnopBedienVRI:
+  uncontrollable u_auto;
+  uncontrollable u_hand;
+  controllable c_auto_klaar;
+  controllable c_hand_klaar;
+  input bool I_hand;
+  input bool I_auto;
+  location los:
+    initial;
+    marked;
+    edge u_auto when I_auto goto auto;
+    edge u_hand when I_hand goto hand;
+  location auto:
+    edge c_auto_klaar when not I_auto and VB2_BedieningVRI.auto goto los;
+  location hand:
+    edge c_hand_klaar when not I_hand and VB2_BedieningVRI.hand goto los;
+end
+plant automaton VB2_AB_Stand:
+  uncontrollable u_op;
+  uncontrollable u_opverlaten;
+  uncontrollable u_neer;
+  input bool I_laag;
+  input bool I_hoog;
+  location op:
+    initial;
+    marked;
+    edge u_opverlaten when not I_hoog goto opverlaten;
+  location opverlaten:
+    edge u_op when I_hoog goto op;
+    edge u_neer when I_laag goto neer;
+  location neer:
+    edge u_opverlaten when not I_laag goto opverlaten;
+end
+plant automaton VB2_AB_Beweging:
+  uncontrollable u_op;
+  uncontrollable u_neer;
+  uncontrollable u_geen;
+  input bool I_op;
+  input bool I_neer;
+  input bool I_geen;
+  location geen:
+    initial;
+    marked;
+    edge u_op when I_op goto op;
+    edge u_neer when I_neer goto neer;
+  location op:
+    edge u_neer when I_neer goto neer;
+    edge u_geen when I_geen goto geen;
+  location neer:
+    edge u_op when I_op goto op;
+    edge u_geen when I_geen goto geen;
+end
+plant automaton VB2_AB_Commando:
+  controllable c_opneer;
+  controllable c_opstop;
+  controllable c_opNeerO;
+  controllable c_neerop;
+  controllable c_neerstop;
+  controllable c_neerNeerO;
+  controllable c_stopneer;
+  controllable c_stopop;
+  controllable c_stopNeerO;
+  controllable c_neerOneer;
+  controllable c_neerOstop;
+  controllable c_neerOop;
+  location op:
+    initial;
+    marked;
+    edge c_opneer goto neer;
+    edge c_opstop goto stop;
+    edge c_opNeerO goto neeronvoorwaardelijk;
+  location neer:
+    edge c_neerop goto op;
+    edge c_neerstop goto stop;
+    edge c_neerNeerO goto neeronvoorwaardelijk;
+  location stop:
+    edge c_stopneer goto neer;
+    edge c_stopop goto op;
+    edge c_stopNeerO goto neeronvoorwaardelijk;
+  location neeronvoorwaardelijk:
+    edge c_neerOneer goto neer;
+    edge c_neerOstop goto stop;
+    edge c_neerOop goto op;
+end
+plant automaton VB2_AB_OD:
+  uncontrollable u_aan;
+  uncontrollable u_uit;
+  input bool I;
+  location uit:
+    initial;
+    marked;
+    edge u_aan when I goto aan;
+  location aan:
+    edge u_uit when not I goto uit;
+end
+plant automaton VB2_ToegangAB:
+  controllable c_opneer;
+  controllable c_opstop;
+  controllable c_opNeerO;
+  controllable c_neerop;
+  controllable c_neerstop;
+  controllable c_neerNeerO;
+  controllable c_stopneer;
+  controllable c_stopop;
+  controllable c_stopNeerO;
+  controllable c_neerOneer;
+  controllable c_neerOstop;
+  controllable c_neerOop;
+  location op:
+    initial;
+    marked;
+    edge c_opneer goto neer;
+    edge c_opstop goto stop;
+    edge c_opNeerO goto neeronvoorwaardelijk;
+  location neer:
+    edge c_neerop goto op;
+    edge c_neerstop goto stop;
+    edge c_neerNeerO goto neeronvoorwaardelijk;
+  location stop:
+    edge c_stopneer goto neer;
+    edge c_stopop goto op;
+    edge c_stopNeerO goto neeronvoorwaardelijk;
+  location neeronvoorwaardelijk:
+    edge c_neerOneer goto neer;
+    edge c_neerOstop goto stop;
+    edge c_neerOop goto op;
+end
+plant automaton VB2_BedieningAB:
+  controllable c_auto;
+  controllable c_hand;
+  disc bool Q_auto = true;
+  disc bool Q_hand = false;
+  location auto:
+    initial;
+    marked;
+    edge c_hand do Q_hand := true, Q_auto := false goto hand;
+  location hand:
+    edge c_auto do Q_auto := true, Q_hand := false goto auto;
+end
+plant automaton VB2_KnopBedienAB:
+  uncontrollable u_auto;
+  uncontrollable u_hand;
+  controllable c_auto_klaar;
+  controllable c_hand_klaar;
+  input bool I_auto;
+  input bool I_hand;
+  location los:
+    initial;
+    marked;
+    edge u_auto when I_auto goto auto;
+    edge u_hand when I_hand goto hand;
+  location auto:
+    edge c_auto_klaar when not I_auto and VB2_BedieningAB.auto goto los;
+  location hand:
+    edge c_hand_klaar when not I_hand and VB2_BedieningAB.hand goto los;
+end
+plant automaton VB1SO:
+  input bool I_oper;
+  input bool I_sb;
+  input bool I_cal;
+  input bool I_evac;
+  input bool I_herst;
+  input bool I_ondst;
+  input bool I_ondh;
+  location operationeel:
+    initial;
+    marked;
+    edge VB1SO_cal when I_cal goto calamiteit;
+    edge VB1SO_sb when I_sb goto standby;
+    edge VB1SO_ondst when I_ondst goto ondersteunend;
+    edge VB1SO_ondh when I_ondh goto onderhoud;
+  location standby:
+    edge VB1SO_oper when I_oper goto operationeel;
+    edge VB1SO_cal when I_cal goto calamiteit;
+    edge VB1SO_ondst when I_ondst goto ondersteunend;
+  location calamiteit:
+    edge VB1SO_herCal when I_herst goto herstel;
+    edge VB1SO_evac when I_evac goto evacuatie;
+  location evacuatie:
+    edge VB1SO_cal when I_cal goto calamiteit;
+  location herstel:
+    edge VB1SO_oper when I_oper goto operationeel;
+    edge VB1SO_cal when I_cal goto calamiteit;
+    edge VB1SO_ondst when I_ondst goto ondersteunend;
+    edge VB1SO_ondh when I_ondh goto onderhoud;
+  location ondersteunend:
+    edge VB1SO_herOnst when I_herst goto herstel;
+  location onderhoud:
+    edge VB1SO_oper when I_oper goto operationeel;
+    edge VB1SO_herOndh when I_herst goto herstel;
+    edge VB1SO_ondst when I_ondst goto ondersteunend;
+    edge VB1SO_cal when I_cal goto calamiteit;
+end
+plant automaton VB1_SetAuto_Obs2:
+  input bool I_normaal;
+  location normaal:
+    initial;
+    marked;
+    edge VB1SO_oper when VB1SO.I_oper goto setauto;
+    edge VB1SO_sb when VB1SO.I_sb goto setauto;
+    edge VB1SO_cal when VB1SO.I_cal goto setauto;
+    edge VB1SO_evac when VB1SO.I_evac goto setauto;
+    edge VB1SO_herCal, VB1SO_herOnst, VB1SO_herOndh when VB1SO.I_herst goto setauto;
+    edge VB1SO_ondst when VB1SO.I_ondst goto setauto;
+    edge VB1SO_ondh when VB1SO.I_ondh goto setauto;
+  location setauto:
+    edge VB1_SetAuto_Obs2_c_klaar when I_normaal goto normaal;
+end
+plant automaton VB2SO:
+  input bool I_oper;
+  input bool I_sb;
+  input bool I_cal;
+  input bool I_evac;
+  input bool I_herst;
+  input bool I_ondst;
+  input bool I_ondh;
+  location operationeel:
+    initial;
+    marked;
+    edge VB2SO_cal when I_cal goto calamiteit;
+    edge VB2SO_sb when I_sb goto standby;
+    edge VB2SO_ondst when I_ondst goto ondersteunend;
+    edge VB2SO_ondh when I_ondh goto onderhoud;
+  location standby:
+    edge VB2SO_oper when I_oper goto operationeel;
+    edge VB2SO_cal when I_cal goto calamiteit;
+    edge VB2SO_ondst when I_ondst goto ondersteunend;
+  location calamiteit:
+    edge VB2SO_herCal when I_herst goto herstel;
+    edge VB2SO_evac when I_evac goto evacuatie;
+  location evacuatie:
+    edge VB2SO_cal when I_cal goto calamiteit;
+  location herstel:
+    edge VB2SO_oper when I_oper goto operationeel;
+    edge VB2SO_cal when I_cal goto calamiteit;
+    edge VB2SO_ondst when I_ondst goto ondersteunend;
+    edge VB2SO_ondh when I_ondh goto onderhoud;
+  location ondersteunend:
+    edge VB2SO_herOnst when I_herst goto herstel;
+  location onderhoud:
+    edge VB2SO_oper when I_oper goto operationeel;
+    edge VB2SO_herOndh when I_herst goto herstel;
+    edge VB2SO_ondst when I_ondst goto ondersteunend;
+    edge VB2SO_cal when I_cal goto calamiteit;
+end
+plant automaton VB2_SetAuto_Obs2:
+  input bool I_normaal;
+  location normaal:
+    initial;
+    marked;
+    edge VB2SO_oper when VB2SO.I_oper goto setauto;
+    edge VB2SO_sb when VB2SO.I_sb goto setauto;
+    edge VB2SO_cal when VB2SO.I_cal goto setauto;
+    edge VB2SO_evac when VB2SO.I_evac goto setauto;
+    edge VB2SO_herCal, VB2SO_herOnst, VB2SO_herOndh when VB2SO.I_herst goto setauto;
+    edge VB2SO_ondst when VB2SO.I_ondst goto setauto;
+    edge VB2SO_ondh when VB2SO.I_ondh goto setauto;
+  location setauto:
+    edge VB2_SetAuto_Obs2_c_klaar when I_normaal goto normaal;
+end
+requirement invariant VB1_BedieningAB.c_auto needs Mutex1Away_Req.Received;
+requirement invariant VB1_BedieningAB.c_hand needs Mutex2Away_Req.Received;
+requirement invariant VB1_BedieningVRI.c_auto needs Mutex3Away_Req.Received;
+requirement invariant VB1_BedieningVRI.c_hand needs Mutex4Away_Req.Received;
+requirement invariant VB2_BedieningAB.c_auto needs Mutex5Away_Req.Received;
+requirement invariant VB2_BedieningAB.c_hand needs Mutex6Away_Req.Received;
+requirement invariant VB2_BedieningVRI.c_auto needs Mutex7Away_Req.Received;
+requirement invariant VB2_BedieningVRI.c_hand needs Mutex8Away_Req.Received;
+requirement invariant VB1_BedieningAB.c_auto needs Mutex9Home_TT.Home;
+requirement invariant VB1_BedieningVRI.c_auto needs Mutex9Home_TT.Home;
+requirement invariant VB1_PrimairVRI.c_uitauto needs Mutex9Home_TT.Home;
+requirement invariant VB1_PrimairVRI.c_roodauto needs Mutex9Home_TT.Home;
+requirement invariant VB1_PrimairAB.c_auto needs Mutex9Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Uknipper needs Mutex9Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Kuit needs Mutex9Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Ruit needs Mutex9Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Rknipper needs Mutex9Home_TT.Home;
+requirement invariant VB1_ToegangAB.c_neerop needs Mutex9Home_TT.Home;
+requirement invariant VB1_ToegangAB.c_stopop needs Mutex9Home_TT.Home;
+requirement invariant VB1_ToegangAB.c_neerOop needs Mutex9Home_TT.Home;
+requirement invariant VB2_ToegangVRI.c_Kuit needs Mutex9Home_TT.Home;
+requirement invariant VB2_ToegangVRI.c_Ruit needs Mutex9Home_TT.Home;
+requirement invariant VB2_ToegangAB.c_neerop needs Mutex9Home_TT.Home;
+requirement invariant VB2_ToegangAB.c_stopop needs Mutex9Home_TT.Home;
+requirement invariant VB2_ToegangAB.c_neerOop needs Mutex9Home_TT.Home;
+requirement invariant VB1_BedieningAB.c_hand needs Mutex10Home_TT.Home;
+requirement invariant VB1_BedieningVRI.c_hand needs Mutex10Home_TT.Home;
+requirement invariant VB1_PrimairVRI.c_uit needs Mutex10Home_TT.Home;
+requirement invariant VB1_PrimairVRI.c_rood needs Mutex10Home_TT.Home;
+requirement invariant VB1_PrimairAB.c_open needs Mutex10Home_TT.Home;
+requirement invariant VB1_PrimairAB.c_dicht needs Mutex10Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Uknipper needs Mutex10Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Kuit needs Mutex10Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Ruit needs Mutex10Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Rknipper needs Mutex10Home_TT.Home;
+requirement invariant VB1_ToegangAB.c_neerop needs Mutex10Home_TT.Home;
+requirement invariant VB1_ToegangAB.c_stopop needs Mutex10Home_TT.Home;
+requirement invariant VB1_ToegangAB.c_neerOop needs Mutex10Home_TT.Home;
+requirement invariant VB2_ToegangVRI.c_Kuit needs Mutex10Home_TT.Home;
+requirement invariant VB2_ToegangVRI.c_Ruit needs Mutex10Home_TT.Home;
+requirement invariant VB2_ToegangAB.c_neerop needs Mutex10Home_TT.Home;
+requirement invariant VB2_ToegangAB.c_stopop needs Mutex10Home_TT.Home;
+requirement invariant VB2_ToegangAB.c_neerOop needs Mutex10Home_TT.Home;
+requirement invariant VB1_BedieningAB.c_hand needs Mutex11Home_TT.Home;
+requirement invariant VB1_BedieningVRI.c_hand needs Mutex11Home_TT.Home;
+requirement invariant VB1_PrimairVRI.c_uit needs Mutex11Home_TT.Home;
+requirement invariant VB1_PrimairVRI.c_rood needs Mutex11Home_TT.Home;
+requirement invariant VB1_PrimairAB.c_open needs Mutex11Home_TT.Home;
+requirement invariant VB1_PrimairAB.c_dicht needs Mutex11Home_TT.Home;
+requirement invariant VB2_ToegangVRI.c_Kuit needs Mutex11Home_TT.Home;
+requirement invariant VB2_ToegangVRI.c_Ruit needs Mutex11Home_TT.Home;
+requirement invariant VB2_ToegangAB.c_neerop needs Mutex11Home_TT.Home;
+requirement invariant VB2_ToegangAB.c_stopop needs Mutex11Home_TT.Home;
+requirement invariant VB2_ToegangAB.c_neerOop needs Mutex11Home_TT.Home;
+requirement invariant VB1_BedieningAB.c_hand needs Mutex12Home_TT.Home;
+requirement invariant VB1_BedieningVRI.c_hand needs Mutex12Home_TT.Home;
+requirement invariant VB1_PrimairVRI.c_uit needs Mutex12Home_TT.Home;
+requirement invariant VB1_PrimairVRI.c_rood needs Mutex12Home_TT.Home;
+requirement invariant VB1_PrimairAB.c_open needs Mutex12Home_TT.Home;
+requirement invariant VB1_PrimairAB.c_dicht needs Mutex12Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Urood needs Mutex12Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Krood needs Mutex12Home_TT.Home;
+requirement invariant VB1_ToegangAB.c_opneer needs Mutex12Home_TT.Home;
+requirement invariant VB1_ToegangAB.c_stopneer needs Mutex12Home_TT.Home;
+requirement invariant VB1_ToegangAB.c_neerOneer needs Mutex12Home_TT.Home;
+requirement invariant VB2_ToegangVRI.c_Kuit needs Mutex12Home_TT.Home;
+requirement invariant VB2_ToegangVRI.c_Ruit needs Mutex12Home_TT.Home;
+requirement invariant VB2_ToegangAB.c_neerop needs Mutex12Home_TT.Home;
+requirement invariant VB2_ToegangAB.c_stopop needs Mutex12Home_TT.Home;
+requirement invariant VB2_ToegangAB.c_neerOop needs Mutex12Home_TT.Home;
+requirement invariant VB1_BedieningAB.c_hand needs Mutex13Home_TT.Home;
+requirement invariant VB1_BedieningVRI.c_hand needs Mutex13Home_TT.Home;
+requirement invariant VB1_PrimairVRI.c_uit needs Mutex13Home_TT.Home;
+requirement invariant VB1_PrimairVRI.c_rood needs Mutex13Home_TT.Home;
+requirement invariant VB1_PrimairAB.c_open needs Mutex13Home_TT.Home;
+requirement invariant VB1_PrimairAB.c_dicht needs Mutex13Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Uknipper needs Mutex13Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Kuit needs Mutex13Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Ruit needs Mutex13Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Rknipper needs Mutex13Home_TT.Home;
+requirement invariant VB1_ToegangAB.c_neerop needs Mutex13Home_TT.Home;
+requirement invariant VB1_ToegangAB.c_stopop needs Mutex13Home_TT.Home;
+requirement invariant VB1_ToegangAB.c_neerOop needs Mutex13Home_TT.Home;
+requirement invariant VB2_ToegangVRI.c_Kuit needs Mutex13Home_TT.Home;
+requirement invariant VB2_ToegangVRI.c_Ruit needs Mutex13Home_TT.Home;
+requirement invariant VB2_ToegangAB.c_neerop needs Mutex13Home_TT.Home;
+requirement invariant VB2_ToegangAB.c_stopop needs Mutex13Home_TT.Home;
+requirement invariant VB2_ToegangAB.c_neerOop needs Mutex13Home_TT.Home;
+requirement invariant VB1_BedieningAB.c_hand needs Mutex14Home_TT.Home;
+requirement invariant VB1_BedieningVRI.c_hand needs Mutex14Home_TT.Home;
+requirement invariant VB1_PrimairVRI.c_uit needs Mutex14Home_TT.Home;
+requirement invariant VB1_PrimairVRI.c_rood needs Mutex14Home_TT.Home;
+requirement invariant VB1_PrimairAB.c_open needs Mutex14Home_TT.Home;
+requirement invariant VB1_PrimairAB.c_dicht needs Mutex14Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Urood needs Mutex14Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Uknipper needs Mutex14Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Krood needs Mutex14Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Kuit needs Mutex14Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Ruit needs Mutex14Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Rknipper needs Mutex14Home_TT.Home;
+requirement invariant VB1_ToegangAB.c_opneer needs Mutex14Home_TT.Home;
+requirement invariant VB1_ToegangAB.c_neerop needs Mutex14Home_TT.Home;
+requirement invariant VB1_ToegangAB.c_stopneer needs Mutex14Home_TT.Home;
+requirement invariant VB1_ToegangAB.c_stopop needs Mutex14Home_TT.Home;
+requirement invariant VB1_ToegangAB.c_neerOneer needs Mutex14Home_TT.Home;
+requirement invariant VB1_ToegangAB.c_neerOop needs Mutex14Home_TT.Home;
+requirement invariant VB2_ToegangVRI.c_Kuit needs Mutex14Home_TT.Home;
+requirement invariant VB2_ToegangVRI.c_Ruit needs Mutex14Home_TT.Home;
+requirement invariant VB2_ToegangAB.c_neerop needs Mutex14Home_TT.Home;
+requirement invariant VB2_ToegangAB.c_stopop needs Mutex14Home_TT.Home;
+requirement invariant VB2_ToegangAB.c_neerOop needs Mutex14Home_TT.Home;
+requirement invariant VB1_BedieningAB.c_hand needs Mutex15Home_TT.Home;
+requirement invariant VB1_BedieningVRI.c_hand needs Mutex15Home_TT.Home;
+requirement invariant VB1_PrimairVRI.c_uit needs Mutex15Home_TT.Home;
+requirement invariant VB1_PrimairVRI.c_rood needs Mutex15Home_TT.Home;
+requirement invariant VB1_PrimairAB.c_open needs Mutex15Home_TT.Home;
+requirement invariant VB1_PrimairAB.c_dicht needs Mutex15Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Uknipper needs Mutex15Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Kuit needs Mutex15Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Ruit needs Mutex15Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Rknipper needs Mutex15Home_TT.Home;
+requirement invariant VB1_ToegangAB.c_neerop needs Mutex15Home_TT.Home;
+requirement invariant VB1_ToegangAB.c_stopop needs Mutex15Home_TT.Home;
+requirement invariant VB1_ToegangAB.c_neerOop needs Mutex15Home_TT.Home;
+requirement invariant VB2_ToegangVRI.c_Kuit needs Mutex15Home_TT.Home;
+requirement invariant VB2_ToegangVRI.c_Ruit needs Mutex15Home_TT.Home;
+requirement invariant VB2_ToegangAB.c_neerop needs Mutex15Home_TT.Home;
+requirement invariant VB2_ToegangAB.c_stopop needs Mutex15Home_TT.Home;
+requirement invariant VB2_ToegangAB.c_neerOop needs Mutex15Home_TT.Home;
+requirement invariant VB1_BedieningAB.c_hand needs Mutex16Home_TT.Home;
+requirement invariant VB1_BedieningVRI.c_hand needs Mutex16Home_TT.Home;
+requirement invariant VB1_PrimairVRI.c_uit needs Mutex16Home_TT.Home;
+requirement invariant VB1_PrimairVRI.c_rood needs Mutex16Home_TT.Home;
+requirement invariant VB1_PrimairAB.c_open needs Mutex16Home_TT.Home;
+requirement invariant VB1_PrimairAB.c_dicht needs Mutex16Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Uknipper needs Mutex16Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Kuit needs Mutex16Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Ruit needs Mutex16Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Rknipper needs Mutex16Home_TT.Home;
+requirement invariant VB1_ToegangAB.c_neerop needs Mutex16Home_TT.Home;
+requirement invariant VB1_ToegangAB.c_stopop needs Mutex16Home_TT.Home;
+requirement invariant VB1_ToegangAB.c_neerOop needs Mutex16Home_TT.Home;
+requirement invariant VB2_ToegangVRI.c_Kuit needs Mutex16Home_TT.Home;
+requirement invariant VB2_ToegangVRI.c_Ruit needs Mutex16Home_TT.Home;
+requirement invariant VB2_ToegangAB.c_neerop needs Mutex16Home_TT.Home;
+requirement invariant VB2_ToegangAB.c_stopop needs Mutex16Home_TT.Home;
+requirement invariant VB2_ToegangAB.c_neerOop needs Mutex16Home_TT.Home;
+requirement invariant VB1_BedieningAB.c_hand needs Mutex17Home_TT.Home;
+requirement invariant VB1_BedieningVRI.c_hand needs Mutex17Home_TT.Home;
+requirement invariant VB1_PrimairVRI.c_uit needs Mutex17Home_TT.Home;
+requirement invariant VB1_PrimairVRI.c_rood needs Mutex17Home_TT.Home;
+requirement invariant VB1_PrimairAB.c_open needs Mutex17Home_TT.Home;
+requirement invariant VB1_PrimairAB.c_dicht needs Mutex17Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Uknipper needs Mutex17Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Kuit needs Mutex17Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Ruit needs Mutex17Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Rknipper needs Mutex17Home_TT.Home;
+requirement invariant VB1_ToegangAB.c_neerop needs Mutex17Home_TT.Home;
+requirement invariant VB1_ToegangAB.c_stopop needs Mutex17Home_TT.Home;
+requirement invariant VB1_ToegangAB.c_neerOop needs Mutex17Home_TT.Home;
+requirement invariant VB2_ToegangVRI.c_Kuit needs Mutex17Home_TT.Home;
+requirement invariant VB2_ToegangVRI.c_Ruit needs Mutex17Home_TT.Home;
+requirement invariant VB2_ToegangAB.c_neerop needs Mutex17Home_TT.Home;
+requirement invariant VB2_ToegangAB.c_stopop needs Mutex17Home_TT.Home;
+requirement invariant VB2_ToegangAB.c_neerOop needs Mutex17Home_TT.Home;
+requirement invariant VB1_BedieningAB.c_hand needs Mutex18Home_TT.Home;
+requirement invariant VB1_BedieningVRI.c_hand needs Mutex18Home_TT.Home;
+requirement invariant VB1_PrimairVRI.c_uit needs Mutex18Home_TT.Home;
+requirement invariant VB1_PrimairVRI.c_rood needs Mutex18Home_TT.Home;
+requirement invariant VB1_PrimairAB.c_open needs Mutex18Home_TT.Home;
+requirement invariant VB1_PrimairAB.c_dicht needs Mutex18Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Uknipper needs Mutex18Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Kuit needs Mutex18Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Ruit needs Mutex18Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Rknipper needs Mutex18Home_TT.Home;
+requirement invariant VB1_ToegangAB.c_neerop needs Mutex18Home_TT.Home;
+requirement invariant VB1_ToegangAB.c_stopop needs Mutex18Home_TT.Home;
+requirement invariant VB1_ToegangAB.c_neerOop needs Mutex18Home_TT.Home;
+requirement invariant VB2_ToegangVRI.c_Kuit needs Mutex18Home_TT.Home;
+requirement invariant VB2_ToegangVRI.c_Ruit needs Mutex18Home_TT.Home;
+requirement invariant VB2_ToegangAB.c_neerop needs Mutex18Home_TT.Home;
+requirement invariant VB2_ToegangAB.c_stopop needs Mutex18Home_TT.Home;
+requirement invariant VB2_ToegangAB.c_neerOop needs Mutex18Home_TT.Home;
+requirement invariant VB2_BedieningAB.c_auto needs Mutex19Home_TT.Home;
+requirement invariant VB2_BedieningVRI.c_auto needs Mutex19Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Uknipper needs Mutex19Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Kuit needs Mutex19Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Ruit needs Mutex19Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Rknipper needs Mutex19Home_TT.Home;
+requirement invariant VB1_ToegangAB.c_neerop needs Mutex19Home_TT.Home;
+requirement invariant VB1_ToegangAB.c_stopop needs Mutex19Home_TT.Home;
+requirement invariant VB1_ToegangAB.c_neerOop needs Mutex19Home_TT.Home;
+requirement invariant VB2_PrimairVRI.c_uitauto needs Mutex19Home_TT.Home;
+requirement invariant VB2_PrimairVRI.c_roodauto needs Mutex19Home_TT.Home;
+requirement invariant VB2_PrimairAB.c_auto needs Mutex19Home_TT.Home;
+requirement invariant VB2_ToegangVRI.c_Kuit needs Mutex19Home_TT.Home;
+requirement invariant VB2_ToegangVRI.c_Ruit needs Mutex19Home_TT.Home;
+requirement invariant VB2_ToegangAB.c_neerop needs Mutex19Home_TT.Home;
+requirement invariant VB2_ToegangAB.c_stopop needs Mutex19Home_TT.Home;
+requirement invariant VB2_ToegangAB.c_neerOop needs Mutex19Home_TT.Home;
+requirement invariant VB2_BedieningAB.c_hand needs Mutex20Home_TT.Home;
+requirement invariant VB2_BedieningVRI.c_hand needs Mutex20Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Uknipper needs Mutex20Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Kuit needs Mutex20Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Ruit needs Mutex20Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Rknipper needs Mutex20Home_TT.Home;
+requirement invariant VB1_ToegangAB.c_neerop needs Mutex20Home_TT.Home;
+requirement invariant VB1_ToegangAB.c_stopop needs Mutex20Home_TT.Home;
+requirement invariant VB1_ToegangAB.c_neerOop needs Mutex20Home_TT.Home;
+requirement invariant VB2_PrimairVRI.c_uit needs Mutex20Home_TT.Home;
+requirement invariant VB2_PrimairVRI.c_rood needs Mutex20Home_TT.Home;
+requirement invariant VB2_PrimairAB.c_open needs Mutex20Home_TT.Home;
+requirement invariant VB2_PrimairAB.c_dicht needs Mutex20Home_TT.Home;
+requirement invariant VB2_ToegangVRI.c_Kuit needs Mutex20Home_TT.Home;
+requirement invariant VB2_ToegangVRI.c_Ruit needs Mutex20Home_TT.Home;
+requirement invariant VB2_ToegangAB.c_neerop needs Mutex20Home_TT.Home;
+requirement invariant VB2_ToegangAB.c_stopop needs Mutex20Home_TT.Home;
+requirement invariant VB2_ToegangAB.c_neerOop needs Mutex20Home_TT.Home;
+requirement invariant VB2_BedieningAB.c_hand needs Mutex21Home_TT.Home;
+requirement invariant VB2_BedieningVRI.c_hand needs Mutex21Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Uknipper needs Mutex21Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Kuit needs Mutex21Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Ruit needs Mutex21Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Rknipper needs Mutex21Home_TT.Home;
+requirement invariant VB1_ToegangAB.c_neerop needs Mutex21Home_TT.Home;
+requirement invariant VB1_ToegangAB.c_stopop needs Mutex21Home_TT.Home;
+requirement invariant VB1_ToegangAB.c_neerOop needs Mutex21Home_TT.Home;
+requirement invariant VB2_PrimairVRI.c_uit needs Mutex21Home_TT.Home;
+requirement invariant VB2_PrimairVRI.c_rood needs Mutex21Home_TT.Home;
+requirement invariant VB2_PrimairAB.c_open needs Mutex21Home_TT.Home;
+requirement invariant VB2_PrimairAB.c_dicht needs Mutex21Home_TT.Home;
+requirement invariant VB2_BedieningAB.c_hand needs Mutex22Home_TT.Home;
+requirement invariant VB2_BedieningVRI.c_hand needs Mutex22Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Uknipper needs Mutex22Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Kuit needs Mutex22Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Ruit needs Mutex22Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Rknipper needs Mutex22Home_TT.Home;
+requirement invariant VB1_ToegangAB.c_neerop needs Mutex22Home_TT.Home;
+requirement invariant VB1_ToegangAB.c_stopop needs Mutex22Home_TT.Home;
+requirement invariant VB1_ToegangAB.c_neerOop needs Mutex22Home_TT.Home;
+requirement invariant VB2_PrimairVRI.c_uit needs Mutex22Home_TT.Home;
+requirement invariant VB2_PrimairVRI.c_rood needs Mutex22Home_TT.Home;
+requirement invariant VB2_PrimairAB.c_open needs Mutex22Home_TT.Home;
+requirement invariant VB2_PrimairAB.c_dicht needs Mutex22Home_TT.Home;
+requirement invariant VB2_ToegangVRI.c_Urood needs Mutex22Home_TT.Home;
+requirement invariant VB2_ToegangVRI.c_Krood needs Mutex22Home_TT.Home;
+requirement invariant VB2_ToegangAB.c_opneer needs Mutex22Home_TT.Home;
+requirement invariant VB2_ToegangAB.c_stopneer needs Mutex22Home_TT.Home;
+requirement invariant VB2_ToegangAB.c_neerOneer needs Mutex22Home_TT.Home;
+requirement invariant VB2_BedieningAB.c_hand needs Mutex23Home_TT.Home;
+requirement invariant VB2_BedieningVRI.c_hand needs Mutex23Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Uknipper needs Mutex23Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Kuit needs Mutex23Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Ruit needs Mutex23Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Rknipper needs Mutex23Home_TT.Home;
+requirement invariant VB1_ToegangAB.c_neerop needs Mutex23Home_TT.Home;
+requirement invariant VB1_ToegangAB.c_stopop needs Mutex23Home_TT.Home;
+requirement invariant VB1_ToegangAB.c_neerOop needs Mutex23Home_TT.Home;
+requirement invariant VB2_PrimairVRI.c_uit needs Mutex23Home_TT.Home;
+requirement invariant VB2_PrimairVRI.c_rood needs Mutex23Home_TT.Home;
+requirement invariant VB2_PrimairAB.c_open needs Mutex23Home_TT.Home;
+requirement invariant VB2_PrimairAB.c_dicht needs Mutex23Home_TT.Home;
+requirement invariant VB2_ToegangVRI.c_Kuit needs Mutex23Home_TT.Home;
+requirement invariant VB2_ToegangVRI.c_Ruit needs Mutex23Home_TT.Home;
+requirement invariant VB2_ToegangAB.c_neerop needs Mutex23Home_TT.Home;
+requirement invariant VB2_ToegangAB.c_stopop needs Mutex23Home_TT.Home;
+requirement invariant VB2_ToegangAB.c_neerOop needs Mutex23Home_TT.Home;
+requirement invariant VB2_BedieningAB.c_hand needs Mutex24Home_TT.Home;
+requirement invariant VB2_BedieningVRI.c_hand needs Mutex24Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Uknipper needs Mutex24Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Kuit needs Mutex24Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Ruit needs Mutex24Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Rknipper needs Mutex24Home_TT.Home;
+requirement invariant VB1_ToegangAB.c_neerop needs Mutex24Home_TT.Home;
+requirement invariant VB1_ToegangAB.c_stopop needs Mutex24Home_TT.Home;
+requirement invariant VB1_ToegangAB.c_neerOop needs Mutex24Home_TT.Home;
+requirement invariant VB2_PrimairVRI.c_uit needs Mutex24Home_TT.Home;
+requirement invariant VB2_PrimairVRI.c_rood needs Mutex24Home_TT.Home;
+requirement invariant VB2_PrimairAB.c_open needs Mutex24Home_TT.Home;
+requirement invariant VB2_PrimairAB.c_dicht needs Mutex24Home_TT.Home;
+requirement invariant VB2_ToegangVRI.c_Urood needs Mutex24Home_TT.Home;
+requirement invariant VB2_ToegangVRI.c_Krood needs Mutex24Home_TT.Home;
+requirement invariant VB2_ToegangVRI.c_Kuit needs Mutex24Home_TT.Home;
+requirement invariant VB2_ToegangVRI.c_Ruit needs Mutex24Home_TT.Home;
+requirement invariant VB2_ToegangAB.c_opneer needs Mutex24Home_TT.Home;
+requirement invariant VB2_ToegangAB.c_neerop needs Mutex24Home_TT.Home;
+requirement invariant VB2_ToegangAB.c_stopneer needs Mutex24Home_TT.Home;
+requirement invariant VB2_ToegangAB.c_stopop needs Mutex24Home_TT.Home;
+requirement invariant VB2_ToegangAB.c_neerOneer needs Mutex24Home_TT.Home;
+requirement invariant VB2_ToegangAB.c_neerOop needs Mutex24Home_TT.Home;
+requirement invariant VB2_BedieningAB.c_hand needs Mutex25Home_TT.Home;
+requirement invariant VB2_BedieningVRI.c_hand needs Mutex25Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Uknipper needs Mutex25Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Kuit needs Mutex25Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Ruit needs Mutex25Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Rknipper needs Mutex25Home_TT.Home;
+requirement invariant VB1_ToegangAB.c_neerop needs Mutex25Home_TT.Home;
+requirement invariant VB1_ToegangAB.c_stopop needs Mutex25Home_TT.Home;
+requirement invariant VB1_ToegangAB.c_neerOop needs Mutex25Home_TT.Home;
+requirement invariant VB2_PrimairVRI.c_uit needs Mutex25Home_TT.Home;
+requirement invariant VB2_PrimairVRI.c_rood needs Mutex25Home_TT.Home;
+requirement invariant VB2_PrimairAB.c_open needs Mutex25Home_TT.Home;
+requirement invariant VB2_PrimairAB.c_dicht needs Mutex25Home_TT.Home;
+requirement invariant VB2_ToegangVRI.c_Kuit needs Mutex25Home_TT.Home;
+requirement invariant VB2_ToegangVRI.c_Ruit needs Mutex25Home_TT.Home;
+requirement invariant VB2_ToegangAB.c_neerop needs Mutex25Home_TT.Home;
+requirement invariant VB2_ToegangAB.c_stopop needs Mutex25Home_TT.Home;
+requirement invariant VB2_ToegangAB.c_neerOop needs Mutex25Home_TT.Home;
+requirement invariant VB2_BedieningAB.c_hand needs Mutex26Home_TT.Home;
+requirement invariant VB2_BedieningVRI.c_hand needs Mutex26Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Uknipper needs Mutex26Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Kuit needs Mutex26Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Ruit needs Mutex26Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Rknipper needs Mutex26Home_TT.Home;
+requirement invariant VB1_ToegangAB.c_neerop needs Mutex26Home_TT.Home;
+requirement invariant VB1_ToegangAB.c_stopop needs Mutex26Home_TT.Home;
+requirement invariant VB1_ToegangAB.c_neerOop needs Mutex26Home_TT.Home;
+requirement invariant VB2_PrimairVRI.c_uit needs Mutex26Home_TT.Home;
+requirement invariant VB2_PrimairVRI.c_rood needs Mutex26Home_TT.Home;
+requirement invariant VB2_PrimairAB.c_open needs Mutex26Home_TT.Home;
+requirement invariant VB2_PrimairAB.c_dicht needs Mutex26Home_TT.Home;
+requirement invariant VB2_ToegangVRI.c_Kuit needs Mutex26Home_TT.Home;
+requirement invariant VB2_ToegangVRI.c_Ruit needs Mutex26Home_TT.Home;
+requirement invariant VB2_ToegangAB.c_neerop needs Mutex26Home_TT.Home;
+requirement invariant VB2_ToegangAB.c_stopop needs Mutex26Home_TT.Home;
+requirement invariant VB2_ToegangAB.c_neerOop needs Mutex26Home_TT.Home;
+requirement invariant VB2_BedieningAB.c_hand needs Mutex27Home_TT.Home;
+requirement invariant VB2_BedieningVRI.c_hand needs Mutex27Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Uknipper needs Mutex27Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Kuit needs Mutex27Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Ruit needs Mutex27Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Rknipper needs Mutex27Home_TT.Home;
+requirement invariant VB1_ToegangAB.c_neerop needs Mutex27Home_TT.Home;
+requirement invariant VB1_ToegangAB.c_stopop needs Mutex27Home_TT.Home;
+requirement invariant VB1_ToegangAB.c_neerOop needs Mutex27Home_TT.Home;
+requirement invariant VB2_PrimairVRI.c_uit needs Mutex27Home_TT.Home;
+requirement invariant VB2_PrimairVRI.c_rood needs Mutex27Home_TT.Home;
+requirement invariant VB2_PrimairAB.c_open needs Mutex27Home_TT.Home;
+requirement invariant VB2_PrimairAB.c_dicht needs Mutex27Home_TT.Home;
+requirement invariant VB2_ToegangVRI.c_Kuit needs Mutex27Home_TT.Home;
+requirement invariant VB2_ToegangVRI.c_Ruit needs Mutex27Home_TT.Home;
+requirement invariant VB2_ToegangAB.c_neerop needs Mutex27Home_TT.Home;
+requirement invariant VB2_ToegangAB.c_stopop needs Mutex27Home_TT.Home;
+requirement invariant VB2_ToegangAB.c_neerOop needs Mutex27Home_TT.Home;
+requirement invariant VB2_BedieningAB.c_hand needs Mutex28Home_TT.Home;
+requirement invariant VB2_BedieningVRI.c_hand needs Mutex28Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Uknipper needs Mutex28Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Kuit needs Mutex28Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Ruit needs Mutex28Home_TT.Home;
+requirement invariant VB1_ToegangVRI.c_Rknipper needs Mutex28Home_TT.Home;
+requirement invariant VB1_ToegangAB.c_neerop needs Mutex28Home_TT.Home;
+requirement invariant VB1_ToegangAB.c_stopop needs Mutex28Home_TT.Home;
+requirement invariant VB1_ToegangAB.c_neerOop needs Mutex28Home_TT.Home;
+requirement invariant VB2_PrimairVRI.c_uit needs Mutex28Home_TT.Home;
+requirement invariant VB2_PrimairVRI.c_rood needs Mutex28Home_TT.Home;
+requirement invariant VB2_PrimairAB.c_open needs Mutex28Home_TT.Home;
+requirement invariant VB2_PrimairAB.c_dicht needs Mutex28Home_TT.Home;
+requirement invariant VB2_ToegangVRI.c_Kuit needs Mutex28Home_TT.Home;
+requirement invariant VB2_ToegangVRI.c_Ruit needs Mutex28Home_TT.Home;
+requirement invariant VB2_ToegangAB.c_neerop needs Mutex28Home_TT.Home;
+requirement invariant VB2_ToegangAB.c_stopop needs Mutex28Home_TT.Home;
+requirement invariant VB2_ToegangAB.c_neerOop needs Mutex28Home_TT.Home;
+requirement invariant VB1_PrimairVRI.c_roodauto needs VB1_SetAuto_Obs2.setauto;
+requirement invariant VB1_PrimairVRI.c_uitauto needs VB1_SetAuto_Obs2.setauto or VB1_HDR_Sensor.aan and VB1_KnoppenVBA.los;
+requirement invariant VB1_PrimairVRI.c_rood needs (VB1_KnoppenVBA.priVRIrood or VB1_KnoppenVBA.priVBdicht) and not VB1_SetAuto_Obs2.setauto;
+requirement invariant VB1_PrimairVRI.c_uit needs (VB1_KnoppenVBA.priVRIuit or VB1_KnoppenVBA.priVBopen) and not VB1_SetAuto_Obs2.setauto;
+requirement invariant VB1_PrimairAB.c_auto needs VB1_SetAuto_Obs2.setauto;
+requirement invariant VB1_PrimairAB.c_dicht needs VB1_KnoppenVBA.priVBdicht and not VB1_SetAuto_Obs2.setauto;
+requirement invariant VB1_PrimairAB.c_open needs VB1_KnoppenVBA.priVBopen and not VB1_SetAuto_Obs2.setauto;
+requirement invariant VB1_HDR_Lampen.c_uit needs VB1_KnoppenVBA.resetHD;
+requirement invariant VB1_J32_Stand.c_aan needs not VB1_VRI_Stand.uit or VB1_VRI_TimerAan.lopend;
+requirement invariant VB1_J32_Stand.c_uit needs VB1_VRI_Stand.uit and VB1_VRI_TimerAan.uit;
+requirement invariant VB1_BedieningVRI.c_hand needs VB1_KnopBedienVRI.hand and not VB1_SetAuto_Obs2.setauto;
+requirement invariant VB1_BedieningVRI.c_auto needs VB1_KnopBedienVRI.auto or VB1_SetAuto_Obs2.setauto;
+requirement invariant VB1_ToegangVRI.c_Urood needs VB1_BedieningVRI.auto and VB1_PrimairVRI.rood or VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIrood or VB1_BedieningVRI.auto and (VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairVRI.uit or VB1_BedieningVRI.auto and VB1_HDR_Sensor.aan;
+requirement invariant VB1_ToegangVRI.c_Krood needs VB1_BedieningVRI.auto and VB1_PrimairVRI.rood or VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIrood or VB1_BedieningVRI.auto and (VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairVRI.uit or VB1_BedieningVRI.auto and VB1_HDR_Sensor.aan;
+requirement invariant VB1_ToegangVRI.c_Kuit needs VB1_BedieningVRI.auto and VB1_PrimairVRI.uit and VB1_HDW_Sensor.uit and VB1_HDR_Sensor.uit or VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIuit or VB1_BedieningVRI.auto and not VB1_PrimairVRI.rood and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDW_Sensor.uit and VB1_HDW_Timer.uit and VB1_HDR_Sensor.uit;
+requirement invariant VB1_ToegangVRI.c_Ruit needs VB1_BedieningVRI.auto and VB1_PrimairVRI.uit and VB1_HDW_Sensor.uit and VB1_HDR_Sensor.uit and VB1_HDR_Timer.uit or VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIuit or VB1_BedieningVRI.auto and not VB1_PrimairVRI.rood and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDW_Sensor.uit and VB1_HDR_Sensor.uit and VB1_HDR_Timer.uit;
+requirement invariant VB1_ToegangVRI.c_Uknipper needs VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIknipper or VB1_BedieningVRI.auto and VB1_HDW_Sensor.aan and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDR_Sensor.uit and VB1_KnoppenVBA.los and not VB1_PrimairVRI.rood;
+requirement invariant VB1_ToegangVRI.c_Rknipper needs VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIknipper or VB1_BedieningVRI.auto and VB1_HDW_Sensor.aan and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDR_Sensor.uit and VB1_KnoppenVBA.los and not VB1_PrimairVRI.rood;
+requirement invariant VB1_VRI_TimerAan.c_aan needs not VB1_ToegangVRI.uit;
+requirement invariant VB1_VRI_Stand.c_Uknipper needs not VB1_ToegangVRI.uit and (VB1_VRI_TimerAan.afgelopen or VB1_HDR_Lampen.aan and VB1_BedieningVRI.auto);
+requirement invariant VB1_VRI_Stand.c_geel needs VB1_VRI_TimerGeel.afgelopen and VB1_ToegangVRI.rood or VB1_HDR_Lampen.aan and VB1_BedieningVRI.auto;
+requirement invariant VB1_VRI_Stand.c_rood needs VB1_ToegangVRI.rood;
+requirement invariant VB1_VRI_Stand.c_uit needs VB1_ToegangVRI.uit and (VB1_HDR_Lampen.uit or VB1_BedieningVRI.hand);
+requirement invariant VB1_VRI_Stand.c_Gknipper needs VB1_ToegangVRI.knipper and (VB1_HDR_Lampen.uit or VB1_BedieningVRI.hand);
+requirement invariant VB1_VRI_Stand.c_Rknipper needs not VB1_ToegangVRI.rood;
+requirement invariant VB1_BedieningAB.c_hand needs VB1_KnopBedienAB.hand and not VB1_SetAuto_Obs2.setauto;
+requirement invariant VB1_BedieningAB.c_auto needs VB1_KnopBedienAB.auto or VB1_SetAuto_Obs2.setauto;
+requirement invariant VB1_ToegangAB.c_neerop needs VB1_BedieningAB.auto and VB1_PrimairAB.open or VB1_BedieningAB.hand and VB1_KnoppenVBA.ABopen or VB1_BedieningAB.auto and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairAB.dicht;
+requirement invariant VB1_ToegangAB.c_stopop needs VB1_BedieningAB.auto and VB1_PrimairAB.open or VB1_BedieningAB.hand and VB1_KnoppenVBA.ABopen or VB1_BedieningAB.auto and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairAB.dicht;
+requirement invariant VB1_ToegangAB.c_neerOop needs VB1_BedieningAB.auto and VB1_PrimairAB.open or VB1_BedieningAB.hand and VB1_KnoppenVBA.ABopen or VB1_BedieningAB.auto and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairAB.dicht;
+requirement invariant VB1_ToegangAB.c_opneer needs VB1_BedieningAB.auto and VB1_PrimairAB.dicht or VB1_BedieningAB.hand and VB1_KnoppenVBA.ABsluit or VB1_BedieningAB.auto and (VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairAB.open;
+requirement invariant VB1_ToegangAB.c_stopneer needs VB1_BedieningAB.auto and VB1_PrimairAB.dicht or VB1_BedieningAB.hand and VB1_KnoppenVBA.ABsluit or VB1_BedieningAB.auto and (VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairAB.open;
+requirement invariant VB1_ToegangAB.c_neerOneer needs VB1_BedieningAB.auto and VB1_PrimairAB.dicht or VB1_BedieningAB.hand and VB1_KnoppenVBA.ABsluit or VB1_BedieningAB.auto and (VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairAB.open;
+requirement invariant VB1_ToegangAB.c_opstop needs VB1_BedieningAB.hand and VB1_KnoppenVBA.ABstop;
+requirement invariant VB1_ToegangAB.c_neerstop needs VB1_BedieningAB.hand and VB1_KnoppenVBA.ABstop;
+requirement invariant VB1_ToegangAB.c_neerOstop needs VB1_BedieningAB.hand and VB1_KnoppenVBA.ABstop;
+requirement invariant VB1_ToegangAB.c_opNeerO needs VB1_BedieningAB.hand and VB1_KnoppenVBA.ABsluitOnv;
+requirement invariant VB1_ToegangAB.c_neerNeerO needs VB1_BedieningAB.hand and VB1_KnoppenVBA.ABsluitOnv;
+requirement invariant VB1_ToegangAB.c_stopNeerO needs VB1_BedieningAB.hand and VB1_KnoppenVBA.ABsluitOnv;
+requirement invariant VB1_AB_Commando.c_neerop needs VB1_ToegangAB.op;
+requirement invariant VB1_AB_Commando.c_stopop needs VB1_ToegangAB.op;
+requirement invariant VB1_AB_Commando.c_neerOop needs VB1_ToegangAB.op;
+requirement invariant VB1_AB_Commando.c_opneer needs VB1_ToegangAB.neer and VB1_VRI_Stand.rood and not VB1_AB_OD.aan and VB1_VRI_TimerVGS.afgelopen;
+requirement invariant VB1_AB_Commando.c_stopneer needs VB1_ToegangAB.neer and VB1_VRI_Stand.rood and not VB1_AB_OD.aan and VB1_VRI_TimerVGS.afgelopen;
+requirement invariant VB1_AB_Commando.c_neerOneer needs VB1_ToegangAB.neer and VB1_VRI_Stand.rood and not VB1_AB_OD.aan and VB1_VRI_TimerVGS.afgelopen;
+requirement invariant VB1_AB_Commando.c_opstop needs VB1_ToegangAB.stop;
+requirement invariant VB1_AB_Commando.c_neerstop needs VB1_ToegangAB.stop;
+requirement invariant VB1_AB_Commando.c_neerOstop needs VB1_ToegangAB.stop;
+requirement invariant VB1_AB_Commando.c_opNeerO needs VB1_ToegangAB.neeronvoorwaardelijk;
+requirement invariant VB1_AB_Commando.c_neerNeerO needs VB1_ToegangAB.neeronvoorwaardelijk;
+requirement invariant VB1_AB_Commando.c_stopNeerO needs VB1_ToegangAB.neeronvoorwaardelijk;
+requirement invariant VB1_HDW_Lampen.c_aan needs VB1_HDW_Sensor.aan;
+requirement invariant VB1_HDW_Lampen.c_aan needs VB1_HDW_Timer.uit;
+requirement invariant VB1_HDW_Lampen.c_uit needs VB1_HDW_Timer.afgelopen;
+requirement invariant VB1_HDW_Timer.c_aan needs VB1_HDW_Lampen.aan;
+requirement invariant VB1_HDW_Timer.c_reset needs VB1_HDW_Lampen.uit;
+requirement invariant VB1_HDR_Lampen.c_aan needs VB1_HDR_Sensor.aan;
+requirement invariant VB1_HDR_Lampen.c_aan needs VB1_HDR_Timer.uit;
+requirement invariant VB1_HDR_Lampen.c_uit needs VB1_HDR_Timer.afgelopen;
+requirement invariant VB1_HDR_Timer.c_aan needs VB1_HDR_Lampen.aan;
+requirement invariant VB1_HDR_Timer.c_reset needs VB1_HDR_Lampen.uit;
+requirement invariant VB1_VRI_TimerAan.c_aan needs VB1_VRI_Stand.uit;
+requirement invariant VB1_VRI_TimerAan.c_reset needs not VB1_VRI_Stand.uit;
+requirement invariant VB1_VRI_TimerGeel.c_aan needs VB1_VRI_Stand.knipper;
+requirement invariant VB1_VRI_TimerGeel.c_reset needs not VB1_VRI_Stand.knipper;
+requirement invariant VB1_VRI_TimerRood.c_aan needs VB1_VRI_Stand.geel;
+requirement invariant VB1_VRI_TimerRood.c_reset needs not VB1_VRI_Stand.geel;
+requirement invariant VB1_VRI_Stand.c_rood needs VB1_VRI_TimerRood.afgelopen;
+requirement invariant VB1_VRI_TimerUit.c_aan needs VB1_VRI_Stand.knipper;
+requirement invariant VB1_VRI_TimerUit.c_reset needs not VB1_VRI_Stand.knipper;
+requirement invariant VB1_VRI_Stand.c_uit needs VB1_VRI_TimerUit.afgelopen;
+requirement invariant VB1_VRI_TimerVGS.c_aan needs VB1_VRI_Stand.rood;
+requirement invariant VB1_VRI_TimerVGS.c_resetL needs not VB1_VRI_Stand.rood;
+requirement invariant VB1_VRI_TimerVGS.c_reset needs not VB1_VRI_Stand.rood;
+requirement invariant VB1_AB_Stand.op or VB1_AB_Beweging.op disables VB1_AB_Commando.c_neerop;
+requirement invariant VB1_AB_Stand.op or VB1_AB_Beweging.op disables VB1_AB_Commando.c_stopop;
+requirement invariant VB1_AB_Stand.op or VB1_AB_Beweging.op disables VB1_AB_Commando.c_neerOop;
+requirement invariant VB1_AB_OD.aan disables VB1_AB_Commando.c_opneer;
+requirement invariant VB1_AB_OD.aan disables VB1_AB_Commando.c_stopneer;
+requirement invariant VB1_AB_OD.aan disables VB1_AB_Commando.c_neerOneer;
+requirement invariant VB1_AB_Stand.neer or VB1_AB_Beweging.neer disables VB1_AB_Commando.c_opneer;
+requirement invariant VB1_AB_Stand.neer or VB1_AB_Beweging.neer disables VB1_AB_Commando.c_stopneer;
+requirement invariant VB1_AB_Stand.neer or VB1_AB_Beweging.neer disables VB1_AB_Commando.c_neerOneer;
+requirement invariant VB1_AB_Stand.neer or VB1_AB_Beweging.neer disables VB1_AB_Commando.c_opNeerO;
+requirement invariant VB1_AB_Stand.neer or VB1_AB_Beweging.neer disables VB1_AB_Commando.c_neerNeerO;
+requirement invariant VB1_AB_Stand.neer or VB1_AB_Beweging.neer disables VB1_AB_Commando.c_stopNeerO;
+requirement invariant VB1_AB_Beweging.geen disables VB1_AB_Commando.c_opstop;
+requirement invariant VB1_AB_Beweging.geen disables VB1_AB_Commando.c_neerstop;
+requirement invariant VB1_AB_Beweging.geen disables VB1_AB_Commando.c_neerOstop;
+requirement invariant VB2_PrimairVRI.c_roodauto needs VB2_SetAuto_Obs2.setauto;
+requirement invariant VB2_PrimairVRI.c_uitauto needs VB2_SetAuto_Obs2.setauto;
+requirement invariant VB2_PrimairVRI.c_rood needs (VB2_KnoppenVBA.priVRIrood or VB2_KnoppenVBA.priVBdicht) and not VB2_SetAuto_Obs2.setauto;
+requirement invariant VB2_PrimairVRI.c_uit needs (VB2_KnoppenVBA.priVRIuit or VB2_KnoppenVBA.priVBopen) and not VB2_SetAuto_Obs2.setauto;
+requirement invariant VB2_PrimairAB.c_auto needs VB2_SetAuto_Obs2.setauto;
+requirement invariant VB2_PrimairAB.c_dicht needs VB2_KnoppenVBA.priVBdicht and not VB2_SetAuto_Obs2.setauto;
+requirement invariant VB2_PrimairAB.c_open needs VB2_KnoppenVBA.priVBopen and not VB2_SetAuto_Obs2.setauto;
+requirement invariant VB2_J32_Stand.c_aan needs not VB2_VRI_Stand.uit or VB2_VRI_TimerAan.lopend;
+requirement invariant VB2_J32_Stand.c_uit needs VB2_VRI_Stand.uit and VB2_VRI_TimerAan.uit;
+requirement invariant VB2_BedieningVRI.c_hand needs VB2_KnopBedienVRI.hand and not VB2_SetAuto_Obs2.setauto;
+requirement invariant VB2_BedieningVRI.c_auto needs VB2_KnopBedienVRI.auto or VB2_SetAuto_Obs2.setauto;
+requirement invariant VB2_ToegangVRI.c_Urood needs VB2_BedieningVRI.auto and VB2_PrimairVRI.rood or VB2_BedieningVRI.hand and VB2_KnoppenVBA.VRIrood or VB2_BedieningVRI.auto and (VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairVRI.uit;
+requirement invariant VB2_ToegangVRI.c_Krood needs VB2_BedieningVRI.auto and VB2_PrimairVRI.rood or VB2_BedieningVRI.hand and VB2_KnoppenVBA.VRIrood or VB2_BedieningVRI.auto and (VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairVRI.uit;
+requirement invariant VB2_ToegangVRI.c_Kuit needs VB2_BedieningVRI.auto and VB2_PrimairVRI.uit or VB2_BedieningVRI.hand and VB2_KnoppenVBA.VRIuit or VB2_BedieningVRI.auto and not VB2_PrimairVRI.rood and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend);
+requirement invariant VB2_ToegangVRI.c_Ruit needs VB2_BedieningVRI.auto and VB2_PrimairVRI.uit or VB2_BedieningVRI.hand and VB2_KnoppenVBA.VRIuit or VB2_BedieningVRI.auto and not VB2_PrimairVRI.rood and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend);
+requirement invariant VB2_ToegangVRI.c_Uknipper needs VB2_BedieningVRI.hand and VB2_KnoppenVBA.VRIknipper;
+requirement invariant VB2_ToegangVRI.c_Rknipper needs VB2_BedieningVRI.hand and VB2_KnoppenVBA.VRIknipper;
+requirement invariant VB2_VRI_TimerAan.c_aan needs not VB2_ToegangVRI.uit;
+requirement invariant VB2_VRI_Stand.c_Uknipper needs not VB2_ToegangVRI.uit and VB2_VRI_TimerAan.afgelopen;
+requirement invariant VB2_VRI_Stand.c_geel needs VB2_VRI_TimerGeel.afgelopen and VB2_ToegangVRI.rood;
+requirement invariant VB2_VRI_Stand.c_rood needs VB2_ToegangVRI.rood;
+requirement invariant VB2_VRI_Stand.c_uit needs VB2_ToegangVRI.uit;
+requirement invariant VB2_VRI_Stand.c_Gknipper needs VB2_ToegangVRI.knipper;
+requirement invariant VB2_VRI_Stand.c_Rknipper needs not VB2_ToegangVRI.rood;
+requirement invariant VB2_BedieningAB.c_hand needs VB2_KnopBedienAB.hand and not VB2_SetAuto_Obs2.setauto;
+requirement invariant VB2_BedieningAB.c_auto needs VB2_KnopBedienAB.auto or VB2_SetAuto_Obs2.setauto;
+requirement invariant VB2_ToegangAB.c_neerop needs VB2_BedieningAB.auto and VB2_PrimairAB.open or VB2_BedieningAB.hand and VB2_KnoppenVBA.ABopen or VB2_BedieningAB.auto and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairAB.dicht;
+requirement invariant VB2_ToegangAB.c_stopop needs VB2_BedieningAB.auto and VB2_PrimairAB.open or VB2_BedieningAB.hand and VB2_KnoppenVBA.ABopen or VB2_BedieningAB.auto and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairAB.dicht;
+requirement invariant VB2_ToegangAB.c_neerOop needs VB2_BedieningAB.auto and VB2_PrimairAB.open or VB2_BedieningAB.hand and VB2_KnoppenVBA.ABopen or VB2_BedieningAB.auto and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairAB.dicht;
+requirement invariant VB2_ToegangAB.c_opneer needs VB2_BedieningAB.auto and VB2_PrimairAB.dicht or VB2_BedieningAB.hand and VB2_KnoppenVBA.ABsluit or VB2_BedieningAB.auto and (VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairAB.open;
+requirement invariant VB2_ToegangAB.c_stopneer needs VB2_BedieningAB.auto and VB2_PrimairAB.dicht or VB2_BedieningAB.hand and VB2_KnoppenVBA.ABsluit or VB2_BedieningAB.auto and (VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairAB.open;
+requirement invariant VB2_ToegangAB.c_neerOneer needs VB2_BedieningAB.auto and VB2_PrimairAB.dicht or VB2_BedieningAB.hand and VB2_KnoppenVBA.ABsluit or VB2_BedieningAB.auto and (VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairAB.open;
+requirement invariant VB2_ToegangAB.c_opstop needs VB2_BedieningAB.hand and VB2_KnoppenVBA.ABstop;
+requirement invariant VB2_ToegangAB.c_neerstop needs VB2_BedieningAB.hand and VB2_KnoppenVBA.ABstop;
+requirement invariant VB2_ToegangAB.c_neerOstop needs VB2_BedieningAB.hand and VB2_KnoppenVBA.ABstop;
+requirement invariant VB2_ToegangAB.c_opNeerO needs VB2_BedieningAB.hand and VB2_KnoppenVBA.ABsluitOnv;
+requirement invariant VB2_ToegangAB.c_neerNeerO needs VB2_BedieningAB.hand and VB2_KnoppenVBA.ABsluitOnv;
+requirement invariant VB2_ToegangAB.c_stopNeerO needs VB2_BedieningAB.hand and VB2_KnoppenVBA.ABsluitOnv;
+requirement invariant VB2_AB_Commando.c_neerop needs VB2_ToegangAB.op;
+requirement invariant VB2_AB_Commando.c_stopop needs VB2_ToegangAB.op;
+requirement invariant VB2_AB_Commando.c_neerOop needs VB2_ToegangAB.op;
+requirement invariant VB2_AB_Commando.c_opneer needs VB2_ToegangAB.neer and VB2_VRI_Stand.rood and not VB2_AB_OD.aan and VB2_VRI_TimerVGS.afgelopen;
+requirement invariant VB2_AB_Commando.c_stopneer needs VB2_ToegangAB.neer and VB2_VRI_Stand.rood and not VB2_AB_OD.aan and VB2_VRI_TimerVGS.afgelopen;
+requirement invariant VB2_AB_Commando.c_neerOneer needs VB2_ToegangAB.neer and VB2_VRI_Stand.rood and not VB2_AB_OD.aan and VB2_VRI_TimerVGS.afgelopen;
+requirement invariant VB2_AB_Commando.c_opstop needs VB2_ToegangAB.stop;
+requirement invariant VB2_AB_Commando.c_neerstop needs VB2_ToegangAB.stop;
+requirement invariant VB2_AB_Commando.c_neerOstop needs VB2_ToegangAB.stop;
+requirement invariant VB2_AB_Commando.c_opNeerO needs VB2_ToegangAB.neeronvoorwaardelijk;
+requirement invariant VB2_AB_Commando.c_neerNeerO needs VB2_ToegangAB.neeronvoorwaardelijk;
+requirement invariant VB2_AB_Commando.c_stopNeerO needs VB2_ToegangAB.neeronvoorwaardelijk;
+requirement invariant VB2_VRI_TimerAan.c_aan needs VB2_VRI_Stand.uit;
+requirement invariant VB2_VRI_TimerAan.c_reset needs not VB2_VRI_Stand.uit;
+requirement invariant VB2_VRI_TimerGeel.c_aan needs VB2_VRI_Stand.knipper;
+requirement invariant VB2_VRI_TimerGeel.c_reset needs not VB2_VRI_Stand.knipper;
+requirement invariant VB2_VRI_TimerRood.c_aan needs VB2_VRI_Stand.geel;
+requirement invariant VB2_VRI_TimerRood.c_reset needs not VB2_VRI_Stand.geel;
+requirement invariant VB2_VRI_Stand.c_rood needs VB2_VRI_TimerRood.afgelopen;
+requirement invariant VB2_VRI_TimerUit.c_aan needs VB2_VRI_Stand.knipper;
+requirement invariant VB2_VRI_TimerUit.c_reset needs not VB2_VRI_Stand.knipper;
+requirement invariant VB2_VRI_Stand.c_uit needs VB2_VRI_TimerUit.afgelopen;
+requirement invariant VB2_VRI_TimerVGS.c_aan needs VB2_VRI_Stand.rood;
+requirement invariant VB2_VRI_TimerVGS.c_resetL needs not VB2_VRI_Stand.rood;
+requirement invariant VB2_VRI_TimerVGS.c_reset needs not VB2_VRI_Stand.rood;
+requirement invariant VB2_AB_Stand.op or VB2_AB_Beweging.op disables VB2_AB_Commando.c_neerop;
+requirement invariant VB2_AB_Stand.op or VB2_AB_Beweging.op disables VB2_AB_Commando.c_stopop;
+requirement invariant VB2_AB_Stand.op or VB2_AB_Beweging.op disables VB2_AB_Commando.c_neerOop;
+requirement invariant VB2_AB_OD.aan disables VB2_AB_Commando.c_opneer;
+requirement invariant VB2_AB_OD.aan disables VB2_AB_Commando.c_stopneer;
+requirement invariant VB2_AB_OD.aan disables VB2_AB_Commando.c_neerOneer;
+requirement invariant VB2_AB_Stand.neer or VB2_AB_Beweging.neer disables VB2_AB_Commando.c_opneer;
+requirement invariant VB2_AB_Stand.neer or VB2_AB_Beweging.neer disables VB2_AB_Commando.c_stopneer;
+requirement invariant VB2_AB_Stand.neer or VB2_AB_Beweging.neer disables VB2_AB_Commando.c_neerOneer;
+requirement invariant VB2_AB_Stand.neer or VB2_AB_Beweging.neer disables VB2_AB_Commando.c_opNeerO;
+requirement invariant VB2_AB_Stand.neer or VB2_AB_Beweging.neer disables VB2_AB_Commando.c_neerNeerO;
+requirement invariant VB2_AB_Stand.neer or VB2_AB_Beweging.neer disables VB2_AB_Commando.c_stopNeerO;
+requirement invariant VB2_AB_Beweging.geen disables VB2_AB_Commando.c_opstop;
+requirement invariant VB2_AB_Beweging.geen disables VB2_AB_Commando.c_neerstop;
+requirement invariant VB2_AB_Beweging.geen disables VB2_AB_Commando.c_neerOstop;
+requirement invariant Mutex1Away_Req.c_request needs VB1_BedieningAB.hand and (VB1_KnopBedienAB.auto or VB1_SetAuto_Obs2.setauto);
+requirement invariant Mutex1Away_Req.c_return needs not(VB1_BedieningAB.hand and (VB1_KnopBedienAB.auto or VB1_SetAuto_Obs2.setauto));
+requirement invariant Mutex2Away_Req.c_request needs VB1_BedieningAB.auto and (VB1_KnopBedienAB.hand and not VB1_SetAuto_Obs2.setauto);
+requirement invariant Mutex2Away_Req.c_return needs not(VB1_BedieningAB.auto and (VB1_KnopBedienAB.hand and not VB1_SetAuto_Obs2.setauto));
+requirement invariant Mutex3Away_Req.c_request needs VB1_BedieningVRI.hand and (VB1_KnopBedienVRI.auto or VB1_SetAuto_Obs2.setauto);
+requirement invariant Mutex3Away_Req.c_return needs not(VB1_BedieningVRI.hand and (VB1_KnopBedienVRI.auto or VB1_SetAuto_Obs2.setauto));
+requirement invariant Mutex4Away_Req.c_request needs VB1_BedieningVRI.auto and (VB1_KnopBedienVRI.hand and not VB1_SetAuto_Obs2.setauto);
+requirement invariant Mutex4Away_Req.c_return needs not(VB1_BedieningVRI.auto and (VB1_KnopBedienVRI.hand and not VB1_SetAuto_Obs2.setauto));
+requirement invariant Mutex5Away_Req.c_request needs VB2_BedieningAB.hand and (VB2_KnopBedienAB.auto or VB2_SetAuto_Obs2.setauto);
+requirement invariant Mutex5Away_Req.c_return needs not(VB2_BedieningAB.hand and (VB2_KnopBedienAB.auto or VB2_SetAuto_Obs2.setauto));
+requirement invariant Mutex6Away_Req.c_request needs VB2_BedieningAB.auto and (VB2_KnopBedienAB.hand and not VB2_SetAuto_Obs2.setauto);
+requirement invariant Mutex6Away_Req.c_return needs not(VB2_BedieningAB.auto and (VB2_KnopBedienAB.hand and not VB2_SetAuto_Obs2.setauto));
+requirement invariant Mutex7Away_Req.c_request needs VB2_BedieningVRI.hand and (VB2_KnopBedienVRI.auto or VB2_SetAuto_Obs2.setauto);
+requirement invariant Mutex7Away_Req.c_return needs not(VB2_BedieningVRI.hand and (VB2_KnopBedienVRI.auto or VB2_SetAuto_Obs2.setauto));
+requirement invariant Mutex8Away_Req.c_request needs VB2_BedieningVRI.auto and (VB2_KnopBedienVRI.hand and not VB2_SetAuto_Obs2.setauto);
+requirement invariant Mutex8Away_Req.c_return needs not(VB2_BedieningVRI.auto and (VB2_KnopBedienVRI.hand and not VB2_SetAuto_Obs2.setauto));
+requirement invariant Mutex9Home_TT.c_send needs not(VB1_BedieningAB.hand and (VB1_KnopBedienAB.auto or VB1_SetAuto_Obs2.setauto)) and not(VB1_BedieningVRI.hand and (VB1_KnopBedienVRI.auto or VB1_SetAuto_Obs2.setauto)) and not(VB1_PrimairVRI.uit and (VB1_SetAuto_Obs2.setauto or VB1_HDR_Sensor.aan and VB1_KnoppenVBA.los)) and not(VB1_PrimairVRI.rood and VB1_SetAuto_Obs2.setauto) and not(not VB1_PrimairAB.auto and VB1_SetAuto_Obs2.setauto) and not(VB1_ToegangVRI.uit and (VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIknipper or VB1_BedieningVRI.auto and VB1_HDW_Sensor.aan and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDR_Sensor.uit and VB1_KnoppenVBA.los and not VB1_PrimairVRI.rood)) and not(VB1_ToegangVRI.knipper and (VB1_BedieningVRI.auto and VB1_PrimairVRI.uit and VB1_HDW_Sensor.uit and VB1_HDR_Sensor.uit or VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIuit or VB1_BedieningVRI.auto and not VB1_PrimairVRI.rood and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDW_Sensor.uit and VB1_HDW_Timer.uit and VB1_HDR_Sensor.uit)) and not(VB1_ToegangVRI.rood and (VB1_BedieningVRI.auto and VB1_PrimairVRI.uit and VB1_HDW_Sensor.uit and VB1_HDR_Sensor.uit and VB1_HDR_Timer.uit or VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIuit or VB1_BedieningVRI.auto and not VB1_PrimairVRI.rood and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDW_Sensor.uit and VB1_HDR_Sensor.uit and VB1_HDR_Timer.uit)) and not(VB1_ToegangVRI.rood and (VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIknipper or VB1_BedieningVRI.auto and VB1_HDW_Sensor.aan and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDR_Sensor.uit and VB1_KnoppenVBA.los and not VB1_PrimairVRI.rood)) and not(VB1_ToegangAB.neer and (VB1_BedieningAB.auto and VB1_PrimairAB.open or VB1_BedieningAB.hand and VB1_KnoppenVBA.ABopen or VB1_BedieningAB.auto and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairAB.dicht)) and not(VB1_ToegangAB.stop and (VB1_BedieningAB.auto and VB1_PrimairAB.open or VB1_BedieningAB.hand and VB1_KnoppenVBA.ABopen or VB1_BedieningAB.auto and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairAB.dicht)) and not(VB1_ToegangAB.neeronvoorwaardelijk and (VB1_BedieningAB.auto and VB1_PrimairAB.open or VB1_BedieningAB.hand and VB1_KnoppenVBA.ABopen or VB1_BedieningAB.auto and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairAB.dicht)) and not(VB2_ToegangVRI.knipper and (VB2_BedieningVRI.auto and VB2_PrimairVRI.uit or VB2_BedieningVRI.hand and VB2_KnoppenVBA.VRIuit or VB2_BedieningVRI.auto and not VB2_PrimairVRI.rood and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend))) and not(VB2_ToegangVRI.rood and (VB2_BedieningVRI.auto and VB2_PrimairVRI.uit or VB2_BedieningVRI.hand and VB2_KnoppenVBA.VRIuit or VB2_BedieningVRI.auto and not VB2_PrimairVRI.rood and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend))) and not(VB2_ToegangAB.neer and (VB2_BedieningAB.auto and VB2_PrimairAB.open or VB2_BedieningAB.hand and VB2_KnoppenVBA.ABopen or VB2_BedieningAB.auto and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairAB.dicht)) and not(VB2_ToegangAB.stop and (VB2_BedieningAB.auto and VB2_PrimairAB.open or VB2_BedieningAB.hand and VB2_KnoppenVBA.ABopen or VB2_BedieningAB.auto and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairAB.dicht)) and not(VB2_ToegangAB.neeronvoorwaardelijk and (VB2_BedieningAB.auto and VB2_PrimairAB.open or VB2_BedieningAB.hand and VB2_KnoppenVBA.ABopen or VB2_BedieningAB.auto and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairAB.dicht)) and Mutex9Home_R;
+requirement invariant Mutex10Home_TT.c_send needs not(VB1_BedieningAB.auto and (VB1_KnopBedienAB.hand and not VB1_SetAuto_Obs2.setauto)) and not(VB1_BedieningVRI.auto and (VB1_KnopBedienVRI.hand and not VB1_SetAuto_Obs2.setauto)) and not(not VB1_PrimairVRI.uit and ((VB1_KnoppenVBA.priVRIuit or VB1_KnoppenVBA.priVBopen) and not VB1_SetAuto_Obs2.setauto)) and not(not VB1_PrimairVRI.rood and ((VB1_KnoppenVBA.priVRIrood or VB1_KnoppenVBA.priVBdicht) and not VB1_SetAuto_Obs2.setauto)) and not(not VB1_PrimairAB.open and (VB1_KnoppenVBA.priVBopen and not VB1_SetAuto_Obs2.setauto)) and not(not VB1_PrimairAB.dicht and (VB1_KnoppenVBA.priVBdicht and not VB1_SetAuto_Obs2.setauto)) and not(VB1_ToegangVRI.uit and (VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIknipper or VB1_BedieningVRI.auto and VB1_HDW_Sensor.aan and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDR_Sensor.uit and VB1_KnoppenVBA.los and not VB1_PrimairVRI.rood)) and not(VB1_ToegangVRI.knipper and (VB1_BedieningVRI.auto and VB1_PrimairVRI.uit and VB1_HDW_Sensor.uit and VB1_HDR_Sensor.uit or VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIuit or VB1_BedieningVRI.auto and not VB1_PrimairVRI.rood and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDW_Sensor.uit and VB1_HDW_Timer.uit and VB1_HDR_Sensor.uit)) and not(VB1_ToegangVRI.rood and (VB1_BedieningVRI.auto and VB1_PrimairVRI.uit and VB1_HDW_Sensor.uit and VB1_HDR_Sensor.uit and VB1_HDR_Timer.uit or VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIuit or VB1_BedieningVRI.auto and not VB1_PrimairVRI.rood and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDW_Sensor.uit and VB1_HDR_Sensor.uit and VB1_HDR_Timer.uit)) and not(VB1_ToegangVRI.rood and (VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIknipper or VB1_BedieningVRI.auto and VB1_HDW_Sensor.aan and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDR_Sensor.uit and VB1_KnoppenVBA.los and not VB1_PrimairVRI.rood)) and not(VB1_ToegangAB.neer and (VB1_BedieningAB.auto and VB1_PrimairAB.open or VB1_BedieningAB.hand and VB1_KnoppenVBA.ABopen or VB1_BedieningAB.auto and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairAB.dicht)) and not(VB1_ToegangAB.stop and (VB1_BedieningAB.auto and VB1_PrimairAB.open or VB1_BedieningAB.hand and VB1_KnoppenVBA.ABopen or VB1_BedieningAB.auto and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairAB.dicht)) and not(VB1_ToegangAB.neeronvoorwaardelijk and (VB1_BedieningAB.auto and VB1_PrimairAB.open or VB1_BedieningAB.hand and VB1_KnoppenVBA.ABopen or VB1_BedieningAB.auto and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairAB.dicht)) and not(VB2_ToegangVRI.knipper and (VB2_BedieningVRI.auto and VB2_PrimairVRI.uit or VB2_BedieningVRI.hand and VB2_KnoppenVBA.VRIuit or VB2_BedieningVRI.auto and not VB2_PrimairVRI.rood and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend))) and not(VB2_ToegangVRI.rood and (VB2_BedieningVRI.auto and VB2_PrimairVRI.uit or VB2_BedieningVRI.hand and VB2_KnoppenVBA.VRIuit or VB2_BedieningVRI.auto and not VB2_PrimairVRI.rood and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend))) and not(VB2_ToegangAB.neer and (VB2_BedieningAB.auto and VB2_PrimairAB.open or VB2_BedieningAB.hand and VB2_KnoppenVBA.ABopen or VB2_BedieningAB.auto and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairAB.dicht)) and not(VB2_ToegangAB.stop and (VB2_BedieningAB.auto and VB2_PrimairAB.open or VB2_BedieningAB.hand and VB2_KnoppenVBA.ABopen or VB2_BedieningAB.auto and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairAB.dicht)) and not(VB2_ToegangAB.neeronvoorwaardelijk and (VB2_BedieningAB.auto and VB2_PrimairAB.open or VB2_BedieningAB.hand and VB2_KnoppenVBA.ABopen or VB2_BedieningAB.auto and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairAB.dicht)) and Mutex10Home_R;
+requirement invariant Mutex11Home_TT.c_send needs not(VB1_BedieningAB.auto and (VB1_KnopBedienAB.hand and not VB1_SetAuto_Obs2.setauto)) and not(VB1_BedieningVRI.auto and (VB1_KnopBedienVRI.hand and not VB1_SetAuto_Obs2.setauto)) and not(not VB1_PrimairVRI.uit and ((VB1_KnoppenVBA.priVRIuit or VB1_KnoppenVBA.priVBopen) and not VB1_SetAuto_Obs2.setauto)) and not(not VB1_PrimairVRI.rood and ((VB1_KnoppenVBA.priVRIrood or VB1_KnoppenVBA.priVBdicht) and not VB1_SetAuto_Obs2.setauto)) and not(not VB1_PrimairAB.open and (VB1_KnoppenVBA.priVBopen and not VB1_SetAuto_Obs2.setauto)) and not(not VB1_PrimairAB.dicht and (VB1_KnoppenVBA.priVBdicht and not VB1_SetAuto_Obs2.setauto)) and not(VB2_ToegangVRI.knipper and (VB2_BedieningVRI.auto and VB2_PrimairVRI.uit or VB2_BedieningVRI.hand and VB2_KnoppenVBA.VRIuit or VB2_BedieningVRI.auto and not VB2_PrimairVRI.rood and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend))) and not(VB2_ToegangVRI.rood and (VB2_BedieningVRI.auto and VB2_PrimairVRI.uit or VB2_BedieningVRI.hand and VB2_KnoppenVBA.VRIuit or VB2_BedieningVRI.auto and not VB2_PrimairVRI.rood and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend))) and not(VB2_ToegangAB.neer and (VB2_BedieningAB.auto and VB2_PrimairAB.open or VB2_BedieningAB.hand and VB2_KnoppenVBA.ABopen or VB2_BedieningAB.auto and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairAB.dicht)) and not(VB2_ToegangAB.stop and (VB2_BedieningAB.auto and VB2_PrimairAB.open or VB2_BedieningAB.hand and VB2_KnoppenVBA.ABopen or VB2_BedieningAB.auto and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairAB.dicht)) and not(VB2_ToegangAB.neeronvoorwaardelijk and (VB2_BedieningAB.auto and VB2_PrimairAB.open or VB2_BedieningAB.hand and VB2_KnoppenVBA.ABopen or VB2_BedieningAB.auto and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairAB.dicht)) and Mutex11Home_R;
+requirement invariant Mutex12Home_TT.c_send needs not(VB1_BedieningAB.auto and (VB1_KnopBedienAB.hand and not VB1_SetAuto_Obs2.setauto)) and not(VB1_BedieningVRI.auto and (VB1_KnopBedienVRI.hand and not VB1_SetAuto_Obs2.setauto)) and not(not VB1_PrimairVRI.uit and ((VB1_KnoppenVBA.priVRIuit or VB1_KnoppenVBA.priVBopen) and not VB1_SetAuto_Obs2.setauto)) and not(not VB1_PrimairVRI.rood and ((VB1_KnoppenVBA.priVRIrood or VB1_KnoppenVBA.priVBdicht) and not VB1_SetAuto_Obs2.setauto)) and not(not VB1_PrimairAB.open and (VB1_KnoppenVBA.priVBopen and not VB1_SetAuto_Obs2.setauto)) and not(not VB1_PrimairAB.dicht and (VB1_KnoppenVBA.priVBdicht and not VB1_SetAuto_Obs2.setauto)) and not(VB1_ToegangVRI.uit and (VB1_BedieningVRI.auto and VB1_PrimairVRI.rood or VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIrood or VB1_BedieningVRI.auto and (VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairVRI.uit or VB1_BedieningVRI.auto and VB1_HDR_Sensor.aan)) and not(VB1_ToegangVRI.knipper and (VB1_BedieningVRI.auto and VB1_PrimairVRI.rood or VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIrood or VB1_BedieningVRI.auto and (VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairVRI.uit or VB1_BedieningVRI.auto and VB1_HDR_Sensor.aan)) and not(VB1_ToegangAB.op and (VB1_BedieningAB.auto and VB1_PrimairAB.dicht or VB1_BedieningAB.hand and VB1_KnoppenVBA.ABsluit or VB1_BedieningAB.auto and (VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairAB.open)) and not(VB1_ToegangAB.stop and (VB1_BedieningAB.auto and VB1_PrimairAB.dicht or VB1_BedieningAB.hand and VB1_KnoppenVBA.ABsluit or VB1_BedieningAB.auto and (VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairAB.open)) and not(VB1_ToegangAB.neeronvoorwaardelijk and (VB1_BedieningAB.auto and VB1_PrimairAB.dicht or VB1_BedieningAB.hand and VB1_KnoppenVBA.ABsluit or VB1_BedieningAB.auto and (VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairAB.open)) and not(VB2_ToegangVRI.knipper and (VB2_BedieningVRI.auto and VB2_PrimairVRI.uit or VB2_BedieningVRI.hand and VB2_KnoppenVBA.VRIuit or VB2_BedieningVRI.auto and not VB2_PrimairVRI.rood and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend))) and not(VB2_ToegangVRI.rood and (VB2_BedieningVRI.auto and VB2_PrimairVRI.uit or VB2_BedieningVRI.hand and VB2_KnoppenVBA.VRIuit or VB2_BedieningVRI.auto and not VB2_PrimairVRI.rood and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend))) and not(VB2_ToegangAB.neer and (VB2_BedieningAB.auto and VB2_PrimairAB.open or VB2_BedieningAB.hand and VB2_KnoppenVBA.ABopen or VB2_BedieningAB.auto and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairAB.dicht)) and not(VB2_ToegangAB.stop and (VB2_BedieningAB.auto and VB2_PrimairAB.open or VB2_BedieningAB.hand and VB2_KnoppenVBA.ABopen or VB2_BedieningAB.auto and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairAB.dicht)) and not(VB2_ToegangAB.neeronvoorwaardelijk and (VB2_BedieningAB.auto and VB2_PrimairAB.open or VB2_BedieningAB.hand and VB2_KnoppenVBA.ABopen or VB2_BedieningAB.auto and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairAB.dicht)) and Mutex12Home_R;
+requirement invariant Mutex13Home_TT.c_send needs not(VB1_BedieningAB.auto and (VB1_KnopBedienAB.hand and not VB1_SetAuto_Obs2.setauto)) and not(VB1_BedieningVRI.auto and (VB1_KnopBedienVRI.hand and not VB1_SetAuto_Obs2.setauto)) and not(not VB1_PrimairVRI.uit and ((VB1_KnoppenVBA.priVRIuit or VB1_KnoppenVBA.priVBopen) and not VB1_SetAuto_Obs2.setauto)) and not(not VB1_PrimairVRI.rood and ((VB1_KnoppenVBA.priVRIrood or VB1_KnoppenVBA.priVBdicht) and not VB1_SetAuto_Obs2.setauto)) and not(not VB1_PrimairAB.open and (VB1_KnoppenVBA.priVBopen and not VB1_SetAuto_Obs2.setauto)) and not(not VB1_PrimairAB.dicht and (VB1_KnoppenVBA.priVBdicht and not VB1_SetAuto_Obs2.setauto)) and not(VB1_ToegangVRI.uit and (VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIknipper or VB1_BedieningVRI.auto and VB1_HDW_Sensor.aan and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDR_Sensor.uit and VB1_KnoppenVBA.los and not VB1_PrimairVRI.rood)) and not(VB1_ToegangVRI.knipper and (VB1_BedieningVRI.auto and VB1_PrimairVRI.uit and VB1_HDW_Sensor.uit and VB1_HDR_Sensor.uit or VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIuit or VB1_BedieningVRI.auto and not VB1_PrimairVRI.rood and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDW_Sensor.uit and VB1_HDW_Timer.uit and VB1_HDR_Sensor.uit)) and not(VB1_ToegangVRI.rood and (VB1_BedieningVRI.auto and VB1_PrimairVRI.uit and VB1_HDW_Sensor.uit and VB1_HDR_Sensor.uit and VB1_HDR_Timer.uit or VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIuit or VB1_BedieningVRI.auto and not VB1_PrimairVRI.rood and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDW_Sensor.uit and VB1_HDR_Sensor.uit and VB1_HDR_Timer.uit)) and not(VB1_ToegangVRI.rood and (VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIknipper or VB1_BedieningVRI.auto and VB1_HDW_Sensor.aan and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDR_Sensor.uit and VB1_KnoppenVBA.los and not VB1_PrimairVRI.rood)) and not(VB1_ToegangAB.neer and (VB1_BedieningAB.auto and VB1_PrimairAB.open or VB1_BedieningAB.hand and VB1_KnoppenVBA.ABopen or VB1_BedieningAB.auto and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairAB.dicht)) and not(VB1_ToegangAB.stop and (VB1_BedieningAB.auto and VB1_PrimairAB.open or VB1_BedieningAB.hand and VB1_KnoppenVBA.ABopen or VB1_BedieningAB.auto and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairAB.dicht)) and not(VB1_ToegangAB.neeronvoorwaardelijk and (VB1_BedieningAB.auto and VB1_PrimairAB.open or VB1_BedieningAB.hand and VB1_KnoppenVBA.ABopen or VB1_BedieningAB.auto and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairAB.dicht)) and not(VB2_ToegangVRI.knipper and (VB2_BedieningVRI.auto and VB2_PrimairVRI.uit or VB2_BedieningVRI.hand and VB2_KnoppenVBA.VRIuit or VB2_BedieningVRI.auto and not VB2_PrimairVRI.rood and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend))) and not(VB2_ToegangVRI.rood and (VB2_BedieningVRI.auto and VB2_PrimairVRI.uit or VB2_BedieningVRI.hand and VB2_KnoppenVBA.VRIuit or VB2_BedieningVRI.auto and not VB2_PrimairVRI.rood and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend))) and not(VB2_ToegangAB.neer and (VB2_BedieningAB.auto and VB2_PrimairAB.open or VB2_BedieningAB.hand and VB2_KnoppenVBA.ABopen or VB2_BedieningAB.auto and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairAB.dicht)) and not(VB2_ToegangAB.stop and (VB2_BedieningAB.auto and VB2_PrimairAB.open or VB2_BedieningAB.hand and VB2_KnoppenVBA.ABopen or VB2_BedieningAB.auto and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairAB.dicht)) and not(VB2_ToegangAB.neeronvoorwaardelijk and (VB2_BedieningAB.auto and VB2_PrimairAB.open or VB2_BedieningAB.hand and VB2_KnoppenVBA.ABopen or VB2_BedieningAB.auto and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairAB.dicht)) and Mutex13Home_R;
+requirement invariant Mutex14Home_TT.c_send needs not(VB1_BedieningAB.auto and (VB1_KnopBedienAB.hand and not VB1_SetAuto_Obs2.setauto)) and not(VB1_BedieningVRI.auto and (VB1_KnopBedienVRI.hand and not VB1_SetAuto_Obs2.setauto)) and not(not VB1_PrimairVRI.uit and ((VB1_KnoppenVBA.priVRIuit or VB1_KnoppenVBA.priVBopen) and not VB1_SetAuto_Obs2.setauto)) and not(not VB1_PrimairVRI.rood and ((VB1_KnoppenVBA.priVRIrood or VB1_KnoppenVBA.priVBdicht) and not VB1_SetAuto_Obs2.setauto)) and not(not VB1_PrimairAB.open and (VB1_KnoppenVBA.priVBopen and not VB1_SetAuto_Obs2.setauto)) and not(not VB1_PrimairAB.dicht and (VB1_KnoppenVBA.priVBdicht and not VB1_SetAuto_Obs2.setauto)) and not(VB1_ToegangVRI.uit and (VB1_BedieningVRI.auto and VB1_PrimairVRI.rood or VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIrood or VB1_BedieningVRI.auto and (VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairVRI.uit or VB1_BedieningVRI.auto and VB1_HDR_Sensor.aan)) and not(VB1_ToegangVRI.uit and (VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIknipper or VB1_BedieningVRI.auto and VB1_HDW_Sensor.aan and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDR_Sensor.uit and VB1_KnoppenVBA.los and not VB1_PrimairVRI.rood)) and not(VB1_ToegangVRI.knipper and (VB1_BedieningVRI.auto and VB1_PrimairVRI.rood or VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIrood or VB1_BedieningVRI.auto and (VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairVRI.uit or VB1_BedieningVRI.auto and VB1_HDR_Sensor.aan)) and not(VB1_ToegangVRI.knipper and (VB1_BedieningVRI.auto and VB1_PrimairVRI.uit and VB1_HDW_Sensor.uit and VB1_HDR_Sensor.uit or VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIuit or VB1_BedieningVRI.auto and not VB1_PrimairVRI.rood and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDW_Sensor.uit and VB1_HDW_Timer.uit and VB1_HDR_Sensor.uit)) and not(VB1_ToegangVRI.rood and (VB1_BedieningVRI.auto and VB1_PrimairVRI.uit and VB1_HDW_Sensor.uit and VB1_HDR_Sensor.uit and VB1_HDR_Timer.uit or VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIuit or VB1_BedieningVRI.auto and not VB1_PrimairVRI.rood and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDW_Sensor.uit and VB1_HDR_Sensor.uit and VB1_HDR_Timer.uit)) and not(VB1_ToegangVRI.rood and (VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIknipper or VB1_BedieningVRI.auto and VB1_HDW_Sensor.aan and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDR_Sensor.uit and VB1_KnoppenVBA.los and not VB1_PrimairVRI.rood)) and not(VB1_ToegangAB.op and (VB1_BedieningAB.auto and VB1_PrimairAB.dicht or VB1_BedieningAB.hand and VB1_KnoppenVBA.ABsluit or VB1_BedieningAB.auto and (VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairAB.open)) and not(VB1_ToegangAB.neer and (VB1_BedieningAB.auto and VB1_PrimairAB.open or VB1_BedieningAB.hand and VB1_KnoppenVBA.ABopen or VB1_BedieningAB.auto and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairAB.dicht)) and not(VB1_ToegangAB.stop and (VB1_BedieningAB.auto and VB1_PrimairAB.dicht or VB1_BedieningAB.hand and VB1_KnoppenVBA.ABsluit or VB1_BedieningAB.auto and (VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairAB.open)) and not(VB1_ToegangAB.stop and (VB1_BedieningAB.auto and VB1_PrimairAB.open or VB1_BedieningAB.hand and VB1_KnoppenVBA.ABopen or VB1_BedieningAB.auto and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairAB.dicht)) and not(VB1_ToegangAB.neeronvoorwaardelijk and (VB1_BedieningAB.auto and VB1_PrimairAB.dicht or VB1_BedieningAB.hand and VB1_KnoppenVBA.ABsluit or VB1_BedieningAB.auto and (VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairAB.open)) and not(VB1_ToegangAB.neeronvoorwaardelijk and (VB1_BedieningAB.auto and VB1_PrimairAB.open or VB1_BedieningAB.hand and VB1_KnoppenVBA.ABopen or VB1_BedieningAB.auto and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairAB.dicht)) and not(VB2_ToegangVRI.knipper and (VB2_BedieningVRI.auto and VB2_PrimairVRI.uit or VB2_BedieningVRI.hand and VB2_KnoppenVBA.VRIuit or VB2_BedieningVRI.auto and not VB2_PrimairVRI.rood and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend))) and not(VB2_ToegangVRI.rood and (VB2_BedieningVRI.auto and VB2_PrimairVRI.uit or VB2_BedieningVRI.hand and VB2_KnoppenVBA.VRIuit or VB2_BedieningVRI.auto and not VB2_PrimairVRI.rood and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend))) and not(VB2_ToegangAB.neer and (VB2_BedieningAB.auto and VB2_PrimairAB.open or VB2_BedieningAB.hand and VB2_KnoppenVBA.ABopen or VB2_BedieningAB.auto and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairAB.dicht)) and not(VB2_ToegangAB.stop and (VB2_BedieningAB.auto and VB2_PrimairAB.open or VB2_BedieningAB.hand and VB2_KnoppenVBA.ABopen or VB2_BedieningAB.auto and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairAB.dicht)) and not(VB2_ToegangAB.neeronvoorwaardelijk and (VB2_BedieningAB.auto and VB2_PrimairAB.open or VB2_BedieningAB.hand and VB2_KnoppenVBA.ABopen or VB2_BedieningAB.auto and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairAB.dicht)) and Mutex14Home_R;
+requirement invariant Mutex15Home_TT.c_send needs not(VB1_BedieningAB.auto and (VB1_KnopBedienAB.hand and not VB1_SetAuto_Obs2.setauto)) and not(VB1_BedieningVRI.auto and (VB1_KnopBedienVRI.hand and not VB1_SetAuto_Obs2.setauto)) and not(not VB1_PrimairVRI.uit and ((VB1_KnoppenVBA.priVRIuit or VB1_KnoppenVBA.priVBopen) and not VB1_SetAuto_Obs2.setauto)) and not(not VB1_PrimairVRI.rood and ((VB1_KnoppenVBA.priVRIrood or VB1_KnoppenVBA.priVBdicht) and not VB1_SetAuto_Obs2.setauto)) and not(not VB1_PrimairAB.open and (VB1_KnoppenVBA.priVBopen and not VB1_SetAuto_Obs2.setauto)) and not(not VB1_PrimairAB.dicht and (VB1_KnoppenVBA.priVBdicht and not VB1_SetAuto_Obs2.setauto)) and not(VB1_ToegangVRI.uit and (VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIknipper or VB1_BedieningVRI.auto and VB1_HDW_Sensor.aan and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDR_Sensor.uit and VB1_KnoppenVBA.los and not VB1_PrimairVRI.rood)) and not(VB1_ToegangVRI.knipper and (VB1_BedieningVRI.auto and VB1_PrimairVRI.uit and VB1_HDW_Sensor.uit and VB1_HDR_Sensor.uit or VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIuit or VB1_BedieningVRI.auto and not VB1_PrimairVRI.rood and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDW_Sensor.uit and VB1_HDW_Timer.uit and VB1_HDR_Sensor.uit)) and not(VB1_ToegangVRI.rood and (VB1_BedieningVRI.auto and VB1_PrimairVRI.uit and VB1_HDW_Sensor.uit and VB1_HDR_Sensor.uit and VB1_HDR_Timer.uit or VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIuit or VB1_BedieningVRI.auto and not VB1_PrimairVRI.rood and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDW_Sensor.uit and VB1_HDR_Sensor.uit and VB1_HDR_Timer.uit)) and not(VB1_ToegangVRI.rood and (VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIknipper or VB1_BedieningVRI.auto and VB1_HDW_Sensor.aan and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDR_Sensor.uit and VB1_KnoppenVBA.los and not VB1_PrimairVRI.rood)) and not(VB1_ToegangAB.neer and (VB1_BedieningAB.auto and VB1_PrimairAB.open or VB1_BedieningAB.hand and VB1_KnoppenVBA.ABopen or VB1_BedieningAB.auto and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairAB.dicht)) and not(VB1_ToegangAB.stop and (VB1_BedieningAB.auto and VB1_PrimairAB.open or VB1_BedieningAB.hand and VB1_KnoppenVBA.ABopen or VB1_BedieningAB.auto and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairAB.dicht)) and not(VB1_ToegangAB.neeronvoorwaardelijk and (VB1_BedieningAB.auto and VB1_PrimairAB.open or VB1_BedieningAB.hand and VB1_KnoppenVBA.ABopen or VB1_BedieningAB.auto and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairAB.dicht)) and not(VB2_ToegangVRI.knipper and (VB2_BedieningVRI.auto and VB2_PrimairVRI.uit or VB2_BedieningVRI.hand and VB2_KnoppenVBA.VRIuit or VB2_BedieningVRI.auto and not VB2_PrimairVRI.rood and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend))) and not(VB2_ToegangVRI.rood and (VB2_BedieningVRI.auto and VB2_PrimairVRI.uit or VB2_BedieningVRI.hand and VB2_KnoppenVBA.VRIuit or VB2_BedieningVRI.auto and not VB2_PrimairVRI.rood and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend))) and not(VB2_ToegangAB.neer and (VB2_BedieningAB.auto and VB2_PrimairAB.open or VB2_BedieningAB.hand and VB2_KnoppenVBA.ABopen or VB2_BedieningAB.auto and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairAB.dicht)) and not(VB2_ToegangAB.stop and (VB2_BedieningAB.auto and VB2_PrimairAB.open or VB2_BedieningAB.hand and VB2_KnoppenVBA.ABopen or VB2_BedieningAB.auto and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairAB.dicht)) and not(VB2_ToegangAB.neeronvoorwaardelijk and (VB2_BedieningAB.auto and VB2_PrimairAB.open or VB2_BedieningAB.hand and VB2_KnoppenVBA.ABopen or VB2_BedieningAB.auto and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairAB.dicht)) and Mutex15Home_R;
+requirement invariant Mutex16Home_TT.c_send needs not(VB1_BedieningAB.auto and (VB1_KnopBedienAB.hand and not VB1_SetAuto_Obs2.setauto)) and not(VB1_BedieningVRI.auto and (VB1_KnopBedienVRI.hand and not VB1_SetAuto_Obs2.setauto)) and not(not VB1_PrimairVRI.uit and ((VB1_KnoppenVBA.priVRIuit or VB1_KnoppenVBA.priVBopen) and not VB1_SetAuto_Obs2.setauto)) and not(not VB1_PrimairVRI.rood and ((VB1_KnoppenVBA.priVRIrood or VB1_KnoppenVBA.priVBdicht) and not VB1_SetAuto_Obs2.setauto)) and not(not VB1_PrimairAB.open and (VB1_KnoppenVBA.priVBopen and not VB1_SetAuto_Obs2.setauto)) and not(not VB1_PrimairAB.dicht and (VB1_KnoppenVBA.priVBdicht and not VB1_SetAuto_Obs2.setauto)) and not(VB1_ToegangVRI.uit and (VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIknipper or VB1_BedieningVRI.auto and VB1_HDW_Sensor.aan and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDR_Sensor.uit and VB1_KnoppenVBA.los and not VB1_PrimairVRI.rood)) and not(VB1_ToegangVRI.knipper and (VB1_BedieningVRI.auto and VB1_PrimairVRI.uit and VB1_HDW_Sensor.uit and VB1_HDR_Sensor.uit or VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIuit or VB1_BedieningVRI.auto and not VB1_PrimairVRI.rood and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDW_Sensor.uit and VB1_HDW_Timer.uit and VB1_HDR_Sensor.uit)) and not(VB1_ToegangVRI.rood and (VB1_BedieningVRI.auto and VB1_PrimairVRI.uit and VB1_HDW_Sensor.uit and VB1_HDR_Sensor.uit and VB1_HDR_Timer.uit or VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIuit or VB1_BedieningVRI.auto and not VB1_PrimairVRI.rood and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDW_Sensor.uit and VB1_HDR_Sensor.uit and VB1_HDR_Timer.uit)) and not(VB1_ToegangVRI.rood and (VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIknipper or VB1_BedieningVRI.auto and VB1_HDW_Sensor.aan and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDR_Sensor.uit and VB1_KnoppenVBA.los and not VB1_PrimairVRI.rood)) and not(VB1_ToegangAB.neer and (VB1_BedieningAB.auto and VB1_PrimairAB.open or VB1_BedieningAB.hand and VB1_KnoppenVBA.ABopen or VB1_BedieningAB.auto and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairAB.dicht)) and not(VB1_ToegangAB.stop and (VB1_BedieningAB.auto and VB1_PrimairAB.open or VB1_BedieningAB.hand and VB1_KnoppenVBA.ABopen or VB1_BedieningAB.auto and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairAB.dicht)) and not(VB1_ToegangAB.neeronvoorwaardelijk and (VB1_BedieningAB.auto and VB1_PrimairAB.open or VB1_BedieningAB.hand and VB1_KnoppenVBA.ABopen or VB1_BedieningAB.auto and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairAB.dicht)) and not(VB2_ToegangVRI.knipper and (VB2_BedieningVRI.auto and VB2_PrimairVRI.uit or VB2_BedieningVRI.hand and VB2_KnoppenVBA.VRIuit or VB2_BedieningVRI.auto and not VB2_PrimairVRI.rood and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend))) and not(VB2_ToegangVRI.rood and (VB2_BedieningVRI.auto and VB2_PrimairVRI.uit or VB2_BedieningVRI.hand and VB2_KnoppenVBA.VRIuit or VB2_BedieningVRI.auto and not VB2_PrimairVRI.rood and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend))) and not(VB2_ToegangAB.neer and (VB2_BedieningAB.auto and VB2_PrimairAB.open or VB2_BedieningAB.hand and VB2_KnoppenVBA.ABopen or VB2_BedieningAB.auto and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairAB.dicht)) and not(VB2_ToegangAB.stop and (VB2_BedieningAB.auto and VB2_PrimairAB.open or VB2_BedieningAB.hand and VB2_KnoppenVBA.ABopen or VB2_BedieningAB.auto and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairAB.dicht)) and not(VB2_ToegangAB.neeronvoorwaardelijk and (VB2_BedieningAB.auto and VB2_PrimairAB.open or VB2_BedieningAB.hand and VB2_KnoppenVBA.ABopen or VB2_BedieningAB.auto and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairAB.dicht)) and Mutex16Home_R;
+requirement invariant Mutex17Home_TT.c_send needs not(VB1_BedieningAB.auto and (VB1_KnopBedienAB.hand and not VB1_SetAuto_Obs2.setauto)) and not(VB1_BedieningVRI.auto and (VB1_KnopBedienVRI.hand and not VB1_SetAuto_Obs2.setauto)) and not(not VB1_PrimairVRI.uit and ((VB1_KnoppenVBA.priVRIuit or VB1_KnoppenVBA.priVBopen) and not VB1_SetAuto_Obs2.setauto)) and not(not VB1_PrimairVRI.rood and ((VB1_KnoppenVBA.priVRIrood or VB1_KnoppenVBA.priVBdicht) and not VB1_SetAuto_Obs2.setauto)) and not(not VB1_PrimairAB.open and (VB1_KnoppenVBA.priVBopen and not VB1_SetAuto_Obs2.setauto)) and not(not VB1_PrimairAB.dicht and (VB1_KnoppenVBA.priVBdicht and not VB1_SetAuto_Obs2.setauto)) and not(VB1_ToegangVRI.uit and (VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIknipper or VB1_BedieningVRI.auto and VB1_HDW_Sensor.aan and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDR_Sensor.uit and VB1_KnoppenVBA.los and not VB1_PrimairVRI.rood)) and not(VB1_ToegangVRI.knipper and (VB1_BedieningVRI.auto and VB1_PrimairVRI.uit and VB1_HDW_Sensor.uit and VB1_HDR_Sensor.uit or VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIuit or VB1_BedieningVRI.auto and not VB1_PrimairVRI.rood and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDW_Sensor.uit and VB1_HDW_Timer.uit and VB1_HDR_Sensor.uit)) and not(VB1_ToegangVRI.rood and (VB1_BedieningVRI.auto and VB1_PrimairVRI.uit and VB1_HDW_Sensor.uit and VB1_HDR_Sensor.uit and VB1_HDR_Timer.uit or VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIuit or VB1_BedieningVRI.auto and not VB1_PrimairVRI.rood and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDW_Sensor.uit and VB1_HDR_Sensor.uit and VB1_HDR_Timer.uit)) and not(VB1_ToegangVRI.rood and (VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIknipper or VB1_BedieningVRI.auto and VB1_HDW_Sensor.aan and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDR_Sensor.uit and VB1_KnoppenVBA.los and not VB1_PrimairVRI.rood)) and not(VB1_ToegangAB.neer and (VB1_BedieningAB.auto and VB1_PrimairAB.open or VB1_BedieningAB.hand and VB1_KnoppenVBA.ABopen or VB1_BedieningAB.auto and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairAB.dicht)) and not(VB1_ToegangAB.stop and (VB1_BedieningAB.auto and VB1_PrimairAB.open or VB1_BedieningAB.hand and VB1_KnoppenVBA.ABopen or VB1_BedieningAB.auto and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairAB.dicht)) and not(VB1_ToegangAB.neeronvoorwaardelijk and (VB1_BedieningAB.auto and VB1_PrimairAB.open or VB1_BedieningAB.hand and VB1_KnoppenVBA.ABopen or VB1_BedieningAB.auto and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairAB.dicht)) and not(VB2_ToegangVRI.knipper and (VB2_BedieningVRI.auto and VB2_PrimairVRI.uit or VB2_BedieningVRI.hand and VB2_KnoppenVBA.VRIuit or VB2_BedieningVRI.auto and not VB2_PrimairVRI.rood and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend))) and not(VB2_ToegangVRI.rood and (VB2_BedieningVRI.auto and VB2_PrimairVRI.uit or VB2_BedieningVRI.hand and VB2_KnoppenVBA.VRIuit or VB2_BedieningVRI.auto and not VB2_PrimairVRI.rood and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend))) and not(VB2_ToegangAB.neer and (VB2_BedieningAB.auto and VB2_PrimairAB.open or VB2_BedieningAB.hand and VB2_KnoppenVBA.ABopen or VB2_BedieningAB.auto and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairAB.dicht)) and not(VB2_ToegangAB.stop and (VB2_BedieningAB.auto and VB2_PrimairAB.open or VB2_BedieningAB.hand and VB2_KnoppenVBA.ABopen or VB2_BedieningAB.auto and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairAB.dicht)) and not(VB2_ToegangAB.neeronvoorwaardelijk and (VB2_BedieningAB.auto and VB2_PrimairAB.open or VB2_BedieningAB.hand and VB2_KnoppenVBA.ABopen or VB2_BedieningAB.auto and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairAB.dicht)) and Mutex17Home_R;
+requirement invariant Mutex18Home_TT.c_send needs not(VB1_BedieningAB.auto and (VB1_KnopBedienAB.hand and not VB1_SetAuto_Obs2.setauto)) and not(VB1_BedieningVRI.auto and (VB1_KnopBedienVRI.hand and not VB1_SetAuto_Obs2.setauto)) and not(not VB1_PrimairVRI.uit and ((VB1_KnoppenVBA.priVRIuit or VB1_KnoppenVBA.priVBopen) and not VB1_SetAuto_Obs2.setauto)) and not(not VB1_PrimairVRI.rood and ((VB1_KnoppenVBA.priVRIrood or VB1_KnoppenVBA.priVBdicht) and not VB1_SetAuto_Obs2.setauto)) and not(not VB1_PrimairAB.open and (VB1_KnoppenVBA.priVBopen and not VB1_SetAuto_Obs2.setauto)) and not(not VB1_PrimairAB.dicht and (VB1_KnoppenVBA.priVBdicht and not VB1_SetAuto_Obs2.setauto)) and not(VB1_ToegangVRI.uit and (VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIknipper or VB1_BedieningVRI.auto and VB1_HDW_Sensor.aan and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDR_Sensor.uit and VB1_KnoppenVBA.los and not VB1_PrimairVRI.rood)) and not(VB1_ToegangVRI.knipper and (VB1_BedieningVRI.auto and VB1_PrimairVRI.uit and VB1_HDW_Sensor.uit and VB1_HDR_Sensor.uit or VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIuit or VB1_BedieningVRI.auto and not VB1_PrimairVRI.rood and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDW_Sensor.uit and VB1_HDW_Timer.uit and VB1_HDR_Sensor.uit)) and not(VB1_ToegangVRI.rood and (VB1_BedieningVRI.auto and VB1_PrimairVRI.uit and VB1_HDW_Sensor.uit and VB1_HDR_Sensor.uit and VB1_HDR_Timer.uit or VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIuit or VB1_BedieningVRI.auto and not VB1_PrimairVRI.rood and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDW_Sensor.uit and VB1_HDR_Sensor.uit and VB1_HDR_Timer.uit)) and not(VB1_ToegangVRI.rood and (VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIknipper or VB1_BedieningVRI.auto and VB1_HDW_Sensor.aan and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDR_Sensor.uit and VB1_KnoppenVBA.los and not VB1_PrimairVRI.rood)) and not(VB1_ToegangAB.neer and (VB1_BedieningAB.auto and VB1_PrimairAB.open or VB1_BedieningAB.hand and VB1_KnoppenVBA.ABopen or VB1_BedieningAB.auto and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairAB.dicht)) and not(VB1_ToegangAB.stop and (VB1_BedieningAB.auto and VB1_PrimairAB.open or VB1_BedieningAB.hand and VB1_KnoppenVBA.ABopen or VB1_BedieningAB.auto and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairAB.dicht)) and not(VB1_ToegangAB.neeronvoorwaardelijk and (VB1_BedieningAB.auto and VB1_PrimairAB.open or VB1_BedieningAB.hand and VB1_KnoppenVBA.ABopen or VB1_BedieningAB.auto and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairAB.dicht)) and not(VB2_ToegangVRI.knipper and (VB2_BedieningVRI.auto and VB2_PrimairVRI.uit or VB2_BedieningVRI.hand and VB2_KnoppenVBA.VRIuit or VB2_BedieningVRI.auto and not VB2_PrimairVRI.rood and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend))) and not(VB2_ToegangVRI.rood and (VB2_BedieningVRI.auto and VB2_PrimairVRI.uit or VB2_BedieningVRI.hand and VB2_KnoppenVBA.VRIuit or VB2_BedieningVRI.auto and not VB2_PrimairVRI.rood and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend))) and not(VB2_ToegangAB.neer and (VB2_BedieningAB.auto and VB2_PrimairAB.open or VB2_BedieningAB.hand and VB2_KnoppenVBA.ABopen or VB2_BedieningAB.auto and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairAB.dicht)) and not(VB2_ToegangAB.stop and (VB2_BedieningAB.auto and VB2_PrimairAB.open or VB2_BedieningAB.hand and VB2_KnoppenVBA.ABopen or VB2_BedieningAB.auto and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairAB.dicht)) and not(VB2_ToegangAB.neeronvoorwaardelijk and (VB2_BedieningAB.auto and VB2_PrimairAB.open or VB2_BedieningAB.hand and VB2_KnoppenVBA.ABopen or VB2_BedieningAB.auto and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairAB.dicht)) and Mutex18Home_R;
+requirement invariant Mutex19Home_TT.c_send needs not(VB2_BedieningAB.hand and (VB2_KnopBedienAB.auto or VB2_SetAuto_Obs2.setauto)) and not(VB2_BedieningVRI.hand and (VB2_KnopBedienVRI.auto or VB2_SetAuto_Obs2.setauto)) and not(VB1_ToegangVRI.uit and (VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIknipper or VB1_BedieningVRI.auto and VB1_HDW_Sensor.aan and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDR_Sensor.uit and VB1_KnoppenVBA.los and not VB1_PrimairVRI.rood)) and not(VB1_ToegangVRI.knipper and (VB1_BedieningVRI.auto and VB1_PrimairVRI.uit and VB1_HDW_Sensor.uit and VB1_HDR_Sensor.uit or VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIuit or VB1_BedieningVRI.auto and not VB1_PrimairVRI.rood and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDW_Sensor.uit and VB1_HDW_Timer.uit and VB1_HDR_Sensor.uit)) and not(VB1_ToegangVRI.rood and (VB1_BedieningVRI.auto and VB1_PrimairVRI.uit and VB1_HDW_Sensor.uit and VB1_HDR_Sensor.uit and VB1_HDR_Timer.uit or VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIuit or VB1_BedieningVRI.auto and not VB1_PrimairVRI.rood and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDW_Sensor.uit and VB1_HDR_Sensor.uit and VB1_HDR_Timer.uit)) and not(VB1_ToegangVRI.rood and (VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIknipper or VB1_BedieningVRI.auto and VB1_HDW_Sensor.aan and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDR_Sensor.uit and VB1_KnoppenVBA.los and not VB1_PrimairVRI.rood)) and not(VB1_ToegangAB.neer and (VB1_BedieningAB.auto and VB1_PrimairAB.open or VB1_BedieningAB.hand and VB1_KnoppenVBA.ABopen or VB1_BedieningAB.auto and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairAB.dicht)) and not(VB1_ToegangAB.stop and (VB1_BedieningAB.auto and VB1_PrimairAB.open or VB1_BedieningAB.hand and VB1_KnoppenVBA.ABopen or VB1_BedieningAB.auto and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairAB.dicht)) and not(VB1_ToegangAB.neeronvoorwaardelijk and (VB1_BedieningAB.auto and VB1_PrimairAB.open or VB1_BedieningAB.hand and VB1_KnoppenVBA.ABopen or VB1_BedieningAB.auto and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairAB.dicht)) and not(VB2_PrimairVRI.uit and VB2_SetAuto_Obs2.setauto) and not(VB2_PrimairVRI.rood and VB2_SetAuto_Obs2.setauto) and not(not VB2_PrimairAB.auto and VB2_SetAuto_Obs2.setauto) and not(VB2_ToegangVRI.knipper and (VB2_BedieningVRI.auto and VB2_PrimairVRI.uit or VB2_BedieningVRI.hand and VB2_KnoppenVBA.VRIuit or VB2_BedieningVRI.auto and not VB2_PrimairVRI.rood and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend))) and not(VB2_ToegangVRI.rood and (VB2_BedieningVRI.auto and VB2_PrimairVRI.uit or VB2_BedieningVRI.hand and VB2_KnoppenVBA.VRIuit or VB2_BedieningVRI.auto and not VB2_PrimairVRI.rood and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend))) and not(VB2_ToegangAB.neer and (VB2_BedieningAB.auto and VB2_PrimairAB.open or VB2_BedieningAB.hand and VB2_KnoppenVBA.ABopen or VB2_BedieningAB.auto and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairAB.dicht)) and not(VB2_ToegangAB.stop and (VB2_BedieningAB.auto and VB2_PrimairAB.open or VB2_BedieningAB.hand and VB2_KnoppenVBA.ABopen or VB2_BedieningAB.auto and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairAB.dicht)) and not(VB2_ToegangAB.neeronvoorwaardelijk and (VB2_BedieningAB.auto and VB2_PrimairAB.open or VB2_BedieningAB.hand and VB2_KnoppenVBA.ABopen or VB2_BedieningAB.auto and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairAB.dicht)) and Mutex19Home_R;
+requirement invariant Mutex20Home_TT.c_send needs not(VB2_BedieningAB.auto and (VB2_KnopBedienAB.hand and not VB2_SetAuto_Obs2.setauto)) and not(VB2_BedieningVRI.auto and (VB2_KnopBedienVRI.hand and not VB2_SetAuto_Obs2.setauto)) and not(VB1_ToegangVRI.uit and (VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIknipper or VB1_BedieningVRI.auto and VB1_HDW_Sensor.aan and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDR_Sensor.uit and VB1_KnoppenVBA.los and not VB1_PrimairVRI.rood)) and not(VB1_ToegangVRI.knipper and (VB1_BedieningVRI.auto and VB1_PrimairVRI.uit and VB1_HDW_Sensor.uit and VB1_HDR_Sensor.uit or VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIuit or VB1_BedieningVRI.auto and not VB1_PrimairVRI.rood and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDW_Sensor.uit and VB1_HDW_Timer.uit and VB1_HDR_Sensor.uit)) and not(VB1_ToegangVRI.rood and (VB1_BedieningVRI.auto and VB1_PrimairVRI.uit and VB1_HDW_Sensor.uit and VB1_HDR_Sensor.uit and VB1_HDR_Timer.uit or VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIuit or VB1_BedieningVRI.auto and not VB1_PrimairVRI.rood and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDW_Sensor.uit and VB1_HDR_Sensor.uit and VB1_HDR_Timer.uit)) and not(VB1_ToegangVRI.rood and (VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIknipper or VB1_BedieningVRI.auto and VB1_HDW_Sensor.aan and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDR_Sensor.uit and VB1_KnoppenVBA.los and not VB1_PrimairVRI.rood)) and not(VB1_ToegangAB.neer and (VB1_BedieningAB.auto and VB1_PrimairAB.open or VB1_BedieningAB.hand and VB1_KnoppenVBA.ABopen or VB1_BedieningAB.auto and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairAB.dicht)) and not(VB1_ToegangAB.stop and (VB1_BedieningAB.auto and VB1_PrimairAB.open or VB1_BedieningAB.hand and VB1_KnoppenVBA.ABopen or VB1_BedieningAB.auto and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairAB.dicht)) and not(VB1_ToegangAB.neeronvoorwaardelijk and (VB1_BedieningAB.auto and VB1_PrimairAB.open or VB1_BedieningAB.hand and VB1_KnoppenVBA.ABopen or VB1_BedieningAB.auto and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairAB.dicht)) and not(not VB2_PrimairVRI.uit and ((VB2_KnoppenVBA.priVRIuit or VB2_KnoppenVBA.priVBopen) and not VB2_SetAuto_Obs2.setauto)) and not(not VB2_PrimairVRI.rood and ((VB2_KnoppenVBA.priVRIrood or VB2_KnoppenVBA.priVBdicht) and not VB2_SetAuto_Obs2.setauto)) and not(not VB2_PrimairAB.open and (VB2_KnoppenVBA.priVBopen and not VB2_SetAuto_Obs2.setauto)) and not(not VB2_PrimairAB.dicht and (VB2_KnoppenVBA.priVBdicht and not VB2_SetAuto_Obs2.setauto)) and not(VB2_ToegangVRI.knipper and (VB2_BedieningVRI.auto and VB2_PrimairVRI.uit or VB2_BedieningVRI.hand and VB2_KnoppenVBA.VRIuit or VB2_BedieningVRI.auto and not VB2_PrimairVRI.rood and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend))) and not(VB2_ToegangVRI.rood and (VB2_BedieningVRI.auto and VB2_PrimairVRI.uit or VB2_BedieningVRI.hand and VB2_KnoppenVBA.VRIuit or VB2_BedieningVRI.auto and not VB2_PrimairVRI.rood and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend))) and not(VB2_ToegangAB.neer and (VB2_BedieningAB.auto and VB2_PrimairAB.open or VB2_BedieningAB.hand and VB2_KnoppenVBA.ABopen or VB2_BedieningAB.auto and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairAB.dicht)) and not(VB2_ToegangAB.stop and (VB2_BedieningAB.auto and VB2_PrimairAB.open or VB2_BedieningAB.hand and VB2_KnoppenVBA.ABopen or VB2_BedieningAB.auto and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairAB.dicht)) and not(VB2_ToegangAB.neeronvoorwaardelijk and (VB2_BedieningAB.auto and VB2_PrimairAB.open or VB2_BedieningAB.hand and VB2_KnoppenVBA.ABopen or VB2_BedieningAB.auto and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairAB.dicht)) and Mutex20Home_R;
+requirement invariant Mutex21Home_TT.c_send needs not(VB2_BedieningAB.auto and (VB2_KnopBedienAB.hand and not VB2_SetAuto_Obs2.setauto)) and not(VB2_BedieningVRI.auto and (VB2_KnopBedienVRI.hand and not VB2_SetAuto_Obs2.setauto)) and not(VB1_ToegangVRI.uit and (VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIknipper or VB1_BedieningVRI.auto and VB1_HDW_Sensor.aan and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDR_Sensor.uit and VB1_KnoppenVBA.los and not VB1_PrimairVRI.rood)) and not(VB1_ToegangVRI.knipper and (VB1_BedieningVRI.auto and VB1_PrimairVRI.uit and VB1_HDW_Sensor.uit and VB1_HDR_Sensor.uit or VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIuit or VB1_BedieningVRI.auto and not VB1_PrimairVRI.rood and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDW_Sensor.uit and VB1_HDW_Timer.uit and VB1_HDR_Sensor.uit)) and not(VB1_ToegangVRI.rood and (VB1_BedieningVRI.auto and VB1_PrimairVRI.uit and VB1_HDW_Sensor.uit and VB1_HDR_Sensor.uit and VB1_HDR_Timer.uit or VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIuit or VB1_BedieningVRI.auto and not VB1_PrimairVRI.rood and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDW_Sensor.uit and VB1_HDR_Sensor.uit and VB1_HDR_Timer.uit)) and not(VB1_ToegangVRI.rood and (VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIknipper or VB1_BedieningVRI.auto and VB1_HDW_Sensor.aan and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDR_Sensor.uit and VB1_KnoppenVBA.los and not VB1_PrimairVRI.rood)) and not(VB1_ToegangAB.neer and (VB1_BedieningAB.auto and VB1_PrimairAB.open or VB1_BedieningAB.hand and VB1_KnoppenVBA.ABopen or VB1_BedieningAB.auto and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairAB.dicht)) and not(VB1_ToegangAB.stop and (VB1_BedieningAB.auto and VB1_PrimairAB.open or VB1_BedieningAB.hand and VB1_KnoppenVBA.ABopen or VB1_BedieningAB.auto and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairAB.dicht)) and not(VB1_ToegangAB.neeronvoorwaardelijk and (VB1_BedieningAB.auto and VB1_PrimairAB.open or VB1_BedieningAB.hand and VB1_KnoppenVBA.ABopen or VB1_BedieningAB.auto and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairAB.dicht)) and not(not VB2_PrimairVRI.uit and ((VB2_KnoppenVBA.priVRIuit or VB2_KnoppenVBA.priVBopen) and not VB2_SetAuto_Obs2.setauto)) and not(not VB2_PrimairVRI.rood and ((VB2_KnoppenVBA.priVRIrood or VB2_KnoppenVBA.priVBdicht) and not VB2_SetAuto_Obs2.setauto)) and not(not VB2_PrimairAB.open and (VB2_KnoppenVBA.priVBopen and not VB2_SetAuto_Obs2.setauto)) and not(not VB2_PrimairAB.dicht and (VB2_KnoppenVBA.priVBdicht and not VB2_SetAuto_Obs2.setauto)) and Mutex21Home_R;
+requirement invariant Mutex22Home_TT.c_send needs not(VB2_BedieningAB.auto and (VB2_KnopBedienAB.hand and not VB2_SetAuto_Obs2.setauto)) and not(VB2_BedieningVRI.auto and (VB2_KnopBedienVRI.hand and not VB2_SetAuto_Obs2.setauto)) and not(VB1_ToegangVRI.uit and (VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIknipper or VB1_BedieningVRI.auto and VB1_HDW_Sensor.aan and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDR_Sensor.uit and VB1_KnoppenVBA.los and not VB1_PrimairVRI.rood)) and not(VB1_ToegangVRI.knipper and (VB1_BedieningVRI.auto and VB1_PrimairVRI.uit and VB1_HDW_Sensor.uit and VB1_HDR_Sensor.uit or VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIuit or VB1_BedieningVRI.auto and not VB1_PrimairVRI.rood and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDW_Sensor.uit and VB1_HDW_Timer.uit and VB1_HDR_Sensor.uit)) and not(VB1_ToegangVRI.rood and (VB1_BedieningVRI.auto and VB1_PrimairVRI.uit and VB1_HDW_Sensor.uit and VB1_HDR_Sensor.uit and VB1_HDR_Timer.uit or VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIuit or VB1_BedieningVRI.auto and not VB1_PrimairVRI.rood and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDW_Sensor.uit and VB1_HDR_Sensor.uit and VB1_HDR_Timer.uit)) and not(VB1_ToegangVRI.rood and (VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIknipper or VB1_BedieningVRI.auto and VB1_HDW_Sensor.aan and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDR_Sensor.uit and VB1_KnoppenVBA.los and not VB1_PrimairVRI.rood)) and not(VB1_ToegangAB.neer and (VB1_BedieningAB.auto and VB1_PrimairAB.open or VB1_BedieningAB.hand and VB1_KnoppenVBA.ABopen or VB1_BedieningAB.auto and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairAB.dicht)) and not(VB1_ToegangAB.stop and (VB1_BedieningAB.auto and VB1_PrimairAB.open or VB1_BedieningAB.hand and VB1_KnoppenVBA.ABopen or VB1_BedieningAB.auto and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairAB.dicht)) and not(VB1_ToegangAB.neeronvoorwaardelijk and (VB1_BedieningAB.auto and VB1_PrimairAB.open or VB1_BedieningAB.hand and VB1_KnoppenVBA.ABopen or VB1_BedieningAB.auto and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairAB.dicht)) and not(not VB2_PrimairVRI.uit and ((VB2_KnoppenVBA.priVRIuit or VB2_KnoppenVBA.priVBopen) and not VB2_SetAuto_Obs2.setauto)) and not(not VB2_PrimairVRI.rood and ((VB2_KnoppenVBA.priVRIrood or VB2_KnoppenVBA.priVBdicht) and not VB2_SetAuto_Obs2.setauto)) and not(not VB2_PrimairAB.open and (VB2_KnoppenVBA.priVBopen and not VB2_SetAuto_Obs2.setauto)) and not(not VB2_PrimairAB.dicht and (VB2_KnoppenVBA.priVBdicht and not VB2_SetAuto_Obs2.setauto)) and not(VB2_ToegangVRI.uit and (VB2_BedieningVRI.auto and VB2_PrimairVRI.rood or VB2_BedieningVRI.hand and VB2_KnoppenVBA.VRIrood or VB2_BedieningVRI.auto and (VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairVRI.uit)) and not(VB2_ToegangVRI.knipper and (VB2_BedieningVRI.auto and VB2_PrimairVRI.rood or VB2_BedieningVRI.hand and VB2_KnoppenVBA.VRIrood or VB2_BedieningVRI.auto and (VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairVRI.uit)) and not(VB2_ToegangAB.op and (VB2_BedieningAB.auto and VB2_PrimairAB.dicht or VB2_BedieningAB.hand and VB2_KnoppenVBA.ABsluit or VB2_BedieningAB.auto and (VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairAB.open)) and not(VB2_ToegangAB.stop and (VB2_BedieningAB.auto and VB2_PrimairAB.dicht or VB2_BedieningAB.hand and VB2_KnoppenVBA.ABsluit or VB2_BedieningAB.auto and (VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairAB.open)) and not(VB2_ToegangAB.neeronvoorwaardelijk and (VB2_BedieningAB.auto and VB2_PrimairAB.dicht or VB2_BedieningAB.hand and VB2_KnoppenVBA.ABsluit or VB2_BedieningAB.auto and (VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairAB.open)) and Mutex22Home_R;
+requirement invariant Mutex23Home_TT.c_send needs not(VB2_BedieningAB.auto and (VB2_KnopBedienAB.hand and not VB2_SetAuto_Obs2.setauto)) and not(VB2_BedieningVRI.auto and (VB2_KnopBedienVRI.hand and not VB2_SetAuto_Obs2.setauto)) and not(VB1_ToegangVRI.uit and (VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIknipper or VB1_BedieningVRI.auto and VB1_HDW_Sensor.aan and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDR_Sensor.uit and VB1_KnoppenVBA.los and not VB1_PrimairVRI.rood)) and not(VB1_ToegangVRI.knipper and (VB1_BedieningVRI.auto and VB1_PrimairVRI.uit and VB1_HDW_Sensor.uit and VB1_HDR_Sensor.uit or VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIuit or VB1_BedieningVRI.auto and not VB1_PrimairVRI.rood and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDW_Sensor.uit and VB1_HDW_Timer.uit and VB1_HDR_Sensor.uit)) and not(VB1_ToegangVRI.rood and (VB1_BedieningVRI.auto and VB1_PrimairVRI.uit and VB1_HDW_Sensor.uit and VB1_HDR_Sensor.uit and VB1_HDR_Timer.uit or VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIuit or VB1_BedieningVRI.auto and not VB1_PrimairVRI.rood and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDW_Sensor.uit and VB1_HDR_Sensor.uit and VB1_HDR_Timer.uit)) and not(VB1_ToegangVRI.rood and (VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIknipper or VB1_BedieningVRI.auto and VB1_HDW_Sensor.aan and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDR_Sensor.uit and VB1_KnoppenVBA.los and not VB1_PrimairVRI.rood)) and not(VB1_ToegangAB.neer and (VB1_BedieningAB.auto and VB1_PrimairAB.open or VB1_BedieningAB.hand and VB1_KnoppenVBA.ABopen or VB1_BedieningAB.auto and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairAB.dicht)) and not(VB1_ToegangAB.stop and (VB1_BedieningAB.auto and VB1_PrimairAB.open or VB1_BedieningAB.hand and VB1_KnoppenVBA.ABopen or VB1_BedieningAB.auto and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairAB.dicht)) and not(VB1_ToegangAB.neeronvoorwaardelijk and (VB1_BedieningAB.auto and VB1_PrimairAB.open or VB1_BedieningAB.hand and VB1_KnoppenVBA.ABopen or VB1_BedieningAB.auto and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairAB.dicht)) and not(not VB2_PrimairVRI.uit and ((VB2_KnoppenVBA.priVRIuit or VB2_KnoppenVBA.priVBopen) and not VB2_SetAuto_Obs2.setauto)) and not(not VB2_PrimairVRI.rood and ((VB2_KnoppenVBA.priVRIrood or VB2_KnoppenVBA.priVBdicht) and not VB2_SetAuto_Obs2.setauto)) and not(not VB2_PrimairAB.open and (VB2_KnoppenVBA.priVBopen and not VB2_SetAuto_Obs2.setauto)) and not(not VB2_PrimairAB.dicht and (VB2_KnoppenVBA.priVBdicht and not VB2_SetAuto_Obs2.setauto)) and not(VB2_ToegangVRI.knipper and (VB2_BedieningVRI.auto and VB2_PrimairVRI.uit or VB2_BedieningVRI.hand and VB2_KnoppenVBA.VRIuit or VB2_BedieningVRI.auto and not VB2_PrimairVRI.rood and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend))) and not(VB2_ToegangVRI.rood and (VB2_BedieningVRI.auto and VB2_PrimairVRI.uit or VB2_BedieningVRI.hand and VB2_KnoppenVBA.VRIuit or VB2_BedieningVRI.auto and not VB2_PrimairVRI.rood and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend))) and not(VB2_ToegangAB.neer and (VB2_BedieningAB.auto and VB2_PrimairAB.open or VB2_BedieningAB.hand and VB2_KnoppenVBA.ABopen or VB2_BedieningAB.auto and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairAB.dicht)) and not(VB2_ToegangAB.stop and (VB2_BedieningAB.auto and VB2_PrimairAB.open or VB2_BedieningAB.hand and VB2_KnoppenVBA.ABopen or VB2_BedieningAB.auto and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairAB.dicht)) and not(VB2_ToegangAB.neeronvoorwaardelijk and (VB2_BedieningAB.auto and VB2_PrimairAB.open or VB2_BedieningAB.hand and VB2_KnoppenVBA.ABopen or VB2_BedieningAB.auto and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairAB.dicht)) and Mutex23Home_R;
+requirement invariant Mutex24Home_TT.c_send needs not(VB2_BedieningAB.auto and (VB2_KnopBedienAB.hand and not VB2_SetAuto_Obs2.setauto)) and not(VB2_BedieningVRI.auto and (VB2_KnopBedienVRI.hand and not VB2_SetAuto_Obs2.setauto)) and not(VB1_ToegangVRI.uit and (VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIknipper or VB1_BedieningVRI.auto and VB1_HDW_Sensor.aan and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDR_Sensor.uit and VB1_KnoppenVBA.los and not VB1_PrimairVRI.rood)) and not(VB1_ToegangVRI.knipper and (VB1_BedieningVRI.auto and VB1_PrimairVRI.uit and VB1_HDW_Sensor.uit and VB1_HDR_Sensor.uit or VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIuit or VB1_BedieningVRI.auto and not VB1_PrimairVRI.rood and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDW_Sensor.uit and VB1_HDW_Timer.uit and VB1_HDR_Sensor.uit)) and not(VB1_ToegangVRI.rood and (VB1_BedieningVRI.auto and VB1_PrimairVRI.uit and VB1_HDW_Sensor.uit and VB1_HDR_Sensor.uit and VB1_HDR_Timer.uit or VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIuit or VB1_BedieningVRI.auto and not VB1_PrimairVRI.rood and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDW_Sensor.uit and VB1_HDR_Sensor.uit and VB1_HDR_Timer.uit)) and not(VB1_ToegangVRI.rood and (VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIknipper or VB1_BedieningVRI.auto and VB1_HDW_Sensor.aan and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDR_Sensor.uit and VB1_KnoppenVBA.los and not VB1_PrimairVRI.rood)) and not(VB1_ToegangAB.neer and (VB1_BedieningAB.auto and VB1_PrimairAB.open or VB1_BedieningAB.hand and VB1_KnoppenVBA.ABopen or VB1_BedieningAB.auto and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairAB.dicht)) and not(VB1_ToegangAB.stop and (VB1_BedieningAB.auto and VB1_PrimairAB.open or VB1_BedieningAB.hand and VB1_KnoppenVBA.ABopen or VB1_BedieningAB.auto and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairAB.dicht)) and not(VB1_ToegangAB.neeronvoorwaardelijk and (VB1_BedieningAB.auto and VB1_PrimairAB.open or VB1_BedieningAB.hand and VB1_KnoppenVBA.ABopen or VB1_BedieningAB.auto and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairAB.dicht)) and not(not VB2_PrimairVRI.uit and ((VB2_KnoppenVBA.priVRIuit or VB2_KnoppenVBA.priVBopen) and not VB2_SetAuto_Obs2.setauto)) and not(not VB2_PrimairVRI.rood and ((VB2_KnoppenVBA.priVRIrood or VB2_KnoppenVBA.priVBdicht) and not VB2_SetAuto_Obs2.setauto)) and not(not VB2_PrimairAB.open and (VB2_KnoppenVBA.priVBopen and not VB2_SetAuto_Obs2.setauto)) and not(not VB2_PrimairAB.dicht and (VB2_KnoppenVBA.priVBdicht and not VB2_SetAuto_Obs2.setauto)) and not(VB2_ToegangVRI.uit and (VB2_BedieningVRI.auto and VB2_PrimairVRI.rood or VB2_BedieningVRI.hand and VB2_KnoppenVBA.VRIrood or VB2_BedieningVRI.auto and (VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairVRI.uit)) and not(VB2_ToegangVRI.knipper and (VB2_BedieningVRI.auto and VB2_PrimairVRI.rood or VB2_BedieningVRI.hand and VB2_KnoppenVBA.VRIrood or VB2_BedieningVRI.auto and (VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairVRI.uit)) and not(VB2_ToegangVRI.knipper and (VB2_BedieningVRI.auto and VB2_PrimairVRI.uit or VB2_BedieningVRI.hand and VB2_KnoppenVBA.VRIuit or VB2_BedieningVRI.auto and not VB2_PrimairVRI.rood and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend))) and not(VB2_ToegangVRI.rood and (VB2_BedieningVRI.auto and VB2_PrimairVRI.uit or VB2_BedieningVRI.hand and VB2_KnoppenVBA.VRIuit or VB2_BedieningVRI.auto and not VB2_PrimairVRI.rood and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend))) and not(VB2_ToegangAB.op and (VB2_BedieningAB.auto and VB2_PrimairAB.dicht or VB2_BedieningAB.hand and VB2_KnoppenVBA.ABsluit or VB2_BedieningAB.auto and (VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairAB.open)) and not(VB2_ToegangAB.neer and (VB2_BedieningAB.auto and VB2_PrimairAB.open or VB2_BedieningAB.hand and VB2_KnoppenVBA.ABopen or VB2_BedieningAB.auto and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairAB.dicht)) and not(VB2_ToegangAB.stop and (VB2_BedieningAB.auto and VB2_PrimairAB.dicht or VB2_BedieningAB.hand and VB2_KnoppenVBA.ABsluit or VB2_BedieningAB.auto and (VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairAB.open)) and not(VB2_ToegangAB.stop and (VB2_BedieningAB.auto and VB2_PrimairAB.open or VB2_BedieningAB.hand and VB2_KnoppenVBA.ABopen or VB2_BedieningAB.auto and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairAB.dicht)) and not(VB2_ToegangAB.neeronvoorwaardelijk and (VB2_BedieningAB.auto and VB2_PrimairAB.dicht or VB2_BedieningAB.hand and VB2_KnoppenVBA.ABsluit or VB2_BedieningAB.auto and (VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairAB.open)) and not(VB2_ToegangAB.neeronvoorwaardelijk and (VB2_BedieningAB.auto and VB2_PrimairAB.open or VB2_BedieningAB.hand and VB2_KnoppenVBA.ABopen or VB2_BedieningAB.auto and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairAB.dicht)) and Mutex24Home_R;
+requirement invariant Mutex25Home_TT.c_send needs not(VB2_BedieningAB.auto and (VB2_KnopBedienAB.hand and not VB2_SetAuto_Obs2.setauto)) and not(VB2_BedieningVRI.auto and (VB2_KnopBedienVRI.hand and not VB2_SetAuto_Obs2.setauto)) and not(VB1_ToegangVRI.uit and (VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIknipper or VB1_BedieningVRI.auto and VB1_HDW_Sensor.aan and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDR_Sensor.uit and VB1_KnoppenVBA.los and not VB1_PrimairVRI.rood)) and not(VB1_ToegangVRI.knipper and (VB1_BedieningVRI.auto and VB1_PrimairVRI.uit and VB1_HDW_Sensor.uit and VB1_HDR_Sensor.uit or VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIuit or VB1_BedieningVRI.auto and not VB1_PrimairVRI.rood and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDW_Sensor.uit and VB1_HDW_Timer.uit and VB1_HDR_Sensor.uit)) and not(VB1_ToegangVRI.rood and (VB1_BedieningVRI.auto and VB1_PrimairVRI.uit and VB1_HDW_Sensor.uit and VB1_HDR_Sensor.uit and VB1_HDR_Timer.uit or VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIuit or VB1_BedieningVRI.auto and not VB1_PrimairVRI.rood and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDW_Sensor.uit and VB1_HDR_Sensor.uit and VB1_HDR_Timer.uit)) and not(VB1_ToegangVRI.rood and (VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIknipper or VB1_BedieningVRI.auto and VB1_HDW_Sensor.aan and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDR_Sensor.uit and VB1_KnoppenVBA.los and not VB1_PrimairVRI.rood)) and not(VB1_ToegangAB.neer and (VB1_BedieningAB.auto and VB1_PrimairAB.open or VB1_BedieningAB.hand and VB1_KnoppenVBA.ABopen or VB1_BedieningAB.auto and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairAB.dicht)) and not(VB1_ToegangAB.stop and (VB1_BedieningAB.auto and VB1_PrimairAB.open or VB1_BedieningAB.hand and VB1_KnoppenVBA.ABopen or VB1_BedieningAB.auto and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairAB.dicht)) and not(VB1_ToegangAB.neeronvoorwaardelijk and (VB1_BedieningAB.auto and VB1_PrimairAB.open or VB1_BedieningAB.hand and VB1_KnoppenVBA.ABopen or VB1_BedieningAB.auto and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairAB.dicht)) and not(not VB2_PrimairVRI.uit and ((VB2_KnoppenVBA.priVRIuit or VB2_KnoppenVBA.priVBopen) and not VB2_SetAuto_Obs2.setauto)) and not(not VB2_PrimairVRI.rood and ((VB2_KnoppenVBA.priVRIrood or VB2_KnoppenVBA.priVBdicht) and not VB2_SetAuto_Obs2.setauto)) and not(not VB2_PrimairAB.open and (VB2_KnoppenVBA.priVBopen and not VB2_SetAuto_Obs2.setauto)) and not(not VB2_PrimairAB.dicht and (VB2_KnoppenVBA.priVBdicht and not VB2_SetAuto_Obs2.setauto)) and not(VB2_ToegangVRI.knipper and (VB2_BedieningVRI.auto and VB2_PrimairVRI.uit or VB2_BedieningVRI.hand and VB2_KnoppenVBA.VRIuit or VB2_BedieningVRI.auto and not VB2_PrimairVRI.rood and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend))) and not(VB2_ToegangVRI.rood and (VB2_BedieningVRI.auto and VB2_PrimairVRI.uit or VB2_BedieningVRI.hand and VB2_KnoppenVBA.VRIuit or VB2_BedieningVRI.auto and not VB2_PrimairVRI.rood and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend))) and not(VB2_ToegangAB.neer and (VB2_BedieningAB.auto and VB2_PrimairAB.open or VB2_BedieningAB.hand and VB2_KnoppenVBA.ABopen or VB2_BedieningAB.auto and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairAB.dicht)) and not(VB2_ToegangAB.stop and (VB2_BedieningAB.auto and VB2_PrimairAB.open or VB2_BedieningAB.hand and VB2_KnoppenVBA.ABopen or VB2_BedieningAB.auto and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairAB.dicht)) and not(VB2_ToegangAB.neeronvoorwaardelijk and (VB2_BedieningAB.auto and VB2_PrimairAB.open or VB2_BedieningAB.hand and VB2_KnoppenVBA.ABopen or VB2_BedieningAB.auto and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairAB.dicht)) and Mutex25Home_R;
+requirement invariant Mutex26Home_TT.c_send needs not(VB2_BedieningAB.auto and (VB2_KnopBedienAB.hand and not VB2_SetAuto_Obs2.setauto)) and not(VB2_BedieningVRI.auto and (VB2_KnopBedienVRI.hand and not VB2_SetAuto_Obs2.setauto)) and not(VB1_ToegangVRI.uit and (VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIknipper or VB1_BedieningVRI.auto and VB1_HDW_Sensor.aan and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDR_Sensor.uit and VB1_KnoppenVBA.los and not VB1_PrimairVRI.rood)) and not(VB1_ToegangVRI.knipper and (VB1_BedieningVRI.auto and VB1_PrimairVRI.uit and VB1_HDW_Sensor.uit and VB1_HDR_Sensor.uit or VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIuit or VB1_BedieningVRI.auto and not VB1_PrimairVRI.rood and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDW_Sensor.uit and VB1_HDW_Timer.uit and VB1_HDR_Sensor.uit)) and not(VB1_ToegangVRI.rood and (VB1_BedieningVRI.auto and VB1_PrimairVRI.uit and VB1_HDW_Sensor.uit and VB1_HDR_Sensor.uit and VB1_HDR_Timer.uit or VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIuit or VB1_BedieningVRI.auto and not VB1_PrimairVRI.rood and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDW_Sensor.uit and VB1_HDR_Sensor.uit and VB1_HDR_Timer.uit)) and not(VB1_ToegangVRI.rood and (VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIknipper or VB1_BedieningVRI.auto and VB1_HDW_Sensor.aan and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDR_Sensor.uit and VB1_KnoppenVBA.los and not VB1_PrimairVRI.rood)) and not(VB1_ToegangAB.neer and (VB1_BedieningAB.auto and VB1_PrimairAB.open or VB1_BedieningAB.hand and VB1_KnoppenVBA.ABopen or VB1_BedieningAB.auto and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairAB.dicht)) and not(VB1_ToegangAB.stop and (VB1_BedieningAB.auto and VB1_PrimairAB.open or VB1_BedieningAB.hand and VB1_KnoppenVBA.ABopen or VB1_BedieningAB.auto and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairAB.dicht)) and not(VB1_ToegangAB.neeronvoorwaardelijk and (VB1_BedieningAB.auto and VB1_PrimairAB.open or VB1_BedieningAB.hand and VB1_KnoppenVBA.ABopen or VB1_BedieningAB.auto and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairAB.dicht)) and not(not VB2_PrimairVRI.uit and ((VB2_KnoppenVBA.priVRIuit or VB2_KnoppenVBA.priVBopen) and not VB2_SetAuto_Obs2.setauto)) and not(not VB2_PrimairVRI.rood and ((VB2_KnoppenVBA.priVRIrood or VB2_KnoppenVBA.priVBdicht) and not VB2_SetAuto_Obs2.setauto)) and not(not VB2_PrimairAB.open and (VB2_KnoppenVBA.priVBopen and not VB2_SetAuto_Obs2.setauto)) and not(not VB2_PrimairAB.dicht and (VB2_KnoppenVBA.priVBdicht and not VB2_SetAuto_Obs2.setauto)) and not(VB2_ToegangVRI.knipper and (VB2_BedieningVRI.auto and VB2_PrimairVRI.uit or VB2_BedieningVRI.hand and VB2_KnoppenVBA.VRIuit or VB2_BedieningVRI.auto and not VB2_PrimairVRI.rood and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend))) and not(VB2_ToegangVRI.rood and (VB2_BedieningVRI.auto and VB2_PrimairVRI.uit or VB2_BedieningVRI.hand and VB2_KnoppenVBA.VRIuit or VB2_BedieningVRI.auto and not VB2_PrimairVRI.rood and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend))) and not(VB2_ToegangAB.neer and (VB2_BedieningAB.auto and VB2_PrimairAB.open or VB2_BedieningAB.hand and VB2_KnoppenVBA.ABopen or VB2_BedieningAB.auto and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairAB.dicht)) and not(VB2_ToegangAB.stop and (VB2_BedieningAB.auto and VB2_PrimairAB.open or VB2_BedieningAB.hand and VB2_KnoppenVBA.ABopen or VB2_BedieningAB.auto and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairAB.dicht)) and not(VB2_ToegangAB.neeronvoorwaardelijk and (VB2_BedieningAB.auto and VB2_PrimairAB.open or VB2_BedieningAB.hand and VB2_KnoppenVBA.ABopen or VB2_BedieningAB.auto and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairAB.dicht)) and Mutex26Home_R;
+requirement invariant Mutex27Home_TT.c_send needs not(VB2_BedieningAB.auto and (VB2_KnopBedienAB.hand and not VB2_SetAuto_Obs2.setauto)) and not(VB2_BedieningVRI.auto and (VB2_KnopBedienVRI.hand and not VB2_SetAuto_Obs2.setauto)) and not(VB1_ToegangVRI.uit and (VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIknipper or VB1_BedieningVRI.auto and VB1_HDW_Sensor.aan and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDR_Sensor.uit and VB1_KnoppenVBA.los and not VB1_PrimairVRI.rood)) and not(VB1_ToegangVRI.knipper and (VB1_BedieningVRI.auto and VB1_PrimairVRI.uit and VB1_HDW_Sensor.uit and VB1_HDR_Sensor.uit or VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIuit or VB1_BedieningVRI.auto and not VB1_PrimairVRI.rood and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDW_Sensor.uit and VB1_HDW_Timer.uit and VB1_HDR_Sensor.uit)) and not(VB1_ToegangVRI.rood and (VB1_BedieningVRI.auto and VB1_PrimairVRI.uit and VB1_HDW_Sensor.uit and VB1_HDR_Sensor.uit and VB1_HDR_Timer.uit or VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIuit or VB1_BedieningVRI.auto and not VB1_PrimairVRI.rood and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDW_Sensor.uit and VB1_HDR_Sensor.uit and VB1_HDR_Timer.uit)) and not(VB1_ToegangVRI.rood and (VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIknipper or VB1_BedieningVRI.auto and VB1_HDW_Sensor.aan and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDR_Sensor.uit and VB1_KnoppenVBA.los and not VB1_PrimairVRI.rood)) and not(VB1_ToegangAB.neer and (VB1_BedieningAB.auto and VB1_PrimairAB.open or VB1_BedieningAB.hand and VB1_KnoppenVBA.ABopen or VB1_BedieningAB.auto and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairAB.dicht)) and not(VB1_ToegangAB.stop and (VB1_BedieningAB.auto and VB1_PrimairAB.open or VB1_BedieningAB.hand and VB1_KnoppenVBA.ABopen or VB1_BedieningAB.auto and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairAB.dicht)) and not(VB1_ToegangAB.neeronvoorwaardelijk and (VB1_BedieningAB.auto and VB1_PrimairAB.open or VB1_BedieningAB.hand and VB1_KnoppenVBA.ABopen or VB1_BedieningAB.auto and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairAB.dicht)) and not(not VB2_PrimairVRI.uit and ((VB2_KnoppenVBA.priVRIuit or VB2_KnoppenVBA.priVBopen) and not VB2_SetAuto_Obs2.setauto)) and not(not VB2_PrimairVRI.rood and ((VB2_KnoppenVBA.priVRIrood or VB2_KnoppenVBA.priVBdicht) and not VB2_SetAuto_Obs2.setauto)) and not(not VB2_PrimairAB.open and (VB2_KnoppenVBA.priVBopen and not VB2_SetAuto_Obs2.setauto)) and not(not VB2_PrimairAB.dicht and (VB2_KnoppenVBA.priVBdicht and not VB2_SetAuto_Obs2.setauto)) and not(VB2_ToegangVRI.knipper and (VB2_BedieningVRI.auto and VB2_PrimairVRI.uit or VB2_BedieningVRI.hand and VB2_KnoppenVBA.VRIuit or VB2_BedieningVRI.auto and not VB2_PrimairVRI.rood and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend))) and not(VB2_ToegangVRI.rood and (VB2_BedieningVRI.auto and VB2_PrimairVRI.uit or VB2_BedieningVRI.hand and VB2_KnoppenVBA.VRIuit or VB2_BedieningVRI.auto and not VB2_PrimairVRI.rood and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend))) and not(VB2_ToegangAB.neer and (VB2_BedieningAB.auto and VB2_PrimairAB.open or VB2_BedieningAB.hand and VB2_KnoppenVBA.ABopen or VB2_BedieningAB.auto and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairAB.dicht)) and not(VB2_ToegangAB.stop and (VB2_BedieningAB.auto and VB2_PrimairAB.open or VB2_BedieningAB.hand and VB2_KnoppenVBA.ABopen or VB2_BedieningAB.auto and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairAB.dicht)) and not(VB2_ToegangAB.neeronvoorwaardelijk and (VB2_BedieningAB.auto and VB2_PrimairAB.open or VB2_BedieningAB.hand and VB2_KnoppenVBA.ABopen or VB2_BedieningAB.auto and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairAB.dicht)) and Mutex27Home_R;
+requirement invariant Mutex28Home_TT.c_send needs not(VB2_BedieningAB.auto and (VB2_KnopBedienAB.hand and not VB2_SetAuto_Obs2.setauto)) and not(VB2_BedieningVRI.auto and (VB2_KnopBedienVRI.hand and not VB2_SetAuto_Obs2.setauto)) and not(VB1_ToegangVRI.uit and (VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIknipper or VB1_BedieningVRI.auto and VB1_HDW_Sensor.aan and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDR_Sensor.uit and VB1_KnoppenVBA.los and not VB1_PrimairVRI.rood)) and not(VB1_ToegangVRI.knipper and (VB1_BedieningVRI.auto and VB1_PrimairVRI.uit and VB1_HDW_Sensor.uit and VB1_HDR_Sensor.uit or VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIuit or VB1_BedieningVRI.auto and not VB1_PrimairVRI.rood and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDW_Sensor.uit and VB1_HDW_Timer.uit and VB1_HDR_Sensor.uit)) and not(VB1_ToegangVRI.rood and (VB1_BedieningVRI.auto and VB1_PrimairVRI.uit and VB1_HDW_Sensor.uit and VB1_HDR_Sensor.uit and VB1_HDR_Timer.uit or VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIuit or VB1_BedieningVRI.auto and not VB1_PrimairVRI.rood and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDW_Sensor.uit and VB1_HDR_Sensor.uit and VB1_HDR_Timer.uit)) and not(VB1_ToegangVRI.rood and (VB1_BedieningVRI.hand and VB1_KnoppenVBA.VRIknipper or VB1_BedieningVRI.auto and VB1_HDW_Sensor.aan and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and VB1_HDR_Sensor.uit and VB1_KnoppenVBA.los and not VB1_PrimairVRI.rood)) and not(VB1_ToegangAB.neer and (VB1_BedieningAB.auto and VB1_PrimairAB.open or VB1_BedieningAB.hand and VB1_KnoppenVBA.ABopen or VB1_BedieningAB.auto and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairAB.dicht)) and not(VB1_ToegangAB.stop and (VB1_BedieningAB.auto and VB1_PrimairAB.open or VB1_BedieningAB.hand and VB1_KnoppenVBA.ABopen or VB1_BedieningAB.auto and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairAB.dicht)) and not(VB1_ToegangAB.neeronvoorwaardelijk and (VB1_BedieningAB.auto and VB1_PrimairAB.open or VB1_BedieningAB.hand and VB1_KnoppenVBA.ABopen or VB1_BedieningAB.auto and not(VB1SO.calamiteit or VB1SO.evacuatie or VB1SO.ondersteunend) and not VB1_PrimairAB.dicht)) and not(not VB2_PrimairVRI.uit and ((VB2_KnoppenVBA.priVRIuit or VB2_KnoppenVBA.priVBopen) and not VB2_SetAuto_Obs2.setauto)) and not(not VB2_PrimairVRI.rood and ((VB2_KnoppenVBA.priVRIrood or VB2_KnoppenVBA.priVBdicht) and not VB2_SetAuto_Obs2.setauto)) and not(not VB2_PrimairAB.open and (VB2_KnoppenVBA.priVBopen and not VB2_SetAuto_Obs2.setauto)) and not(not VB2_PrimairAB.dicht and (VB2_KnoppenVBA.priVBdicht and not VB2_SetAuto_Obs2.setauto)) and not(VB2_ToegangVRI.knipper and (VB2_BedieningVRI.auto and VB2_PrimairVRI.uit or VB2_BedieningVRI.hand and VB2_KnoppenVBA.VRIuit or VB2_BedieningVRI.auto and not VB2_PrimairVRI.rood and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend))) and not(VB2_ToegangVRI.rood and (VB2_BedieningVRI.auto and VB2_PrimairVRI.uit or VB2_BedieningVRI.hand and VB2_KnoppenVBA.VRIuit or VB2_BedieningVRI.auto and not VB2_PrimairVRI.rood and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend))) and not(VB2_ToegangAB.neer and (VB2_BedieningAB.auto and VB2_PrimairAB.open or VB2_BedieningAB.hand and VB2_KnoppenVBA.ABopen or VB2_BedieningAB.auto and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairAB.dicht)) and not(VB2_ToegangAB.stop and (VB2_BedieningAB.auto and VB2_PrimairAB.open or VB2_BedieningAB.hand and VB2_KnoppenVBA.ABopen or VB2_BedieningAB.auto and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairAB.dicht)) and not(VB2_ToegangAB.neeronvoorwaardelijk and (VB2_BedieningAB.auto and VB2_PrimairAB.open or VB2_BedieningAB.hand and VB2_KnoppenVBA.ABopen or VB2_BedieningAB.auto and not(VB2SO.calamiteit or VB2SO.evacuatie or VB2SO.ondersteunend) and not VB2_PrimairAB.dicht)) and Mutex28Home_R;

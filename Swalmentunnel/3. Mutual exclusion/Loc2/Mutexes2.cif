@@ -1,0 +1,676 @@
+import "Loc2.cif";
+import "Observers2.cif";
+import "../definitions/Away.cif";
+import "../definitions/Home.cif";
+
+// Allowed booleans
+alg bool VB1_BedieningAB_c_auto_allowed = VB1_BedieningAB.hand and (VB1_KnoppenBedieningAB.auto or VB1_SetAuto_Observer2.setauto);
+alg bool VB1_BedieningAB_c_hand_allowed = VB1_BedieningAB.auto and (VB1_KnoppenBedieningAB.hand and not VB1_SetAuto_Observer2.setauto);
+alg bool VB1_BedieningVRI_c_auto_allowed = VB1_BedieningVRI.hand and (VB1_KnoppenBedieningVRI.auto or VB1_SetAuto_Observer2.setauto);
+alg bool VB1_BedieningVRI_c_hand_allowed = VB1_BedieningVRI.auto and (VB1_KnoppenBedieningVRI.hand and not VB1_SetAuto_Observer2.setauto);
+alg bool VB2_BedieningAB_c_auto_allowed = VB2_BedieningAB.hand and (VB2_KnoppenBedieningAB.auto or VB2_SetAuto_Observer2.setauto);
+alg bool VB2_BedieningAB_c_hand_allowed = VB2_BedieningAB.auto and (VB2_KnoppenBedieningAB.hand and not VB2_SetAuto_Observer2.setauto);
+alg bool VB2_BedieningVRI_c_auto_allowed = VB2_BedieningVRI.hand and (VB2_KnoppenBedieningVRI.auto or VB2_SetAuto_Observer2.setauto);
+alg bool VB2_BedieningVRI_c_hand_allowed = VB2_BedieningVRI.auto and (VB2_KnoppenBedieningVRI.hand and not VB2_SetAuto_Observer2.setauto);
+alg bool VB1_PrimairVRI_c_uitauto_allowed = VB1_PrimairVRI.uit and (VB1_SetAuto_Observer2.setauto or VB1_HoogteDetectieRood_Sensor.aan and VB1_KnoppenVBafsluiter.los);
+alg bool VB1_PrimairVRI_c_roodauto_allowed = VB1_PrimairVRI.rood and (VB1_SetAuto_Observer2.setauto);
+alg bool VB1_PrimairAB_c_auto_allowed = not VB1_PrimairAB.auto and (VB1_SetAuto_Observer2.setauto);
+alg bool VB1_ToegangVRI_c_uitknipper_allowed = VB1_ToegangVRI.uit and (VB1_BedieningVRI.hand and VB1_KnoppenVBafsluiter.VRIknipper or VB1_BedieningVRI.auto and VB1_HoogteDetectieWaarschuwing_Sensor.aan and not(VB1_Stand_Observer2.calamiteit or VB1_Stand_Observer2.evacuatie or VB1_Stand_Observer2.ondersteunend) and VB1_HoogteDetectieRood_Sensor.uit and VB1_KnoppenVBafsluiter.los and not VB1_PrimairVRI.rood);
+alg bool VB1_ToegangVRI_c_knipperuit_allowed = VB1_ToegangVRI.knipper and (VB1_BedieningVRI.auto and VB1_PrimairVRI.uit and VB1_HoogteDetectieWaarschuwing_Sensor.uit and VB1_HoogteDetectieRood_Sensor.uit or VB1_BedieningVRI.hand and VB1_KnoppenVBafsluiter.VRIuit or VB1_BedieningVRI.auto and not VB1_PrimairVRI.rood and not(VB1_Stand_Observer2.calamiteit or VB1_Stand_Observer2.evacuatie or VB1_Stand_Observer2.ondersteunend) and VB1_HoogteDetectieWaarschuwing_Sensor.uit and VB1_HoogteDetectieWaarschuwing_Timer.uit and VB1_HoogteDetectieRood_Sensor.uit);
+alg bool VB1_ToegangVRI_c_rooduit_allowed = VB1_ToegangVRI.rood and (VB1_BedieningVRI.auto and VB1_PrimairVRI.uit and VB1_HoogteDetectieWaarschuwing_Sensor.uit and VB1_HoogteDetectieRood_Sensor.uit and VB1_HoogteDetectieRood_Timer.uit or VB1_BedieningVRI.hand and VB1_KnoppenVBafsluiter.VRIuit or VB1_BedieningVRI.auto and not VB1_PrimairVRI.rood and not(VB1_Stand_Observer2.calamiteit or VB1_Stand_Observer2.evacuatie or VB1_Stand_Observer2.ondersteunend) and VB1_HoogteDetectieWaarschuwing_Sensor.uit and VB1_HoogteDetectieRood_Sensor.uit and VB1_HoogteDetectieRood_Timer.uit);
+alg bool VB1_ToegangVRI_c_roodknipper_allowed = VB1_ToegangVRI.rood and (VB1_BedieningVRI.hand and VB1_KnoppenVBafsluiter.VRIknipper or VB1_BedieningVRI.auto and VB1_HoogteDetectieWaarschuwing_Sensor.aan and not(VB1_Stand_Observer2.calamiteit or VB1_Stand_Observer2.evacuatie or VB1_Stand_Observer2.ondersteunend) and VB1_HoogteDetectieRood_Sensor.uit and VB1_KnoppenVBafsluiter.los and not VB1_PrimairVRI.rood);
+alg bool VB1_ToegangAB_c_neerop_allowed = VB1_ToegangAB.neer and (VB1_BedieningAB.auto and VB1_PrimairAB.open or VB1_BedieningAB.hand and VB1_KnoppenVBafsluiter.ABopen or VB1_BedieningAB.auto and not(VB1_Stand_Observer2.calamiteit or VB1_Stand_Observer2.evacuatie or VB1_Stand_Observer2.ondersteunend) and not VB1_PrimairAB.dicht);
+alg bool VB1_ToegangAB_c_stopop_allowed = VB1_ToegangAB.stop and (VB1_BedieningAB.auto and VB1_PrimairAB.open or VB1_BedieningAB.hand and VB1_KnoppenVBafsluiter.ABopen or VB1_BedieningAB.auto and not(VB1_Stand_Observer2.calamiteit or VB1_Stand_Observer2.evacuatie or VB1_Stand_Observer2.ondersteunend) and not VB1_PrimairAB.dicht);
+alg bool VB1_ToegangAB_c_neeronvoorwaardelijkop_allowed = VB1_ToegangAB.neeronvoorwaardelijk and (VB1_BedieningAB.auto and VB1_PrimairAB.open or VB1_BedieningAB.hand and VB1_KnoppenVBafsluiter.ABopen or VB1_BedieningAB.auto and not(VB1_Stand_Observer2.calamiteit or VB1_Stand_Observer2.evacuatie or VB1_Stand_Observer2.ondersteunend) and not VB1_PrimairAB.dicht);
+alg bool VB2_ToegangVRI_c_knipperuit_allowed = VB2_ToegangVRI.knipper and (VB2_BedieningVRI.auto and VB2_PrimairVRI.uit or VB2_BedieningVRI.hand and VB2_KnoppenVBafsluiter.VRIuit or VB2_BedieningVRI.auto and not VB2_PrimairVRI.rood and not(VB2_Stand_Observer2.calamiteit or VB2_Stand_Observer2.evacuatie or VB2_Stand_Observer2.ondersteunend));
+alg bool VB2_ToegangVRI_c_rooduit_allowed = VB2_ToegangVRI.rood and (VB2_BedieningVRI.auto and VB2_PrimairVRI.uit or VB2_BedieningVRI.hand and VB2_KnoppenVBafsluiter.VRIuit or VB2_BedieningVRI.auto and not VB2_PrimairVRI.rood and not(VB2_Stand_Observer2.calamiteit or VB2_Stand_Observer2.evacuatie or VB2_Stand_Observer2.ondersteunend));
+alg bool VB2_ToegangAB_c_neerop_allowed = VB2_ToegangAB.neer and (VB2_BedieningAB.auto and VB2_PrimairAB.open or VB2_BedieningAB.hand and VB2_KnoppenVBafsluiter.ABopen or VB2_BedieningAB.auto and not(VB2_Stand_Observer2.calamiteit or VB2_Stand_Observer2.evacuatie or VB2_Stand_Observer2.ondersteunend) and not VB2_PrimairAB.dicht);
+alg bool VB2_ToegangAB_c_stopop_allowed = VB2_ToegangAB.stop and (VB2_BedieningAB.auto and VB2_PrimairAB.open or VB2_BedieningAB.hand and VB2_KnoppenVBafsluiter.ABopen or VB2_BedieningAB.auto and not(VB2_Stand_Observer2.calamiteit or VB2_Stand_Observer2.evacuatie or VB2_Stand_Observer2.ondersteunend) and not VB2_PrimairAB.dicht);
+alg bool VB2_ToegangAB_c_neeronvoorwaardelijkop_allowed = VB2_ToegangAB.neeronvoorwaardelijk and (VB2_BedieningAB.auto and VB2_PrimairAB.open or VB2_BedieningAB.hand and VB2_KnoppenVBafsluiter.ABopen or VB2_BedieningAB.auto and not(VB2_Stand_Observer2.calamiteit or VB2_Stand_Observer2.evacuatie or VB2_Stand_Observer2.ondersteunend) and not VB2_PrimairAB.dicht);
+alg bool VB1_PrimairVRI_c_uit_allowed = not VB1_PrimairVRI.uit and ((VB1_KnoppenVBafsluiter.primairVRIuit or VB1_KnoppenVBafsluiter.primairVBopen) and not VB1_SetAuto_Observer2.setauto);
+alg bool VB1_PrimairVRI_c_rood_allowed = not VB1_PrimairVRI.rood and ((VB1_KnoppenVBafsluiter.primairVRIrood or VB1_KnoppenVBafsluiter.primairVBdicht) and not VB1_SetAuto_Observer2.setauto);
+alg bool VB1_PrimairAB_c_open_allowed = not VB1_PrimairAB.open and (VB1_KnoppenVBafsluiter.primairVBopen and not VB1_SetAuto_Observer2.setauto);
+alg bool VB1_PrimairAB_c_dicht_allowed = not VB1_PrimairAB.dicht and (VB1_KnoppenVBafsluiter.primairVBdicht and not VB1_SetAuto_Observer2.setauto);
+alg bool VB1_ToegangVRI_c_uitrood_allowed = VB1_ToegangVRI.uit and (VB1_BedieningVRI.auto and VB1_PrimairVRI.rood or VB1_BedieningVRI.hand and VB1_KnoppenVBafsluiter.VRIrood or VB1_BedieningVRI.auto and (VB1_Stand_Observer2.calamiteit or VB1_Stand_Observer2.evacuatie or VB1_Stand_Observer2.ondersteunend) and not VB1_PrimairVRI.uit or VB1_BedieningVRI.auto and VB1_HoogteDetectieRood_Sensor.aan);
+alg bool VB1_ToegangVRI_c_knipperrood_allowed = VB1_ToegangVRI.knipper and (VB1_BedieningVRI.auto and VB1_PrimairVRI.rood or VB1_BedieningVRI.hand and VB1_KnoppenVBafsluiter.VRIrood or VB1_BedieningVRI.auto and (VB1_Stand_Observer2.calamiteit or VB1_Stand_Observer2.evacuatie or VB1_Stand_Observer2.ondersteunend) and not VB1_PrimairVRI.uit or VB1_BedieningVRI.auto and VB1_HoogteDetectieRood_Sensor.aan);
+alg bool VB1_ToegangAB_c_opneer_allowed = VB1_ToegangAB.op and (VB1_BedieningAB.auto and VB1_PrimairAB.dicht or VB1_BedieningAB.hand and VB1_KnoppenVBafsluiter.ABsluit or VB1_BedieningAB.auto and (VB1_Stand_Observer2.calamiteit or VB1_Stand_Observer2.evacuatie or VB1_Stand_Observer2.ondersteunend) and not VB1_PrimairAB.open);
+alg bool VB1_ToegangAB_c_stopneer_allowed = VB1_ToegangAB.stop and (VB1_BedieningAB.auto and VB1_PrimairAB.dicht or VB1_BedieningAB.hand and VB1_KnoppenVBafsluiter.ABsluit or VB1_BedieningAB.auto and (VB1_Stand_Observer2.calamiteit or VB1_Stand_Observer2.evacuatie or VB1_Stand_Observer2.ondersteunend) and not VB1_PrimairAB.open);
+alg bool VB1_ToegangAB_c_neeronvoorwaardelijkneer_allowed = VB1_ToegangAB.neeronvoorwaardelijk and (VB1_BedieningAB.auto and VB1_PrimairAB.dicht or VB1_BedieningAB.hand and VB1_KnoppenVBafsluiter.ABsluit or VB1_BedieningAB.auto and (VB1_Stand_Observer2.calamiteit or VB1_Stand_Observer2.evacuatie or VB1_Stand_Observer2.ondersteunend) and not VB1_PrimairAB.open);
+alg bool VB2_PrimairVRI_c_uitauto_allowed = VB2_PrimairVRI.uit and (VB2_SetAuto_Observer2.setauto);
+alg bool VB2_PrimairVRI_c_roodauto_allowed = VB2_PrimairVRI.rood and (VB2_SetAuto_Observer2.setauto);
+alg bool VB2_PrimairAB_c_auto_allowed = not VB2_PrimairAB.auto and (VB2_SetAuto_Observer2.setauto);
+alg bool VB2_PrimairVRI_c_uit_allowed = not VB2_PrimairVRI.uit and ((VB2_KnoppenVBafsluiter.primairVRIuit or VB2_KnoppenVBafsluiter.primairVBopen) and not VB2_SetAuto_Observer2.setauto);
+alg bool VB2_PrimairVRI_c_rood_allowed = not VB2_PrimairVRI.rood and ((VB2_KnoppenVBafsluiter.primairVRIrood or VB2_KnoppenVBafsluiter.primairVBdicht) and not VB2_SetAuto_Observer2.setauto);
+alg bool VB2_PrimairAB_c_open_allowed = not VB2_PrimairAB.open and (VB2_KnoppenVBafsluiter.primairVBopen and not VB2_SetAuto_Observer2.setauto);
+alg bool VB2_PrimairAB_c_dicht_allowed = not VB2_PrimairAB.dicht and (VB2_KnoppenVBafsluiter.primairVBdicht and not VB2_SetAuto_Observer2.setauto);
+alg bool VB2_ToegangVRI_c_uitrood_allowed = VB2_ToegangVRI.uit and (VB2_BedieningVRI.auto and VB2_PrimairVRI.rood or VB2_BedieningVRI.hand and VB2_KnoppenVBafsluiter.VRIrood or VB2_BedieningVRI.auto and (VB2_Stand_Observer2.calamiteit or VB2_Stand_Observer2.evacuatie or VB2_Stand_Observer2.ondersteunend) and not VB2_PrimairVRI.uit);
+alg bool VB2_ToegangVRI_c_knipperrood_allowed = VB2_ToegangVRI.knipper and (VB2_BedieningVRI.auto and VB2_PrimairVRI.rood or VB2_BedieningVRI.hand and VB2_KnoppenVBafsluiter.VRIrood or VB2_BedieningVRI.auto and (VB2_Stand_Observer2.calamiteit or VB2_Stand_Observer2.evacuatie or VB2_Stand_Observer2.ondersteunend) and not VB2_PrimairVRI.uit);
+alg bool VB2_ToegangAB_c_opneer_allowed = VB2_ToegangAB.op  and (VB2_BedieningAB.auto and VB2_PrimairAB.dicht or VB2_BedieningAB.hand and VB2_KnoppenVBafsluiter.ABsluit or VB2_BedieningAB.auto and (VB2_Stand_Observer2.calamiteit or VB2_Stand_Observer2.evacuatie or VB2_Stand_Observer2.ondersteunend) and not VB2_PrimairAB.open);
+alg bool VB2_ToegangAB_c_stopneer_allowed = VB2_ToegangAB.stop and (VB2_BedieningAB.auto and VB2_PrimairAB.dicht or VB2_BedieningAB.hand and VB2_KnoppenVBafsluiter.ABsluit or VB2_BedieningAB.auto and (VB2_Stand_Observer2.calamiteit or VB2_Stand_Observer2.evacuatie or VB2_Stand_Observer2.ondersteunend) and not VB2_PrimairAB.open);
+alg bool VB2_ToegangAB_c_neeronvoorwaardelijkneer_allowed = VB2_ToegangAB.neeronvoorwaardelijk and (VB2_BedieningAB.auto and VB2_PrimairAB.dicht or VB2_BedieningAB.hand and VB2_KnoppenVBafsluiter.ABsluit or VB2_BedieningAB.auto and (VB2_Stand_Observer2.calamiteit or VB2_Stand_Observer2.evacuatie or VB2_Stand_Observer2.ondersteunend) and not VB2_PrimairAB.open);
+
+// Mutex 1 (away): VB1_BedieningAB_c_auto
+Mutex1Away: Away(VB1_BedieningAB_c_auto_allowed, not VB1_BedieningAB_c_auto_allowed);
+requirement VB1_BedieningAB.c_auto needs Mutex1Away.Requester.Received;
+
+// Mutex 2 (away): VB1_BedieningAB_c_hand
+Mutex2Away: Away(VB1_BedieningAB_c_hand_allowed, not VB1_BedieningAB_c_hand_allowed);
+requirement VB1_BedieningAB.c_hand needs Mutex2Away.Requester.Received;
+
+// Mutex 3 (away): VB1_BedieningVRI_c_auto
+Mutex3Away: Away(VB1_BedieningVRI_c_auto_allowed, not VB1_BedieningVRI_c_auto_allowed);
+requirement VB1_BedieningVRI.c_auto needs Mutex3Away.Requester.Received;
+
+// Mutex 4 (away): VB1_BedieningVRI_c_hand
+Mutex4Away: Away(VB1_BedieningVRI_c_hand_allowed, not VB1_BedieningVRI_c_hand_allowed);
+requirement VB1_BedieningVRI.c_hand needs Mutex4Away.Requester.Received;
+
+// Mutex 5 (away): VB2_BedieningAB_c_auto
+Mutex5Away: Away(VB2_BedieningAB_c_auto_allowed, not VB2_BedieningAB_c_auto_allowed);
+requirement VB2_BedieningAB.c_auto needs Mutex5Away.Requester.Received;
+
+// Mutex 6 (away): VB2_BedieningAB_c_hand
+Mutex6Away: Away(VB2_BedieningAB_c_hand_allowed, not VB2_BedieningAB_c_hand_allowed);
+requirement VB2_BedieningAB.c_hand needs Mutex6Away.Requester.Received;
+
+// Mutex 7 (away): VB2_BedieningVRI_c_auto
+Mutex7Away: Away(VB2_BedieningVRI_c_auto_allowed, not VB2_BedieningVRI_c_auto_allowed);
+requirement VB2_BedieningVRI.c_auto needs Mutex7Away.Requester.Received;
+
+// Mutex 8 (away): VB2_BedieningVRI_c_hand
+Mutex8Away: Away(VB2_BedieningVRI_c_hand_allowed, not VB2_BedieningVRI_c_hand_allowed);
+requirement VB2_BedieningVRI.c_hand needs Mutex8Away.Requester.Received;
+
+// Mutex 9 (home): VB1_SetAuto_c_klaar
+alg bool Mutex9HomeSendCondition = not VB1_BedieningAB_c_auto_allowed and not VB1_BedieningVRI_c_auto_allowed and
+                                   not VB1_PrimairVRI_c_uitauto_allowed and not VB1_PrimairVRI_c_roodauto_allowed and
+                                   not VB1_PrimairAB_c_auto_allowed and not VB1_ToegangVRI_c_uitknipper_allowed and
+                                   not VB1_ToegangVRI_c_knipperuit_allowed and not VB1_ToegangVRI_c_rooduit_allowed and
+                                   not VB1_ToegangVRI_c_roodknipper_allowed and not VB1_ToegangAB_c_neerop_allowed and
+                                   not VB1_ToegangAB_c_stopop_allowed and not VB1_ToegangAB_c_neeronvoorwaardelijkop_allowed and
+                                   not VB2_ToegangVRI_c_knipperuit_allowed and not VB2_ToegangVRI_c_rooduit_allowed and
+                                   not VB2_ToegangAB_c_neerop_allowed and not VB2_ToegangAB_c_stopop_allowed and
+                                   not VB2_ToegangAB_c_neeronvoorwaardelijkop_allowed;
+Mutex9Home: Home(Mutex9HomeSendCondition);
+requirement VB1_BedieningAB.c_auto needs Mutex9Home.TokenTracker.Home;
+requirement VB1_BedieningVRI.c_auto needs Mutex9Home.TokenTracker.Home;
+requirement VB1_PrimairVRI.c_uitauto needs Mutex9Home.TokenTracker.Home;
+requirement VB1_PrimairVRI.c_roodauto needs Mutex9Home.TokenTracker.Home;
+requirement VB1_PrimairAB.c_auto needs Mutex9Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_uitknipper needs Mutex9Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_knipperuit needs Mutex9Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_rooduit needs Mutex9Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_roodknipper needs Mutex9Home.TokenTracker.Home;
+requirement VB1_ToegangAB.c_neerop needs Mutex9Home.TokenTracker.Home;
+requirement VB1_ToegangAB.c_stopop needs Mutex9Home.TokenTracker.Home;
+requirement VB1_ToegangAB.c_neeronvoorwaardelijkop needs Mutex9Home.TokenTracker.Home;
+requirement VB2_ToegangVRI.c_knipperuit needs Mutex9Home.TokenTracker.Home;
+requirement VB2_ToegangVRI.c_rooduit needs Mutex9Home.TokenTracker.Home;
+requirement VB2_ToegangAB.c_neerop needs Mutex9Home.TokenTracker.Home;
+requirement VB2_ToegangAB.c_stopop needs Mutex9Home.TokenTracker.Home;
+requirement VB2_ToegangAB.c_neeronvoorwaardelijkop needs Mutex9Home.TokenTracker.Home;
+
+// Mutex 10 (home): VB1_Stand_c_calamiteit
+alg bool Mutex10HomeSendCondition = not VB1_BedieningAB_c_hand_allowed and not VB1_BedieningVRI_c_hand_allowed and
+                                    not VB1_PrimairVRI_c_uit_allowed and not VB1_PrimairVRI_c_rood_allowed and
+                                    not VB1_PrimairAB_c_open_allowed and not VB1_PrimairAB_c_dicht_allowed and
+                                    not VB1_ToegangVRI_c_uitknipper_allowed and not VB1_ToegangVRI_c_knipperuit_allowed and
+                                    not VB1_ToegangVRI_c_rooduit_allowed and not VB1_ToegangVRI_c_roodknipper_allowed and
+                                    not VB1_ToegangAB_c_neerop_allowed and not VB1_ToegangAB_c_stopop_allowed and
+                                    not VB1_ToegangAB_c_neeronvoorwaardelijkop_allowed and not VB2_ToegangVRI_c_knipperuit_allowed and
+                                    not VB2_ToegangVRI_c_rooduit_allowed and not VB2_ToegangAB_c_neerop_allowed and
+                                    not VB2_ToegangAB_c_stopop_allowed and not VB2_ToegangAB_c_neeronvoorwaardelijkop_allowed;
+Mutex10Home: Home(Mutex10HomeSendCondition);
+requirement VB1_BedieningAB.c_hand needs Mutex10Home.TokenTracker.Home;
+requirement VB1_BedieningVRI.c_hand needs Mutex10Home.TokenTracker.Home;
+requirement VB1_PrimairVRI.c_uit needs Mutex10Home.TokenTracker.Home;
+requirement VB1_PrimairVRI.c_rood needs Mutex10Home.TokenTracker.Home;
+requirement VB1_PrimairAB.c_open needs Mutex10Home.TokenTracker.Home;
+requirement VB1_PrimairAB.c_dicht needs Mutex10Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_uitknipper needs Mutex10Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_knipperuit needs Mutex10Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_rooduit needs Mutex10Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_roodknipper needs Mutex10Home.TokenTracker.Home;
+requirement VB1_ToegangAB.c_neerop needs Mutex10Home.TokenTracker.Home;
+requirement VB1_ToegangAB.c_stopop needs Mutex10Home.TokenTracker.Home;
+requirement VB1_ToegangAB.c_neeronvoorwaardelijkop needs Mutex10Home.TokenTracker.Home;
+requirement VB2_ToegangVRI.c_knipperuit needs Mutex10Home.TokenTracker.Home;
+requirement VB2_ToegangVRI.c_rooduit needs Mutex10Home.TokenTracker.Home;
+requirement VB2_ToegangAB.c_neerop needs Mutex10Home.TokenTracker.Home;
+requirement VB2_ToegangAB.c_stopop needs Mutex10Home.TokenTracker.Home;
+requirement VB2_ToegangAB.c_neeronvoorwaardelijkop needs Mutex10Home.TokenTracker.Home;
+
+// Mutex 11 (home): VB1_Stand_c_evacuatie
+alg bool Mutex11HomeSendCondition = not VB1_BedieningAB_c_hand_allowed and not VB1_BedieningVRI_c_hand_allowed and
+                                    not VB1_PrimairVRI_c_uit_allowed and not VB1_PrimairVRI_c_rood_allowed and
+                                    not VB1_PrimairAB_c_open_allowed and not VB1_PrimairAB_c_dicht_allowed and
+                                    not VB2_ToegangVRI_c_knipperuit_allowed and not VB2_ToegangVRI_c_rooduit_allowed and
+                                    not VB2_ToegangAB_c_neerop_allowed and not VB2_ToegangAB_c_stopop_allowed and
+                                    not VB2_ToegangAB_c_neeronvoorwaardelijkop_allowed;
+Mutex11Home: Home(Mutex11HomeSendCondition);
+requirement VB1_BedieningAB.c_hand needs Mutex11Home.TokenTracker.Home;
+requirement VB1_BedieningVRI.c_hand needs Mutex11Home.TokenTracker.Home;
+requirement VB1_PrimairVRI.c_uit needs Mutex11Home.TokenTracker.Home;
+requirement VB1_PrimairVRI.c_rood needs Mutex11Home.TokenTracker.Home;
+requirement VB1_PrimairAB.c_open needs Mutex11Home.TokenTracker.Home;
+requirement VB1_PrimairAB.c_dicht needs Mutex11Home.TokenTracker.Home;
+requirement VB2_ToegangVRI.c_knipperuit needs Mutex11Home.TokenTracker.Home;
+requirement VB2_ToegangVRI.c_rooduit needs Mutex11Home.TokenTracker.Home;
+requirement VB2_ToegangAB.c_neerop needs Mutex11Home.TokenTracker.Home;
+requirement VB2_ToegangAB.c_stopop needs Mutex11Home.TokenTracker.Home;
+requirement VB2_ToegangAB.c_neeronvoorwaardelijkop needs Mutex11Home.TokenTracker.Home;
+
+// Mutex 12 (home): VB1_Stand_c_herstelUitCalimiteit
+alg bool Mutex12HomeSendCondition = not VB1_BedieningAB_c_hand_allowed and not VB1_BedieningVRI_c_hand_allowed and
+                                    not VB1_PrimairVRI_c_uit_allowed and not VB1_PrimairVRI_c_rood_allowed and
+                                    not VB1_PrimairAB_c_open_allowed and not VB1_PrimairAB_c_dicht_allowed and
+                                    not VB1_ToegangVRI_c_uitrood_allowed and not VB1_ToegangVRI_c_knipperrood_allowed and
+                                    not VB1_ToegangAB_c_opneer_allowed and not VB1_ToegangAB_c_stopneer_allowed and
+                                    not VB1_ToegangAB_c_neeronvoorwaardelijkneer_allowed and not VB2_ToegangVRI_c_knipperuit_allowed and
+                                    not VB2_ToegangVRI_c_rooduit_allowed and not VB2_ToegangAB_c_neerop_allowed and
+                                    not VB2_ToegangAB_c_stopop_allowed and not VB2_ToegangAB_c_neeronvoorwaardelijkop_allowed;
+Mutex12Home: Home(Mutex12HomeSendCondition);
+requirement VB1_BedieningAB.c_hand needs Mutex12Home.TokenTracker.Home;
+requirement VB1_BedieningVRI.c_hand needs Mutex12Home.TokenTracker.Home;
+requirement VB1_PrimairVRI.c_uit needs Mutex12Home.TokenTracker.Home;
+requirement VB1_PrimairVRI.c_rood needs Mutex12Home.TokenTracker.Home;
+requirement VB1_PrimairAB.c_open needs Mutex12Home.TokenTracker.Home;
+requirement VB1_PrimairAB.c_dicht needs Mutex12Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_uitrood needs Mutex12Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_knipperrood needs Mutex12Home.TokenTracker.Home;
+requirement VB1_ToegangAB.c_opneer needs Mutex12Home.TokenTracker.Home;
+requirement VB1_ToegangAB.c_stopneer needs Mutex12Home.TokenTracker.Home;
+requirement VB1_ToegangAB.c_neeronvoorwaardelijkneer needs Mutex12Home.TokenTracker.Home;
+requirement VB2_ToegangVRI.c_knipperuit needs Mutex12Home.TokenTracker.Home;
+requirement VB2_ToegangVRI.c_rooduit needs Mutex12Home.TokenTracker.Home;
+requirement VB2_ToegangAB.c_neerop needs Mutex12Home.TokenTracker.Home;
+requirement VB2_ToegangAB.c_stopop needs Mutex12Home.TokenTracker.Home;
+requirement VB2_ToegangAB.c_neeronvoorwaardelijkop needs Mutex12Home.TokenTracker.Home;
+
+// Mutex 13 (home): VB1_Stand_c_herstelUitOnderhoud
+alg bool Mutex13HomeSendCondition = not VB1_BedieningAB_c_hand_allowed and not VB1_BedieningVRI_c_hand_allowed and
+                                    not VB1_PrimairVRI_c_uit_allowed and not VB1_PrimairVRI_c_rood_allowed and
+                                    not VB1_PrimairAB_c_open_allowed and not VB1_PrimairAB_c_dicht_allowed and
+                                    not VB1_ToegangVRI_c_uitknipper_allowed and not VB1_ToegangVRI_c_knipperuit_allowed and
+                                    not VB1_ToegangVRI_c_rooduit_allowed and not VB1_ToegangVRI_c_roodknipper_allowed and
+                                    not VB1_ToegangAB_c_neerop_allowed and not VB1_ToegangAB_c_stopop_allowed and
+                                    not VB1_ToegangAB_c_neeronvoorwaardelijkop_allowed and not VB2_ToegangVRI_c_knipperuit_allowed and
+                                    not VB2_ToegangVRI_c_rooduit_allowed and not VB2_ToegangAB_c_neerop_allowed and
+                                    not VB2_ToegangAB_c_stopop_allowed and not VB2_ToegangAB_c_neeronvoorwaardelijkop_allowed;
+Mutex13Home: Home(Mutex13HomeSendCondition);
+requirement VB1_BedieningAB.c_hand needs Mutex13Home.TokenTracker.Home;
+requirement VB1_BedieningVRI.c_hand needs Mutex13Home.TokenTracker.Home;
+requirement VB1_PrimairVRI.c_uit needs Mutex13Home.TokenTracker.Home;
+requirement VB1_PrimairVRI.c_rood needs Mutex13Home.TokenTracker.Home;
+requirement VB1_PrimairAB.c_open needs Mutex13Home.TokenTracker.Home;
+requirement VB1_PrimairAB.c_dicht needs Mutex13Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_uitknipper needs Mutex13Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_knipperuit needs Mutex13Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_rooduit needs Mutex13Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_roodknipper needs Mutex13Home.TokenTracker.Home;
+requirement VB1_ToegangAB.c_neerop needs Mutex13Home.TokenTracker.Home;
+requirement VB1_ToegangAB.c_stopop needs Mutex13Home.TokenTracker.Home;
+requirement VB1_ToegangAB.c_neeronvoorwaardelijkop needs Mutex13Home.TokenTracker.Home;
+requirement VB2_ToegangVRI.c_knipperuit needs Mutex13Home.TokenTracker.Home;
+requirement VB2_ToegangVRI.c_rooduit needs Mutex13Home.TokenTracker.Home;
+requirement VB2_ToegangAB.c_neerop needs Mutex13Home.TokenTracker.Home;
+requirement VB2_ToegangAB.c_stopop needs Mutex13Home.TokenTracker.Home;
+requirement VB2_ToegangAB.c_neeronvoorwaardelijkop needs Mutex13Home.TokenTracker.Home;
+
+// Mutex 14 (home): VB1_Stand_c_herstelUitOndersteunend
+alg bool Mutex14HomeSendCondition = not VB1_BedieningAB_c_hand_allowed and not VB1_BedieningVRI_c_hand_allowed and
+                                    not VB1_PrimairVRI_c_uit_allowed and not VB1_PrimairVRI_c_rood_allowed and
+                                    not VB1_PrimairAB_c_open_allowed and not VB1_PrimairAB_c_dicht_allowed and
+                                    not VB1_ToegangVRI_c_uitrood_allowed and not VB1_ToegangVRI_c_uitknipper_allowed and
+                                    not VB1_ToegangVRI_c_knipperrood_allowed and not VB1_ToegangVRI_c_knipperuit_allowed and
+                                    not VB1_ToegangVRI_c_rooduit_allowed and not VB1_ToegangVRI_c_roodknipper_allowed and
+                                    not VB1_ToegangAB_c_opneer_allowed and not VB1_ToegangAB_c_neerop_allowed and
+                                    not VB1_ToegangAB_c_stopneer_allowed and not VB1_ToegangAB_c_stopop_allowed and
+                                    not VB1_ToegangAB_c_neeronvoorwaardelijkneer_allowed and not VB1_ToegangAB_c_neeronvoorwaardelijkop_allowed and
+                                    not VB2_ToegangVRI_c_knipperuit_allowed and not VB2_ToegangVRI_c_rooduit_allowed and
+                                    not VB2_ToegangAB_c_neerop_allowed and not VB2_ToegangAB_c_stopop_allowed and
+                                    not VB2_ToegangAB_c_neeronvoorwaardelijkop_allowed;
+Mutex14Home: Home(Mutex14HomeSendCondition);
+requirement VB1_BedieningAB.c_hand needs Mutex14Home.TokenTracker.Home;
+requirement VB1_BedieningVRI.c_hand needs Mutex14Home.TokenTracker.Home;
+requirement VB1_PrimairVRI.c_uit needs Mutex14Home.TokenTracker.Home;
+requirement VB1_PrimairVRI.c_rood needs Mutex14Home.TokenTracker.Home;
+requirement VB1_PrimairAB.c_open needs Mutex14Home.TokenTracker.Home;
+requirement VB1_PrimairAB.c_dicht needs Mutex14Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_uitrood needs Mutex14Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_uitknipper needs Mutex14Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_knipperrood needs Mutex14Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_knipperuit needs Mutex14Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_rooduit needs Mutex14Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_roodknipper needs Mutex14Home.TokenTracker.Home;
+requirement VB1_ToegangAB.c_opneer needs Mutex14Home.TokenTracker.Home;
+requirement VB1_ToegangAB.c_neerop needs Mutex14Home.TokenTracker.Home;
+requirement VB1_ToegangAB.c_stopneer needs Mutex14Home.TokenTracker.Home;
+requirement VB1_ToegangAB.c_stopop needs Mutex14Home.TokenTracker.Home;
+requirement VB1_ToegangAB.c_neeronvoorwaardelijkneer needs Mutex14Home.TokenTracker.Home;
+requirement VB1_ToegangAB.c_neeronvoorwaardelijkop needs Mutex14Home.TokenTracker.Home;
+requirement VB2_ToegangVRI.c_knipperuit needs Mutex14Home.TokenTracker.Home;
+requirement VB2_ToegangVRI.c_rooduit needs Mutex14Home.TokenTracker.Home;
+requirement VB2_ToegangAB.c_neerop needs Mutex14Home.TokenTracker.Home;
+requirement VB2_ToegangAB.c_stopop needs Mutex14Home.TokenTracker.Home;
+requirement VB2_ToegangAB.c_neeronvoorwaardelijkop needs Mutex14Home.TokenTracker.Home;
+
+// Mutex 15 (home): VB1_Stand_c_onderhoud
+alg bool Mutex15HomeSendCondition = not VB1_BedieningAB_c_hand_allowed and not VB1_BedieningVRI_c_hand_allowed and
+                                    not VB1_PrimairVRI_c_uit_allowed and not VB1_PrimairVRI_c_rood_allowed and
+                                    not VB1_PrimairAB_c_open_allowed and not VB1_PrimairAB_c_dicht_allowed and
+                                    not VB1_ToegangVRI_c_uitknipper_allowed and not VB1_ToegangVRI_c_knipperuit_allowed and
+                                    not VB1_ToegangVRI_c_rooduit_allowed and not VB1_ToegangVRI_c_roodknipper_allowed and
+                                    not VB1_ToegangAB_c_neerop_allowed and not VB1_ToegangAB_c_stopop_allowed and
+                                    not VB1_ToegangAB_c_neeronvoorwaardelijkop_allowed and not VB2_ToegangVRI_c_knipperuit_allowed and
+                                    not VB2_ToegangVRI_c_rooduit_allowed and not VB2_ToegangAB_c_neerop_allowed and
+                                    not VB2_ToegangAB_c_stopop_allowed and not VB2_ToegangAB_c_neeronvoorwaardelijkop_allowed;
+Mutex15Home: Home(Mutex15HomeSendCondition);
+requirement VB1_BedieningAB.c_hand needs Mutex15Home.TokenTracker.Home;
+requirement VB1_BedieningVRI.c_hand needs Mutex15Home.TokenTracker.Home;
+requirement VB1_PrimairVRI.c_uit needs Mutex15Home.TokenTracker.Home;
+requirement VB1_PrimairVRI.c_rood needs Mutex15Home.TokenTracker.Home;
+requirement VB1_PrimairAB.c_open needs Mutex15Home.TokenTracker.Home;
+requirement VB1_PrimairAB.c_dicht needs Mutex15Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_uitknipper needs Mutex15Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_knipperuit needs Mutex15Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_rooduit needs Mutex15Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_roodknipper needs Mutex15Home.TokenTracker.Home;
+requirement VB1_ToegangAB.c_neerop needs Mutex15Home.TokenTracker.Home;
+requirement VB1_ToegangAB.c_stopop needs Mutex15Home.TokenTracker.Home;
+requirement VB1_ToegangAB.c_neeronvoorwaardelijkop needs Mutex15Home.TokenTracker.Home;
+requirement VB2_ToegangVRI.c_knipperuit needs Mutex15Home.TokenTracker.Home;
+requirement VB2_ToegangVRI.c_rooduit needs Mutex15Home.TokenTracker.Home;
+requirement VB2_ToegangAB.c_neerop needs Mutex15Home.TokenTracker.Home;
+requirement VB2_ToegangAB.c_stopop needs Mutex15Home.TokenTracker.Home;
+requirement VB2_ToegangAB.c_neeronvoorwaardelijkop needs Mutex15Home.TokenTracker.Home;
+
+// Mutex 16 (home): VB1_Stand_c_ondersteunend
+alg bool Mutex16HomeSendCondition = not VB1_BedieningAB_c_hand_allowed and not VB1_BedieningVRI_c_hand_allowed and
+                                    not VB1_PrimairVRI_c_uit_allowed and not VB1_PrimairVRI_c_rood_allowed and
+                                    not VB1_PrimairAB_c_open_allowed and not VB1_PrimairAB_c_dicht_allowed and
+                                    not VB1_ToegangVRI_c_uitknipper_allowed and not VB1_ToegangVRI_c_knipperuit_allowed and
+                                    not VB1_ToegangVRI_c_rooduit_allowed and not VB1_ToegangVRI_c_roodknipper_allowed and
+                                    not VB1_ToegangAB_c_neerop_allowed and not VB1_ToegangAB_c_stopop_allowed and
+                                    not VB1_ToegangAB_c_neeronvoorwaardelijkop_allowed and not VB2_ToegangVRI_c_knipperuit_allowed and
+                                    not VB2_ToegangVRI_c_rooduit_allowed and not VB2_ToegangAB_c_neerop_allowed and
+                                    not VB2_ToegangAB_c_stopop_allowed and not VB2_ToegangAB_c_neeronvoorwaardelijkop_allowed;
+Mutex16Home: Home(Mutex16HomeSendCondition);
+requirement VB1_BedieningAB.c_hand needs Mutex16Home.TokenTracker.Home;
+requirement VB1_BedieningVRI.c_hand needs Mutex16Home.TokenTracker.Home;
+requirement VB1_PrimairVRI.c_uit needs Mutex16Home.TokenTracker.Home;
+requirement VB1_PrimairVRI.c_rood needs Mutex16Home.TokenTracker.Home;
+requirement VB1_PrimairAB.c_open needs Mutex16Home.TokenTracker.Home;
+requirement VB1_PrimairAB.c_dicht needs Mutex16Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_uitknipper needs Mutex16Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_knipperuit needs Mutex16Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_rooduit needs Mutex16Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_roodknipper needs Mutex16Home.TokenTracker.Home;
+requirement VB1_ToegangAB.c_neerop needs Mutex16Home.TokenTracker.Home;
+requirement VB1_ToegangAB.c_stopop needs Mutex16Home.TokenTracker.Home;
+requirement VB1_ToegangAB.c_neeronvoorwaardelijkop needs Mutex16Home.TokenTracker.Home;
+requirement VB2_ToegangVRI.c_knipperuit needs Mutex16Home.TokenTracker.Home;
+requirement VB2_ToegangVRI.c_rooduit needs Mutex16Home.TokenTracker.Home;
+requirement VB2_ToegangAB.c_neerop needs Mutex16Home.TokenTracker.Home;
+requirement VB2_ToegangAB.c_stopop needs Mutex16Home.TokenTracker.Home;
+requirement VB2_ToegangAB.c_neeronvoorwaardelijkop needs Mutex16Home.TokenTracker.Home;
+
+// Mutex 17 (home): VB1_Stand_c_operationeel
+alg bool Mutex17HomeSendCondition = not VB1_BedieningAB_c_hand_allowed and not VB1_BedieningVRI_c_hand_allowed and
+                                    not VB1_PrimairVRI_c_uit_allowed and not VB1_PrimairVRI_c_rood_allowed and
+                                    not VB1_PrimairAB_c_open_allowed and not VB1_PrimairAB_c_dicht_allowed and
+                                    not VB1_ToegangVRI_c_uitknipper_allowed and not VB1_ToegangVRI_c_knipperuit_allowed and
+                                    not VB1_ToegangVRI_c_rooduit_allowed and not VB1_ToegangVRI_c_roodknipper_allowed and
+                                    not VB1_ToegangAB_c_neerop_allowed and not VB1_ToegangAB_c_stopop_allowed and
+                                    not VB1_ToegangAB_c_neeronvoorwaardelijkop_allowed and not VB2_ToegangVRI_c_knipperuit_allowed and
+                                    not VB2_ToegangVRI_c_rooduit_allowed and not VB2_ToegangAB_c_neerop_allowed and
+                                    not VB2_ToegangAB_c_stopop_allowed and not VB2_ToegangAB_c_neeronvoorwaardelijkop_allowed;
+Mutex17Home: Home(Mutex17HomeSendCondition);
+requirement VB1_BedieningAB.c_hand needs Mutex17Home.TokenTracker.Home;
+requirement VB1_BedieningVRI.c_hand needs Mutex17Home.TokenTracker.Home;
+requirement VB1_PrimairVRI.c_uit needs Mutex17Home.TokenTracker.Home;
+requirement VB1_PrimairVRI.c_rood needs Mutex17Home.TokenTracker.Home;
+requirement VB1_PrimairAB.c_open needs Mutex17Home.TokenTracker.Home;
+requirement VB1_PrimairAB.c_dicht needs Mutex17Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_uitknipper needs Mutex17Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_knipperuit needs Mutex17Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_rooduit needs Mutex17Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_roodknipper needs Mutex17Home.TokenTracker.Home;
+requirement VB1_ToegangAB.c_neerop needs Mutex17Home.TokenTracker.Home;
+requirement VB1_ToegangAB.c_stopop needs Mutex17Home.TokenTracker.Home;
+requirement VB1_ToegangAB.c_neeronvoorwaardelijkop needs Mutex17Home.TokenTracker.Home;
+requirement VB2_ToegangVRI.c_knipperuit needs Mutex17Home.TokenTracker.Home;
+requirement VB2_ToegangVRI.c_rooduit needs Mutex17Home.TokenTracker.Home;
+requirement VB2_ToegangAB.c_neerop needs Mutex17Home.TokenTracker.Home;
+requirement VB2_ToegangAB.c_stopop needs Mutex17Home.TokenTracker.Home;
+requirement VB2_ToegangAB.c_neeronvoorwaardelijkop needs Mutex17Home.TokenTracker.Home;
+
+// Mutex 18 (home): VB1_Stand_c_standby
+alg bool Mutex18HomeSendCondition = not VB1_BedieningAB_c_hand_allowed and not VB1_BedieningVRI_c_hand_allowed and
+                                    not VB1_PrimairVRI_c_uit_allowed and not VB1_PrimairVRI_c_rood_allowed and
+                                    not VB1_PrimairAB_c_open_allowed and not VB1_PrimairAB_c_dicht_allowed and
+                                    not VB1_ToegangVRI_c_uitknipper_allowed and not VB1_ToegangVRI_c_knipperuit_allowed and
+                                    not VB1_ToegangVRI_c_rooduit_allowed and not VB1_ToegangVRI_c_roodknipper_allowed and
+                                    not VB1_ToegangAB_c_neerop_allowed and not VB1_ToegangAB_c_stopop_allowed and
+                                    not VB1_ToegangAB_c_neeronvoorwaardelijkop_allowed and not VB2_ToegangVRI_c_knipperuit_allowed and
+                                    not VB2_ToegangVRI_c_rooduit_allowed and not VB2_ToegangAB_c_neerop_allowed and
+                                    not VB2_ToegangAB_c_stopop_allowed and not VB2_ToegangAB_c_neeronvoorwaardelijkop_allowed;
+Mutex18Home: Home(Mutex18HomeSendCondition);
+requirement VB1_BedieningAB.c_hand needs Mutex18Home.TokenTracker.Home;
+requirement VB1_BedieningVRI.c_hand needs Mutex18Home.TokenTracker.Home;
+requirement VB1_PrimairVRI.c_uit needs Mutex18Home.TokenTracker.Home;
+requirement VB1_PrimairVRI.c_rood needs Mutex18Home.TokenTracker.Home;
+requirement VB1_PrimairAB.c_open needs Mutex18Home.TokenTracker.Home;
+requirement VB1_PrimairAB.c_dicht needs Mutex18Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_uitknipper needs Mutex18Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_knipperuit needs Mutex18Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_rooduit needs Mutex18Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_roodknipper needs Mutex18Home.TokenTracker.Home;
+requirement VB1_ToegangAB.c_neerop needs Mutex18Home.TokenTracker.Home;
+requirement VB1_ToegangAB.c_stopop needs Mutex18Home.TokenTracker.Home;
+requirement VB1_ToegangAB.c_neeronvoorwaardelijkop needs Mutex18Home.TokenTracker.Home;
+requirement VB2_ToegangVRI.c_knipperuit needs Mutex18Home.TokenTracker.Home;
+requirement VB2_ToegangVRI.c_rooduit needs Mutex18Home.TokenTracker.Home;
+requirement VB2_ToegangAB.c_neerop needs Mutex18Home.TokenTracker.Home;
+requirement VB2_ToegangAB.c_stopop needs Mutex18Home.TokenTracker.Home;
+requirement VB2_ToegangAB.c_neeronvoorwaardelijkop needs Mutex18Home.TokenTracker.Home;
+
+// Mutex 19 (home): VB2_SetAuto_c_klaar
+alg bool Mutex19HomeSendCondition = not VB2_BedieningAB_c_auto_allowed and not VB2_BedieningVRI_c_auto_allowed and
+                                    not VB1_ToegangVRI_c_uitknipper_allowed and not VB1_ToegangVRI_c_knipperuit_allowed and
+                                    not VB1_ToegangVRI_c_rooduit_allowed and not VB1_ToegangVRI_c_roodknipper_allowed and
+                                    not VB1_ToegangAB_c_neerop_allowed and not VB1_ToegangAB_c_stopop_allowed and
+                                    not VB1_ToegangAB_c_neeronvoorwaardelijkop_allowed and not VB2_PrimairVRI_c_uitauto_allowed and
+                                    not VB2_PrimairVRI_c_roodauto_allowed and not VB2_PrimairAB_c_auto_allowed and
+                                    not VB2_ToegangVRI_c_knipperuit_allowed and not VB2_ToegangVRI_c_rooduit_allowed and
+                                    not VB2_ToegangAB_c_neerop_allowed and not VB2_ToegangAB_c_stopop_allowed and
+                                    not VB2_ToegangAB_c_neeronvoorwaardelijkop_allowed;
+Mutex19Home: Home(Mutex19HomeSendCondition);
+requirement VB2_BedieningAB.c_auto needs Mutex19Home.TokenTracker.Home;
+requirement VB2_BedieningVRI.c_auto needs Mutex19Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_uitknipper needs Mutex19Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_knipperuit needs Mutex19Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_rooduit needs Mutex19Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_roodknipper needs Mutex19Home.TokenTracker.Home;
+requirement VB1_ToegangAB.c_neerop needs Mutex19Home.TokenTracker.Home;
+requirement VB1_ToegangAB.c_stopop needs Mutex19Home.TokenTracker.Home;
+requirement VB1_ToegangAB.c_neeronvoorwaardelijkop needs Mutex19Home.TokenTracker.Home;
+requirement VB2_PrimairVRI.c_uitauto needs Mutex19Home.TokenTracker.Home;
+requirement VB2_PrimairVRI.c_roodauto needs Mutex19Home.TokenTracker.Home;
+requirement VB2_PrimairAB.c_auto needs Mutex19Home.TokenTracker.Home;
+requirement VB2_ToegangVRI.c_knipperuit needs Mutex19Home.TokenTracker.Home;
+requirement VB2_ToegangVRI.c_rooduit needs Mutex19Home.TokenTracker.Home;
+requirement VB2_ToegangAB.c_neerop needs Mutex19Home.TokenTracker.Home;
+requirement VB2_ToegangAB.c_stopop needs Mutex19Home.TokenTracker.Home;
+requirement VB2_ToegangAB.c_neeronvoorwaardelijkop needs Mutex19Home.TokenTracker.Home;
+
+// Mutex 20 (home): VB2_Stand_c_calamiteit
+alg bool Mutex20HomeSendCondition = not VB2_BedieningAB_c_hand_allowed and not VB2_BedieningVRI_c_hand_allowed and
+                                    not VB1_ToegangVRI_c_uitknipper_allowed and not VB1_ToegangVRI_c_knipperuit_allowed and
+                                    not VB1_ToegangVRI_c_rooduit_allowed and not VB1_ToegangVRI_c_roodknipper_allowed and
+                                    not VB1_ToegangAB_c_neerop_allowed and not VB1_ToegangAB_c_stopop_allowed and
+                                    not VB1_ToegangAB_c_neeronvoorwaardelijkop_allowed and not VB2_PrimairVRI_c_uit_allowed and
+                                    not VB2_PrimairVRI_c_rood_allowed and not VB2_PrimairAB_c_open_allowed and
+                                    not VB2_PrimairAB_c_dicht_allowed and not VB2_ToegangVRI_c_knipperuit_allowed and
+                                    not VB2_ToegangVRI_c_rooduit_allowed and not VB2_ToegangAB_c_neerop_allowed and
+                                    not VB2_ToegangAB_c_stopop_allowed and not VB2_ToegangAB_c_neeronvoorwaardelijkop_allowed;
+Mutex20Home: Home(Mutex20HomeSendCondition);
+requirement VB2_BedieningAB.c_hand needs Mutex20Home.TokenTracker.Home;
+requirement VB2_BedieningVRI.c_hand needs Mutex20Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_uitknipper needs Mutex20Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_knipperuit needs Mutex20Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_rooduit needs Mutex20Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_roodknipper needs Mutex20Home.TokenTracker.Home;
+requirement VB1_ToegangAB.c_neerop needs Mutex20Home.TokenTracker.Home;
+requirement VB1_ToegangAB.c_stopop needs Mutex20Home.TokenTracker.Home;
+requirement VB1_ToegangAB.c_neeronvoorwaardelijkop needs Mutex20Home.TokenTracker.Home;
+requirement VB2_PrimairVRI.c_uit needs Mutex20Home.TokenTracker.Home;
+requirement VB2_PrimairVRI.c_rood needs Mutex20Home.TokenTracker.Home;
+requirement VB2_PrimairAB.c_open needs Mutex20Home.TokenTracker.Home;
+requirement VB2_PrimairAB.c_dicht needs Mutex20Home.TokenTracker.Home;
+requirement VB2_ToegangVRI.c_knipperuit needs Mutex20Home.TokenTracker.Home;
+requirement VB2_ToegangVRI.c_rooduit needs Mutex20Home.TokenTracker.Home;
+requirement VB2_ToegangAB.c_neerop needs Mutex20Home.TokenTracker.Home;
+requirement VB2_ToegangAB.c_stopop needs Mutex20Home.TokenTracker.Home;
+requirement VB2_ToegangAB.c_neeronvoorwaardelijkop needs Mutex20Home.TokenTracker.Home;
+
+// Mutex 21 (home): VB2_Stand_c_evacuatie
+alg bool Mutex21HomeSendCondition = not VB2_BedieningAB_c_hand_allowed and not VB2_BedieningVRI_c_hand_allowed and
+                                    not VB1_ToegangVRI_c_uitknipper_allowed and not VB1_ToegangVRI_c_knipperuit_allowed and
+                                    not VB1_ToegangVRI_c_rooduit_allowed and not VB1_ToegangVRI_c_roodknipper_allowed and
+                                    not VB1_ToegangAB_c_neerop_allowed and not VB1_ToegangAB_c_stopop_allowed and
+                                    not VB1_ToegangAB_c_neeronvoorwaardelijkop_allowed and not VB2_PrimairVRI_c_uit_allowed and
+                                    not VB2_PrimairVRI_c_rood_allowed and not VB2_PrimairAB_c_open_allowed and
+                                    not VB2_PrimairAB_c_dicht_allowed;
+Mutex21Home: Home(Mutex21HomeSendCondition);
+requirement VB2_BedieningAB.c_hand needs Mutex21Home.TokenTracker.Home;
+requirement VB2_BedieningVRI.c_hand needs Mutex21Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_uitknipper needs Mutex21Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_knipperuit needs Mutex21Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_rooduit needs Mutex21Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_roodknipper needs Mutex21Home.TokenTracker.Home;
+requirement VB1_ToegangAB.c_neerop needs Mutex21Home.TokenTracker.Home;
+requirement VB1_ToegangAB.c_stopop needs Mutex21Home.TokenTracker.Home;
+requirement VB1_ToegangAB.c_neeronvoorwaardelijkop needs Mutex21Home.TokenTracker.Home;
+requirement VB2_PrimairVRI.c_uit needs Mutex21Home.TokenTracker.Home;
+requirement VB2_PrimairVRI.c_rood needs Mutex21Home.TokenTracker.Home;
+requirement VB2_PrimairAB.c_open needs Mutex21Home.TokenTracker.Home;
+requirement VB2_PrimairAB.c_dicht needs Mutex21Home.TokenTracker.Home;
+
+// Mutex 22 (home): VB2_Stand_c_herstelUitCalimiteit
+alg bool Mutex22HomeSendCondition = not VB2_BedieningAB_c_hand_allowed and not VB2_BedieningVRI_c_hand_allowed and
+                                    not VB1_ToegangVRI_c_uitknipper_allowed and not VB1_ToegangVRI_c_knipperuit_allowed and
+                                    not VB1_ToegangVRI_c_rooduit_allowed and not VB1_ToegangVRI_c_roodknipper_allowed and
+                                    not VB1_ToegangAB_c_neerop_allowed and not VB1_ToegangAB_c_stopop_allowed and
+                                    not VB1_ToegangAB_c_neeronvoorwaardelijkop_allowed and not VB2_PrimairVRI_c_uit_allowed and
+                                    not VB2_PrimairVRI_c_rood_allowed and not VB2_PrimairAB_c_open_allowed and
+                                    not VB2_PrimairAB_c_dicht_allowed and not VB2_ToegangVRI_c_uitrood_allowed and
+                                    not VB2_ToegangVRI_c_knipperrood_allowed and not VB2_ToegangAB_c_opneer_allowed and
+                                    not VB2_ToegangAB_c_stopneer_allowed and not VB2_ToegangAB_c_neeronvoorwaardelijkneer_allowed;
+Mutex22Home: Home(Mutex22HomeSendCondition);
+requirement VB2_BedieningAB.c_hand needs Mutex22Home.TokenTracker.Home;
+requirement VB2_BedieningVRI.c_hand needs Mutex22Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_uitknipper needs Mutex22Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_knipperuit needs Mutex22Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_rooduit needs Mutex22Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_roodknipper needs Mutex22Home.TokenTracker.Home;
+requirement VB1_ToegangAB.c_neerop needs Mutex22Home.TokenTracker.Home;
+requirement VB1_ToegangAB.c_stopop needs Mutex22Home.TokenTracker.Home;
+requirement VB1_ToegangAB.c_neeronvoorwaardelijkop needs Mutex22Home.TokenTracker.Home;
+requirement VB2_PrimairVRI.c_uit needs Mutex22Home.TokenTracker.Home;
+requirement VB2_PrimairVRI.c_rood needs Mutex22Home.TokenTracker.Home;
+requirement VB2_PrimairAB.c_open needs Mutex22Home.TokenTracker.Home;
+requirement VB2_PrimairAB.c_dicht needs Mutex22Home.TokenTracker.Home;
+requirement VB2_ToegangVRI.c_uitrood needs Mutex22Home.TokenTracker.Home;
+requirement VB2_ToegangVRI.c_knipperrood needs Mutex22Home.TokenTracker.Home;
+requirement VB2_ToegangAB.c_opneer needs Mutex22Home.TokenTracker.Home;
+requirement VB2_ToegangAB.c_stopneer needs Mutex22Home.TokenTracker.Home;
+requirement VB2_ToegangAB.c_neeronvoorwaardelijkneer needs Mutex22Home.TokenTracker.Home;
+
+// Mutex 23 (home): VB2_Stand_c_herstelUitOnderhoud
+alg bool Mutex23HomeSendCondition = not VB2_BedieningAB_c_hand_allowed and not VB2_BedieningVRI_c_hand_allowed and
+                                    not VB1_ToegangVRI_c_uitknipper_allowed and not VB1_ToegangVRI_c_knipperuit_allowed and
+                                    not VB1_ToegangVRI_c_rooduit_allowed and not VB1_ToegangVRI_c_roodknipper_allowed and
+                                    not VB1_ToegangAB_c_neerop_allowed and not VB1_ToegangAB_c_stopop_allowed and
+                                    not VB1_ToegangAB_c_neeronvoorwaardelijkop_allowed and not VB2_PrimairVRI_c_uit_allowed and
+                                    not VB2_PrimairVRI_c_rood_allowed and not VB2_PrimairAB_c_open_allowed and
+                                    not VB2_PrimairAB_c_dicht_allowed and not VB2_ToegangVRI_c_knipperuit_allowed and
+                                    not VB2_ToegangVRI_c_rooduit_allowed and not VB2_ToegangAB_c_neerop_allowed and
+                                    not VB2_ToegangAB_c_stopop_allowed and not VB2_ToegangAB_c_neeronvoorwaardelijkop_allowed;
+Mutex23Home: Home(Mutex23HomeSendCondition);
+requirement VB2_BedieningAB.c_hand needs Mutex23Home.TokenTracker.Home;
+requirement VB2_BedieningVRI.c_hand needs Mutex23Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_uitknipper needs Mutex23Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_knipperuit needs Mutex23Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_rooduit needs Mutex23Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_roodknipper needs Mutex23Home.TokenTracker.Home;
+requirement VB1_ToegangAB.c_neerop needs Mutex23Home.TokenTracker.Home;
+requirement VB1_ToegangAB.c_stopop needs Mutex23Home.TokenTracker.Home;
+requirement VB1_ToegangAB.c_neeronvoorwaardelijkop needs Mutex23Home.TokenTracker.Home;
+requirement VB2_PrimairVRI.c_uit needs Mutex23Home.TokenTracker.Home;
+requirement VB2_PrimairVRI.c_rood needs Mutex23Home.TokenTracker.Home;
+requirement VB2_PrimairAB.c_open needs Mutex23Home.TokenTracker.Home;
+requirement VB2_PrimairAB.c_dicht needs Mutex23Home.TokenTracker.Home;
+requirement VB2_ToegangVRI.c_knipperuit needs Mutex23Home.TokenTracker.Home;
+requirement VB2_ToegangVRI.c_rooduit needs Mutex23Home.TokenTracker.Home;
+requirement VB2_ToegangAB.c_neerop needs Mutex23Home.TokenTracker.Home;
+requirement VB2_ToegangAB.c_stopop needs Mutex23Home.TokenTracker.Home;
+requirement VB2_ToegangAB.c_neeronvoorwaardelijkop needs Mutex23Home.TokenTracker.Home;
+
+// Mutex 24 (home): VB2_Stand_c_herstelUitOndersteunend
+alg bool Mutex24HomeSendCondition = not VB2_BedieningAB_c_hand_allowed and not VB2_BedieningVRI_c_hand_allowed and
+                                    not VB1_ToegangVRI_c_uitknipper_allowed and not VB1_ToegangVRI_c_knipperuit_allowed and
+                                    not VB1_ToegangVRI_c_rooduit_allowed and not VB1_ToegangVRI_c_roodknipper_allowed and
+                                    not VB1_ToegangAB_c_neerop_allowed and not VB1_ToegangAB_c_stopop_allowed and
+                                    not VB1_ToegangAB_c_neeronvoorwaardelijkop_allowed and not VB2_PrimairVRI_c_uit_allowed and
+                                    not VB2_PrimairVRI_c_rood_allowed and not VB2_PrimairAB_c_open_allowed and
+                                    not VB2_PrimairAB_c_dicht_allowed and not VB2_ToegangVRI_c_uitrood_allowed and
+                                    not VB2_ToegangVRI_c_knipperrood_allowed and not VB2_ToegangVRI_c_knipperuit_allowed and
+                                    not VB2_ToegangVRI_c_rooduit_allowed and not VB2_ToegangAB_c_opneer_allowed and
+                                    not VB2_ToegangAB_c_neerop_allowed and not VB2_ToegangAB_c_stopneer_allowed and
+                                    not VB2_ToegangAB_c_stopop_allowed and not VB2_ToegangAB_c_neeronvoorwaardelijkneer_allowed and
+                                    not VB2_ToegangAB_c_neeronvoorwaardelijkop_allowed;
+Mutex24Home: Home(Mutex24HomeSendCondition);
+requirement VB2_BedieningAB.c_hand needs Mutex24Home.TokenTracker.Home;
+requirement VB2_BedieningVRI.c_hand needs Mutex24Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_uitknipper needs Mutex24Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_knipperuit needs Mutex24Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_rooduit needs Mutex24Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_roodknipper needs Mutex24Home.TokenTracker.Home;
+requirement VB1_ToegangAB.c_neerop needs Mutex24Home.TokenTracker.Home;
+requirement VB1_ToegangAB.c_stopop needs Mutex24Home.TokenTracker.Home;
+requirement VB1_ToegangAB.c_neeronvoorwaardelijkop needs Mutex24Home.TokenTracker.Home;
+requirement VB2_PrimairVRI.c_uit needs Mutex24Home.TokenTracker.Home;
+requirement VB2_PrimairVRI.c_rood needs Mutex24Home.TokenTracker.Home;
+requirement VB2_PrimairAB.c_open needs Mutex24Home.TokenTracker.Home;
+requirement VB2_PrimairAB.c_dicht needs Mutex24Home.TokenTracker.Home;
+requirement VB2_ToegangVRI.c_uitrood needs Mutex24Home.TokenTracker.Home;
+requirement VB2_ToegangVRI.c_knipperrood needs Mutex24Home.TokenTracker.Home;
+requirement VB2_ToegangVRI.c_knipperuit needs Mutex24Home.TokenTracker.Home;
+requirement VB2_ToegangVRI.c_rooduit needs Mutex24Home.TokenTracker.Home;
+requirement VB2_ToegangAB.c_opneer needs Mutex24Home.TokenTracker.Home;
+requirement VB2_ToegangAB.c_neerop needs Mutex24Home.TokenTracker.Home;
+requirement VB2_ToegangAB.c_stopneer needs Mutex24Home.TokenTracker.Home;
+requirement VB2_ToegangAB.c_stopop needs Mutex24Home.TokenTracker.Home;
+requirement VB2_ToegangAB.c_neeronvoorwaardelijkneer needs Mutex24Home.TokenTracker.Home;
+requirement VB2_ToegangAB.c_neeronvoorwaardelijkop needs Mutex24Home.TokenTracker.Home;
+
+// Mutex 25 (home): VB2_Stand_c_onderhoud
+alg bool Mutex25HomeSendCondition = not VB2_BedieningAB_c_hand_allowed and not VB2_BedieningVRI_c_hand_allowed and
+                                    not VB1_ToegangVRI_c_uitknipper_allowed and not VB1_ToegangVRI_c_knipperuit_allowed and
+                                    not VB1_ToegangVRI_c_rooduit_allowed and not VB1_ToegangVRI_c_roodknipper_allowed and
+                                    not VB1_ToegangAB_c_neerop_allowed and not VB1_ToegangAB_c_stopop_allowed and
+                                    not VB1_ToegangAB_c_neeronvoorwaardelijkop_allowed and not VB2_PrimairVRI_c_uit_allowed and
+                                    not VB2_PrimairVRI_c_rood_allowed and not VB2_PrimairAB_c_open_allowed and
+                                    not VB2_PrimairAB_c_dicht_allowed and not VB2_ToegangVRI_c_knipperuit_allowed and
+                                    not VB2_ToegangVRI_c_rooduit_allowed and not VB2_ToegangAB_c_neerop_allowed and
+                                    not VB2_ToegangAB_c_stopop_allowed and not VB2_ToegangAB_c_neeronvoorwaardelijkop_allowed;
+Mutex25Home: Home(Mutex25HomeSendCondition);
+requirement VB2_BedieningAB.c_hand needs Mutex25Home.TokenTracker.Home;
+requirement VB2_BedieningVRI.c_hand needs Mutex25Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_uitknipper needs Mutex25Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_knipperuit needs Mutex25Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_rooduit needs Mutex25Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_roodknipper needs Mutex25Home.TokenTracker.Home;
+requirement VB1_ToegangAB.c_neerop needs Mutex25Home.TokenTracker.Home;
+requirement VB1_ToegangAB.c_stopop needs Mutex25Home.TokenTracker.Home;
+requirement VB1_ToegangAB.c_neeronvoorwaardelijkop needs Mutex25Home.TokenTracker.Home;
+requirement VB2_PrimairVRI.c_uit needs Mutex25Home.TokenTracker.Home;
+requirement VB2_PrimairVRI.c_rood needs Mutex25Home.TokenTracker.Home;
+requirement VB2_PrimairAB.c_open needs Mutex25Home.TokenTracker.Home;
+requirement VB2_PrimairAB.c_dicht needs Mutex25Home.TokenTracker.Home;
+requirement VB2_ToegangVRI.c_knipperuit needs Mutex25Home.TokenTracker.Home;
+requirement VB2_ToegangVRI.c_rooduit needs Mutex25Home.TokenTracker.Home;
+requirement VB2_ToegangAB.c_neerop needs Mutex25Home.TokenTracker.Home;
+requirement VB2_ToegangAB.c_stopop needs Mutex25Home.TokenTracker.Home;
+requirement VB2_ToegangAB.c_neeronvoorwaardelijkop needs Mutex25Home.TokenTracker.Home;
+
+// Mutex 26 (home): VB2_Stand_c_ondersteunend
+alg bool Mutex26HomeSendCondition = not VB2_BedieningAB_c_hand_allowed and not VB2_BedieningVRI_c_hand_allowed and
+                                    not VB1_ToegangVRI_c_uitknipper_allowed and not VB1_ToegangVRI_c_knipperuit_allowed and
+                                    not VB1_ToegangVRI_c_rooduit_allowed and not VB1_ToegangVRI_c_roodknipper_allowed and
+                                    not VB1_ToegangAB_c_neerop_allowed and not VB1_ToegangAB_c_stopop_allowed and
+                                    not VB1_ToegangAB_c_neeronvoorwaardelijkop_allowed and not VB2_PrimairVRI_c_uit_allowed and
+                                    not VB2_PrimairVRI_c_rood_allowed and not VB2_PrimairAB_c_open_allowed and
+                                    not VB2_PrimairAB_c_dicht_allowed and not VB2_ToegangVRI_c_knipperuit_allowed and
+                                    not VB2_ToegangVRI_c_rooduit_allowed and not VB2_ToegangAB_c_neerop_allowed and
+                                    not VB2_ToegangAB_c_stopop_allowed and not VB2_ToegangAB_c_neeronvoorwaardelijkop_allowed;
+Mutex26Home: Home(Mutex26HomeSendCondition);
+requirement VB2_BedieningAB.c_hand needs Mutex26Home.TokenTracker.Home;
+requirement VB2_BedieningVRI.c_hand needs Mutex26Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_uitknipper needs Mutex26Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_knipperuit needs Mutex26Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_rooduit needs Mutex26Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_roodknipper needs Mutex26Home.TokenTracker.Home;
+requirement VB1_ToegangAB.c_neerop needs Mutex26Home.TokenTracker.Home;
+requirement VB1_ToegangAB.c_stopop needs Mutex26Home.TokenTracker.Home;
+requirement VB1_ToegangAB.c_neeronvoorwaardelijkop needs Mutex26Home.TokenTracker.Home;
+requirement VB2_PrimairVRI.c_uit needs Mutex26Home.TokenTracker.Home;
+requirement VB2_PrimairVRI.c_rood needs Mutex26Home.TokenTracker.Home;
+requirement VB2_PrimairAB.c_open needs Mutex26Home.TokenTracker.Home;
+requirement VB2_PrimairAB.c_dicht needs Mutex26Home.TokenTracker.Home;
+requirement VB2_ToegangVRI.c_knipperuit needs Mutex26Home.TokenTracker.Home;
+requirement VB2_ToegangVRI.c_rooduit needs Mutex26Home.TokenTracker.Home;
+requirement VB2_ToegangAB.c_neerop needs Mutex26Home.TokenTracker.Home;
+requirement VB2_ToegangAB.c_stopop needs Mutex26Home.TokenTracker.Home;
+requirement VB2_ToegangAB.c_neeronvoorwaardelijkop needs Mutex26Home.TokenTracker.Home;
+
+// Mutex 27 (home): VB2_Stand_c_operationeel
+alg bool Mutex27HomeSendCondition = not VB2_BedieningAB_c_hand_allowed and not VB2_BedieningVRI_c_hand_allowed and
+                                    not VB1_ToegangVRI_c_uitknipper_allowed and not VB1_ToegangVRI_c_knipperuit_allowed and
+                                    not VB1_ToegangVRI_c_rooduit_allowed and not VB1_ToegangVRI_c_roodknipper_allowed and
+                                    not VB1_ToegangAB_c_neerop_allowed and not VB1_ToegangAB_c_stopop_allowed and
+                                    not VB1_ToegangAB_c_neeronvoorwaardelijkop_allowed and not VB2_PrimairVRI_c_uit_allowed and
+                                    not VB2_PrimairVRI_c_rood_allowed and not VB2_PrimairAB_c_open_allowed and
+                                    not VB2_PrimairAB_c_dicht_allowed and not VB2_ToegangVRI_c_knipperuit_allowed and
+                                    not VB2_ToegangVRI_c_rooduit_allowed and not VB2_ToegangAB_c_neerop_allowed and
+                                    not VB2_ToegangAB_c_stopop_allowed and not VB2_ToegangAB_c_neeronvoorwaardelijkop_allowed;
+Mutex27Home: Home(Mutex27HomeSendCondition);
+requirement VB2_BedieningAB.c_hand needs Mutex27Home.TokenTracker.Home;
+requirement VB2_BedieningVRI.c_hand needs Mutex27Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_uitknipper needs Mutex27Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_knipperuit needs Mutex27Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_rooduit needs Mutex27Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_roodknipper needs Mutex27Home.TokenTracker.Home;
+requirement VB1_ToegangAB.c_neerop needs Mutex27Home.TokenTracker.Home;
+requirement VB1_ToegangAB.c_stopop needs Mutex27Home.TokenTracker.Home;
+requirement VB1_ToegangAB.c_neeronvoorwaardelijkop needs Mutex27Home.TokenTracker.Home;
+requirement VB2_PrimairVRI.c_uit needs Mutex27Home.TokenTracker.Home;
+requirement VB2_PrimairVRI.c_rood needs Mutex27Home.TokenTracker.Home;
+requirement VB2_PrimairAB.c_open needs Mutex27Home.TokenTracker.Home;
+requirement VB2_PrimairAB.c_dicht needs Mutex27Home.TokenTracker.Home;
+requirement VB2_ToegangVRI.c_knipperuit needs Mutex27Home.TokenTracker.Home;
+requirement VB2_ToegangVRI.c_rooduit needs Mutex27Home.TokenTracker.Home;
+requirement VB2_ToegangAB.c_neerop needs Mutex27Home.TokenTracker.Home;
+requirement VB2_ToegangAB.c_stopop needs Mutex27Home.TokenTracker.Home;
+requirement VB2_ToegangAB.c_neeronvoorwaardelijkop needs Mutex27Home.TokenTracker.Home;
+
+// Mutex 28 (home): VB2_Stand_c_standby
+alg bool Mutex28HomeSendCondition = not VB2_BedieningAB_c_hand_allowed and not VB2_BedieningVRI_c_hand_allowed and
+                                    not VB1_ToegangVRI_c_uitknipper_allowed and not VB1_ToegangVRI_c_knipperuit_allowed and
+                                    not VB1_ToegangVRI_c_rooduit_allowed and not VB1_ToegangVRI_c_roodknipper_allowed and
+                                    not VB1_ToegangAB_c_neerop_allowed and not VB1_ToegangAB_c_stopop_allowed and
+                                    not VB1_ToegangAB_c_neeronvoorwaardelijkop_allowed and not VB2_PrimairVRI_c_uit_allowed and
+                                    not VB2_PrimairVRI_c_rood_allowed and not VB2_PrimairAB_c_open_allowed and
+                                    not VB2_PrimairAB_c_dicht_allowed and not VB2_ToegangVRI_c_knipperuit_allowed and
+                                    not VB2_ToegangVRI_c_rooduit_allowed and not VB2_ToegangAB_c_neerop_allowed and
+                                    not VB2_ToegangAB_c_stopop_allowed and not VB2_ToegangAB_c_neeronvoorwaardelijkop_allowed;
+Mutex28Home: Home(Mutex28HomeSendCondition);
+requirement VB2_BedieningAB.c_hand needs Mutex28Home.TokenTracker.Home;
+requirement VB2_BedieningVRI.c_hand needs Mutex28Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_uitknipper needs Mutex28Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_knipperuit needs Mutex28Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_rooduit needs Mutex28Home.TokenTracker.Home;
+requirement VB1_ToegangVRI.c_roodknipper needs Mutex28Home.TokenTracker.Home;
+requirement VB1_ToegangAB.c_neerop needs Mutex28Home.TokenTracker.Home;
+requirement VB1_ToegangAB.c_stopop needs Mutex28Home.TokenTracker.Home;
+requirement VB1_ToegangAB.c_neeronvoorwaardelijkop needs Mutex28Home.TokenTracker.Home;
+requirement VB2_PrimairVRI.c_uit needs Mutex28Home.TokenTracker.Home;
+requirement VB2_PrimairVRI.c_rood needs Mutex28Home.TokenTracker.Home;
+requirement VB2_PrimairAB.c_open needs Mutex28Home.TokenTracker.Home;
+requirement VB2_PrimairAB.c_dicht needs Mutex28Home.TokenTracker.Home;
+requirement VB2_ToegangVRI.c_knipperuit needs Mutex28Home.TokenTracker.Home;
+requirement VB2_ToegangVRI.c_rooduit needs Mutex28Home.TokenTracker.Home;
+requirement VB2_ToegangAB.c_neerop needs Mutex28Home.TokenTracker.Home;
+requirement VB2_ToegangAB.c_stopop needs Mutex28Home.TokenTracker.Home;
+requirement VB2_ToegangAB.c_neeronvoorwaardelijkop needs Mutex28Home.TokenTracker.Home;
