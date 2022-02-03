@@ -1,0 +1,13 @@
+This repository contains the following models of the distributed pump cellar system and the Swalmen tunnel.
+
+1. Plant and requirement models
+Contains the discrete plant model and the requirements, the hybrid simulation model, and the Graphical User Interface model.
+
+2. Localization and delay robustness
+Contains the localized supervisors Loc1, Loc2, and Loc3, and the models for the delay robustness check.
+
+3. Mutual exclusion
+Contains the localized supervisors Loc1, Loc2, and Loc3, and the implemented mutex locks.
+
+4. Hardware in the loop
+Contains the localized supervisors Loc1, Loc2, and Loc3, the hardware mappings, and the generated PLC codes.
