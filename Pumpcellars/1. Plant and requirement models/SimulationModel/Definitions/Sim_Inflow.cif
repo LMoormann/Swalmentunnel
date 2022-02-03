@@ -1,0 +1,15 @@
+group def Sim_InflowHeadpumpcellar(alg int rainlevel; alg bool raining, pump1, pump2, direction):
+  alg bool inflow = raining or pump1 or pump2;
+  alg real volume_rain = rainlevel*5;
+  alg real volume_pumpcellar=
+             if   pump1 and pump2 and direction: 30
+             elif (pump1 or pump2) and direction: 15
+             else 0 end;
+  alg real volume = volume_rain + volume_pumpcellar;
+end
+
+group def Sim_InflowMiddlepumpcellar(alg int rainlevel; alg bool raining):
+  alg bool inflow = raining;
+  alg real volume_rain = rainlevel*5;
+  alg real volume = volume_rain;
+end

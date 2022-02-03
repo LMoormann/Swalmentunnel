@@ -1,0 +1,11 @@
+automaton def Timer(event start):
+	uncontrollable u_timeout;
+	cont t=0 der 1;
+
+	location Off:
+		initial; marked;
+		edge start do t:=0 goto Running;
+
+	location Running:
+		edge u_timeout when t>=1 goto Off;
+end

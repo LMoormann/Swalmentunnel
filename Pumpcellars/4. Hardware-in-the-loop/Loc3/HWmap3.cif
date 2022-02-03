@@ -1,0 +1,110 @@
+import "../Definitions/HWSensor.cif", "../Definitions/HWActuator.cif", "../Definitions/HWToken.cif", "../Definitions/HWPumpDirection.cif", "../Definitions/HWButton.cif", "../Definitions/HWControlMode.cif";
+
+// To simulation
+// Head Pumpcellar 1
+uncontrollable Pumpcellars_HeadPumpcellar2_SensorTank_u_S1on;
+uncontrollable Pumpcellars_HeadPumpcellar2_SensorTank_u_S1off;
+HPC2_HWSensorS1: HWSensor(Pumpcellars_HeadPumpcellar2_SensorTank_u_S1on, Pumpcellars_HeadPumpcellar2_SensorTank_u_S1off);
+
+uncontrollable Pumpcellars_HeadPumpcellar2_SensorTank_u_S2on;
+uncontrollable Pumpcellars_HeadPumpcellar2_SensorTank_u_S2off;
+HPC2_HWSensorS2: HWSensor(Pumpcellars_HeadPumpcellar2_SensorTank_u_S2on, Pumpcellars_HeadPumpcellar2_SensorTank_u_S2off);
+
+uncontrollable Pumpcellars_HeadPumpcellar2_SensorTank_u_S3on;
+uncontrollable Pumpcellars_HeadPumpcellar2_SensorTank_u_S3off;
+HPC2_HWSensorS3: HWSensor(Pumpcellars_HeadPumpcellar2_SensorTank_u_S3on, Pumpcellars_HeadPumpcellar2_SensorTank_u_S3off);
+
+uncontrollable Pumpcellars_HeadPumpcellar2_SensorTank_u_S4on;
+uncontrollable Pumpcellars_HeadPumpcellar2_SensorTank_u_S4off;
+HPC2_HWSensorS4: HWSensor(Pumpcellars_HeadPumpcellar2_SensorTank_u_S4on, Pumpcellars_HeadPumpcellar2_SensorTank_u_S4off);
+
+uncontrollable Pumpcellars_HeadPumpcellar2_SensorTank_u_S5on;
+uncontrollable Pumpcellars_HeadPumpcellar2_SensorTank_u_S5off;
+HPC2_HWSensorS5: HWSensor(Pumpcellars_HeadPumpcellar2_SensorTank_u_S5on, Pumpcellars_HeadPumpcellar2_SensorTank_u_S5off);
+
+controllable Pumpcellars_HeadPumpcellar2_Pump1_c_on;
+controllable Pumpcellars_HeadPumpcellar2_Pump1_c_off;
+HPC2_HWPump1: HWActuator(Pumpcellars_HeadPumpcellar2_Pump1_c_on, Pumpcellars_HeadPumpcellar2_Pump1_c_off);
+
+controllable Pumpcellars_HeadPumpcellar2_Pump2_c_on;
+controllable Pumpcellars_HeadPumpcellar2_Pump2_c_off;
+HPC2_HWPump2: HWActuator(Pumpcellars_HeadPumpcellar2_Pump2_c_on, Pumpcellars_HeadPumpcellar2_Pump2_c_off);
+
+controllable Pumpcellars_HeadPumpcellar2_Mode_c_store;
+controllable Pumpcellars_HeadPumpcellar2_Mode_c_drain;
+controllable Pumpcellars_HeadPumpcellar2_Mode_c_off;
+automaton HWHPC2Mode:
+  disc bool DRAIN = drain;
+  disc bool STORE = store;
+  disc bool OFF = off;
+  monitor Pumpcellars_HeadPumpcellar2_Mode_c_store, Pumpcellars_HeadPumpcellar2_Mode_c_drain, Pumpcellars_HeadPumpcellar2_Mode_c_off;
+  location drain:
+    initial; marked;
+    edge Pumpcellars_HeadPumpcellar2_Mode_c_store do DRAIN := false, STORE := true,  OFF := false goto store;
+    edge Pumpcellars_HeadPumpcellar2_Mode_c_off do DRAIN := false, STORE := false, OFF := true  goto off;
+  location store:
+    edge Pumpcellars_HeadPumpcellar2_Mode_c_drain do DRAIN := true, STORE := false, OFF := false  goto drain;
+    edge Pumpcellars_HeadPumpcellar2_Mode_c_off do DRAIN := false, STORE := false, OFF := true  goto off;
+  location off:
+    edge Pumpcellars_HeadPumpcellar2_Mode_c_store do DRAIN := false, STORE := true,  OFF := false goto store;
+    edge Pumpcellars_HeadPumpcellar2_Mode_c_drain do DRAIN := true, STORE := false, OFF := false  goto drain;
+end
+
+// Buttons
+controllable Pumpcellars_HeadPumpcellar2_Control_Mode_c_auto;
+controllable Pumpcellars_HeadPumpcellar2_Control_Mode_c_manual;
+HWHPC2ControlMode: HWControlMode(Pumpcellars_HeadPumpcellar2_Control_Mode_c_auto, Pumpcellars_HeadPumpcellar2_Control_Mode_c_manual);
+
+uncontrollable Pumpcellars_HeadPumpcellar2_Control_ButtonManual_u_push;
+uncontrollable Pumpcellars_HeadPumpcellar2_Control_ButtonAuto_u_push;
+uncontrollable Pumpcellars_HeadPumpcellar2_Control_ButtonStore_u_push;
+uncontrollable Pumpcellars_HeadPumpcellar2_Control_ButtonDrain_u_push;
+uncontrollable Pumpcellars_HeadPumpcellar2_Control_ButtonOff_u_push;
+controllable Pumpcellars_HeadPumpcellar2_Control_Observer_c_done;
+HWHPC2ControlButtonManual: HWButton(Pumpcellars_HeadPumpcellar2_Control_ButtonManual_u_push, Pumpcellars_HeadPumpcellar2_Control_Observer_c_done);
+HWHPC2ControlButtonAuto: HWButton(Pumpcellars_HeadPumpcellar2_Control_ButtonAuto_u_push, Pumpcellars_HeadPumpcellar2_Control_Observer_c_done);
+HWHPC2ModeButtonStore: HWButton(Pumpcellars_HeadPumpcellar2_Control_ButtonStore_u_push, Pumpcellars_HeadPumpcellar2_Control_Observer_c_done);
+HWHPC2ModeButtonDrain: HWButton(Pumpcellars_HeadPumpcellar2_Control_ButtonDrain_u_push, Pumpcellars_HeadPumpcellar2_Control_Observer_c_done);
+HWHPC2ModeButtonOff: HWButton(Pumpcellars_HeadPumpcellar2_Control_ButtonOff_u_push, Pumpcellars_HeadPumpcellar2_Control_Observer_c_done);
+
+// To PLC2
+// Mutex3
+controllable Mutex3Away_TokenTracker_c_return;
+controllable Mutex3Away_TokenTracker_u_receive;
+HWMutex3: HWToken(false, Mutex3Away_TokenTracker_c_return, Mutex3Away_TokenTracker_u_receive);
+
+// Mutex4
+controllable Mutex4Away_TokenTracker_c_return;
+controllable Mutex4Away_TokenTracker_u_receive;
+HWMutex4: HWToken(false, Mutex4Away_TokenTracker_c_return, Mutex4Away_TokenTracker_u_receive);
+
+// Observers
+uncontrollable Pumpcellars_Traffictube1_ObserverA_c_emergency;
+uncontrollable Pumpcellars_Traffictube1_ObserverA_c_recovery;
+uncontrollable Pumpcellars_Traffictube1_ObserverA_c_operational;
+input bool TT1EMERGENCYc;
+input bool TT1RECOVERYc;
+input bool TT1OPERATIONALc;
+automaton HWModeTraffictube1ObserverA:
+	location:
+		initial;
+		edge Pumpcellars_Traffictube1_ObserverA_c_emergency when TT1EMERGENCYc and not TT1OPERATIONALc and not TT1RECOVERYc;
+		edge Pumpcellars_Traffictube1_ObserverA_c_recovery when not TT1EMERGENCYc and not TT1OPERATIONALc and TT1RECOVERYc;
+		edge Pumpcellars_Traffictube1_ObserverA_c_operational when not TT1EMERGENCYc and TT1OPERATIONALc and not TT1RECOVERYc;
+end
+
+uncontrollable Pumpcellars_Traffictube2_ObserverA_c_emergency;
+uncontrollable Pumpcellars_Traffictube2_ObserverA_c_recovery;
+uncontrollable Pumpcellars_Traffictube2_ObserverA_c_operational;
+input bool TT2EMERGENCYc;
+input bool TT2RECOVERYc;
+input bool TT2OPERATIONALc;
+automaton HWModeTraffictube2ObserverA:
+	location:
+		initial;
+		edge Pumpcellars_Traffictube2_ObserverA_c_emergency when TT2EMERGENCYc and not TT2OPERATIONALc and not TT2RECOVERYc;
+		edge Pumpcellars_Traffictube2_ObserverA_c_recovery when not TT2EMERGENCYc and not TT2OPERATIONALc and TT2RECOVERYc;
+		edge Pumpcellars_Traffictube2_ObserverA_c_operational when not TT2EMERGENCYc and TT2OPERATIONALc and not TT2RECOVERYc;
+end
+
+

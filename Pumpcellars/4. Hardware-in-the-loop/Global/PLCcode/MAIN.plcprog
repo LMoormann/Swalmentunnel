@@ -1,0 +1,2900 @@
+PROGRAM MAIN
+VAR_OUTPUT
+    timerValue0: TIME;
+    timerValue1: TIME;
+END_VAR
+VAR
+    cnt: DINT;
+    first: BOOL := TRUE;
+    curTimerValue: TIME;
+    state0: STATE;
+    curTime: REAL;
+    loopsKilled: DINT;
+END_VAR
+VAR_TEMP
+    lastTimerValue: TIME;
+    curDeltaTime: TIME;
+    curDeltaSecs: REAL;
+    state1: STATE;
+    progress: BOOL;
+    loopCount: INT;
+    b1: BOOL;
+    b2: BOOL;
+    b3: BOOL;
+    b4: BOOL;
+END_VAR
+
+
+// Handle 'time' and cycle time.
+cnt := cnt + 1;
+
+timer0(IN := curTimer = 0, PT := T#1D);
+timer1(IN := curTimer = 1, PT := T#1D);
+timerValue0 := timer0.ET;
+timerValue1 := timer1.ET;
+
+lastTimerValue := curTimerValue;
+IF curTimer = 0 THEN
+    curTimerValue := timerValue0;
+ELSE
+    curTimerValue := timerValue1;
+END_IF;
+curDeltaTime := curTimerValue - lastTimerValue;
+curDeltaSecs := TIME_TO_REAL(curDeltaTime) / 1000;
+curTime := curTime + curDeltaSecs;
+
+IF cnt MOD 10 = 0 THEN
+    curTimer := 1 - curTimer;
+    curTimerValue := T#0S;
+    timer0(IN := curTimer = 0, PT := T#1D);
+    timer1(IN := curTimer = 1, PT := T#1D);
+    timerValue0 := timer0.ET;
+    timerValue1 := timer1.ET;
+END_IF;
+
+IF first THEN
+    first := FALSE;
+
+    // Initialize state variables for initial state.
+    state0.dvar_M_HPC1_HWPump1_ON := FALSE;
+    state0.dvar_M_HPC1_HWPump1 := 26;
+    state0.dvar_M_HPC1_HWPump2_ON := FALSE;
+    state0.dvar_M_HPC1_HWPump2 := 26;
+    state0.dvar_M_HPC1_HWSensorS1 := 11;
+    state0.dvar_M_HPC1_HWSensorS2 := 11;
+    state0.dvar_M_HPC1_HWSensorS3 := 11;
+    state0.dvar_M_HPC1_HWSensorS4 := 11;
+    state0.dvar_M_HPC1_HWSensorS5 := 11;
+    state0.dvar_M_HPC2_HWPump1_ON := FALSE;
+    state0.dvar_M_HPC2_HWPump1 := 26;
+    state0.dvar_M_HPC2_HWPump2_ON := FALSE;
+    state0.dvar_M_HPC2_HWPump2 := 26;
+    state0.dvar_M_HPC2_HWSensorS1 := 11;
+    state0.dvar_M_HPC2_HWSensorS2 := 11;
+    state0.dvar_M_HPC2_HWSensorS3 := 11;
+    state0.dvar_M_HPC2_HWSensorS4 := 11;
+    state0.dvar_M_HPC2_HWSensorS5 := 11;
+    state0.dvar_M_HWHPC1ControlButtonAuto_StopLoop := FALSE;
+    state0.dvar_M_HWHPC1ControlButtonAuto := 26;
+    state0.dvar_M_HWHPC1ControlButtonManual_StopLoop := FALSE;
+    state0.dvar_M_HWHPC1ControlButtonManual := 26;
+    state0.dvar_M_HWHPC1ControlMode_AUTO := TRUE;
+    state0.dvar_M_HWHPC1ControlMode := 26;
+    state0.dvar_M_HWHPC1Mode_DRAIN := TRUE;
+    state0.dvar_M_HWHPC1Mode_STORE := FALSE;
+    state0.dvar_M_HWHPC1Mode_OFF := FALSE;
+    state0.dvar_M_HWHPC1Mode := 2;
+    state0.dvar_M_HWHPC1ModeButtonDrain_StopLoop := FALSE;
+    state0.dvar_M_HWHPC1ModeButtonDrain := 26;
+    state0.dvar_M_HWHPC1ModeButtonOff_StopLoop := FALSE;
+    state0.dvar_M_HWHPC1ModeButtonOff := 26;
+    state0.dvar_M_HWHPC1ModeButtonStore_StopLoop := FALSE;
+    state0.dvar_M_HWHPC1ModeButtonStore := 26;
+    state0.dvar_M_HWHPC2ControlButtonAuto_StopLoop := FALSE;
+    state0.dvar_M_HWHPC2ControlButtonAuto := 26;
+    state0.dvar_M_HWHPC2ControlButtonManual_StopLoop := FALSE;
+    state0.dvar_M_HWHPC2ControlButtonManual := 26;
+    state0.dvar_M_HWHPC2ControlMode_AUTO := TRUE;
+    state0.dvar_M_HWHPC2ControlMode := 26;
+    state0.dvar_M_HWHPC2Mode_DRAIN := TRUE;
+    state0.dvar_M_HWHPC2Mode_STORE := FALSE;
+    state0.dvar_M_HWHPC2Mode_OFF := FALSE;
+    state0.dvar_M_HWHPC2Mode := 2;
+    state0.dvar_M_HWHPC2ModeButtonDrain_StopLoop := FALSE;
+    state0.dvar_M_HWHPC2ModeButtonDrain := 26;
+    state0.dvar_M_HWHPC2ModeButtonOff_StopLoop := FALSE;
+    state0.dvar_M_HWHPC2ModeButtonOff := 26;
+    state0.dvar_M_HWHPC2ModeButtonStore_StopLoop := FALSE;
+    state0.dvar_M_HWHPC2ModeButtonStore := 26;
+    state0.dvar_M_HWModeTraffictube1_TT1EMERGENCY := FALSE;
+    state0.dvar_M_HWModeTraffictube1_TT1OPERATIONAL := TRUE;
+    state0.dvar_M_HWModeTraffictube1_TT1RECOVERY := FALSE;
+    state0.dvar_M_HWModeTraffictube1 := 14;
+    state0.dvar_M_HWModeTraffictube1ButtonEmergency_StopLoop := FALSE;
+    state0.dvar_M_HWModeTraffictube1ButtonEmergency := 26;
+    state0.dvar_M_HWModeTraffictube1ButtonOperational_StopLoop := FALSE;
+    state0.dvar_M_HWModeTraffictube1ButtonOperational := 26;
+    state0.dvar_M_HWModeTraffictube1ButtonRecovery_StopLoop := FALSE;
+    state0.dvar_M_HWModeTraffictube1ButtonRecovery := 26;
+    state0.dvar_M_HWModeTraffictube2_TT2EMERGENCY := FALSE;
+    state0.dvar_M_HWModeTraffictube2_TT2OPERATIONAL := TRUE;
+    state0.dvar_M_HWModeTraffictube2_TT2RECOVERY := FALSE;
+    state0.dvar_M_HWModeTraffictube2 := 14;
+    state0.dvar_M_HWModeTraffictube2ButtonEmergency_StopLoop := FALSE;
+    state0.dvar_M_HWModeTraffictube2ButtonEmergency := 26;
+    state0.dvar_M_HWModeTraffictube2ButtonOperational_StopLoop := FALSE;
+    state0.dvar_M_HWModeTraffictube2ButtonOperational := 26;
+    state0.dvar_M_HWModeTraffictube2ButtonRecovery_StopLoop := FALSE;
+    state0.dvar_M_HWModeTraffictube2ButtonRecovery := 26;
+    state0.dvar_M_HWMPCControlButtonAuto_StopLoop := FALSE;
+    state0.dvar_M_HWMPCControlButtonAuto := 26;
+    state0.dvar_M_HWMPCControlButtonManual_StopLoop := FALSE;
+    state0.dvar_M_HWMPCControlButtonManual := 26;
+    state0.dvar_M_HWMPCControlMode_AUTO := TRUE;
+    state0.dvar_M_HWMPCControlMode := 26;
+    state0.dvar_M_HWMPCMode_DRAIN := TRUE;
+    state0.dvar_M_HWMPCMode_STORE := FALSE;
+    state0.dvar_M_HWMPCMode_OFF := FALSE;
+    state0.dvar_M_HWMPCMode := 2;
+    state0.dvar_M_HWMPCModeButtonDrain_StopLoop := FALSE;
+    state0.dvar_M_HWMPCModeButtonDrain := 26;
+    state0.dvar_M_HWMPCModeButtonOff_StopLoop := FALSE;
+    state0.dvar_M_HWMPCModeButtonOff := 26;
+    state0.dvar_M_HWMPCModeButtonStore_StopLoop := FALSE;
+    state0.dvar_M_HWMPCModeButtonStore := 26;
+    state0.dvar_M_MPC_HWPump1_ON := FALSE;
+    state0.dvar_M_MPC_HWPump1 := 26;
+    state0.dvar_M_MPC_HWPump2_ON := FALSE;
+    state0.dvar_M_MPC_HWPump2 := 26;
+    state0.dvar_M_MPC_HWSensorS1 := 11;
+    state0.dvar_M_MPC_HWSensorS2 := 11;
+    state0.dvar_M_MPC_HWSensorS3 := 11;
+    state0.dvar_M_MPC_HWSensorS4 := 11;
+    state0.dvar_M_MPC_HWSensorS5 := 11;
+    state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_ButtonAuto := 26;
+    state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_ButtonDrain := 26;
+    state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_ButtonManual := 26;
+    state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_ButtonOff := 26;
+    state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_ButtonStore := 26;
+    state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Mode := 0;
+    state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer := 25;
+    state0.dvar_M_Pumpcellars_HeadPumpcellar1_Mode := 2;
+    state0.dvar_M_Pumpcellars_HeadPumpcellar1_Pump1 := 11;
+    state0.dvar_M_Pumpcellars_HeadPumpcellar1_Pump2 := 11;
+    state0.dvar_M_Pumpcellars_HeadPumpcellar1_SensorTank := 6;
+    state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_ButtonAuto := 26;
+    state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_ButtonDrain := 26;
+    state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_ButtonManual := 26;
+    state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_ButtonOff := 26;
+    state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_ButtonStore := 26;
+    state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Mode := 0;
+    state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer := 25;
+    state0.dvar_M_Pumpcellars_HeadPumpcellar2_Mode := 2;
+    state0.dvar_M_Pumpcellars_HeadPumpcellar2_Pump1 := 11;
+    state0.dvar_M_Pumpcellars_HeadPumpcellar2_Pump2 := 11;
+    state0.dvar_M_Pumpcellars_HeadPumpcellar2_SensorTank := 6;
+    state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_ButtonAuto := 26;
+    state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_ButtonDrain := 26;
+    state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_ButtonManual := 26;
+    state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_ButtonOff := 26;
+    state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_ButtonStore := 26;
+    state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Mode := 0;
+    state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer := 25;
+    state0.dvar_M_Pumpcellars_MiddlePumpcellar_Mode := 2;
+    state0.dvar_M_Pumpcellars_MiddlePumpcellar_Pump1 := 11;
+    state0.dvar_M_Pumpcellars_MiddlePumpcellar_Pump2 := 11;
+    state0.dvar_M_Pumpcellars_MiddlePumpcellar_PumpDirection := 7;
+    state0.dvar_M_Pumpcellars_MiddlePumpcellar_SensorTank := 6;
+    state0.dvar_M_Pumpcellars_Traffictube1_ModeTraffictube := 14;
+    state0.dvar_M_Pumpcellars_Traffictube1_ModeTraffictubeButtons_ButtonEmergency := 26;
+    state0.dvar_M_Pumpcellars_Traffictube1_ModeTraffictubeButtons_ButtonOperational := 26;
+    state0.dvar_M_Pumpcellars_Traffictube1_ModeTraffictubeButtons_ButtonRecovery := 26;
+    state0.dvar_M_Pumpcellars_Traffictube1_ModeTraffictubeButtons_Observer := 25;
+    state0.dvar_M_Pumpcellars_Traffictube2_ModeTraffictube := 14;
+    state0.dvar_M_Pumpcellars_Traffictube2_ModeTraffictubeButtons_ButtonEmergency := 26;
+    state0.dvar_M_Pumpcellars_Traffictube2_ModeTraffictubeButtons_ButtonOperational := 26;
+    state0.dvar_M_Pumpcellars_Traffictube2_ModeTraffictubeButtons_ButtonRecovery := 26;
+    state0.dvar_M_Pumpcellars_Traffictube2_ModeTraffictubeButtons_Observer := 25;
+    state0.dvar_M_RequirementStateEvtExcls := 26;
+    state0.dvar_M_sup := 26;
+ELSE
+    // Update continuous variables for time delay.
+
+    state0.curTime := curTime;
+END_IF;
+
+// Event loop.
+WHILE TRUE DO
+    progress := FALSE;
+
+    // Event "Pumpcellars_HeadPumpcellar1_Control_ButtonAuto_u_push".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_HWHPC1ControlButtonAuto) = (26);
+        b1 := b1 AND (ivar_M_HWHPC1ControlButtonAuto_PUSHED);
+        b1 := b1 AND (NOT(state0.dvar_M_HWHPC1ControlButtonAuto_StopLoop));
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_ButtonAuto) = (26));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_HWHPC1ControlButtonAuto_StopLoop := TRUE;
+            IF (((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer) = (25)) AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Mode) = (9))) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer := 1;
+            ELSIF (((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer) = (25)) AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Mode) <> (9))) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer := 25;
+            ELSIF ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer) = (1)) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer := 1;
+            ELSIF ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer) = (10)) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer := 10;
+            ELSIF ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer) = (24)) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer := 24;
+            ELSIF ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer) = (3)) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer := 3;
+            ELSIF ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer) = (12)) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer := 12;
+            END_IF;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_HeadPumpcellar1_Control_ButtonDrain_u_push".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_HWHPC1ModeButtonDrain) = (26);
+        b1 := b1 AND (ivar_M_HWHPC1ModeButtonDrain_PUSHED);
+        b1 := b1 AND (NOT(state0.dvar_M_HWHPC1ModeButtonDrain_StopLoop));
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_ButtonDrain) = (26));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_HWHPC1ModeButtonDrain_StopLoop := TRUE;
+            IF (((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer) = (25)) AND (((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Mode) = (9)) AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Mode) <> (2)))) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer := 3;
+            ELSIF (((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer) = (25)) AND (NOT(((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Mode) = (9)) AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Mode) <> (2))))) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer := 25;
+            ELSIF ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer) = (1)) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer := 1;
+            ELSIF ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer) = (10)) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer := 10;
+            ELSIF ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer) = (24)) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer := 24;
+            ELSIF ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer) = (3)) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer := 3;
+            ELSIF ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer) = (12)) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer := 12;
+            END_IF;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_HeadPumpcellar1_Control_ButtonManual_u_push".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_HWHPC1ControlButtonManual) = (26);
+        b1 := b1 AND (ivar_M_HWHPC1ControlButtonManual_PUSHED);
+        b1 := b1 AND (NOT(state0.dvar_M_HWHPC1ControlButtonManual_StopLoop));
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_ButtonManual) = (26));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_HWHPC1ControlButtonManual_StopLoop := TRUE;
+            IF (((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer) = (25)) AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Mode) = (0))) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer := 10;
+            ELSIF (((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer) = (25)) AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Mode) <> (0))) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer := 25;
+            ELSIF ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer) = (1)) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer := 1;
+            ELSIF ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer) = (10)) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer := 10;
+            ELSIF ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer) = (24)) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer := 24;
+            ELSIF ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer) = (3)) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer := 3;
+            ELSIF ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer) = (12)) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer := 12;
+            END_IF;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_HeadPumpcellar1_Control_ButtonOff_u_push".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_HWHPC1ModeButtonOff) = (26);
+        b1 := b1 AND (ivar_M_HWHPC1ModeButtonOff_PUSHED);
+        b1 := b1 AND (NOT(state0.dvar_M_HWHPC1ModeButtonOff_StopLoop));
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_ButtonOff) = (26));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_HWHPC1ModeButtonOff_StopLoop := TRUE;
+            IF (((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer) = (25)) AND (((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Mode) = (9)) AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Mode) <> (11)))) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer := 12;
+            ELSIF (((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer) = (25)) AND (NOT(((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Mode) = (9)) AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Mode) <> (11))))) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer := 25;
+            ELSIF ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer) = (1)) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer := 1;
+            ELSIF ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer) = (10)) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer := 10;
+            ELSIF ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer) = (24)) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer := 24;
+            ELSIF ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer) = (3)) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer := 3;
+            ELSIF ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer) = (12)) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer := 12;
+            END_IF;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_HeadPumpcellar1_Control_ButtonStore_u_push".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_HWHPC1ModeButtonStore) = (26);
+        b1 := b1 AND (ivar_M_HWHPC1ModeButtonStore_PUSHED);
+        b1 := b1 AND (NOT(state0.dvar_M_HWHPC1ModeButtonStore_StopLoop));
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_ButtonStore) = (26));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_HWHPC1ModeButtonStore_StopLoop := TRUE;
+            IF (((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer) = (25)) AND (((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Mode) = (9)) AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Mode) <> (23)))) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer := 24;
+            ELSIF (((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer) = (25)) AND (NOT(((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Mode) = (9)) AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Mode) <> (23))))) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer := 25;
+            ELSIF ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer) = (1)) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer := 1;
+            ELSIF ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer) = (10)) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer := 10;
+            ELSIF ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer) = (24)) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer := 24;
+            ELSIF ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer) = (3)) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer := 3;
+            ELSIF ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer) = (12)) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer := 12;
+            END_IF;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_HeadPumpcellar1_Control_Mode_c_auto".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_HWHPC1ControlMode) = (26);
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Mode) = (9));
+        b1 := b1 AND ((state0.dvar_M_RequirementStateEvtExcls) = (26));
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer) = (1));
+        b1 := b1 AND ((state0.dvar_M_sup) = (26));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_HWHPC1ControlMode_AUTO := TRUE;
+            state1.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Mode := 0;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_HeadPumpcellar1_Control_Mode_c_manual".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_HWHPC1ControlMode) = (26);
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Mode) = (0));
+        b1 := b1 AND ((state0.dvar_M_RequirementStateEvtExcls) = (26));
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer) = (10));
+        b1 := b1 AND ((state0.dvar_M_sup) = (26));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_HWHPC1ControlMode_AUTO := FALSE;
+            state1.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Mode := 9;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_HeadPumpcellar1_Control_Observer_c_done".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_HWHPC1ControlButtonAuto) = (26);
+        b1 := b1 AND ((state0.dvar_M_HWHPC1ControlButtonManual) = (26));
+        b1 := b1 AND ((state0.dvar_M_HWHPC1ModeButtonDrain) = (26));
+        b1 := b1 AND ((state0.dvar_M_HWHPC1ModeButtonOff) = (26));
+        b1 := b1 AND ((state0.dvar_M_HWHPC1ModeButtonStore) = (26));
+        IF b1 THEN
+            b3 := (state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer) = (1);
+            b3 := b3 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Mode) = (0));
+            b2 := b3;
+            IF NOT(b2) THEN
+                b3 := (state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer) = (10);
+                b3 := b3 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Mode) = (9));
+                b2 := b2 OR (b3);
+            END_IF;
+            IF NOT(b2) THEN
+                b3 := (state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer) = (24);
+                b3 := b3 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Mode) = (23));
+                b2 := b2 OR (b3);
+            END_IF;
+            IF NOT(b2) THEN
+                b3 := (state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer) = (3);
+                b3 := b3 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Mode) = (2));
+                b2 := b2 OR (b3);
+            END_IF;
+            IF NOT(b2) THEN
+                b3 := (state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer) = (12);
+                b3 := b3 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Mode) = (11));
+                b2 := b2 OR (b3);
+            END_IF;
+            b1 := b1 AND (b2);
+        END_IF;
+        b1 := b1 AND ((state0.dvar_M_sup) = (26));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_HWHPC1ControlButtonAuto_StopLoop := FALSE;
+            state1.dvar_M_HWHPC1ControlButtonManual_StopLoop := FALSE;
+            state1.dvar_M_HWHPC1ModeButtonDrain_StopLoop := FALSE;
+            state1.dvar_M_HWHPC1ModeButtonOff_StopLoop := FALSE;
+            state1.dvar_M_HWHPC1ModeButtonStore_StopLoop := FALSE;
+            IF (((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer) = (1)) AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Mode) = (0))) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer := 25;
+            ELSIF (((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer) = (10)) AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Mode) = (9))) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer := 25;
+            ELSIF (((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer) = (24)) AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Mode) = (23))) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer := 25;
+            ELSIF (((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer) = (3)) AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Mode) = (2))) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer := 25;
+            ELSIF (((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer) = (12)) AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Mode) = (11))) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer := 25;
+            END_IF;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_HeadPumpcellar1_Mode_c_drain".
+    IF NOT progress THEN
+        b2 := (state0.dvar_M_Pumpcellars_HeadPumpcellar1_Mode) = (23);
+        b2 := b2 OR ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Mode) = (11));
+        b1 := b2;
+        b1 := b1 AND ((state0.dvar_M_RequirementStateEvtExcls) = (26));
+        IF b1 THEN
+            b2 := (state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer) = (25);
+            IF NOT(b2) THEN
+                b3 := (state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Mode) = (9);
+                b3 := b3 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer) <> (1));
+                b2 := b2 OR (b3);
+            END_IF;
+            b1 := b1 AND (b2);
+        END_IF;
+        IF b1 THEN
+            b3 := (state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Mode) = (0);
+            b3 := b3 AND ((state0.dvar_M_Pumpcellars_Traffictube1_ModeTraffictube) = (14));
+            b3 := b3 AND ((state0.dvar_M_Pumpcellars_Traffictube2_ModeTraffictube) = (14));
+            b2 := b3;
+            IF NOT(b2) THEN
+                b3 := (state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Mode) = (9);
+                b3 := b3 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer) = (3));
+                b2 := b2 OR (b3);
+            END_IF;
+            b1 := b1 AND (b2);
+        END_IF;
+        b1 := b1 AND ((state0.dvar_M_sup) = (26));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            IF ((state0.dvar_M_HWHPC1Mode) = (2)) THEN
+                state1.dvar_M_HWHPC1Mode := 2;
+            ELSIF ((state0.dvar_M_HWHPC1Mode) = (23)) THEN
+                state1.dvar_M_HWHPC1Mode_DRAIN := TRUE;
+                state1.dvar_M_HWHPC1Mode_STORE := FALSE;
+                state1.dvar_M_HWHPC1Mode_OFF := FALSE;
+                state1.dvar_M_HWHPC1Mode := 2;
+            ELSIF ((state0.dvar_M_HWHPC1Mode) = (11)) THEN
+                state1.dvar_M_HWHPC1Mode_DRAIN := TRUE;
+                state1.dvar_M_HWHPC1Mode_STORE := FALSE;
+                state1.dvar_M_HWHPC1Mode_OFF := FALSE;
+                state1.dvar_M_HWHPC1Mode := 2;
+            END_IF;
+            IF ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Mode) = (23)) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar1_Mode := 2;
+            ELSIF ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Mode) = (11)) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar1_Mode := 2;
+            END_IF;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_HeadPumpcellar1_Mode_c_off".
+    IF NOT progress THEN
+        b2 := (state0.dvar_M_Pumpcellars_HeadPumpcellar1_Mode) = (2);
+        b2 := b2 OR ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Mode) = (23));
+        b1 := b2;
+        b1 := b1 AND ((state0.dvar_M_RequirementStateEvtExcls) = (26));
+        IF b1 THEN
+            b2 := (state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer) = (25);
+            IF NOT(b2) THEN
+                b3 := (state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Mode) = (9);
+                b3 := b3 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer) <> (1));
+                b2 := b2 OR (b3);
+            END_IF;
+            b1 := b1 AND (b2);
+        END_IF;
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Mode) = (9));
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer) = (12));
+        b1 := b1 AND ((state0.dvar_M_sup) = (26));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            IF ((state0.dvar_M_HWHPC1Mode) = (2)) THEN
+                state1.dvar_M_HWHPC1Mode_DRAIN := FALSE;
+                state1.dvar_M_HWHPC1Mode_STORE := FALSE;
+                state1.dvar_M_HWHPC1Mode_OFF := TRUE;
+                state1.dvar_M_HWHPC1Mode := 11;
+            ELSIF ((state0.dvar_M_HWHPC1Mode) = (23)) THEN
+                state1.dvar_M_HWHPC1Mode_DRAIN := FALSE;
+                state1.dvar_M_HWHPC1Mode_STORE := FALSE;
+                state1.dvar_M_HWHPC1Mode_OFF := TRUE;
+                state1.dvar_M_HWHPC1Mode := 11;
+            ELSIF ((state0.dvar_M_HWHPC1Mode) = (11)) THEN
+                state1.dvar_M_HWHPC1Mode := 11;
+            END_IF;
+            IF ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Mode) = (2)) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar1_Mode := 11;
+            ELSIF ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Mode) = (23)) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar1_Mode := 11;
+            END_IF;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_HeadPumpcellar1_Mode_c_store".
+    IF NOT progress THEN
+        b2 := (state0.dvar_M_Pumpcellars_HeadPumpcellar1_Mode) = (2);
+        b2 := b2 OR ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Mode) = (11));
+        b1 := b2;
+        b1 := b1 AND ((state0.dvar_M_RequirementStateEvtExcls) = (26));
+        IF b1 THEN
+            b2 := (state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer) = (25);
+            IF NOT(b2) THEN
+                b3 := (state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Mode) = (9);
+                b3 := b3 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer) <> (1));
+                b2 := b2 OR (b3);
+            END_IF;
+            b1 := b1 AND (b2);
+        END_IF;
+        IF b1 THEN
+            b3 := (state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Mode) = (0);
+            b3 := b3 AND (NOT(((state0.dvar_M_Pumpcellars_Traffictube1_ModeTraffictube) = (14)) AND ((state0.dvar_M_Pumpcellars_Traffictube2_ModeTraffictube) = (14))));
+            b2 := b3;
+            IF NOT(b2) THEN
+                b3 := (state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Mode) = (9);
+                b3 := b3 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer) = (24));
+                b2 := b2 OR (b3);
+            END_IF;
+            b1 := b1 AND (b2);
+        END_IF;
+        b1 := b1 AND ((state0.dvar_M_sup) = (26));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            IF ((state0.dvar_M_HWHPC1Mode) = (2)) THEN
+                state1.dvar_M_HWHPC1Mode_DRAIN := FALSE;
+                state1.dvar_M_HWHPC1Mode_STORE := TRUE;
+                state1.dvar_M_HWHPC1Mode_OFF := FALSE;
+                state1.dvar_M_HWHPC1Mode := 23;
+            ELSIF ((state0.dvar_M_HWHPC1Mode) = (23)) THEN
+                state1.dvar_M_HWHPC1Mode := 23;
+            ELSIF ((state0.dvar_M_HWHPC1Mode) = (11)) THEN
+                state1.dvar_M_HWHPC1Mode_DRAIN := FALSE;
+                state1.dvar_M_HWHPC1Mode_STORE := TRUE;
+                state1.dvar_M_HWHPC1Mode_OFF := FALSE;
+                state1.dvar_M_HWHPC1Mode := 23;
+            END_IF;
+            IF ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Mode) = (2)) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar1_Mode := 23;
+            ELSIF ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Mode) = (11)) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar1_Mode := 23;
+            END_IF;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_HeadPumpcellar1_Pump1_c_off".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_HPC1_HWPump1) = (26);
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Pump1) = (13));
+        b1 := b1 AND ((state0.dvar_M_RequirementStateEvtExcls) = (26));
+        IF b1 THEN
+            b3 := (state0.dvar_M_Pumpcellars_HeadPumpcellar1_Mode) = (23);
+            IF b3 THEN
+                b4 := (state0.dvar_M_Pumpcellars_HeadPumpcellar1_SensorTank) = (19);
+                b4 := b4 OR ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_SensorTank) = (20));
+                b4 := b4 OR ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_SensorTank) = (18));
+                b4 := b4 OR ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_SensorTank) = (6));
+                b3 := b3 AND (b4);
+            END_IF;
+            b2 := b3;
+            IF NOT(b2) THEN
+                b3 := (state0.dvar_M_Pumpcellars_HeadPumpcellar1_Mode) = (2);
+                b3 := b3 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_SensorTank) = (6));
+                b2 := b2 OR (b3);
+            END_IF;
+            b2 := b2 OR ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Mode) = (11));
+            b1 := b1 AND (b2);
+        END_IF;
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer) = (25));
+        b1 := b1 AND ((state0.dvar_M_sup) = (26));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_HPC1_HWPump1_ON := FALSE;
+            state1.dvar_M_Pumpcellars_HeadPumpcellar1_Pump1 := 11;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_HeadPumpcellar1_Pump1_c_on".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_HPC1_HWPump1) = (26);
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Pump1) = (11));
+        b1 := b1 AND ((state0.dvar_M_RequirementStateEvtExcls) = (26));
+        IF b1 THEN
+            b3 := (state0.dvar_M_Pumpcellars_HeadPumpcellar1_Mode) = (23);
+            b3 := b3 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_SensorTank) = (22));
+            b2 := b3;
+            IF NOT(b2) THEN
+                b3 := (state0.dvar_M_Pumpcellars_HeadPumpcellar1_Mode) = (2);
+                IF b3 THEN
+                    b4 := (state0.dvar_M_Pumpcellars_HeadPumpcellar1_SensorTank) = (19);
+                    b4 := b4 OR ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_SensorTank) = (20));
+                    b4 := b4 OR ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_SensorTank) = (21));
+                    b4 := b4 OR ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_SensorTank) = (22));
+                    b3 := b3 AND (b4);
+                END_IF;
+                b2 := b2 OR (b3);
+            END_IF;
+            b1 := b1 AND (b2);
+        END_IF;
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer) = (25));
+        b1 := b1 AND ((state0.dvar_M_sup) = (26));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_HPC1_HWPump1_ON := TRUE;
+            state1.dvar_M_Pumpcellars_HeadPumpcellar1_Pump1 := 13;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_HeadPumpcellar1_Pump2_c_off".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_HPC1_HWPump2) = (26);
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Pump2) = (13));
+        b1 := b1 AND ((state0.dvar_M_RequirementStateEvtExcls) = (26));
+        IF b1 THEN
+            b3 := (state0.dvar_M_Pumpcellars_HeadPumpcellar1_Mode) = (23);
+            IF b3 THEN
+                b4 := (state0.dvar_M_Pumpcellars_HeadPumpcellar1_SensorTank) = (19);
+                b4 := b4 OR ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_SensorTank) = (20));
+                b4 := b4 OR ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_SensorTank) = (18));
+                b4 := b4 OR ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_SensorTank) = (6));
+                b3 := b3 AND (b4);
+            END_IF;
+            b2 := b3;
+            IF NOT(b2) THEN
+                b3 := (state0.dvar_M_Pumpcellars_HeadPumpcellar1_Mode) = (2);
+                b3 := b3 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_SensorTank) = (6));
+                b2 := b2 OR (b3);
+            END_IF;
+            b2 := b2 OR ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Mode) = (11));
+            b1 := b1 AND (b2);
+        END_IF;
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer) = (25));
+        b1 := b1 AND ((state0.dvar_M_sup) = (26));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_HPC1_HWPump2_ON := FALSE;
+            state1.dvar_M_Pumpcellars_HeadPumpcellar1_Pump2 := 11;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_HeadPumpcellar1_Pump2_c_on".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_HPC1_HWPump2) = (26);
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Pump2) = (11));
+        b1 := b1 AND ((state0.dvar_M_RequirementStateEvtExcls) = (26));
+        IF b1 THEN
+            b3 := (state0.dvar_M_Pumpcellars_HeadPumpcellar1_Mode) = (23);
+            b3 := b3 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_SensorTank) = (22));
+            b2 := b3;
+            IF NOT(b2) THEN
+                b3 := (state0.dvar_M_Pumpcellars_HeadPumpcellar1_Mode) = (2);
+                IF b3 THEN
+                    b4 := (state0.dvar_M_Pumpcellars_HeadPumpcellar1_SensorTank) = (20);
+                    b4 := b4 OR ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_SensorTank) = (21));
+                    b4 := b4 OR ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_SensorTank) = (22));
+                    b3 := b3 AND (b4);
+                END_IF;
+                b2 := b2 OR (b3);
+            END_IF;
+            b1 := b1 AND (b2);
+        END_IF;
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Control_Observer) = (25));
+        b1 := b1 AND ((state0.dvar_M_sup) = (26));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_HPC1_HWPump2_ON := TRUE;
+            state1.dvar_M_Pumpcellars_HeadPumpcellar1_Pump2 := 13;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_HeadPumpcellar1_SensorTank_u_S1off".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_HPC1_HWSensorS1) = (13);
+        b1 := b1 AND (NOT(ivar_M_HPC1_HWSensorS1_ON));
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_SensorTank) = (18));
+        IF b1 THEN
+            b2 := (state0.dvar_M_Pumpcellars_HeadPumpcellar1_Pump1) = (13);
+            b2 := b2 OR ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Pump2) = (13));
+            b1 := b1 AND (b2);
+        END_IF;
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_HPC1_HWSensorS1 := 11;
+            state1.dvar_M_Pumpcellars_HeadPumpcellar1_SensorTank := 6;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_HeadPumpcellar1_SensorTank_u_S1on".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_HPC1_HWSensorS1) = (11);
+        b1 := b1 AND (ivar_M_HPC1_HWSensorS1_ON);
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_SensorTank) = (6));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_HPC1_HWSensorS1 := 13;
+            state1.dvar_M_Pumpcellars_HeadPumpcellar1_SensorTank := 18;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_HeadPumpcellar1_SensorTank_u_S2off".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_HPC1_HWSensorS2) = (13);
+        b1 := b1 AND (NOT(ivar_M_HPC1_HWSensorS2_ON));
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_SensorTank) = (19));
+        IF b1 THEN
+            b2 := (state0.dvar_M_Pumpcellars_HeadPumpcellar1_Pump1) = (13);
+            b2 := b2 OR ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Pump2) = (13));
+            b1 := b1 AND (b2);
+        END_IF;
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_HPC1_HWSensorS2 := 11;
+            state1.dvar_M_Pumpcellars_HeadPumpcellar1_SensorTank := 18;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_HeadPumpcellar1_SensorTank_u_S2on".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_HPC1_HWSensorS2) = (11);
+        b1 := b1 AND (ivar_M_HPC1_HWSensorS2_ON);
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_SensorTank) = (18));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_HPC1_HWSensorS2 := 13;
+            state1.dvar_M_Pumpcellars_HeadPumpcellar1_SensorTank := 19;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_HeadPumpcellar1_SensorTank_u_S3off".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_HPC1_HWSensorS3) = (13);
+        b1 := b1 AND (NOT(ivar_M_HPC1_HWSensorS3_ON));
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_SensorTank) = (20));
+        IF b1 THEN
+            b2 := (state0.dvar_M_Pumpcellars_HeadPumpcellar1_Pump1) = (13);
+            b2 := b2 OR ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Pump2) = (13));
+            b1 := b1 AND (b2);
+        END_IF;
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_HPC1_HWSensorS3 := 11;
+            state1.dvar_M_Pumpcellars_HeadPumpcellar1_SensorTank := 19;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_HeadPumpcellar1_SensorTank_u_S3on".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_HPC1_HWSensorS3) = (11);
+        b1 := b1 AND (ivar_M_HPC1_HWSensorS3_ON);
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_SensorTank) = (19));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_HPC1_HWSensorS3 := 13;
+            state1.dvar_M_Pumpcellars_HeadPumpcellar1_SensorTank := 20;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_HeadPumpcellar1_SensorTank_u_S4off".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_HPC1_HWSensorS4) = (13);
+        b1 := b1 AND (NOT(ivar_M_HPC1_HWSensorS4_ON));
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_SensorTank) = (21));
+        IF b1 THEN
+            b2 := (state0.dvar_M_Pumpcellars_HeadPumpcellar1_Pump1) = (13);
+            b2 := b2 OR ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Pump2) = (13));
+            b1 := b1 AND (b2);
+        END_IF;
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_HPC1_HWSensorS4 := 11;
+            state1.dvar_M_Pumpcellars_HeadPumpcellar1_SensorTank := 20;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_HeadPumpcellar1_SensorTank_u_S4on".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_HPC1_HWSensorS4) = (11);
+        b1 := b1 AND (ivar_M_HPC1_HWSensorS4_ON);
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_SensorTank) = (20));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_HPC1_HWSensorS4 := 13;
+            state1.dvar_M_Pumpcellars_HeadPumpcellar1_SensorTank := 21;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_HeadPumpcellar1_SensorTank_u_S5off".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_HPC1_HWSensorS5) = (13);
+        b1 := b1 AND (NOT(ivar_M_HPC1_HWSensorS5_ON));
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_SensorTank) = (22));
+        IF b1 THEN
+            b2 := (state0.dvar_M_Pumpcellars_HeadPumpcellar1_Pump1) = (13);
+            b2 := b2 OR ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_Pump2) = (13));
+            b1 := b1 AND (b2);
+        END_IF;
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_HPC1_HWSensorS5 := 11;
+            state1.dvar_M_Pumpcellars_HeadPumpcellar1_SensorTank := 21;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_HeadPumpcellar1_SensorTank_u_S5on".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_HPC1_HWSensorS5) = (11);
+        b1 := b1 AND (ivar_M_HPC1_HWSensorS5_ON);
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_SensorTank) = (21));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_HPC1_HWSensorS5 := 13;
+            state1.dvar_M_Pumpcellars_HeadPumpcellar1_SensorTank := 22;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_HeadPumpcellar2_Control_ButtonAuto_u_push".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_HWHPC2ControlButtonAuto) = (26);
+        b1 := b1 AND (ivar_M_HWHPC2ControlButtonAuto_PUSHED);
+        b1 := b1 AND (NOT(state0.dvar_M_HWHPC2ControlButtonAuto_StopLoop));
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_ButtonAuto) = (26));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_HWHPC2ControlButtonAuto_StopLoop := TRUE;
+            IF (((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer) = (25)) AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Mode) = (9))) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer := 1;
+            ELSIF (((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer) = (25)) AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Mode) <> (9))) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer := 25;
+            ELSIF ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer) = (1)) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer := 1;
+            ELSIF ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer) = (10)) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer := 10;
+            ELSIF ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer) = (24)) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer := 24;
+            ELSIF ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer) = (3)) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer := 3;
+            ELSIF ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer) = (12)) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer := 12;
+            END_IF;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_HeadPumpcellar2_Control_ButtonDrain_u_push".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_HWHPC2ModeButtonDrain) = (26);
+        b1 := b1 AND (ivar_M_HWHPC2ModeButtonDrain_PUSHED);
+        b1 := b1 AND (NOT(state0.dvar_M_HWHPC2ModeButtonDrain_StopLoop));
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_ButtonDrain) = (26));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_HWHPC2ModeButtonDrain_StopLoop := TRUE;
+            IF (((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer) = (25)) AND (((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Mode) = (9)) AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Mode) <> (2)))) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer := 3;
+            ELSIF (((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer) = (25)) AND (NOT(((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Mode) = (9)) AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Mode) <> (2))))) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer := 25;
+            ELSIF ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer) = (1)) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer := 1;
+            ELSIF ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer) = (10)) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer := 10;
+            ELSIF ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer) = (24)) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer := 24;
+            ELSIF ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer) = (3)) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer := 3;
+            ELSIF ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer) = (12)) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer := 12;
+            END_IF;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_HeadPumpcellar2_Control_ButtonManual_u_push".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_HWHPC2ControlButtonManual) = (26);
+        b1 := b1 AND (ivar_M_HWHPC2ControlButtonManual_PUSHED);
+        b1 := b1 AND (NOT(state0.dvar_M_HWHPC2ControlButtonManual_StopLoop));
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_ButtonManual) = (26));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_HWHPC2ControlButtonManual_StopLoop := TRUE;
+            IF (((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer) = (25)) AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Mode) = (0))) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer := 10;
+            ELSIF (((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer) = (25)) AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Mode) <> (0))) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer := 25;
+            ELSIF ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer) = (1)) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer := 1;
+            ELSIF ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer) = (10)) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer := 10;
+            ELSIF ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer) = (24)) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer := 24;
+            ELSIF ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer) = (3)) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer := 3;
+            ELSIF ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer) = (12)) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer := 12;
+            END_IF;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_HeadPumpcellar2_Control_ButtonOff_u_push".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_HWHPC2ModeButtonOff) = (26);
+        b1 := b1 AND (ivar_M_HWHPC2ModeButtonOff_PUSHED);
+        b1 := b1 AND (NOT(state0.dvar_M_HWHPC2ModeButtonOff_StopLoop));
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_ButtonOff) = (26));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_HWHPC2ModeButtonOff_StopLoop := TRUE;
+            IF (((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer) = (25)) AND (((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Mode) = (9)) AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Mode) <> (11)))) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer := 12;
+            ELSIF (((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer) = (25)) AND (NOT(((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Mode) = (9)) AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Mode) <> (11))))) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer := 25;
+            ELSIF ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer) = (1)) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer := 1;
+            ELSIF ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer) = (10)) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer := 10;
+            ELSIF ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer) = (24)) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer := 24;
+            ELSIF ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer) = (3)) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer := 3;
+            ELSIF ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer) = (12)) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer := 12;
+            END_IF;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_HeadPumpcellar2_Control_ButtonStore_u_push".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_HWHPC2ModeButtonStore) = (26);
+        b1 := b1 AND (ivar_M_HWHPC2ModeButtonStore_PUSHED);
+        b1 := b1 AND (NOT(state0.dvar_M_HWHPC2ModeButtonStore_StopLoop));
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_ButtonStore) = (26));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_HWHPC2ModeButtonStore_StopLoop := TRUE;
+            IF (((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer) = (25)) AND (((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Mode) = (9)) AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Mode) <> (23)))) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer := 24;
+            ELSIF (((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer) = (25)) AND (NOT(((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Mode) = (9)) AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Mode) <> (23))))) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer := 25;
+            ELSIF ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer) = (1)) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer := 1;
+            ELSIF ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer) = (10)) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer := 10;
+            ELSIF ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer) = (24)) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer := 24;
+            ELSIF ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer) = (3)) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer := 3;
+            ELSIF ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer) = (12)) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer := 12;
+            END_IF;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_HeadPumpcellar2_Control_Mode_c_auto".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_HWHPC2ControlMode) = (26);
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Mode) = (9));
+        b1 := b1 AND ((state0.dvar_M_RequirementStateEvtExcls) = (26));
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer) = (1));
+        b1 := b1 AND ((state0.dvar_M_sup) = (26));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_HWHPC2ControlMode_AUTO := TRUE;
+            state1.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Mode := 0;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_HeadPumpcellar2_Control_Mode_c_manual".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_HWHPC2ControlMode) = (26);
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Mode) = (0));
+        b1 := b1 AND ((state0.dvar_M_RequirementStateEvtExcls) = (26));
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer) = (10));
+        b1 := b1 AND ((state0.dvar_M_sup) = (26));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_HWHPC2ControlMode_AUTO := FALSE;
+            state1.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Mode := 9;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_HeadPumpcellar2_Control_Observer_c_done".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_HWHPC2ControlButtonAuto) = (26);
+        b1 := b1 AND ((state0.dvar_M_HWHPC2ControlButtonManual) = (26));
+        b1 := b1 AND ((state0.dvar_M_HWHPC2ModeButtonDrain) = (26));
+        b1 := b1 AND ((state0.dvar_M_HWHPC2ModeButtonOff) = (26));
+        b1 := b1 AND ((state0.dvar_M_HWHPC2ModeButtonStore) = (26));
+        IF b1 THEN
+            b3 := (state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer) = (1);
+            b3 := b3 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Mode) = (0));
+            b2 := b3;
+            IF NOT(b2) THEN
+                b3 := (state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer) = (10);
+                b3 := b3 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Mode) = (9));
+                b2 := b2 OR (b3);
+            END_IF;
+            IF NOT(b2) THEN
+                b3 := (state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer) = (24);
+                b3 := b3 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Mode) = (23));
+                b2 := b2 OR (b3);
+            END_IF;
+            IF NOT(b2) THEN
+                b3 := (state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer) = (3);
+                b3 := b3 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Mode) = (2));
+                b2 := b2 OR (b3);
+            END_IF;
+            IF NOT(b2) THEN
+                b3 := (state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer) = (12);
+                b3 := b3 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Mode) = (11));
+                b2 := b2 OR (b3);
+            END_IF;
+            b1 := b1 AND (b2);
+        END_IF;
+        b1 := b1 AND ((state0.dvar_M_sup) = (26));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_HWHPC2ControlButtonAuto_StopLoop := FALSE;
+            state1.dvar_M_HWHPC2ControlButtonManual_StopLoop := FALSE;
+            state1.dvar_M_HWHPC2ModeButtonDrain_StopLoop := FALSE;
+            state1.dvar_M_HWHPC2ModeButtonOff_StopLoop := FALSE;
+            state1.dvar_M_HWHPC2ModeButtonStore_StopLoop := FALSE;
+            IF (((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer) = (1)) AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Mode) = (0))) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer := 25;
+            ELSIF (((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer) = (10)) AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Mode) = (9))) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer := 25;
+            ELSIF (((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer) = (24)) AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Mode) = (23))) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer := 25;
+            ELSIF (((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer) = (3)) AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Mode) = (2))) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer := 25;
+            ELSIF (((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer) = (12)) AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Mode) = (11))) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer := 25;
+            END_IF;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_HeadPumpcellar2_Mode_c_drain".
+    IF NOT progress THEN
+        b2 := (state0.dvar_M_Pumpcellars_HeadPumpcellar2_Mode) = (23);
+        b2 := b2 OR ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Mode) = (11));
+        b1 := b2;
+        b1 := b1 AND ((state0.dvar_M_RequirementStateEvtExcls) = (26));
+        IF b1 THEN
+            b2 := (state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer) = (25);
+            IF NOT(b2) THEN
+                b3 := (state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Mode) = (9);
+                b3 := b3 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer) <> (1));
+                b2 := b2 OR (b3);
+            END_IF;
+            b1 := b1 AND (b2);
+        END_IF;
+        IF b1 THEN
+            b3 := (state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Mode) = (0);
+            b3 := b3 AND ((state0.dvar_M_Pumpcellars_Traffictube1_ModeTraffictube) = (14));
+            b3 := b3 AND ((state0.dvar_M_Pumpcellars_Traffictube2_ModeTraffictube) = (14));
+            b2 := b3;
+            IF NOT(b2) THEN
+                b3 := (state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Mode) = (9);
+                b3 := b3 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer) = (3));
+                b2 := b2 OR (b3);
+            END_IF;
+            b1 := b1 AND (b2);
+        END_IF;
+        b1 := b1 AND ((state0.dvar_M_sup) = (26));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            IF ((state0.dvar_M_HWHPC2Mode) = (2)) THEN
+                state1.dvar_M_HWHPC2Mode := 2;
+            ELSIF ((state0.dvar_M_HWHPC2Mode) = (23)) THEN
+                state1.dvar_M_HWHPC2Mode_DRAIN := TRUE;
+                state1.dvar_M_HWHPC2Mode_STORE := FALSE;
+                state1.dvar_M_HWHPC2Mode_OFF := FALSE;
+                state1.dvar_M_HWHPC2Mode := 2;
+            ELSIF ((state0.dvar_M_HWHPC2Mode) = (11)) THEN
+                state1.dvar_M_HWHPC2Mode_DRAIN := TRUE;
+                state1.dvar_M_HWHPC2Mode_STORE := FALSE;
+                state1.dvar_M_HWHPC2Mode_OFF := FALSE;
+                state1.dvar_M_HWHPC2Mode := 2;
+            END_IF;
+            IF ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Mode) = (23)) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar2_Mode := 2;
+            ELSIF ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Mode) = (11)) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar2_Mode := 2;
+            END_IF;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_HeadPumpcellar2_Mode_c_off".
+    IF NOT progress THEN
+        b2 := (state0.dvar_M_Pumpcellars_HeadPumpcellar2_Mode) = (2);
+        b2 := b2 OR ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Mode) = (23));
+        b1 := b2;
+        b1 := b1 AND ((state0.dvar_M_RequirementStateEvtExcls) = (26));
+        IF b1 THEN
+            b2 := (state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer) = (25);
+            IF NOT(b2) THEN
+                b3 := (state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Mode) = (9);
+                b3 := b3 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer) <> (1));
+                b2 := b2 OR (b3);
+            END_IF;
+            b1 := b1 AND (b2);
+        END_IF;
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Mode) = (9));
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer) = (12));
+        b1 := b1 AND ((state0.dvar_M_sup) = (26));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            IF ((state0.dvar_M_HWHPC2Mode) = (2)) THEN
+                state1.dvar_M_HWHPC2Mode_DRAIN := FALSE;
+                state1.dvar_M_HWHPC2Mode_STORE := FALSE;
+                state1.dvar_M_HWHPC2Mode_OFF := TRUE;
+                state1.dvar_M_HWHPC2Mode := 11;
+            ELSIF ((state0.dvar_M_HWHPC2Mode) = (23)) THEN
+                state1.dvar_M_HWHPC2Mode_DRAIN := FALSE;
+                state1.dvar_M_HWHPC2Mode_STORE := FALSE;
+                state1.dvar_M_HWHPC2Mode_OFF := TRUE;
+                state1.dvar_M_HWHPC2Mode := 11;
+            ELSIF ((state0.dvar_M_HWHPC2Mode) = (11)) THEN
+                state1.dvar_M_HWHPC2Mode := 11;
+            END_IF;
+            IF ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Mode) = (2)) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar2_Mode := 11;
+            ELSIF ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Mode) = (23)) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar2_Mode := 11;
+            END_IF;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_HeadPumpcellar2_Mode_c_store".
+    IF NOT progress THEN
+        b2 := (state0.dvar_M_Pumpcellars_HeadPumpcellar2_Mode) = (2);
+        b2 := b2 OR ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Mode) = (11));
+        b1 := b2;
+        b1 := b1 AND ((state0.dvar_M_RequirementStateEvtExcls) = (26));
+        IF b1 THEN
+            b2 := (state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer) = (25);
+            IF NOT(b2) THEN
+                b3 := (state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Mode) = (9);
+                b3 := b3 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer) <> (1));
+                b2 := b2 OR (b3);
+            END_IF;
+            b1 := b1 AND (b2);
+        END_IF;
+        IF b1 THEN
+            b3 := (state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Mode) = (0);
+            b3 := b3 AND (NOT(((state0.dvar_M_Pumpcellars_Traffictube1_ModeTraffictube) = (14)) AND ((state0.dvar_M_Pumpcellars_Traffictube2_ModeTraffictube) = (14))));
+            b2 := b3;
+            IF NOT(b2) THEN
+                b3 := (state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Mode) = (9);
+                b3 := b3 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer) = (24));
+                b2 := b2 OR (b3);
+            END_IF;
+            b1 := b1 AND (b2);
+        END_IF;
+        b1 := b1 AND ((state0.dvar_M_sup) = (26));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            IF ((state0.dvar_M_HWHPC2Mode) = (2)) THEN
+                state1.dvar_M_HWHPC2Mode_DRAIN := FALSE;
+                state1.dvar_M_HWHPC2Mode_STORE := TRUE;
+                state1.dvar_M_HWHPC2Mode_OFF := FALSE;
+                state1.dvar_M_HWHPC2Mode := 23;
+            ELSIF ((state0.dvar_M_HWHPC2Mode) = (23)) THEN
+                state1.dvar_M_HWHPC2Mode := 23;
+            ELSIF ((state0.dvar_M_HWHPC2Mode) = (11)) THEN
+                state1.dvar_M_HWHPC2Mode_DRAIN := FALSE;
+                state1.dvar_M_HWHPC2Mode_STORE := TRUE;
+                state1.dvar_M_HWHPC2Mode_OFF := FALSE;
+                state1.dvar_M_HWHPC2Mode := 23;
+            END_IF;
+            IF ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Mode) = (2)) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar2_Mode := 23;
+            ELSIF ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Mode) = (11)) THEN
+                state1.dvar_M_Pumpcellars_HeadPumpcellar2_Mode := 23;
+            END_IF;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_HeadPumpcellar2_Pump1_c_off".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_HPC2_HWPump1) = (26);
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Pump1) = (13));
+        b1 := b1 AND ((state0.dvar_M_RequirementStateEvtExcls) = (26));
+        IF b1 THEN
+            b3 := (state0.dvar_M_Pumpcellars_HeadPumpcellar2_Mode) = (23);
+            IF b3 THEN
+                b4 := (state0.dvar_M_Pumpcellars_HeadPumpcellar2_SensorTank) = (19);
+                b4 := b4 OR ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_SensorTank) = (20));
+                b4 := b4 OR ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_SensorTank) = (18));
+                b4 := b4 OR ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_SensorTank) = (6));
+                b3 := b3 AND (b4);
+            END_IF;
+            b2 := b3;
+            IF NOT(b2) THEN
+                b3 := (state0.dvar_M_Pumpcellars_HeadPumpcellar2_Mode) = (2);
+                b3 := b3 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_SensorTank) = (6));
+                b2 := b2 OR (b3);
+            END_IF;
+            b2 := b2 OR ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Mode) = (11));
+            b1 := b1 AND (b2);
+        END_IF;
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer) = (25));
+        b1 := b1 AND ((state0.dvar_M_sup) = (26));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_HPC2_HWPump1_ON := FALSE;
+            state1.dvar_M_Pumpcellars_HeadPumpcellar2_Pump1 := 11;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_HeadPumpcellar2_Pump1_c_on".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_HPC2_HWPump1) = (26);
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Pump1) = (11));
+        b1 := b1 AND ((state0.dvar_M_RequirementStateEvtExcls) = (26));
+        IF b1 THEN
+            b3 := (state0.dvar_M_Pumpcellars_HeadPumpcellar2_Mode) = (23);
+            b3 := b3 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_SensorTank) = (22));
+            b2 := b3;
+            IF NOT(b2) THEN
+                b3 := (state0.dvar_M_Pumpcellars_HeadPumpcellar2_Mode) = (2);
+                IF b3 THEN
+                    b4 := (state0.dvar_M_Pumpcellars_HeadPumpcellar2_SensorTank) = (19);
+                    b4 := b4 OR ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_SensorTank) = (20));
+                    b4 := b4 OR ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_SensorTank) = (21));
+                    b4 := b4 OR ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_SensorTank) = (22));
+                    b3 := b3 AND (b4);
+                END_IF;
+                b2 := b2 OR (b3);
+            END_IF;
+            b1 := b1 AND (b2);
+        END_IF;
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer) = (25));
+        b1 := b1 AND ((state0.dvar_M_sup) = (26));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_HPC2_HWPump1_ON := TRUE;
+            state1.dvar_M_Pumpcellars_HeadPumpcellar2_Pump1 := 13;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_HeadPumpcellar2_Pump2_c_off".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_HPC2_HWPump2) = (26);
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Pump2) = (13));
+        b1 := b1 AND ((state0.dvar_M_RequirementStateEvtExcls) = (26));
+        IF b1 THEN
+            b3 := (state0.dvar_M_Pumpcellars_HeadPumpcellar2_Mode) = (23);
+            IF b3 THEN
+                b4 := (state0.dvar_M_Pumpcellars_HeadPumpcellar2_SensorTank) = (19);
+                b4 := b4 OR ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_SensorTank) = (20));
+                b4 := b4 OR ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_SensorTank) = (18));
+                b4 := b4 OR ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_SensorTank) = (6));
+                b3 := b3 AND (b4);
+            END_IF;
+            b2 := b3;
+            IF NOT(b2) THEN
+                b3 := (state0.dvar_M_Pumpcellars_HeadPumpcellar2_Mode) = (2);
+                b3 := b3 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_SensorTank) = (6));
+                b2 := b2 OR (b3);
+            END_IF;
+            b2 := b2 OR ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Mode) = (11));
+            b1 := b1 AND (b2);
+        END_IF;
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer) = (25));
+        b1 := b1 AND ((state0.dvar_M_sup) = (26));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_HPC2_HWPump2_ON := FALSE;
+            state1.dvar_M_Pumpcellars_HeadPumpcellar2_Pump2 := 11;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_HeadPumpcellar2_Pump2_c_on".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_HPC2_HWPump2) = (26);
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Pump2) = (11));
+        b1 := b1 AND ((state0.dvar_M_RequirementStateEvtExcls) = (26));
+        IF b1 THEN
+            b3 := (state0.dvar_M_Pumpcellars_HeadPumpcellar2_Mode) = (23);
+            b3 := b3 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_SensorTank) = (22));
+            b2 := b3;
+            IF NOT(b2) THEN
+                b3 := (state0.dvar_M_Pumpcellars_HeadPumpcellar2_Mode) = (2);
+                IF b3 THEN
+                    b4 := (state0.dvar_M_Pumpcellars_HeadPumpcellar2_SensorTank) = (20);
+                    b4 := b4 OR ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_SensorTank) = (21));
+                    b4 := b4 OR ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_SensorTank) = (22));
+                    b3 := b3 AND (b4);
+                END_IF;
+                b2 := b2 OR (b3);
+            END_IF;
+            b1 := b1 AND (b2);
+        END_IF;
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Control_Observer) = (25));
+        b1 := b1 AND ((state0.dvar_M_sup) = (26));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_HPC2_HWPump2_ON := TRUE;
+            state1.dvar_M_Pumpcellars_HeadPumpcellar2_Pump2 := 13;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_HeadPumpcellar2_SensorTank_u_S1off".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_HPC2_HWSensorS1) = (13);
+        b1 := b1 AND (NOT(ivar_M_HPC2_HWSensorS1_ON));
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_SensorTank) = (18));
+        IF b1 THEN
+            b2 := (state0.dvar_M_Pumpcellars_HeadPumpcellar2_Pump1) = (13);
+            b2 := b2 OR ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Pump2) = (13));
+            b1 := b1 AND (b2);
+        END_IF;
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_HPC2_HWSensorS1 := 11;
+            state1.dvar_M_Pumpcellars_HeadPumpcellar2_SensorTank := 6;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_HeadPumpcellar2_SensorTank_u_S1on".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_HPC2_HWSensorS1) = (11);
+        b1 := b1 AND (ivar_M_HPC2_HWSensorS1_ON);
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_SensorTank) = (6));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_HPC2_HWSensorS1 := 13;
+            state1.dvar_M_Pumpcellars_HeadPumpcellar2_SensorTank := 18;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_HeadPumpcellar2_SensorTank_u_S2off".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_HPC2_HWSensorS2) = (13);
+        b1 := b1 AND (NOT(ivar_M_HPC2_HWSensorS2_ON));
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_SensorTank) = (19));
+        IF b1 THEN
+            b2 := (state0.dvar_M_Pumpcellars_HeadPumpcellar2_Pump1) = (13);
+            b2 := b2 OR ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Pump2) = (13));
+            b1 := b1 AND (b2);
+        END_IF;
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_HPC2_HWSensorS2 := 11;
+            state1.dvar_M_Pumpcellars_HeadPumpcellar2_SensorTank := 18;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_HeadPumpcellar2_SensorTank_u_S2on".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_HPC2_HWSensorS2) = (11);
+        b1 := b1 AND (ivar_M_HPC2_HWSensorS2_ON);
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_SensorTank) = (18));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_HPC2_HWSensorS2 := 13;
+            state1.dvar_M_Pumpcellars_HeadPumpcellar2_SensorTank := 19;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_HeadPumpcellar2_SensorTank_u_S3off".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_HPC2_HWSensorS3) = (13);
+        b1 := b1 AND (NOT(ivar_M_HPC2_HWSensorS3_ON));
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_SensorTank) = (20));
+        IF b1 THEN
+            b2 := (state0.dvar_M_Pumpcellars_HeadPumpcellar2_Pump1) = (13);
+            b2 := b2 OR ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Pump2) = (13));
+            b1 := b1 AND (b2);
+        END_IF;
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_HPC2_HWSensorS3 := 11;
+            state1.dvar_M_Pumpcellars_HeadPumpcellar2_SensorTank := 19;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_HeadPumpcellar2_SensorTank_u_S3on".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_HPC2_HWSensorS3) = (11);
+        b1 := b1 AND (ivar_M_HPC2_HWSensorS3_ON);
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_SensorTank) = (19));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_HPC2_HWSensorS3 := 13;
+            state1.dvar_M_Pumpcellars_HeadPumpcellar2_SensorTank := 20;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_HeadPumpcellar2_SensorTank_u_S4off".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_HPC2_HWSensorS4) = (13);
+        b1 := b1 AND (NOT(ivar_M_HPC2_HWSensorS4_ON));
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_SensorTank) = (21));
+        IF b1 THEN
+            b2 := (state0.dvar_M_Pumpcellars_HeadPumpcellar2_Pump1) = (13);
+            b2 := b2 OR ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Pump2) = (13));
+            b1 := b1 AND (b2);
+        END_IF;
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_HPC2_HWSensorS4 := 11;
+            state1.dvar_M_Pumpcellars_HeadPumpcellar2_SensorTank := 20;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_HeadPumpcellar2_SensorTank_u_S4on".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_HPC2_HWSensorS4) = (11);
+        b1 := b1 AND (ivar_M_HPC2_HWSensorS4_ON);
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_SensorTank) = (20));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_HPC2_HWSensorS4 := 13;
+            state1.dvar_M_Pumpcellars_HeadPumpcellar2_SensorTank := 21;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_HeadPumpcellar2_SensorTank_u_S5off".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_HPC2_HWSensorS5) = (13);
+        b1 := b1 AND (NOT(ivar_M_HPC2_HWSensorS5_ON));
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_SensorTank) = (22));
+        IF b1 THEN
+            b2 := (state0.dvar_M_Pumpcellars_HeadPumpcellar2_Pump1) = (13);
+            b2 := b2 OR ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_Pump2) = (13));
+            b1 := b1 AND (b2);
+        END_IF;
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_HPC2_HWSensorS5 := 11;
+            state1.dvar_M_Pumpcellars_HeadPumpcellar2_SensorTank := 21;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_HeadPumpcellar2_SensorTank_u_S5on".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_HPC2_HWSensorS5) = (11);
+        b1 := b1 AND (ivar_M_HPC2_HWSensorS5_ON);
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar2_SensorTank) = (21));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_HPC2_HWSensorS5 := 13;
+            state1.dvar_M_Pumpcellars_HeadPumpcellar2_SensorTank := 22;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_MiddlePumpcellar_Control_ButtonAuto_u_push".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_HWMPCControlButtonAuto) = (26);
+        b1 := b1 AND (ivar_M_HWMPCControlButtonAuto_PUSHED);
+        b1 := b1 AND (NOT(state0.dvar_M_HWMPCControlButtonAuto_StopLoop));
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_ButtonAuto) = (26));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_HWMPCControlButtonAuto_StopLoop := TRUE;
+            IF (((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer) = (25)) AND ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Mode) = (9))) THEN
+                state1.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer := 1;
+            ELSIF (((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer) = (25)) AND ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Mode) <> (9))) THEN
+                state1.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer := 25;
+            ELSIF ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer) = (1)) THEN
+                state1.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer := 1;
+            ELSIF ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer) = (10)) THEN
+                state1.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer := 10;
+            ELSIF ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer) = (24)) THEN
+                state1.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer := 24;
+            ELSIF ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer) = (3)) THEN
+                state1.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer := 3;
+            ELSIF ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer) = (12)) THEN
+                state1.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer := 12;
+            END_IF;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_MiddlePumpcellar_Control_ButtonDrain_u_push".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_HWMPCModeButtonDrain) = (26);
+        b1 := b1 AND (ivar_M_HWMPCModeButtonDrain_PUSHED);
+        b1 := b1 AND (NOT(state0.dvar_M_HWMPCModeButtonDrain_StopLoop));
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_ButtonDrain) = (26));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_HWMPCModeButtonDrain_StopLoop := TRUE;
+            IF (((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer) = (25)) AND (((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Mode) = (9)) AND ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Mode) <> (2)))) THEN
+                state1.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer := 3;
+            ELSIF (((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer) = (25)) AND (NOT(((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Mode) = (9)) AND ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Mode) <> (2))))) THEN
+                state1.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer := 25;
+            ELSIF ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer) = (1)) THEN
+                state1.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer := 1;
+            ELSIF ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer) = (10)) THEN
+                state1.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer := 10;
+            ELSIF ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer) = (24)) THEN
+                state1.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer := 24;
+            ELSIF ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer) = (3)) THEN
+                state1.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer := 3;
+            ELSIF ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer) = (12)) THEN
+                state1.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer := 12;
+            END_IF;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_MiddlePumpcellar_Control_ButtonManual_u_push".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_HWMPCControlButtonManual) = (26);
+        b1 := b1 AND (ivar_M_HWMPCControlButtonManual_PUSHED);
+        b1 := b1 AND (NOT(state0.dvar_M_HWMPCControlButtonManual_StopLoop));
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_ButtonManual) = (26));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_HWMPCControlButtonManual_StopLoop := TRUE;
+            IF (((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer) = (25)) AND ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Mode) = (0))) THEN
+                state1.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer := 10;
+            ELSIF (((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer) = (25)) AND ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Mode) <> (0))) THEN
+                state1.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer := 25;
+            ELSIF ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer) = (1)) THEN
+                state1.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer := 1;
+            ELSIF ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer) = (10)) THEN
+                state1.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer := 10;
+            ELSIF ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer) = (24)) THEN
+                state1.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer := 24;
+            ELSIF ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer) = (3)) THEN
+                state1.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer := 3;
+            ELSIF ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer) = (12)) THEN
+                state1.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer := 12;
+            END_IF;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_MiddlePumpcellar_Control_ButtonOff_u_push".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_HWMPCModeButtonOff) = (26);
+        b1 := b1 AND (ivar_M_HWMPCModeButtonOff_PUSHED);
+        b1 := b1 AND (NOT(state0.dvar_M_HWMPCModeButtonOff_StopLoop));
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_ButtonOff) = (26));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_HWMPCModeButtonOff_StopLoop := TRUE;
+            IF (((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer) = (25)) AND (((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Mode) = (9)) AND ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Mode) <> (11)))) THEN
+                state1.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer := 12;
+            ELSIF (((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer) = (25)) AND (NOT(((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Mode) = (9)) AND ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Mode) <> (11))))) THEN
+                state1.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer := 25;
+            ELSIF ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer) = (1)) THEN
+                state1.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer := 1;
+            ELSIF ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer) = (10)) THEN
+                state1.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer := 10;
+            ELSIF ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer) = (24)) THEN
+                state1.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer := 24;
+            ELSIF ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer) = (3)) THEN
+                state1.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer := 3;
+            ELSIF ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer) = (12)) THEN
+                state1.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer := 12;
+            END_IF;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_MiddlePumpcellar_Control_ButtonStore_u_push".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_HWMPCModeButtonStore) = (26);
+        b1 := b1 AND (ivar_M_HWMPCModeButtonStore_PUSHED);
+        b1 := b1 AND (NOT(state0.dvar_M_HWMPCModeButtonStore_StopLoop));
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_ButtonStore) = (26));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_HWMPCModeButtonStore_StopLoop := TRUE;
+            IF (((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer) = (25)) AND (((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Mode) = (9)) AND ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Mode) <> (23)))) THEN
+                state1.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer := 24;
+            ELSIF (((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer) = (25)) AND (NOT(((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Mode) = (9)) AND ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Mode) <> (23))))) THEN
+                state1.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer := 25;
+            ELSIF ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer) = (1)) THEN
+                state1.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer := 1;
+            ELSIF ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer) = (10)) THEN
+                state1.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer := 10;
+            ELSIF ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer) = (24)) THEN
+                state1.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer := 24;
+            ELSIF ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer) = (3)) THEN
+                state1.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer := 3;
+            ELSIF ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer) = (12)) THEN
+                state1.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer := 12;
+            END_IF;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_MiddlePumpcellar_Control_Mode_c_auto".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_HWMPCControlMode) = (26);
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Mode) = (9));
+        b1 := b1 AND ((state0.dvar_M_RequirementStateEvtExcls) = (26));
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer) = (1));
+        b1 := b1 AND ((state0.dvar_M_sup) = (26));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_HWMPCControlMode_AUTO := TRUE;
+            state1.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Mode := 0;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_MiddlePumpcellar_Control_Mode_c_manual".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_HWMPCControlMode) = (26);
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Mode) = (0));
+        b1 := b1 AND ((state0.dvar_M_RequirementStateEvtExcls) = (26));
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer) = (10));
+        b1 := b1 AND ((state0.dvar_M_sup) = (26));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_HWMPCControlMode_AUTO := FALSE;
+            state1.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Mode := 9;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_MiddlePumpcellar_Control_Observer_c_done".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_HWMPCControlButtonAuto) = (26);
+        b1 := b1 AND ((state0.dvar_M_HWMPCControlButtonManual) = (26));
+        b1 := b1 AND ((state0.dvar_M_HWMPCModeButtonDrain) = (26));
+        b1 := b1 AND ((state0.dvar_M_HWMPCModeButtonOff) = (26));
+        b1 := b1 AND ((state0.dvar_M_HWMPCModeButtonStore) = (26));
+        IF b1 THEN
+            b3 := (state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer) = (1);
+            b3 := b3 AND ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Mode) = (0));
+            b2 := b3;
+            IF NOT(b2) THEN
+                b3 := (state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer) = (10);
+                b3 := b3 AND ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Mode) = (9));
+                b2 := b2 OR (b3);
+            END_IF;
+            IF NOT(b2) THEN
+                b3 := (state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer) = (24);
+                b3 := b3 AND ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Mode) = (23));
+                b2 := b2 OR (b3);
+            END_IF;
+            IF NOT(b2) THEN
+                b3 := (state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer) = (3);
+                b3 := b3 AND ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Mode) = (2));
+                b2 := b2 OR (b3);
+            END_IF;
+            IF NOT(b2) THEN
+                b3 := (state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer) = (12);
+                b3 := b3 AND ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Mode) = (11));
+                b2 := b2 OR (b3);
+            END_IF;
+            b1 := b1 AND (b2);
+        END_IF;
+        b1 := b1 AND ((state0.dvar_M_sup) = (26));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_HWMPCControlButtonAuto_StopLoop := FALSE;
+            state1.dvar_M_HWMPCControlButtonManual_StopLoop := FALSE;
+            state1.dvar_M_HWMPCModeButtonDrain_StopLoop := FALSE;
+            state1.dvar_M_HWMPCModeButtonOff_StopLoop := FALSE;
+            state1.dvar_M_HWMPCModeButtonStore_StopLoop := FALSE;
+            IF (((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer) = (1)) AND ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Mode) = (0))) THEN
+                state1.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer := 25;
+            ELSIF (((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer) = (10)) AND ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Mode) = (9))) THEN
+                state1.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer := 25;
+            ELSIF (((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer) = (24)) AND ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Mode) = (23))) THEN
+                state1.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer := 25;
+            ELSIF (((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer) = (3)) AND ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Mode) = (2))) THEN
+                state1.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer := 25;
+            ELSIF (((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer) = (12)) AND ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Mode) = (11))) THEN
+                state1.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer := 25;
+            END_IF;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_MiddlePumpcellar_Mode_c_drain".
+    IF NOT progress THEN
+        b2 := (state0.dvar_M_Pumpcellars_MiddlePumpcellar_Mode) = (23);
+        b2 := b2 OR ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Mode) = (11));
+        b1 := b2;
+        b1 := b1 AND ((state0.dvar_M_RequirementStateEvtExcls) = (26));
+        IF b1 THEN
+            b2 := (state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer) = (25);
+            IF NOT(b2) THEN
+                b3 := (state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Mode) = (9);
+                b3 := b3 AND ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer) <> (1));
+                b2 := b2 OR (b3);
+            END_IF;
+            b1 := b1 AND (b2);
+        END_IF;
+        IF b1 THEN
+            b3 := (state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Mode) = (0);
+            b3 := b3 AND ((state0.dvar_M_Pumpcellars_Traffictube1_ModeTraffictube) = (14));
+            b3 := b3 AND ((state0.dvar_M_Pumpcellars_Traffictube2_ModeTraffictube) = (14));
+            b2 := b3;
+            IF NOT(b2) THEN
+                b3 := (state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Mode) = (9);
+                b3 := b3 AND ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer) = (3));
+                b2 := b2 OR (b3);
+            END_IF;
+            b1 := b1 AND (b2);
+        END_IF;
+        b1 := b1 AND ((state0.dvar_M_sup) = (26));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            IF ((state0.dvar_M_HWMPCMode) = (2)) THEN
+                state1.dvar_M_HWMPCMode := 2;
+            ELSIF ((state0.dvar_M_HWMPCMode) = (23)) THEN
+                state1.dvar_M_HWMPCMode_DRAIN := TRUE;
+                state1.dvar_M_HWMPCMode_STORE := FALSE;
+                state1.dvar_M_HWMPCMode_OFF := FALSE;
+                state1.dvar_M_HWMPCMode := 2;
+            ELSIF ((state0.dvar_M_HWMPCMode) = (11)) THEN
+                state1.dvar_M_HWMPCMode_DRAIN := TRUE;
+                state1.dvar_M_HWMPCMode_STORE := FALSE;
+                state1.dvar_M_HWMPCMode_OFF := FALSE;
+                state1.dvar_M_HWMPCMode := 2;
+            END_IF;
+            IF ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Mode) = (23)) THEN
+                state1.dvar_M_Pumpcellars_MiddlePumpcellar_Mode := 2;
+            ELSIF ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Mode) = (11)) THEN
+                state1.dvar_M_Pumpcellars_MiddlePumpcellar_Mode := 2;
+            END_IF;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_MiddlePumpcellar_Mode_c_off".
+    IF NOT progress THEN
+        b2 := (state0.dvar_M_Pumpcellars_MiddlePumpcellar_Mode) = (2);
+        b2 := b2 OR ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Mode) = (23));
+        b1 := b2;
+        b1 := b1 AND ((state0.dvar_M_RequirementStateEvtExcls) = (26));
+        IF b1 THEN
+            b2 := (state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer) = (25);
+            IF NOT(b2) THEN
+                b3 := (state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Mode) = (9);
+                b3 := b3 AND ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer) <> (1));
+                b2 := b2 OR (b3);
+            END_IF;
+            b1 := b1 AND (b2);
+        END_IF;
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Mode) = (9));
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer) = (12));
+        b1 := b1 AND ((state0.dvar_M_sup) = (26));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            IF ((state0.dvar_M_HWMPCMode) = (2)) THEN
+                state1.dvar_M_HWMPCMode_DRAIN := FALSE;
+                state1.dvar_M_HWMPCMode_STORE := FALSE;
+                state1.dvar_M_HWMPCMode_OFF := TRUE;
+                state1.dvar_M_HWMPCMode := 11;
+            ELSIF ((state0.dvar_M_HWMPCMode) = (23)) THEN
+                state1.dvar_M_HWMPCMode_DRAIN := FALSE;
+                state1.dvar_M_HWMPCMode_STORE := FALSE;
+                state1.dvar_M_HWMPCMode_OFF := TRUE;
+                state1.dvar_M_HWMPCMode := 11;
+            ELSIF ((state0.dvar_M_HWMPCMode) = (11)) THEN
+                state1.dvar_M_HWMPCMode := 11;
+            END_IF;
+            IF ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Mode) = (2)) THEN
+                state1.dvar_M_Pumpcellars_MiddlePumpcellar_Mode := 11;
+            ELSIF ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Mode) = (23)) THEN
+                state1.dvar_M_Pumpcellars_MiddlePumpcellar_Mode := 11;
+            END_IF;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_MiddlePumpcellar_Mode_c_store".
+    IF NOT progress THEN
+        b2 := (state0.dvar_M_Pumpcellars_MiddlePumpcellar_Mode) = (2);
+        b2 := b2 OR ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Mode) = (11));
+        b1 := b2;
+        b1 := b1 AND ((state0.dvar_M_RequirementStateEvtExcls) = (26));
+        IF b1 THEN
+            b2 := (state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer) = (25);
+            IF NOT(b2) THEN
+                b3 := (state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Mode) = (9);
+                b3 := b3 AND ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer) <> (1));
+                b2 := b2 OR (b3);
+            END_IF;
+            b1 := b1 AND (b2);
+        END_IF;
+        IF b1 THEN
+            b3 := (state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Mode) = (0);
+            b3 := b3 AND (NOT(((state0.dvar_M_Pumpcellars_Traffictube1_ModeTraffictube) = (14)) AND ((state0.dvar_M_Pumpcellars_Traffictube2_ModeTraffictube) = (14))));
+            b2 := b3;
+            IF NOT(b2) THEN
+                b3 := (state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Mode) = (9);
+                b3 := b3 AND ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer) = (24));
+                b2 := b2 OR (b3);
+            END_IF;
+            b1 := b1 AND (b2);
+        END_IF;
+        b1 := b1 AND ((state0.dvar_M_sup) = (26));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            IF ((state0.dvar_M_HWMPCMode) = (2)) THEN
+                state1.dvar_M_HWMPCMode_DRAIN := FALSE;
+                state1.dvar_M_HWMPCMode_STORE := TRUE;
+                state1.dvar_M_HWMPCMode_OFF := FALSE;
+                state1.dvar_M_HWMPCMode := 23;
+            ELSIF ((state0.dvar_M_HWMPCMode) = (23)) THEN
+                state1.dvar_M_HWMPCMode := 23;
+            ELSIF ((state0.dvar_M_HWMPCMode) = (11)) THEN
+                state1.dvar_M_HWMPCMode_DRAIN := FALSE;
+                state1.dvar_M_HWMPCMode_STORE := TRUE;
+                state1.dvar_M_HWMPCMode_OFF := FALSE;
+                state1.dvar_M_HWMPCMode := 23;
+            END_IF;
+            IF ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Mode) = (2)) THEN
+                state1.dvar_M_Pumpcellars_MiddlePumpcellar_Mode := 23;
+            ELSIF ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Mode) = (11)) THEN
+                state1.dvar_M_Pumpcellars_MiddlePumpcellar_Mode := 23;
+            END_IF;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_MiddlePumpcellar_Pump1_c_off".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_MPC_HWPump1) = (26);
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Pump1) = (13));
+        b1 := b1 AND ((state0.dvar_M_RequirementStateEvtExcls) = (26));
+        IF b1 THEN
+            b3 := (state0.dvar_M_Pumpcellars_MiddlePumpcellar_Mode) = (23);
+            IF b3 THEN
+                b4 := (state0.dvar_M_Pumpcellars_MiddlePumpcellar_SensorTank) = (19);
+                b4 := b4 OR ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_SensorTank) = (20));
+                b4 := b4 OR ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_SensorTank) = (18));
+                b4 := b4 OR ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_SensorTank) = (6));
+                b3 := b3 AND (b4);
+            END_IF;
+            b2 := b3;
+            IF NOT(b2) THEN
+                b3 := (state0.dvar_M_Pumpcellars_MiddlePumpcellar_Mode) = (2);
+                b3 := b3 AND ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_SensorTank) = (6));
+                b2 := b2 OR (b3);
+            END_IF;
+            b2 := b2 OR ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Mode) = (11));
+            b1 := b1 AND (b2);
+        END_IF;
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer) = (25));
+        b1 := b1 AND ((state0.dvar_M_sup) = (26));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_MPC_HWPump1_ON := FALSE;
+            state1.dvar_M_Pumpcellars_MiddlePumpcellar_Pump1 := 11;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_MiddlePumpcellar_Pump1_c_on".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_MPC_HWPump1) = (26);
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Pump1) = (11));
+        b1 := b1 AND ((state0.dvar_M_RequirementStateEvtExcls) = (26));
+        IF b1 THEN
+            b3 := (state0.dvar_M_Pumpcellars_MiddlePumpcellar_Mode) = (23);
+            b3 := b3 AND ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_SensorTank) = (22));
+            b2 := b3;
+            IF NOT(b2) THEN
+                b3 := (state0.dvar_M_Pumpcellars_MiddlePumpcellar_Mode) = (2);
+                IF b3 THEN
+                    b4 := (state0.dvar_M_Pumpcellars_MiddlePumpcellar_SensorTank) = (19);
+                    b4 := b4 OR ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_SensorTank) = (20));
+                    b4 := b4 OR ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_SensorTank) = (21));
+                    b4 := b4 OR ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_SensorTank) = (22));
+                    b3 := b3 AND (b4);
+                END_IF;
+                b2 := b2 OR (b3);
+            END_IF;
+            b1 := b1 AND (b2);
+        END_IF;
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer) = (25));
+        b1 := b1 AND ((state0.dvar_M_sup) = (26));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_MPC_HWPump1_ON := TRUE;
+            state1.dvar_M_Pumpcellars_MiddlePumpcellar_Pump1 := 13;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_MiddlePumpcellar_Pump2_c_off".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_MPC_HWPump2) = (26);
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Pump2) = (13));
+        b1 := b1 AND ((state0.dvar_M_RequirementStateEvtExcls) = (26));
+        IF b1 THEN
+            b3 := (state0.dvar_M_Pumpcellars_MiddlePumpcellar_Mode) = (23);
+            IF b3 THEN
+                b4 := (state0.dvar_M_Pumpcellars_MiddlePumpcellar_SensorTank) = (19);
+                b4 := b4 OR ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_SensorTank) = (20));
+                b4 := b4 OR ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_SensorTank) = (18));
+                b4 := b4 OR ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_SensorTank) = (6));
+                b3 := b3 AND (b4);
+            END_IF;
+            b2 := b3;
+            IF NOT(b2) THEN
+                b3 := (state0.dvar_M_Pumpcellars_MiddlePumpcellar_Mode) = (2);
+                b3 := b3 AND ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_SensorTank) = (6));
+                b2 := b2 OR (b3);
+            END_IF;
+            b2 := b2 OR ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Mode) = (11));
+            b1 := b1 AND (b2);
+        END_IF;
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer) = (25));
+        b1 := b1 AND ((state0.dvar_M_sup) = (26));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_MPC_HWPump2_ON := FALSE;
+            state1.dvar_M_Pumpcellars_MiddlePumpcellar_Pump2 := 11;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_MiddlePumpcellar_Pump2_c_on".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_MPC_HWPump2) = (26);
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Pump2) = (11));
+        b1 := b1 AND ((state0.dvar_M_RequirementStateEvtExcls) = (26));
+        IF b1 THEN
+            b3 := (state0.dvar_M_Pumpcellars_MiddlePumpcellar_Mode) = (23);
+            b3 := b3 AND ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_SensorTank) = (22));
+            b2 := b3;
+            IF NOT(b2) THEN
+                b3 := (state0.dvar_M_Pumpcellars_MiddlePumpcellar_Mode) = (2);
+                IF b3 THEN
+                    b4 := (state0.dvar_M_Pumpcellars_MiddlePumpcellar_SensorTank) = (20);
+                    b4 := b4 OR ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_SensorTank) = (21));
+                    b4 := b4 OR ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_SensorTank) = (22));
+                    b3 := b3 AND (b4);
+                END_IF;
+                b2 := b2 OR (b3);
+            END_IF;
+            b1 := b1 AND (b2);
+        END_IF;
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Control_Observer) = (25));
+        b1 := b1 AND ((state0.dvar_M_sup) = (26));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_MPC_HWPump2_ON := TRUE;
+            state1.dvar_M_Pumpcellars_MiddlePumpcellar_Pump2 := 13;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_MiddlePumpcellar_PumpDirection_c_headPumpcellar1".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_Pumpcellars_MiddlePumpcellar_PumpDirection) = (8);
+        b1 := b1 AND ((state0.dvar_M_RequirementStateEvtExcls) = (26));
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_SensorTank) = (21));
+        b1 := b1 AND ((state0.dvar_M_sup) = (26));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_Pumpcellars_MiddlePumpcellar_PumpDirection := 7;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_MiddlePumpcellar_PumpDirection_c_headPumpcellar2".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_Pumpcellars_MiddlePumpcellar_PumpDirection) = (7);
+        b1 := b1 AND ((state0.dvar_M_RequirementStateEvtExcls) = (26));
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_HeadPumpcellar1_SensorTank) = (22));
+        b1 := b1 AND ((state0.dvar_M_sup) = (26));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_Pumpcellars_MiddlePumpcellar_PumpDirection := 8;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_MiddlePumpcellar_SensorTank_u_S1off".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_MPC_HWSensorS1) = (13);
+        b1 := b1 AND (NOT(ivar_M_MPC_HWSensorS1_ON));
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_SensorTank) = (18));
+        IF b1 THEN
+            b2 := (state0.dvar_M_Pumpcellars_MiddlePumpcellar_Pump1) = (13);
+            b2 := b2 OR ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Pump2) = (13));
+            b1 := b1 AND (b2);
+        END_IF;
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_MPC_HWSensorS1 := 11;
+            state1.dvar_M_Pumpcellars_MiddlePumpcellar_SensorTank := 6;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_MiddlePumpcellar_SensorTank_u_S1on".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_MPC_HWSensorS1) = (11);
+        b1 := b1 AND (ivar_M_MPC_HWSensorS1_ON);
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_SensorTank) = (6));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_MPC_HWSensorS1 := 13;
+            state1.dvar_M_Pumpcellars_MiddlePumpcellar_SensorTank := 18;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_MiddlePumpcellar_SensorTank_u_S2off".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_MPC_HWSensorS2) = (13);
+        b1 := b1 AND (NOT(ivar_M_MPC_HWSensorS2_ON));
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_SensorTank) = (19));
+        IF b1 THEN
+            b2 := (state0.dvar_M_Pumpcellars_MiddlePumpcellar_Pump1) = (13);
+            b2 := b2 OR ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Pump2) = (13));
+            b1 := b1 AND (b2);
+        END_IF;
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_MPC_HWSensorS2 := 11;
+            state1.dvar_M_Pumpcellars_MiddlePumpcellar_SensorTank := 18;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_MiddlePumpcellar_SensorTank_u_S2on".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_MPC_HWSensorS2) = (11);
+        b1 := b1 AND (ivar_M_MPC_HWSensorS2_ON);
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_SensorTank) = (18));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_MPC_HWSensorS2 := 13;
+            state1.dvar_M_Pumpcellars_MiddlePumpcellar_SensorTank := 19;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_MiddlePumpcellar_SensorTank_u_S3off".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_MPC_HWSensorS3) = (13);
+        b1 := b1 AND (NOT(ivar_M_MPC_HWSensorS3_ON));
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_SensorTank) = (20));
+        IF b1 THEN
+            b2 := (state0.dvar_M_Pumpcellars_MiddlePumpcellar_Pump1) = (13);
+            b2 := b2 OR ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Pump2) = (13));
+            b1 := b1 AND (b2);
+        END_IF;
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_MPC_HWSensorS3 := 11;
+            state1.dvar_M_Pumpcellars_MiddlePumpcellar_SensorTank := 19;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_MiddlePumpcellar_SensorTank_u_S3on".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_MPC_HWSensorS3) = (11);
+        b1 := b1 AND (ivar_M_MPC_HWSensorS3_ON);
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_SensorTank) = (19));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_MPC_HWSensorS3 := 13;
+            state1.dvar_M_Pumpcellars_MiddlePumpcellar_SensorTank := 20;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_MiddlePumpcellar_SensorTank_u_S4off".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_MPC_HWSensorS4) = (13);
+        b1 := b1 AND (NOT(ivar_M_MPC_HWSensorS4_ON));
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_SensorTank) = (21));
+        IF b1 THEN
+            b2 := (state0.dvar_M_Pumpcellars_MiddlePumpcellar_Pump1) = (13);
+            b2 := b2 OR ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Pump2) = (13));
+            b1 := b1 AND (b2);
+        END_IF;
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_MPC_HWSensorS4 := 11;
+            state1.dvar_M_Pumpcellars_MiddlePumpcellar_SensorTank := 20;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_MiddlePumpcellar_SensorTank_u_S4on".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_MPC_HWSensorS4) = (11);
+        b1 := b1 AND (ivar_M_MPC_HWSensorS4_ON);
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_SensorTank) = (20));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_MPC_HWSensorS4 := 13;
+            state1.dvar_M_Pumpcellars_MiddlePumpcellar_SensorTank := 21;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_MiddlePumpcellar_SensorTank_u_S5off".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_MPC_HWSensorS5) = (13);
+        b1 := b1 AND (NOT(ivar_M_MPC_HWSensorS5_ON));
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_SensorTank) = (22));
+        IF b1 THEN
+            b2 := (state0.dvar_M_Pumpcellars_MiddlePumpcellar_Pump1) = (13);
+            b2 := b2 OR ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_Pump2) = (13));
+            b1 := b1 AND (b2);
+        END_IF;
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_MPC_HWSensorS5 := 11;
+            state1.dvar_M_Pumpcellars_MiddlePumpcellar_SensorTank := 21;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_MiddlePumpcellar_SensorTank_u_S5on".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_MPC_HWSensorS5) = (11);
+        b1 := b1 AND (ivar_M_MPC_HWSensorS5_ON);
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_MiddlePumpcellar_SensorTank) = (21));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_MPC_HWSensorS5 := 13;
+            state1.dvar_M_Pumpcellars_MiddlePumpcellar_SensorTank := 22;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_Traffictube1_c_emergency".
+    IF NOT progress THEN
+        b2 := (state0.dvar_M_Pumpcellars_Traffictube1_ModeTraffictube) = (14);
+        b2 := b2 OR ((state0.dvar_M_Pumpcellars_Traffictube1_ModeTraffictube) = (16));
+        b1 := b2;
+        b1 := b1 AND ((state0.dvar_M_RequirementStateEvtExcls) = (26));
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_Traffictube1_ModeTraffictubeButtons_Observer) = (5));
+        b1 := b1 AND ((state0.dvar_M_sup) = (26));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            IF ((state0.dvar_M_HWModeTraffictube1) = (14)) THEN
+                state1.dvar_M_HWModeTraffictube1_TT1OPERATIONAL := FALSE;
+                state1.dvar_M_HWModeTraffictube1_TT1EMERGENCY := TRUE;
+                state1.dvar_M_HWModeTraffictube1_TT1RECOVERY := FALSE;
+                state1.dvar_M_HWModeTraffictube1 := 4;
+            ELSIF ((state0.dvar_M_HWModeTraffictube1) = (4)) THEN
+                state1.dvar_M_HWModeTraffictube1 := 4;
+            ELSIF ((state0.dvar_M_HWModeTraffictube1) = (16)) THEN
+                state1.dvar_M_HWModeTraffictube1_TT1OPERATIONAL := FALSE;
+                state1.dvar_M_HWModeTraffictube1_TT1EMERGENCY := TRUE;
+                state1.dvar_M_HWModeTraffictube1_TT1RECOVERY := FALSE;
+                state1.dvar_M_HWModeTraffictube1 := 4;
+            END_IF;
+            IF ((state0.dvar_M_Pumpcellars_Traffictube1_ModeTraffictube) = (14)) THEN
+                state1.dvar_M_Pumpcellars_Traffictube1_ModeTraffictube := 4;
+            ELSIF ((state0.dvar_M_Pumpcellars_Traffictube1_ModeTraffictube) = (16)) THEN
+                state1.dvar_M_Pumpcellars_Traffictube1_ModeTraffictube := 4;
+            END_IF;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_Traffictube1_c_operational".
+    IF NOT progress THEN
+        b2 := (state0.dvar_M_Pumpcellars_Traffictube1_ModeTraffictube) = (4);
+        b2 := b2 OR ((state0.dvar_M_Pumpcellars_Traffictube1_ModeTraffictube) = (16));
+        b1 := b2;
+        b1 := b1 AND ((state0.dvar_M_RequirementStateEvtExcls) = (26));
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_Traffictube1_ModeTraffictube) = (16));
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_Traffictube1_ModeTraffictubeButtons_Observer) = (15));
+        b1 := b1 AND ((state0.dvar_M_sup) = (26));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            IF ((state0.dvar_M_HWModeTraffictube1) = (14)) THEN
+                state1.dvar_M_HWModeTraffictube1 := 14;
+            ELSIF ((state0.dvar_M_HWModeTraffictube1) = (4)) THEN
+                state1.dvar_M_HWModeTraffictube1_TT1OPERATIONAL := TRUE;
+                state1.dvar_M_HWModeTraffictube1_TT1EMERGENCY := FALSE;
+                state1.dvar_M_HWModeTraffictube1_TT1RECOVERY := FALSE;
+                state1.dvar_M_HWModeTraffictube1 := 14;
+            ELSIF ((state0.dvar_M_HWModeTraffictube1) = (16)) THEN
+                state1.dvar_M_HWModeTraffictube1_TT1OPERATIONAL := TRUE;
+                state1.dvar_M_HWModeTraffictube1_TT1EMERGENCY := FALSE;
+                state1.dvar_M_HWModeTraffictube1_TT1RECOVERY := FALSE;
+                state1.dvar_M_HWModeTraffictube1 := 14;
+            END_IF;
+            IF ((state0.dvar_M_Pumpcellars_Traffictube1_ModeTraffictube) = (4)) THEN
+                state1.dvar_M_Pumpcellars_Traffictube1_ModeTraffictube := 14;
+            ELSIF ((state0.dvar_M_Pumpcellars_Traffictube1_ModeTraffictube) = (16)) THEN
+                state1.dvar_M_Pumpcellars_Traffictube1_ModeTraffictube := 14;
+            END_IF;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_Traffictube1_c_recovery".
+    IF NOT progress THEN
+        b2 := (state0.dvar_M_Pumpcellars_Traffictube1_ModeTraffictube) = (14);
+        b2 := b2 OR ((state0.dvar_M_Pumpcellars_Traffictube1_ModeTraffictube) = (4));
+        b1 := b2;
+        b1 := b1 AND ((state0.dvar_M_RequirementStateEvtExcls) = (26));
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_Traffictube1_ModeTraffictubeButtons_Observer) = (17));
+        b1 := b1 AND ((state0.dvar_M_sup) = (26));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            IF ((state0.dvar_M_HWModeTraffictube1) = (14)) THEN
+                state1.dvar_M_HWModeTraffictube1_TT1OPERATIONAL := FALSE;
+                state1.dvar_M_HWModeTraffictube1_TT1EMERGENCY := FALSE;
+                state1.dvar_M_HWModeTraffictube1_TT1RECOVERY := TRUE;
+                state1.dvar_M_HWModeTraffictube1 := 16;
+            ELSIF ((state0.dvar_M_HWModeTraffictube1) = (4)) THEN
+                state1.dvar_M_HWModeTraffictube1_TT1OPERATIONAL := FALSE;
+                state1.dvar_M_HWModeTraffictube1_TT1EMERGENCY := FALSE;
+                state1.dvar_M_HWModeTraffictube1_TT1RECOVERY := TRUE;
+                state1.dvar_M_HWModeTraffictube1 := 16;
+            ELSIF ((state0.dvar_M_HWModeTraffictube1) = (16)) THEN
+                state1.dvar_M_HWModeTraffictube1 := 16;
+            END_IF;
+            IF ((state0.dvar_M_Pumpcellars_Traffictube1_ModeTraffictube) = (14)) THEN
+                state1.dvar_M_Pumpcellars_Traffictube1_ModeTraffictube := 16;
+            ELSIF ((state0.dvar_M_Pumpcellars_Traffictube1_ModeTraffictube) = (4)) THEN
+                state1.dvar_M_Pumpcellars_Traffictube1_ModeTraffictube := 16;
+            END_IF;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_Traffictube1_ModeTraffictubeButtons_ButtonEmergency_u_push".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_HWModeTraffictube1ButtonEmergency) = (26);
+        b1 := b1 AND (ivar_M_HWModeTraffictube1ButtonEmergency_PUSHED);
+        b1 := b1 AND (NOT(state0.dvar_M_HWModeTraffictube1ButtonEmergency_StopLoop));
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_Traffictube1_ModeTraffictubeButtons_ButtonEmergency) = (26));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_HWModeTraffictube1ButtonEmergency_StopLoop := TRUE;
+            IF (((state0.dvar_M_Pumpcellars_Traffictube1_ModeTraffictubeButtons_Observer) = (25)) AND ((state0.dvar_M_Pumpcellars_Traffictube1_ModeTraffictube) <> (4))) THEN
+                state1.dvar_M_Pumpcellars_Traffictube1_ModeTraffictubeButtons_Observer := 5;
+            ELSIF (((state0.dvar_M_Pumpcellars_Traffictube1_ModeTraffictubeButtons_Observer) = (25)) AND ((state0.dvar_M_Pumpcellars_Traffictube1_ModeTraffictube) = (4))) THEN
+                state1.dvar_M_Pumpcellars_Traffictube1_ModeTraffictubeButtons_Observer := 25;
+            ELSIF ((state0.dvar_M_Pumpcellars_Traffictube1_ModeTraffictubeButtons_Observer) = (15)) THEN
+                state1.dvar_M_Pumpcellars_Traffictube1_ModeTraffictubeButtons_Observer := 15;
+            ELSIF ((state0.dvar_M_Pumpcellars_Traffictube1_ModeTraffictubeButtons_Observer) = (5)) THEN
+                state1.dvar_M_Pumpcellars_Traffictube1_ModeTraffictubeButtons_Observer := 5;
+            ELSIF ((state0.dvar_M_Pumpcellars_Traffictube1_ModeTraffictubeButtons_Observer) = (17)) THEN
+                state1.dvar_M_Pumpcellars_Traffictube1_ModeTraffictubeButtons_Observer := 17;
+            END_IF;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_Traffictube1_ModeTraffictubeButtons_ButtonOperational_u_push".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_HWModeTraffictube1ButtonOperational) = (26);
+        b1 := b1 AND (ivar_M_HWModeTraffictube1ButtonOperational_PUSHED);
+        b1 := b1 AND (NOT(state0.dvar_M_HWModeTraffictube1ButtonOperational_StopLoop));
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_Traffictube1_ModeTraffictubeButtons_ButtonOperational) = (26));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_HWModeTraffictube1ButtonOperational_StopLoop := TRUE;
+            IF (((state0.dvar_M_Pumpcellars_Traffictube1_ModeTraffictubeButtons_Observer) = (25)) AND ((state0.dvar_M_Pumpcellars_Traffictube1_ModeTraffictube) = (16))) THEN
+                state1.dvar_M_Pumpcellars_Traffictube1_ModeTraffictubeButtons_Observer := 15;
+            ELSIF (((state0.dvar_M_Pumpcellars_Traffictube1_ModeTraffictubeButtons_Observer) = (25)) AND ((state0.dvar_M_Pumpcellars_Traffictube1_ModeTraffictube) <> (16))) THEN
+                state1.dvar_M_Pumpcellars_Traffictube1_ModeTraffictubeButtons_Observer := 25;
+            ELSIF ((state0.dvar_M_Pumpcellars_Traffictube1_ModeTraffictubeButtons_Observer) = (15)) THEN
+                state1.dvar_M_Pumpcellars_Traffictube1_ModeTraffictubeButtons_Observer := 15;
+            ELSIF ((state0.dvar_M_Pumpcellars_Traffictube1_ModeTraffictubeButtons_Observer) = (5)) THEN
+                state1.dvar_M_Pumpcellars_Traffictube1_ModeTraffictubeButtons_Observer := 5;
+            ELSIF ((state0.dvar_M_Pumpcellars_Traffictube1_ModeTraffictubeButtons_Observer) = (17)) THEN
+                state1.dvar_M_Pumpcellars_Traffictube1_ModeTraffictubeButtons_Observer := 17;
+            END_IF;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_Traffictube1_ModeTraffictubeButtons_ButtonRecovery_u_push".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_HWModeTraffictube1ButtonRecovery) = (26);
+        b1 := b1 AND (ivar_M_HWModeTraffictube1ButtonRecovery_PUSHED);
+        b1 := b1 AND (NOT(state0.dvar_M_HWModeTraffictube1ButtonRecovery_StopLoop));
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_Traffictube1_ModeTraffictubeButtons_ButtonRecovery) = (26));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_HWModeTraffictube1ButtonRecovery_StopLoop := TRUE;
+            IF (((state0.dvar_M_Pumpcellars_Traffictube1_ModeTraffictubeButtons_Observer) = (25)) AND ((state0.dvar_M_Pumpcellars_Traffictube1_ModeTraffictube) <> (16))) THEN
+                state1.dvar_M_Pumpcellars_Traffictube1_ModeTraffictubeButtons_Observer := 17;
+            ELSIF (((state0.dvar_M_Pumpcellars_Traffictube1_ModeTraffictubeButtons_Observer) = (25)) AND ((state0.dvar_M_Pumpcellars_Traffictube1_ModeTraffictube) = (16))) THEN
+                state1.dvar_M_Pumpcellars_Traffictube1_ModeTraffictubeButtons_Observer := 25;
+            ELSIF ((state0.dvar_M_Pumpcellars_Traffictube1_ModeTraffictubeButtons_Observer) = (15)) THEN
+                state1.dvar_M_Pumpcellars_Traffictube1_ModeTraffictubeButtons_Observer := 15;
+            ELSIF ((state0.dvar_M_Pumpcellars_Traffictube1_ModeTraffictubeButtons_Observer) = (5)) THEN
+                state1.dvar_M_Pumpcellars_Traffictube1_ModeTraffictubeButtons_Observer := 5;
+            ELSIF ((state0.dvar_M_Pumpcellars_Traffictube1_ModeTraffictubeButtons_Observer) = (17)) THEN
+                state1.dvar_M_Pumpcellars_Traffictube1_ModeTraffictubeButtons_Observer := 17;
+            END_IF;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_Traffictube1_ModeTraffictubeButtons_Observer_c_done".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_HWModeTraffictube1ButtonEmergency) = (26);
+        b1 := b1 AND ((state0.dvar_M_HWModeTraffictube1ButtonOperational) = (26));
+        b1 := b1 AND ((state0.dvar_M_HWModeTraffictube1ButtonRecovery) = (26));
+        IF b1 THEN
+            b3 := (state0.dvar_M_Pumpcellars_Traffictube1_ModeTraffictubeButtons_Observer) = (15);
+            b3 := b3 AND ((state0.dvar_M_Pumpcellars_Traffictube1_ModeTraffictube) = (14));
+            b2 := b3;
+            IF NOT(b2) THEN
+                b3 := (state0.dvar_M_Pumpcellars_Traffictube1_ModeTraffictubeButtons_Observer) = (5);
+                b3 := b3 AND ((state0.dvar_M_Pumpcellars_Traffictube1_ModeTraffictube) = (4));
+                b2 := b2 OR (b3);
+            END_IF;
+            IF NOT(b2) THEN
+                b3 := (state0.dvar_M_Pumpcellars_Traffictube1_ModeTraffictubeButtons_Observer) = (17);
+                b3 := b3 AND ((state0.dvar_M_Pumpcellars_Traffictube1_ModeTraffictube) = (16));
+                b2 := b2 OR (b3);
+            END_IF;
+            b1 := b1 AND (b2);
+        END_IF;
+        b1 := b1 AND ((state0.dvar_M_sup) = (26));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_HWModeTraffictube1ButtonEmergency_StopLoop := FALSE;
+            state1.dvar_M_HWModeTraffictube1ButtonOperational_StopLoop := FALSE;
+            state1.dvar_M_HWModeTraffictube1ButtonRecovery_StopLoop := FALSE;
+            IF (((state0.dvar_M_Pumpcellars_Traffictube1_ModeTraffictubeButtons_Observer) = (15)) AND ((state0.dvar_M_Pumpcellars_Traffictube1_ModeTraffictube) = (14))) THEN
+                state1.dvar_M_Pumpcellars_Traffictube1_ModeTraffictubeButtons_Observer := 25;
+            ELSIF (((state0.dvar_M_Pumpcellars_Traffictube1_ModeTraffictubeButtons_Observer) = (5)) AND ((state0.dvar_M_Pumpcellars_Traffictube1_ModeTraffictube) = (4))) THEN
+                state1.dvar_M_Pumpcellars_Traffictube1_ModeTraffictubeButtons_Observer := 25;
+            ELSIF (((state0.dvar_M_Pumpcellars_Traffictube1_ModeTraffictubeButtons_Observer) = (17)) AND ((state0.dvar_M_Pumpcellars_Traffictube1_ModeTraffictube) = (16))) THEN
+                state1.dvar_M_Pumpcellars_Traffictube1_ModeTraffictubeButtons_Observer := 25;
+            END_IF;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_Traffictube2_c_emergency".
+    IF NOT progress THEN
+        b2 := (state0.dvar_M_Pumpcellars_Traffictube2_ModeTraffictube) = (14);
+        b2 := b2 OR ((state0.dvar_M_Pumpcellars_Traffictube2_ModeTraffictube) = (16));
+        b1 := b2;
+        b1 := b1 AND ((state0.dvar_M_RequirementStateEvtExcls) = (26));
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_Traffictube2_ModeTraffictubeButtons_Observer) = (5));
+        b1 := b1 AND ((state0.dvar_M_sup) = (26));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            IF ((state0.dvar_M_HWModeTraffictube2) = (14)) THEN
+                state1.dvar_M_HWModeTraffictube2_TT2OPERATIONAL := FALSE;
+                state1.dvar_M_HWModeTraffictube2_TT2EMERGENCY := TRUE;
+                state1.dvar_M_HWModeTraffictube2_TT2RECOVERY := FALSE;
+                state1.dvar_M_HWModeTraffictube2 := 4;
+            ELSIF ((state0.dvar_M_HWModeTraffictube2) = (4)) THEN
+                state1.dvar_M_HWModeTraffictube2 := 4;
+            ELSIF ((state0.dvar_M_HWModeTraffictube2) = (16)) THEN
+                state1.dvar_M_HWModeTraffictube2_TT2OPERATIONAL := FALSE;
+                state1.dvar_M_HWModeTraffictube2_TT2EMERGENCY := TRUE;
+                state1.dvar_M_HWModeTraffictube2_TT2RECOVERY := FALSE;
+                state1.dvar_M_HWModeTraffictube2 := 4;
+            END_IF;
+            IF ((state0.dvar_M_Pumpcellars_Traffictube2_ModeTraffictube) = (14)) THEN
+                state1.dvar_M_Pumpcellars_Traffictube2_ModeTraffictube := 4;
+            ELSIF ((state0.dvar_M_Pumpcellars_Traffictube2_ModeTraffictube) = (16)) THEN
+                state1.dvar_M_Pumpcellars_Traffictube2_ModeTraffictube := 4;
+            END_IF;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_Traffictube2_c_operational".
+    IF NOT progress THEN
+        b2 := (state0.dvar_M_Pumpcellars_Traffictube2_ModeTraffictube) = (4);
+        b2 := b2 OR ((state0.dvar_M_Pumpcellars_Traffictube2_ModeTraffictube) = (16));
+        b1 := b2;
+        b1 := b1 AND ((state0.dvar_M_RequirementStateEvtExcls) = (26));
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_Traffictube2_ModeTraffictube) = (16));
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_Traffictube2_ModeTraffictubeButtons_Observer) = (15));
+        b1 := b1 AND ((state0.dvar_M_sup) = (26));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            IF ((state0.dvar_M_HWModeTraffictube2) = (14)) THEN
+                state1.dvar_M_HWModeTraffictube2 := 14;
+            ELSIF ((state0.dvar_M_HWModeTraffictube2) = (4)) THEN
+                state1.dvar_M_HWModeTraffictube2_TT2OPERATIONAL := TRUE;
+                state1.dvar_M_HWModeTraffictube2_TT2EMERGENCY := FALSE;
+                state1.dvar_M_HWModeTraffictube2_TT2RECOVERY := FALSE;
+                state1.dvar_M_HWModeTraffictube2 := 14;
+            ELSIF ((state0.dvar_M_HWModeTraffictube2) = (16)) THEN
+                state1.dvar_M_HWModeTraffictube2_TT2OPERATIONAL := TRUE;
+                state1.dvar_M_HWModeTraffictube2_TT2EMERGENCY := FALSE;
+                state1.dvar_M_HWModeTraffictube2_TT2RECOVERY := FALSE;
+                state1.dvar_M_HWModeTraffictube2 := 14;
+            END_IF;
+            IF ((state0.dvar_M_Pumpcellars_Traffictube2_ModeTraffictube) = (4)) THEN
+                state1.dvar_M_Pumpcellars_Traffictube2_ModeTraffictube := 14;
+            ELSIF ((state0.dvar_M_Pumpcellars_Traffictube2_ModeTraffictube) = (16)) THEN
+                state1.dvar_M_Pumpcellars_Traffictube2_ModeTraffictube := 14;
+            END_IF;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_Traffictube2_c_recovery".
+    IF NOT progress THEN
+        b2 := (state0.dvar_M_Pumpcellars_Traffictube2_ModeTraffictube) = (14);
+        b2 := b2 OR ((state0.dvar_M_Pumpcellars_Traffictube2_ModeTraffictube) = (4));
+        b1 := b2;
+        b1 := b1 AND ((state0.dvar_M_RequirementStateEvtExcls) = (26));
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_Traffictube2_ModeTraffictubeButtons_Observer) = (17));
+        b1 := b1 AND ((state0.dvar_M_sup) = (26));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            IF ((state0.dvar_M_HWModeTraffictube2) = (14)) THEN
+                state1.dvar_M_HWModeTraffictube2_TT2OPERATIONAL := FALSE;
+                state1.dvar_M_HWModeTraffictube2_TT2EMERGENCY := FALSE;
+                state1.dvar_M_HWModeTraffictube2_TT2RECOVERY := TRUE;
+                state1.dvar_M_HWModeTraffictube2 := 16;
+            ELSIF ((state0.dvar_M_HWModeTraffictube2) = (4)) THEN
+                state1.dvar_M_HWModeTraffictube2_TT2OPERATIONAL := FALSE;
+                state1.dvar_M_HWModeTraffictube2_TT2EMERGENCY := FALSE;
+                state1.dvar_M_HWModeTraffictube2_TT2RECOVERY := TRUE;
+                state1.dvar_M_HWModeTraffictube2 := 16;
+            ELSIF ((state0.dvar_M_HWModeTraffictube2) = (16)) THEN
+                state1.dvar_M_HWModeTraffictube2 := 16;
+            END_IF;
+            IF ((state0.dvar_M_Pumpcellars_Traffictube2_ModeTraffictube) = (14)) THEN
+                state1.dvar_M_Pumpcellars_Traffictube2_ModeTraffictube := 16;
+            ELSIF ((state0.dvar_M_Pumpcellars_Traffictube2_ModeTraffictube) = (4)) THEN
+                state1.dvar_M_Pumpcellars_Traffictube2_ModeTraffictube := 16;
+            END_IF;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_Traffictube2_ModeTraffictubeButtons_ButtonEmergency_u_push".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_HWModeTraffictube2ButtonEmergency) = (26);
+        b1 := b1 AND (ivar_M_HWModeTraffictube2ButtonEmergency_PUSHED);
+        b1 := b1 AND (NOT(state0.dvar_M_HWModeTraffictube2ButtonEmergency_StopLoop));
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_Traffictube2_ModeTraffictubeButtons_ButtonEmergency) = (26));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_HWModeTraffictube2ButtonEmergency_StopLoop := TRUE;
+            IF (((state0.dvar_M_Pumpcellars_Traffictube2_ModeTraffictubeButtons_Observer) = (25)) AND ((state0.dvar_M_Pumpcellars_Traffictube2_ModeTraffictube) <> (4))) THEN
+                state1.dvar_M_Pumpcellars_Traffictube2_ModeTraffictubeButtons_Observer := 5;
+            ELSIF (((state0.dvar_M_Pumpcellars_Traffictube2_ModeTraffictubeButtons_Observer) = (25)) AND ((state0.dvar_M_Pumpcellars_Traffictube2_ModeTraffictube) = (4))) THEN
+                state1.dvar_M_Pumpcellars_Traffictube2_ModeTraffictubeButtons_Observer := 25;
+            ELSIF ((state0.dvar_M_Pumpcellars_Traffictube2_ModeTraffictubeButtons_Observer) = (15)) THEN
+                state1.dvar_M_Pumpcellars_Traffictube2_ModeTraffictubeButtons_Observer := 15;
+            ELSIF ((state0.dvar_M_Pumpcellars_Traffictube2_ModeTraffictubeButtons_Observer) = (5)) THEN
+                state1.dvar_M_Pumpcellars_Traffictube2_ModeTraffictubeButtons_Observer := 5;
+            ELSIF ((state0.dvar_M_Pumpcellars_Traffictube2_ModeTraffictubeButtons_Observer) = (17)) THEN
+                state1.dvar_M_Pumpcellars_Traffictube2_ModeTraffictubeButtons_Observer := 17;
+            END_IF;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_Traffictube2_ModeTraffictubeButtons_ButtonOperational_u_push".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_HWModeTraffictube2ButtonOperational) = (26);
+        b1 := b1 AND (ivar_M_HWModeTraffictube2ButtonOperational_PUSHED);
+        b1 := b1 AND (NOT(state0.dvar_M_HWModeTraffictube2ButtonOperational_StopLoop));
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_Traffictube2_ModeTraffictubeButtons_ButtonOperational) = (26));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_HWModeTraffictube2ButtonOperational_StopLoop := TRUE;
+            IF (((state0.dvar_M_Pumpcellars_Traffictube2_ModeTraffictubeButtons_Observer) = (25)) AND ((state0.dvar_M_Pumpcellars_Traffictube2_ModeTraffictube) = (16))) THEN
+                state1.dvar_M_Pumpcellars_Traffictube2_ModeTraffictubeButtons_Observer := 15;
+            ELSIF (((state0.dvar_M_Pumpcellars_Traffictube2_ModeTraffictubeButtons_Observer) = (25)) AND ((state0.dvar_M_Pumpcellars_Traffictube2_ModeTraffictube) <> (16))) THEN
+                state1.dvar_M_Pumpcellars_Traffictube2_ModeTraffictubeButtons_Observer := 25;
+            ELSIF ((state0.dvar_M_Pumpcellars_Traffictube2_ModeTraffictubeButtons_Observer) = (15)) THEN
+                state1.dvar_M_Pumpcellars_Traffictube2_ModeTraffictubeButtons_Observer := 15;
+            ELSIF ((state0.dvar_M_Pumpcellars_Traffictube2_ModeTraffictubeButtons_Observer) = (5)) THEN
+                state1.dvar_M_Pumpcellars_Traffictube2_ModeTraffictubeButtons_Observer := 5;
+            ELSIF ((state0.dvar_M_Pumpcellars_Traffictube2_ModeTraffictubeButtons_Observer) = (17)) THEN
+                state1.dvar_M_Pumpcellars_Traffictube2_ModeTraffictubeButtons_Observer := 17;
+            END_IF;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_Traffictube2_ModeTraffictubeButtons_ButtonRecovery_u_push".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_HWModeTraffictube2ButtonRecovery) = (26);
+        b1 := b1 AND (ivar_M_HWModeTraffictube2ButtonRecovery_PUSHED);
+        b1 := b1 AND (NOT(state0.dvar_M_HWModeTraffictube2ButtonRecovery_StopLoop));
+        b1 := b1 AND ((state0.dvar_M_Pumpcellars_Traffictube2_ModeTraffictubeButtons_ButtonRecovery) = (26));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_HWModeTraffictube2ButtonRecovery_StopLoop := TRUE;
+            IF (((state0.dvar_M_Pumpcellars_Traffictube2_ModeTraffictubeButtons_Observer) = (25)) AND ((state0.dvar_M_Pumpcellars_Traffictube2_ModeTraffictube) <> (16))) THEN
+                state1.dvar_M_Pumpcellars_Traffictube2_ModeTraffictubeButtons_Observer := 17;
+            ELSIF (((state0.dvar_M_Pumpcellars_Traffictube2_ModeTraffictubeButtons_Observer) = (25)) AND ((state0.dvar_M_Pumpcellars_Traffictube2_ModeTraffictube) = (16))) THEN
+                state1.dvar_M_Pumpcellars_Traffictube2_ModeTraffictubeButtons_Observer := 25;
+            ELSIF ((state0.dvar_M_Pumpcellars_Traffictube2_ModeTraffictubeButtons_Observer) = (15)) THEN
+                state1.dvar_M_Pumpcellars_Traffictube2_ModeTraffictubeButtons_Observer := 15;
+            ELSIF ((state0.dvar_M_Pumpcellars_Traffictube2_ModeTraffictubeButtons_Observer) = (5)) THEN
+                state1.dvar_M_Pumpcellars_Traffictube2_ModeTraffictubeButtons_Observer := 5;
+            ELSIF ((state0.dvar_M_Pumpcellars_Traffictube2_ModeTraffictubeButtons_Observer) = (17)) THEN
+                state1.dvar_M_Pumpcellars_Traffictube2_ModeTraffictubeButtons_Observer := 17;
+            END_IF;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Event "Pumpcellars_Traffictube2_ModeTraffictubeButtons_Observer_c_done".
+    IF NOT progress THEN
+        b1 := (state0.dvar_M_HWModeTraffictube2ButtonEmergency) = (26);
+        b1 := b1 AND ((state0.dvar_M_HWModeTraffictube2ButtonOperational) = (26));
+        b1 := b1 AND ((state0.dvar_M_HWModeTraffictube2ButtonRecovery) = (26));
+        IF b1 THEN
+            b3 := (state0.dvar_M_Pumpcellars_Traffictube2_ModeTraffictubeButtons_Observer) = (15);
+            b3 := b3 AND ((state0.dvar_M_Pumpcellars_Traffictube2_ModeTraffictube) = (14));
+            b2 := b3;
+            IF NOT(b2) THEN
+                b3 := (state0.dvar_M_Pumpcellars_Traffictube2_ModeTraffictubeButtons_Observer) = (5);
+                b3 := b3 AND ((state0.dvar_M_Pumpcellars_Traffictube2_ModeTraffictube) = (4));
+                b2 := b2 OR (b3);
+            END_IF;
+            IF NOT(b2) THEN
+                b3 := (state0.dvar_M_Pumpcellars_Traffictube2_ModeTraffictubeButtons_Observer) = (17);
+                b3 := b3 AND ((state0.dvar_M_Pumpcellars_Traffictube2_ModeTraffictube) = (16));
+                b2 := b2 OR (b3);
+            END_IF;
+            b1 := b1 AND (b2);
+        END_IF;
+        b1 := b1 AND ((state0.dvar_M_sup) = (26));
+        IF b1 THEN
+            progress := TRUE;
+            state1 := state0;
+
+            state1.dvar_M_HWModeTraffictube2ButtonEmergency_StopLoop := FALSE;
+            state1.dvar_M_HWModeTraffictube2ButtonOperational_StopLoop := FALSE;
+            state1.dvar_M_HWModeTraffictube2ButtonRecovery_StopLoop := FALSE;
+            IF (((state0.dvar_M_Pumpcellars_Traffictube2_ModeTraffictubeButtons_Observer) = (15)) AND ((state0.dvar_M_Pumpcellars_Traffictube2_ModeTraffictube) = (14))) THEN
+                state1.dvar_M_Pumpcellars_Traffictube2_ModeTraffictubeButtons_Observer := 25;
+            ELSIF (((state0.dvar_M_Pumpcellars_Traffictube2_ModeTraffictubeButtons_Observer) = (5)) AND ((state0.dvar_M_Pumpcellars_Traffictube2_ModeTraffictube) = (4))) THEN
+                state1.dvar_M_Pumpcellars_Traffictube2_ModeTraffictubeButtons_Observer := 25;
+            ELSIF (((state0.dvar_M_Pumpcellars_Traffictube2_ModeTraffictubeButtons_Observer) = (17)) AND ((state0.dvar_M_Pumpcellars_Traffictube2_ModeTraffictube) = (16))) THEN
+                state1.dvar_M_Pumpcellars_Traffictube2_ModeTraffictubeButtons_Observer := 25;
+            END_IF;
+
+            state0 := state1;
+        END_IF;
+    END_IF;
+
+    // Done with events?
+    IF NOT progress THEN
+        EXIT;
+    END_IF;
+
+    // Protect against events that are always enabled.
+    loopCount := loopCount + 1;
+    IF loopCount >= 100 THEN
+        loopsKilled := loopsKilled + 1;
+        EXIT;
+    END_IF;
+END_WHILE;
+END_PROGRAM

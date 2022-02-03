@@ -1,0 +1,295 @@
+controllable Pumpcellars_MiddlePumpcellar_Pump1_c_on;
+controllable Pumpcellars_MiddlePumpcellar_Pump1_c_off;
+controllable Pumpcellars_MiddlePumpcellar_Pump2_c_on;
+controllable Pumpcellars_MiddlePumpcellar_Pump2_c_off;
+uncontrollable Pumpcellars_MiddlePumpcellar_SensorTank_u_S1on;
+uncontrollable Pumpcellars_MiddlePumpcellar_SensorTank_u_S1off;
+uncontrollable Pumpcellars_MiddlePumpcellar_SensorTank_u_S2on;
+uncontrollable Pumpcellars_MiddlePumpcellar_SensorTank_u_S2off;
+uncontrollable Pumpcellars_MiddlePumpcellar_SensorTank_u_S3on;
+uncontrollable Pumpcellars_MiddlePumpcellar_SensorTank_u_S3off;
+uncontrollable Pumpcellars_MiddlePumpcellar_SensorTank_u_S4on;
+uncontrollable Pumpcellars_MiddlePumpcellar_SensorTank_u_S4off;
+uncontrollable Pumpcellars_MiddlePumpcellar_SensorTank_u_S5on;
+uncontrollable Pumpcellars_MiddlePumpcellar_SensorTank_u_S5off;
+controllable Pumpcellars_MiddlePumpcellar_Mode_c_store;
+controllable Pumpcellars_MiddlePumpcellar_Mode_c_drain;
+controllable Pumpcellars_MiddlePumpcellar_Mode_c_off;
+controllable Pumpcellars_MiddlePumpcellar_Control_Mode_c_auto;
+controllable Pumpcellars_MiddlePumpcellar_Control_Mode_c_manual;
+uncontrollable Pumpcellars_MiddlePumpcellar_Control_ButtonManual_u_push;
+uncontrollable Pumpcellars_MiddlePumpcellar_Control_ButtonAuto_u_push;
+uncontrollable Pumpcellars_MiddlePumpcellar_Control_ButtonStore_u_push;
+uncontrollable Pumpcellars_MiddlePumpcellar_Control_ButtonDrain_u_push;
+uncontrollable Pumpcellars_MiddlePumpcellar_Control_ButtonOff_u_push;
+controllable Pumpcellars_MiddlePumpcellar_Control_Observer_c_done;
+alg bool MPCStoreAllowed = (Pumpcellars_MiddlePumpcellar_Control_Observer.unpressed or Pumpcellars_MiddlePumpcellar_Control_Mode.manual and not Pumpcellars_MiddlePumpcellar_Control_Observer.autoPressed) and (Pumpcellars_MiddlePumpcellar_Control_Mode.auto and not(Pumpcellars_Traffictube1_ModeTraffictube_ObserverA.operational and Pumpcellars_Traffictube2_ModeTraffictube_ObserverA.operational) or Pumpcellars_MiddlePumpcellar_Control_Mode.manual and Pumpcellars_MiddlePumpcellar_Control_Observer.storePressed) and (Pumpcellars_MiddlePumpcellar_Mode.drain or Pumpcellars_MiddlePumpcellar_Mode.off);
+alg bool MPCDrainAllowed = (Pumpcellars_MiddlePumpcellar_Control_Observer.unpressed or Pumpcellars_MiddlePumpcellar_Control_Mode.manual and not Pumpcellars_MiddlePumpcellar_Control_Observer.autoPressed) and (Pumpcellars_MiddlePumpcellar_Control_Mode.auto and (Pumpcellars_Traffictube1_ModeTraffictube_ObserverA.operational and Pumpcellars_Traffictube2_ModeTraffictube_ObserverA.operational) or Pumpcellars_MiddlePumpcellar_Control_Mode.manual and Pumpcellars_MiddlePumpcellar_Control_Observer.drainPressed) and (Pumpcellars_MiddlePumpcellar_Mode.store or Pumpcellars_MiddlePumpcellar_Mode.off);
+alg bool MPCOffAllowed = (Pumpcellars_MiddlePumpcellar_Control_Observer.unpressed or Pumpcellars_MiddlePumpcellar_Control_Mode.manual and not Pumpcellars_MiddlePumpcellar_Control_Observer.autoPressed) and (Pumpcellars_MiddlePumpcellar_Control_Mode.manual and Pumpcellars_MiddlePumpcellar_Control_Observer.offPressed) and (Pumpcellars_MiddlePumpcellar_Mode.drain or Pumpcellars_MiddlePumpcellar_Mode.store);
+alg bool Mutex1AwayRequestCondition = MPCStoreAllowed or MPCDrainAllowed or MPCOffAllowed;
+alg bool Mutex1AwayReturnCondition = not MPCStoreAllowed and not MPCDrainAllowed and not MPCOffAllowed;
+alg bool Mutex2AwayRequestCondition = MPCStoreAllowed or MPCDrainAllowed or MPCOffAllowed;
+alg bool Mutex2AwayReturnCondition = not MPCStoreAllowed and not MPCDrainAllowed and not MPCOffAllowed;
+uncontrollable Pumpcellars_Traffictube1_ObserverA_c_emergency;
+uncontrollable Pumpcellars_Traffictube1_ObserverA_c_recovery;
+uncontrollable Pumpcellars_Traffictube1_ObserverA_c_operational;
+uncontrollable Pumpcellars_Traffictube2_ObserverA_c_emergency;
+uncontrollable Pumpcellars_Traffictube2_ObserverA_c_recovery;
+uncontrollable Pumpcellars_Traffictube2_ObserverA_c_operational;
+alg bool Mutex1Away_R = Mutex1Away_Requester.R;
+alg bool Mutex1Away_RequestCondition = Mutex1AwayRequestCondition;
+alg bool Mutex1Away_ReturnCondition = Mutex1AwayReturnCondition;
+alg bool Mutex2Away_R = Mutex2Away_Requester.R;
+alg bool Mutex2Away_RequestCondition = Mutex2AwayRequestCondition;
+alg bool Mutex2Away_ReturnCondition = Mutex2AwayReturnCondition;
+controllable Mutex1Away_Requester_c_request;
+controllable Mutex1Away_Requester_c_return;
+controllable Mutex1Away_Requester_c_receive;
+controllable Mutex2Away_Requester_c_request;
+controllable Mutex2Away_Requester_c_return;
+controllable Mutex2Away_Requester_c_receive;
+plant automaton Pumpcellars_MiddlePumpcellar_Pump1:
+  location off:
+    initial;
+    marked;
+    edge Pumpcellars_MiddlePumpcellar_Pump1_c_on goto on;
+  location on:
+    marked false;
+    edge Pumpcellars_MiddlePumpcellar_Pump1_c_off goto off;
+end
+plant automaton Pumpcellars_MiddlePumpcellar_Pump2:
+  location off:
+    initial;
+    marked;
+    edge Pumpcellars_MiddlePumpcellar_Pump2_c_on goto on;
+  location on:
+    marked false;
+    edge Pumpcellars_MiddlePumpcellar_Pump2_c_off goto off;
+end
+plant automaton Pumpcellars_MiddlePumpcellar_SensorTank:
+  location Empty:
+    initial;
+    marked;
+    edge Pumpcellars_MiddlePumpcellar_SensorTank_u_S1on goto S1;
+  location S1:
+    edge Pumpcellars_MiddlePumpcellar_SensorTank_u_S1off when Pumpcellars_MiddlePumpcellar_Pump1.on or Pumpcellars_MiddlePumpcellar_Pump2.on goto Empty;
+    edge Pumpcellars_MiddlePumpcellar_SensorTank_u_S2on goto S2;
+  location S2:
+    edge Pumpcellars_MiddlePumpcellar_SensorTank_u_S2off when Pumpcellars_MiddlePumpcellar_Pump1.on or Pumpcellars_MiddlePumpcellar_Pump2.on goto S1;
+    edge Pumpcellars_MiddlePumpcellar_SensorTank_u_S3on goto S3;
+  location S3:
+    edge Pumpcellars_MiddlePumpcellar_SensorTank_u_S3off when Pumpcellars_MiddlePumpcellar_Pump1.on or Pumpcellars_MiddlePumpcellar_Pump2.on goto S2;
+    edge Pumpcellars_MiddlePumpcellar_SensorTank_u_S4on goto S4;
+  location S4:
+    edge Pumpcellars_MiddlePumpcellar_SensorTank_u_S4off when Pumpcellars_MiddlePumpcellar_Pump1.on or Pumpcellars_MiddlePumpcellar_Pump2.on goto S3;
+    edge Pumpcellars_MiddlePumpcellar_SensorTank_u_S5on goto S5;
+  location S5:
+    edge Pumpcellars_MiddlePumpcellar_SensorTank_u_S5off when Pumpcellars_MiddlePumpcellar_Pump1.on or Pumpcellars_MiddlePumpcellar_Pump2.on goto S4;
+end
+plant automaton Pumpcellars_MiddlePumpcellar_Mode:
+  location drain:
+    initial;
+    marked;
+    edge Pumpcellars_MiddlePumpcellar_Mode_c_store goto store;
+    edge Pumpcellars_MiddlePumpcellar_Mode_c_off goto off;
+  location store:
+    edge Pumpcellars_MiddlePumpcellar_Mode_c_drain goto drain;
+    edge Pumpcellars_MiddlePumpcellar_Mode_c_off goto off;
+  location off:
+    edge Pumpcellars_MiddlePumpcellar_Mode_c_store goto store;
+    edge Pumpcellars_MiddlePumpcellar_Mode_c_drain goto drain;
+end
+plant automaton Pumpcellars_MiddlePumpcellar_Control_Mode:
+  location auto:
+    initial;
+    marked;
+    edge Pumpcellars_MiddlePumpcellar_Control_Mode_c_manual goto manual;
+  location manual:
+    edge Pumpcellars_MiddlePumpcellar_Control_Mode_c_auto goto auto;
+end
+plant automaton Pumpcellars_MiddlePumpcellar_Control_ButtonManual:
+  location:
+    initial;
+    marked;
+    edge Pumpcellars_MiddlePumpcellar_Control_ButtonManual_u_push;
+end
+plant automaton Pumpcellars_MiddlePumpcellar_Control_ButtonAuto:
+  location:
+    initial;
+    marked;
+    edge Pumpcellars_MiddlePumpcellar_Control_ButtonAuto_u_push;
+end
+plant automaton Pumpcellars_MiddlePumpcellar_Control_ButtonStore:
+  location:
+    initial;
+    marked;
+    edge Pumpcellars_MiddlePumpcellar_Control_ButtonStore_u_push;
+end
+plant automaton Pumpcellars_MiddlePumpcellar_Control_ButtonDrain:
+  location:
+    initial;
+    marked;
+    edge Pumpcellars_MiddlePumpcellar_Control_ButtonDrain_u_push;
+end
+plant automaton Pumpcellars_MiddlePumpcellar_Control_ButtonOff:
+  location:
+    initial;
+    marked;
+    edge Pumpcellars_MiddlePumpcellar_Control_ButtonOff_u_push;
+end
+plant automaton Pumpcellars_MiddlePumpcellar_Control_Observer:
+  location unpressed:
+    initial;
+    marked;
+    edge Pumpcellars_MiddlePumpcellar_Control_ButtonManual_u_push when Pumpcellars_MiddlePumpcellar_Control_Mode.auto goto manualPressed;
+    edge Pumpcellars_MiddlePumpcellar_Control_ButtonAuto_u_push when Pumpcellars_MiddlePumpcellar_Control_Mode.manual goto autoPressed;
+    edge Pumpcellars_MiddlePumpcellar_Control_ButtonStore_u_push when Pumpcellars_MiddlePumpcellar_Control_Mode.manual and not Pumpcellars_MiddlePumpcellar_Mode.store goto storePressed;
+    edge Pumpcellars_MiddlePumpcellar_Control_ButtonDrain_u_push when Pumpcellars_MiddlePumpcellar_Control_Mode.manual and not Pumpcellars_MiddlePumpcellar_Mode.drain goto drainPressed;
+    edge Pumpcellars_MiddlePumpcellar_Control_ButtonOff_u_push when Pumpcellars_MiddlePumpcellar_Control_Mode.manual and not Pumpcellars_MiddlePumpcellar_Mode.off goto offPressed;
+    edge Pumpcellars_MiddlePumpcellar_Control_ButtonManual_u_push when not Pumpcellars_MiddlePumpcellar_Control_Mode.auto;
+    edge Pumpcellars_MiddlePumpcellar_Control_ButtonAuto_u_push when not Pumpcellars_MiddlePumpcellar_Control_Mode.manual;
+    edge Pumpcellars_MiddlePumpcellar_Control_ButtonStore_u_push when not(Pumpcellars_MiddlePumpcellar_Control_Mode.manual and not Pumpcellars_MiddlePumpcellar_Mode.store);
+    edge Pumpcellars_MiddlePumpcellar_Control_ButtonDrain_u_push when not(Pumpcellars_MiddlePumpcellar_Control_Mode.manual and not Pumpcellars_MiddlePumpcellar_Mode.drain);
+    edge Pumpcellars_MiddlePumpcellar_Control_ButtonOff_u_push when not(Pumpcellars_MiddlePumpcellar_Control_Mode.manual and not Pumpcellars_MiddlePumpcellar_Mode.off);
+  location autoPressed:
+    edge Pumpcellars_MiddlePumpcellar_Control_Observer_c_done when Pumpcellars_MiddlePumpcellar_Control_Mode.auto goto unpressed;
+    edge Pumpcellars_MiddlePumpcellar_Control_ButtonManual_u_push;
+    edge Pumpcellars_MiddlePumpcellar_Control_ButtonAuto_u_push;
+    edge Pumpcellars_MiddlePumpcellar_Control_ButtonStore_u_push;
+    edge Pumpcellars_MiddlePumpcellar_Control_ButtonDrain_u_push;
+    edge Pumpcellars_MiddlePumpcellar_Control_ButtonOff_u_push;
+  location manualPressed:
+    edge Pumpcellars_MiddlePumpcellar_Control_Observer_c_done when Pumpcellars_MiddlePumpcellar_Control_Mode.manual goto unpressed;
+    edge Pumpcellars_MiddlePumpcellar_Control_ButtonManual_u_push;
+    edge Pumpcellars_MiddlePumpcellar_Control_ButtonAuto_u_push;
+    edge Pumpcellars_MiddlePumpcellar_Control_ButtonStore_u_push;
+    edge Pumpcellars_MiddlePumpcellar_Control_ButtonDrain_u_push;
+    edge Pumpcellars_MiddlePumpcellar_Control_ButtonOff_u_push;
+  location storePressed:
+    edge Pumpcellars_MiddlePumpcellar_Control_Observer_c_done when Pumpcellars_MiddlePumpcellar_Mode.store goto unpressed;
+    edge Pumpcellars_MiddlePumpcellar_Control_ButtonManual_u_push;
+    edge Pumpcellars_MiddlePumpcellar_Control_ButtonAuto_u_push;
+    edge Pumpcellars_MiddlePumpcellar_Control_ButtonStore_u_push;
+    edge Pumpcellars_MiddlePumpcellar_Control_ButtonDrain_u_push;
+    edge Pumpcellars_MiddlePumpcellar_Control_ButtonOff_u_push;
+  location drainPressed:
+    edge Pumpcellars_MiddlePumpcellar_Control_Observer_c_done when Pumpcellars_MiddlePumpcellar_Mode.drain goto unpressed;
+    edge Pumpcellars_MiddlePumpcellar_Control_ButtonManual_u_push;
+    edge Pumpcellars_MiddlePumpcellar_Control_ButtonAuto_u_push;
+    edge Pumpcellars_MiddlePumpcellar_Control_ButtonStore_u_push;
+    edge Pumpcellars_MiddlePumpcellar_Control_ButtonDrain_u_push;
+    edge Pumpcellars_MiddlePumpcellar_Control_ButtonOff_u_push;
+  location offPressed:
+    edge Pumpcellars_MiddlePumpcellar_Control_Observer_c_done when Pumpcellars_MiddlePumpcellar_Mode.off goto unpressed;
+    edge Pumpcellars_MiddlePumpcellar_Control_ButtonManual_u_push;
+    edge Pumpcellars_MiddlePumpcellar_Control_ButtonAuto_u_push;
+    edge Pumpcellars_MiddlePumpcellar_Control_ButtonStore_u_push;
+    edge Pumpcellars_MiddlePumpcellar_Control_ButtonDrain_u_push;
+    edge Pumpcellars_MiddlePumpcellar_Control_ButtonOff_u_push;
+end
+supervisor automaton sup1a:
+  alphabet Pumpcellars_MiddlePumpcellar_Mode_c_store, Pumpcellars_MiddlePumpcellar_Mode_c_off, Pumpcellars_MiddlePumpcellar_Mode_c_drain, Pumpcellars_MiddlePumpcellar_Control_Mode_c_manual, Pumpcellars_MiddlePumpcellar_Control_Mode_c_auto, Pumpcellars_MiddlePumpcellar_Control_Observer_c_done;
+  location:
+    initial;
+    marked;
+    edge Pumpcellars_MiddlePumpcellar_Control_Mode_c_auto when true;
+    edge Pumpcellars_MiddlePumpcellar_Control_Mode_c_manual when true;
+    edge Pumpcellars_MiddlePumpcellar_Control_Observer_c_done when true;
+    edge Pumpcellars_MiddlePumpcellar_Mode_c_drain when true;
+    edge Pumpcellars_MiddlePumpcellar_Mode_c_off when true;
+    edge Pumpcellars_MiddlePumpcellar_Mode_c_store when true;
+end
+supervisor automaton sup5:
+  alphabet Pumpcellars_MiddlePumpcellar_Pump1_c_on, Pumpcellars_MiddlePumpcellar_Pump1_c_off, Pumpcellars_MiddlePumpcellar_Pump2_c_on, Pumpcellars_MiddlePumpcellar_Pump2_c_off, Pumpcellars_MiddlePumpcellar_Mode_c_store, Pumpcellars_MiddlePumpcellar_Mode_c_off, Pumpcellars_MiddlePumpcellar_Mode_c_drain, Pumpcellars_MiddlePumpcellar_Control_Mode_c_manual, Pumpcellars_MiddlePumpcellar_Control_Mode_c_auto, Pumpcellars_MiddlePumpcellar_Control_Observer_c_done;
+  location:
+    initial;
+    marked;
+    edge Pumpcellars_MiddlePumpcellar_Control_Mode_c_auto when true;
+    edge Pumpcellars_MiddlePumpcellar_Control_Mode_c_manual when true;
+    edge Pumpcellars_MiddlePumpcellar_Control_Observer_c_done when true;
+    edge Pumpcellars_MiddlePumpcellar_Mode_c_drain when true;
+    edge Pumpcellars_MiddlePumpcellar_Mode_c_off when true;
+    edge Pumpcellars_MiddlePumpcellar_Mode_c_store when true;
+    edge Pumpcellars_MiddlePumpcellar_Pump1_c_off when true;
+    edge Pumpcellars_MiddlePumpcellar_Pump1_c_on when true;
+    edge Pumpcellars_MiddlePumpcellar_Pump2_c_off when true;
+    edge Pumpcellars_MiddlePumpcellar_Pump2_c_on when true;
+end
+supervisor automaton sup7:
+  alphabet Pumpcellars_MiddlePumpcellar_Mode_c_store, Pumpcellars_MiddlePumpcellar_Mode_c_off, Pumpcellars_MiddlePumpcellar_Mode_c_drain, Pumpcellars_MiddlePumpcellar_Control_Mode_c_manual, Pumpcellars_MiddlePumpcellar_Control_Mode_c_auto, Pumpcellars_MiddlePumpcellar_Control_Observer_c_done;
+  location:
+    initial;
+    marked;
+    edge Pumpcellars_MiddlePumpcellar_Control_Mode_c_auto when true;
+    edge Pumpcellars_MiddlePumpcellar_Control_Mode_c_manual when true;
+    edge Pumpcellars_MiddlePumpcellar_Control_Observer_c_done when true;
+    edge Pumpcellars_MiddlePumpcellar_Mode_c_drain when true;
+    edge Pumpcellars_MiddlePumpcellar_Mode_c_off when true;
+    edge Pumpcellars_MiddlePumpcellar_Mode_c_store when true;
+end
+plant automaton Mutex1Away_Requester:
+  disc bool R = false;
+  location Idle:
+    initial;
+    marked;
+    edge Mutex1Away_Requester_c_request do R := true goto Requested;
+  location Requested:
+    edge Mutex1Away_Requester_c_receive do R := false goto Received;
+  location Received:
+    edge Mutex1Away_Requester_c_return goto Idle;
+end
+plant automaton Mutex2Away_Requester:
+  disc bool R = false;
+  location Idle:
+    initial;
+    marked;
+    edge Mutex2Away_Requester_c_request do R := true goto Requested;
+  location Requested:
+    edge Mutex2Away_Requester_c_receive do R := false goto Received;
+  location Received:
+    edge Mutex2Away_Requester_c_return goto Idle;
+end
+plant automaton Pumpcellars_Traffictube1_ModeTraffictube_ObserverA:
+  location operational:
+    initial;
+    marked;
+    edge Pumpcellars_Traffictube1_ObserverA_c_emergency goto emergency;
+    edge Pumpcellars_Traffictube1_ObserverA_c_recovery goto recovery;
+  location emergency:
+    edge Pumpcellars_Traffictube1_ObserverA_c_recovery goto recovery;
+    edge Pumpcellars_Traffictube1_ObserverA_c_operational goto operational;
+  location recovery:
+    edge Pumpcellars_Traffictube1_ObserverA_c_operational goto operational;
+    edge Pumpcellars_Traffictube1_ObserverA_c_emergency goto emergency;
+end
+plant automaton Pumpcellars_Traffictube2_ModeTraffictube_ObserverA:
+  location operational:
+    initial;
+    marked;
+    edge Pumpcellars_Traffictube2_ObserverA_c_emergency goto emergency;
+    edge Pumpcellars_Traffictube2_ObserverA_c_recovery goto recovery;
+  location emergency:
+    edge Pumpcellars_Traffictube2_ObserverA_c_recovery goto recovery;
+    edge Pumpcellars_Traffictube2_ObserverA_c_operational goto operational;
+  location recovery:
+    edge Pumpcellars_Traffictube2_ObserverA_c_operational goto operational;
+    edge Pumpcellars_Traffictube2_ObserverA_c_emergency goto emergency;
+end
+requirement automaton RequirementStateEvtExcls:
+  location:
+    initial;
+    marked;
+    edge Pumpcellars_MiddlePumpcellar_Mode_c_store when Pumpcellars_MiddlePumpcellar_Control_Observer.unpressed or Pumpcellars_MiddlePumpcellar_Control_Mode.manual and not Pumpcellars_MiddlePumpcellar_Control_Observer.autoPressed, Pumpcellars_MiddlePumpcellar_Control_Mode.auto and not(Pumpcellars_Traffictube1_ModeTraffictube_ObserverA.operational and Pumpcellars_Traffictube2_ModeTraffictube_ObserverA.operational) or Pumpcellars_MiddlePumpcellar_Control_Mode.manual and Pumpcellars_MiddlePumpcellar_Control_Observer.storePressed, Mutex1Away_Requester.Received, Mutex2Away_Requester.Received;
+    edge Pumpcellars_MiddlePumpcellar_Mode_c_drain when Pumpcellars_MiddlePumpcellar_Control_Observer.unpressed or Pumpcellars_MiddlePumpcellar_Control_Mode.manual and not Pumpcellars_MiddlePumpcellar_Control_Observer.autoPressed, Pumpcellars_MiddlePumpcellar_Control_Mode.auto and (Pumpcellars_Traffictube1_ModeTraffictube_ObserverA.operational and Pumpcellars_Traffictube2_ModeTraffictube_ObserverA.operational) or Pumpcellars_MiddlePumpcellar_Control_Mode.manual and Pumpcellars_MiddlePumpcellar_Control_Observer.drainPressed, Mutex1Away_Requester.Received, Mutex2Away_Requester.Received;
+    edge Pumpcellars_MiddlePumpcellar_Mode_c_off when Pumpcellars_MiddlePumpcellar_Control_Observer.unpressed or Pumpcellars_MiddlePumpcellar_Control_Mode.manual and not Pumpcellars_MiddlePumpcellar_Control_Observer.autoPressed, Pumpcellars_MiddlePumpcellar_Control_Mode.manual and Pumpcellars_MiddlePumpcellar_Control_Observer.offPressed, Mutex1Away_Requester.Received, Mutex2Away_Requester.Received;
+    edge Pumpcellars_MiddlePumpcellar_Pump1_c_on when Pumpcellars_MiddlePumpcellar_Mode.store and Pumpcellars_MiddlePumpcellar_SensorTank.S5 or Pumpcellars_MiddlePumpcellar_Mode.drain and (Pumpcellars_MiddlePumpcellar_SensorTank.S2 or Pumpcellars_MiddlePumpcellar_SensorTank.S3 or Pumpcellars_MiddlePumpcellar_SensorTank.S4 or Pumpcellars_MiddlePumpcellar_SensorTank.S5), Pumpcellars_MiddlePumpcellar_Control_Observer.unpressed;
+    edge Pumpcellars_MiddlePumpcellar_Pump1_c_off when Pumpcellars_MiddlePumpcellar_Mode.store and (Pumpcellars_MiddlePumpcellar_SensorTank.S2 or Pumpcellars_MiddlePumpcellar_SensorTank.S3 or Pumpcellars_MiddlePumpcellar_SensorTank.S1 or Pumpcellars_MiddlePumpcellar_SensorTank.Empty) or Pumpcellars_MiddlePumpcellar_Mode.drain and Pumpcellars_MiddlePumpcellar_SensorTank.Empty or Pumpcellars_MiddlePumpcellar_Mode.off, Pumpcellars_MiddlePumpcellar_Control_Observer.unpressed;
+    edge Pumpcellars_MiddlePumpcellar_Pump2_c_on when Pumpcellars_MiddlePumpcellar_Mode.store and Pumpcellars_MiddlePumpcellar_SensorTank.S5 or Pumpcellars_MiddlePumpcellar_Mode.drain and (Pumpcellars_MiddlePumpcellar_SensorTank.S3 or Pumpcellars_MiddlePumpcellar_SensorTank.S4 or Pumpcellars_MiddlePumpcellar_SensorTank.S5), Pumpcellars_MiddlePumpcellar_Control_Observer.unpressed;
+    edge Pumpcellars_MiddlePumpcellar_Pump2_c_off when Pumpcellars_MiddlePumpcellar_Mode.store and (Pumpcellars_MiddlePumpcellar_SensorTank.S2 or Pumpcellars_MiddlePumpcellar_SensorTank.S3 or Pumpcellars_MiddlePumpcellar_SensorTank.S1 or Pumpcellars_MiddlePumpcellar_SensorTank.Empty) or Pumpcellars_MiddlePumpcellar_Mode.drain and Pumpcellars_MiddlePumpcellar_SensorTank.Empty or Pumpcellars_MiddlePumpcellar_Mode.off, Pumpcellars_MiddlePumpcellar_Control_Observer.unpressed;
+    edge Pumpcellars_MiddlePumpcellar_Control_Mode_c_manual when Pumpcellars_MiddlePumpcellar_Control_Observer.manualPressed;
+    edge Pumpcellars_MiddlePumpcellar_Control_Mode_c_auto when Pumpcellars_MiddlePumpcellar_Control_Observer.autoPressed;
+    edge Mutex1Away_Requester_c_request when Mutex1Away_RequestCondition;
+    edge Mutex1Away_Requester_c_return when Mutex1Away_ReturnCondition;
+    edge Mutex2Away_Requester_c_request when Mutex2Away_RequestCondition;
+    edge Mutex2Away_Requester_c_return when Mutex2Away_ReturnCondition;
+end

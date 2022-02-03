@@ -1,0 +1,17 @@
+plant def HWToken(alg bool InitiallyHere; controllable c_send, c_receive):
+	controllable c_finishSending;
+	disc bool Here = InitiallyHere;
+	disc bool SendingAway = false;
+
+	input bool There;
+	input bool SendingHere;
+
+	location IdleHere:
+		initial InitiallyHere;
+		edge c_send when SendingHere = false and Here do SendingAway := true, Here := false goto Sending;
+	location Sending:
+		edge c_finishSending when There do SendingAway:= false goto IdleNotHere;
+	location IdleNotHere:
+		initial not InitiallyHere;
+		edge c_receive when SendingHere do Here := true goto IdleHere;
+end

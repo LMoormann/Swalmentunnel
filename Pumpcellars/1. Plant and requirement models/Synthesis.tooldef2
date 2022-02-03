@@ -1,0 +1,35 @@
+from "lib:cif3" import *;
+
+// Input file:
+string input_path = "Plant_Requirements/Pumpcellars.cif";
+
+// Output file:
+string output_path = "Supervisor.cif";
+
+cif3cif(input_path,
+    "-o", output_path,
+    "-t elim-comp-def-inst"
+    );
+
+cif3cif(output_path,
+    "-o", output_path,
+    "-t elim-groups"
+    );
+
+cif3cif(output_path,
+    "-o", output_path,
+    "-t elim-alg-vars"
+    );
+
+// cif3cif(output_path,
+//     "-o", output_path,
+//     "-t lift-events"
+//     );
+
+cif3datasynth(output_path,
+   			 "-o", output_path);
+
+cif3cif(output_path,
+        "-o", output_path,
+        "-t simplify-values-optimized"
+        );

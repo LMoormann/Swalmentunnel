@@ -1,0 +1,16 @@
+import "Channel.cif";
+import "Loc1_Adjusted.cif";
+import "Loc2_Adjusted.cif";
+
+// PLC1 to PLC2
+Channel1: Channel(Traffictube1_Mode_c_emergency, Traffictube1_ObserverA_c_emergency);
+Channel2: Channel(Traffictube1_Mode_c_recovery, Traffictube1_ObserverA_c_recovery);
+Channel3: Channel(Traffictube1_Mode_c_operational, Traffictube1_ObserverA_c_operational);
+
+Channel4: Channel(Traffictube2_Mode_c_emergency,Traffictube2_ObserverA_c_emergency);
+Channel5: Channel(Traffictube2_Mode_c_recovery, Traffictube2_ObserverA_c_recovery);
+Channel6: Channel(Traffictube2_Mode_c_operational, Traffictube2_ObserverA_c_operational);
+
+// PLC2 to PLC1
+
+// No communication

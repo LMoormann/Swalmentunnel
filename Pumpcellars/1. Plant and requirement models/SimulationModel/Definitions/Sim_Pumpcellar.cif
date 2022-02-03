@@ -1,0 +1,96 @@
+group def Sim_PumpcellarSingle(alg bool pump1, pump2, inflow, raining;
+  alg real volume_inflow, volume_rain;
+  event s1on, s1off, s2on, s2off, s3on, s3off, s4on, s4off, s5on, s5off; alg string A, cellar):
+
+  alg real volume_outflow = if pump1 and pump2: 30
+                            elif pump1 or pump2: 15
+                            else 0 end;
+  const real drained = 5, low = 100, start = 200, maxstart = 300, lowhigh = 400, high = 500, full = 600;
+  cont waterlevel = 5 der
+    if waterlevel >= full and (volume_inflow-volume_outflow > 0): 0
+    elif waterlevel <= drained and (volume_inflow-volume_outflow < 0): 0
+    elif pump1 or pump2 or inflow: volume_inflow-volume_outflow
+    else 0 end;
+
+  plant WaterlevelObserver:
+    location:
+      initial;
+      edge s1on when waterlevel >= low;
+      edge s1off when waterlevel < low;
+      edge s2on when waterlevel >= start;
+      edge s2off when waterlevel < start;
+      edge s3on when waterlevel >= maxstart;
+      edge s3off when waterlevel < maxstart;
+      edge s4on when waterlevel >= lowhigh;
+      edge s4off when waterlevel < lowhigh;
+      edge s5on when waterlevel >= high;
+      edge s5off when waterlevel < high;
+  end
+
+  svgout id A+"water" attr "height" value scale(waterlevel, 0, full, 0, 100);
+  svgout id A+"instroom_boven" attr "fill" value if raining: "#2c7081" else "#ededed" end;
+  svgout id A+"instroom" attr "stroke-width" value if volume_rain >30: 3
+                                                 elif volume_rain >15: 2
+                                                 elif volume_rain >0 : 1
+                                                 else 0 end;
+  svgout id cellar+"pomp_1_achtergrond" attr "fill" value if pump1: "#2c7081" else "#ededed" end;
+  svgout id cellar+"pomp_1_achtergrond_stroke" attr "stroke" value if pump1: "none" else "black" end;
+  svgout id cellar+"pomp_1_uit" attr "stroke" value if pump1: "none" else "black" end;
+  svgout id cellar+"pomp_1_aan" attr "opacity" value if pump1: "1" else "0" end;
+  svgout id cellar+"pomp_2_achtergrond" attr "fill" value if pump2: "#2c7081" else "#ededed" end;
+  svgout id cellar+"pomp_2_achtergrond_stroke" attr "stroke" value if pump2: "none" else "black" end;
+  svgout id cellar+"pomp_2_uit" attr "stroke" value if pump2: "none" else "black" end;
+  svgout id cellar+"pomp_2_aan" attr "opacity" value if pump2: "1" else "0" end;
+end
+
+group def Sim_PumpcellarDouble(alg bool pump1, pump2, direction, inflow, raining; alg real volume_inflow, volume_rain;
+  event s1on, s1off, s2on, s2off, s3on, s3off, s4on, s4off, s5on, s5off; alg string A, cellar1, cellar2):
+
+  alg real volume_outflow = if pump1 and pump2: 30
+                            elif pump1 or pump2: 15
+                            else 0 end;
+  const real drained = 5, low = 100, start = 200, maxstart = 300, lowhigh = 400, high = 500, full = 600;
+  cont waterlevel = 200 der
+    if waterlevel >= full and (volume_inflow-volume_outflow > 0): 0
+    elif waterlevel <= drained and (volume_inflow-volume_outflow < 0): 0
+    elif pump1 or pump2 or inflow: volume_inflow-volume_outflow
+    else 0 end;
+
+  plant WaterlevelObserver:
+    location:
+      initial;
+      edge s1on when waterlevel >= low;
+      edge s1off when waterlevel < low;
+      edge s2on when waterlevel >= start;
+      edge s2off when waterlevel < start;
+      edge s3on when waterlevel >= maxstart;
+      edge s3off when waterlevel < maxstart;
+      edge s4on when waterlevel >= lowhigh;
+      edge s4off when waterlevel < lowhigh;
+      edge s5on when waterlevel >= high;
+      edge s5off when waterlevel < high;
+  end
+
+  svgout id A+"water" attr "height" value scale(waterlevel, 0, full, 0, 100);
+  svgout id A+"instroom_boven" attr "fill" value if raining: "#2c7081" else "#ededed" end;
+  svgout id A+"instroom" attr "stroke-width" value if volume_rain >30: 3
+                                                 elif volume_rain >15: 2
+                                                 elif volume_rain >0 : 1
+                                                 else 0 end;
+  svgout id cellar1+"pomp_1_achtergrond" attr "fill" value if pump1 and direction: "#2c7081" else "#ededed" end;
+  svgout id cellar1+"pomp_2_achtergrond" attr "fill" value if pump2 and direction: "#2c7081" else "#ededed" end;
+  svgout id cellar1+"pomp_1_achtergrond_stroke" attr "stroke" value if pump1 and direction: "none" else "black" end;
+  svgout id cellar1+"pomp_2_achtergrond_stroke" attr "stroke" value if pump2 and direction: "none" else "black" end;
+  svgout id cellar2+"pomp_1_achtergrond" attr "fill" value if pump1 and not direction: "#2c7081" else "#ededed" end;
+  svgout id cellar2+"pomp_2_achtergrond" attr "fill" value if pump2 and not direction: "#2c7081" else "#ededed" end;
+  svgout id cellar2+"pomp_1_achtergrond_stroke" attr "stroke" value if pump1 and not direction: "none" else "black" end;
+  svgout id cellar2+"pomp_2_achtergrond_stroke" attr "stroke" value if pump2 and not direction: "none" else "black" end;
+  svgout id cellar1+"pomp_1_uit" attr "stroke" value if pump1 and direction: "none" else "black" end;
+  svgout id cellar2+"pomp_1_uit" attr "stroke" value if pump1 and not direction: "none" else "black" end;
+  svgout id cellar1+"pomp_1_aan" attr "opacity" value if pump1 and direction: "1" else "0" end;
+  svgout id cellar2+"pomp_1_aan" attr "opacity" value if pump1 and not direction: "1" else "0" end;
+  svgout id cellar1+"pomp_2_uit" attr "stroke" value if pump2 and direction: "none" else "black" end;
+  svgout id cellar2+"pomp_2_uit" attr "stroke" value if pump2 and not direction: "none" else "black" end;
+  svgout id cellar1+"pomp_2_aan" attr "opacity" value if pump2 and direction: "1" else "0" end;
+  svgout id cellar2+"pomp_2_aan" attr "opacity" value if pump2 and not direction: "1" else "0" end;
+end

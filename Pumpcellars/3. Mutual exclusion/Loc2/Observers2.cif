@@ -1,0 +1,35 @@
+uncontrollable Traffictube1_ObserverA_c_emergency;
+uncontrollable Traffictube1_ObserverA_c_recovery;
+uncontrollable Traffictube1_ObserverA_c_operational;
+
+plant automaton Traffictube1_Mode_ObserverA:
+  location operational:
+    initial;
+    marked;
+    edge Traffictube1_ObserverA_c_emergency goto emergency;
+    edge Traffictube1_ObserverA_c_recovery goto recovery;
+  location emergency:
+    edge Traffictube1_ObserverA_c_recovery goto recovery;
+    edge Traffictube1_ObserverA_c_operational goto operational;
+  location recovery:
+    edge Traffictube1_ObserverA_c_operational goto operational;
+    edge Traffictube1_ObserverA_c_emergency goto emergency;
+end
+
+uncontrollable Traffictube2_ObserverA_c_emergency;
+uncontrollable Traffictube2_ObserverA_c_recovery;
+uncontrollable Traffictube2_ObserverA_c_operational;
+
+plant automaton Traffictube2_Mode_ObserverA:
+  location operational:
+    initial;
+    marked;
+    edge Traffictube2_ObserverA_c_emergency goto emergency;
+    edge Traffictube2_ObserverA_c_recovery goto recovery;
+  location emergency:
+    edge Traffictube2_ObserverA_c_recovery goto recovery;
+    edge Traffictube2_ObserverA_c_operational goto operational;
+  location recovery:
+    edge Traffictube2_ObserverA_c_operational goto operational;
+    edge Traffictube2_ObserverA_c_emergency goto emergency;
+end

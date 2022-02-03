@@ -1,0 +1,8 @@
+plant def HWSensor(uncontrollable u_on, u_off):
+	input bool ON;
+	location off:
+		initial;
+		edge u_on when ON goto on;
+	location on:
+		edge u_off when not ON goto off;
+end

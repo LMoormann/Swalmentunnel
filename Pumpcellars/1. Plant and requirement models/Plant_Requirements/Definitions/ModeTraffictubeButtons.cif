@@ -1,0 +1,39 @@
+group def ModeTraffictubeButtons(alg bool operational, emergency, recovery):
+  plant ButtonOperational:
+    uncontrollable u_push;
+    location:
+    	initial; marked;
+      edge u_push;
+  end
+
+  plant ButtonEmergency:
+    uncontrollable u_push;
+    location:
+    	initial; marked;
+      edge u_push;
+  end
+
+  plant ButtonRecovery:
+   	uncontrollable u_push;
+   	location:
+    	initial; marked;
+      edge u_push;
+  end
+
+	plant Observer:
+	  controllable c_done;
+	  monitor ButtonOperational.u_push, ButtonEmergency.u_push, ButtonRecovery.u_push;
+		location unpressed:
+			initial; marked;
+			edge ButtonOperational.u_push when recovery	goto operationalPressed;
+			edge ButtonEmergency.u_push when not emergency goto emergencyPressed;
+			edge ButtonRecovery.u_push when not recovery goto recoveryPressed;
+		location operationalPressed:
+			edge c_done when operational goto unpressed;
+		location emergencyPressed:
+			edge c_done when emergency goto unpressed;
+		location recoveryPressed:
+			edge c_done when recovery goto unpressed;
+	end
+
+end

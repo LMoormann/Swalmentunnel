@@ -1,0 +1,8 @@
+plant def HWButton(uncontrollable u_push; controllable c_done):
+	input bool PUSHED;
+	disc bool StopLoop = false;
+	location:
+	  initial;
+		edge u_push when PUSHED and not StopLoop do StopLoop := true;
+		edge c_done do StopLoop := false;
+end

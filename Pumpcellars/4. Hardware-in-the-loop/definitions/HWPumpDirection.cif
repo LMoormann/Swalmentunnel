@@ -1,0 +1,7 @@
+plant def HWPumpDirection(controllable c_hpc1, c_hpc2):
+	disc bool HPC1 = true;
+	location:
+	  initial;
+		edge c_hpc1 do HPC1 := true;
+		edge c_hpc2 do HPC1 := false;
+end

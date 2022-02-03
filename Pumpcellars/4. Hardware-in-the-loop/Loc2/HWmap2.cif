@@ -1,0 +1,147 @@
+import "../Definitions/HWButton.cif", "../Definitions/HWToken.cif", "../Definitions/HWSensor.cif", "../Definitions/HWActuator.cif", "../Definitions/HWControlMode.cif";
+
+// To simulation
+// Traffic tubes
+controllable Pumpcellars_Traffictube1_c_emergency;
+controllable Pumpcellars_Traffictube1_c_recovery;
+controllable Pumpcellars_Traffictube1_c_operational;
+automaton HWModeTraffictube1:
+	disc bool TT1EMERGENCY = emergency;
+	disc bool TT1OPERATIONAL = operational;
+	disc bool TT1RECOVERY = recovery;
+	monitor Pumpcellars_Traffictube1_c_emergency, Pumpcellars_Traffictube1_c_recovery, Pumpcellars_Traffictube1_c_operational;
+	location operational:
+		initial;
+		edge Pumpcellars_Traffictube1_c_emergency do TT1OPERATIONAL := false, TT1EMERGENCY := true, TT1RECOVERY := false	goto emergency;
+		edge Pumpcellars_Traffictube1_c_recovery do TT1OPERATIONAL := false, TT1EMERGENCY := false, TT1RECOVERY := true goto recovery;
+	location emergency:
+		edge Pumpcellars_Traffictube1_c_operational do TT1OPERATIONAL := true, TT1EMERGENCY := false, TT1RECOVERY := false	goto operational;
+		edge Pumpcellars_Traffictube1_c_recovery do TT1OPERATIONAL := false, TT1EMERGENCY := false, TT1RECOVERY := true goto recovery;
+	location recovery:
+		edge Pumpcellars_Traffictube1_c_emergency do TT1OPERATIONAL := false, TT1EMERGENCY := true, TT1RECOVERY := false	goto emergency;
+		edge Pumpcellars_Traffictube1_c_operational do TT1OPERATIONAL := true, TT1EMERGENCY := false, TT1RECOVERY := false	goto operational;
+end
+
+controllable Pumpcellars_Traffictube2_c_emergency;
+controllable Pumpcellars_Traffictube2_c_recovery;
+controllable Pumpcellars_Traffictube2_c_operational;
+automaton HWModeTraffictube2:
+	disc bool TT2EMERGENCY = emergency;
+	disc bool TT2OPERATIONAL = operational;
+	disc bool TT2RECOVERY = recovery;
+	monitor Pumpcellars_Traffictube2_c_emergency, Pumpcellars_Traffictube2_c_recovery, Pumpcellars_Traffictube2_c_operational;
+	location operational:
+		initial;
+		edge Pumpcellars_Traffictube2_c_emergency do TT2OPERATIONAL := false, TT2EMERGENCY := true,  TT2RECOVERY := false goto emergency;
+		edge Pumpcellars_Traffictube2_c_recovery do TT2OPERATIONAL := false, TT2EMERGENCY := false, TT2RECOVERY := true goto recovery;
+	location emergency:
+		edge Pumpcellars_Traffictube2_c_operational do TT2OPERATIONAL := true, TT2EMERGENCY := false, TT2RECOVERY := false goto operational;
+		edge Pumpcellars_Traffictube2_c_recovery do TT2OPERATIONAL := false, TT2EMERGENCY := false, TT2RECOVERY := true goto recovery;
+	location recovery:
+		edge Pumpcellars_Traffictube2_c_emergency do TT2OPERATIONAL := false, TT2EMERGENCY := true, TT2RECOVERY := false goto emergency;
+		edge Pumpcellars_Traffictube2_c_operational do TT2OPERATIONAL := true, TT2EMERGENCY := false, TT2RECOVERY := false goto operational;
+end
+
+// Head Pumpcellar 1
+uncontrollable Pumpcellars_HeadPumpcellar1_SensorTank_u_S1on;
+uncontrollable Pumpcellars_HeadPumpcellar1_SensorTank_u_S1off;
+HPC1_HWSensorS1: HWSensor(Pumpcellars_HeadPumpcellar1_SensorTank_u_S1on, Pumpcellars_HeadPumpcellar1_SensorTank_u_S1off);
+
+uncontrollable Pumpcellars_HeadPumpcellar1_SensorTank_u_S2on;
+uncontrollable Pumpcellars_HeadPumpcellar1_SensorTank_u_S2off;
+HPC1_HWSensorS2: HWSensor(Pumpcellars_HeadPumpcellar1_SensorTank_u_S2on, Pumpcellars_HeadPumpcellar1_SensorTank_u_S2off);
+
+uncontrollable Pumpcellars_HeadPumpcellar1_SensorTank_u_S3on;
+uncontrollable Pumpcellars_HeadPumpcellar1_SensorTank_u_S3off;
+HPC1_HWSensorS3: HWSensor(Pumpcellars_HeadPumpcellar1_SensorTank_u_S3on, Pumpcellars_HeadPumpcellar1_SensorTank_u_S3off);
+
+uncontrollable Pumpcellars_HeadPumpcellar1_SensorTank_u_S4on;
+uncontrollable Pumpcellars_HeadPumpcellar1_SensorTank_u_S4off;
+HPC1_HWSensorS4: HWSensor(Pumpcellars_HeadPumpcellar1_SensorTank_u_S4on, Pumpcellars_HeadPumpcellar1_SensorTank_u_S4off);
+
+uncontrollable Pumpcellars_HeadPumpcellar1_SensorTank_u_S5on;
+uncontrollable Pumpcellars_HeadPumpcellar1_SensorTank_u_S5off;
+HPC1_HWSensorS5: HWSensor(Pumpcellars_HeadPumpcellar1_SensorTank_u_S5on, Pumpcellars_HeadPumpcellar1_SensorTank_u_S5off);
+
+controllable Pumpcellars_HeadPumpcellar1_Pump1_c_on;
+controllable Pumpcellars_HeadPumpcellar1_Pump1_c_off;
+HPC1_HWPump1: HWActuator(Pumpcellars_HeadPumpcellar1_Pump1_c_on, Pumpcellars_HeadPumpcellar1_Pump1_c_off);
+
+controllable Pumpcellars_HeadPumpcellar1_Pump2_c_on;
+controllable Pumpcellars_HeadPumpcellar1_Pump2_c_off;
+HPC1_HWPump2: HWActuator(Pumpcellars_HeadPumpcellar1_Pump2_c_on, Pumpcellars_HeadPumpcellar1_Pump2_c_off);
+
+controllable Pumpcellars_HeadPumpcellar1_Mode_c_store;
+controllable Pumpcellars_HeadPumpcellar1_Mode_c_drain;
+controllable Pumpcellars_HeadPumpcellar1_Mode_c_off;
+automaton HWHPC1Mode:
+	disc bool DRAIN = drain;
+	disc bool STORE = store;
+	disc bool OFF = off;
+	monitor Pumpcellars_HeadPumpcellar1_Mode_c_store, Pumpcellars_HeadPumpcellar1_Mode_c_drain, Pumpcellars_HeadPumpcellar1_Mode_c_off;
+	location drain:
+		initial;
+		edge Pumpcellars_HeadPumpcellar1_Mode_c_store do DRAIN := false, STORE := true, OFF := false	goto store;
+		edge Pumpcellars_HeadPumpcellar1_Mode_c_off do DRAIN := false, STORE := false, OFF := true	goto off;
+	location store:
+		edge Pumpcellars_HeadPumpcellar1_Mode_c_drain do DRAIN := true, STORE := false, OFF := false	goto drain;
+		edge Pumpcellars_HeadPumpcellar1_Mode_c_off do DRAIN := false, STORE := false, OFF := true	goto off;
+	location off:
+		edge Pumpcellars_HeadPumpcellar1_Mode_c_store do DRAIN := false, STORE := true, OFF := false	goto store;
+		edge Pumpcellars_HeadPumpcellar1_Mode_c_drain do DRAIN := true, STORE := false, OFF := false	goto drain;
+end
+
+// Buttons
+controllable Pumpcellars_HeadPumpcellar1_Control_Mode_c_auto;
+controllable Pumpcellars_HeadPumpcellar1_Control_Mode_c_manual;
+HWHPC1ControlMode: HWControlMode(Pumpcellars_HeadPumpcellar1_Control_Mode_c_auto, Pumpcellars_HeadPumpcellar1_Control_Mode_c_manual);
+
+uncontrollable Pumpcellars_HeadPumpcellar1_Control_ButtonManual_u_push;
+uncontrollable Pumpcellars_HeadPumpcellar1_Control_ButtonAuto_u_push;
+uncontrollable Pumpcellars_HeadPumpcellar1_Control_ButtonStore_u_push;
+uncontrollable Pumpcellars_HeadPumpcellar1_Control_ButtonDrain_u_push;
+uncontrollable Pumpcellars_HeadPumpcellar1_Control_ButtonOff_u_push;
+controllable Pumpcellars_HeadPumpcellar1_Control_Observer_c_done;
+HWHPC1ControlButtonManual: HWButton(Pumpcellars_HeadPumpcellar1_Control_ButtonManual_u_push, Pumpcellars_HeadPumpcellar1_Control_Observer_c_done);
+HWHPC1ControlButtonAuto: HWButton(Pumpcellars_HeadPumpcellar1_Control_ButtonAuto_u_push, Pumpcellars_HeadPumpcellar1_Control_Observer_c_done);
+HWHPC1ModeButtonStore: HWButton(Pumpcellars_HeadPumpcellar1_Control_ButtonStore_u_push, Pumpcellars_HeadPumpcellar1_Control_Observer_c_done);
+HWHPC1ModeButtonDrain: HWButton(Pumpcellars_HeadPumpcellar1_Control_ButtonDrain_u_push, Pumpcellars_HeadPumpcellar1_Control_Observer_c_done);
+HWHPC1ModeButtonOff: HWButton(Pumpcellars_HeadPumpcellar1_Control_ButtonOff_u_push, Pumpcellars_HeadPumpcellar1_Control_Observer_c_done);
+
+uncontrollable Pumpcellars_Traffictube1_ModeTraffictubeButtons_ButtonOperational_u_push;
+uncontrollable Pumpcellars_Traffictube1_ModeTraffictubeButtons_ButtonEmergency_u_push;
+uncontrollable Pumpcellars_Traffictube1_ModeTraffictubeButtons_ButtonRecovery_u_push;
+controllable Pumpcellars_Traffictube1_ModeTraffictubeButtons_Observer_c_done;
+HWModeTraffictube1ButtonOperational: HWButton(Pumpcellars_Traffictube1_ModeTraffictubeButtons_ButtonOperational_u_push, Pumpcellars_Traffictube1_ModeTraffictubeButtons_Observer_c_done);
+HWModeTraffictube1ButtonEmergency: HWButton(Pumpcellars_Traffictube1_ModeTraffictubeButtons_ButtonEmergency_u_push, Pumpcellars_Traffictube1_ModeTraffictubeButtons_Observer_c_done);
+HWModeTraffictube1ButtonRecovery: HWButton(Pumpcellars_Traffictube1_ModeTraffictubeButtons_ButtonRecovery_u_push, Pumpcellars_Traffictube1_ModeTraffictubeButtons_Observer_c_done);
+
+uncontrollable Pumpcellars_Traffictube2_ModeTraffictubeButtons_ButtonOperational_u_push;
+uncontrollable Pumpcellars_Traffictube2_ModeTraffictubeButtons_ButtonEmergency_u_push;
+uncontrollable Pumpcellars_Traffictube2_ModeTraffictubeButtons_ButtonRecovery_u_push;
+controllable Pumpcellars_Traffictube2_ModeTraffictubeButtons_Observer_c_done;
+HWModeTraffictube2ButtonOperational: HWButton(Pumpcellars_Traffictube2_ModeTraffictubeButtons_ButtonOperational_u_push, Pumpcellars_Traffictube2_ModeTraffictubeButtons_Observer_c_done);
+HWModeTraffictube2ButtonEmergency: HWButton(Pumpcellars_Traffictube2_ModeTraffictubeButtons_ButtonEmergency_u_push, Pumpcellars_Traffictube2_ModeTraffictubeButtons_Observer_c_done);
+HWModeTraffictube2ButtonRecovery: HWButton(Pumpcellars_Traffictube2_ModeTraffictubeButtons_ButtonRecovery_u_push, Pumpcellars_Traffictube2_ModeTraffictubeButtons_Observer_c_done);
+
+// To PLC1
+// Mutex1
+controllable Mutex1Home_TokenTracker_c_send;
+controllable Mutex1Home_TokenTracker_c_receive;
+HWmutex1: HWToken(true, Mutex1Home_TokenTracker_c_send, Mutex1Home_TokenTracker_c_receive);
+
+// Mutex2
+controllable Mutex2Home_TokenTracker_c_send;
+controllable Mutex2Home_TokenTracker_c_receive;
+HWmutex2: HWToken(true, Mutex2Home_TokenTracker_c_send, Mutex2Home_TokenTracker_c_receive);
+
+// Mutex3
+controllable Mutex3Home_TokenTracker_c_send;
+controllable Mutex3Home_TokenTracker_c_receive;
+HWmutex3: HWToken(true, Mutex3Home_TokenTracker_c_send, Mutex3Home_TokenTracker_c_receive);
+
+// Mutex4
+controllable Mutex4Home_TokenTracker_c_send;
+controllable Mutex4Home_TokenTracker_c_receive;
+HWmutex4: HWToken(true, Mutex4Home_TokenTracker_c_send, Mutex4Home_TokenTracker_c_receive);
+

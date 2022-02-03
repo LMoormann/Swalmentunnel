@@ -1,0 +1,23 @@
+group def Sim_Rain(alg string button_add, button_subtract, status):
+  event e_add, e_subtract;
+  plant Rainlevel:
+    monitor;
+    disc int[0..8] level = 0;
+    location:
+      initial;
+      edge e_add when level < 8 do level:=level+1;
+      edge e_subtract  when level > 0 do level:=level-1;
+  end
+
+  alg bool raining = Rainlevel.level > 0;
+
+  group Rain_Visu:
+    svgfile"../../Pumpcellars.svg";
+    svgin id button_add  event e_add;
+    svgin id button_subtract event e_subtract;
+    svgout id status text value fmt("%s",<string>Rainlevel.level);
+  end
+
+end
+
+

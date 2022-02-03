@@ -1,0 +1,7 @@
+group def Sim_Outflow(alg bool mode, br1, br2):
+
+  alg bool outflow = mode;
+  alg int volume_outflow = if br1 and br2: 20
+                           elif br1 or  br2: 10
+                           else 0 end;
+end

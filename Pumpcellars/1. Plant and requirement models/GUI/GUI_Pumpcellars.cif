@@ -1,0 +1,74 @@
+import "../Plant_Requirements/Pumpcellars.cif";
+svgfile "../Pumpcellars.svg";
+
+// Traffic tube 1
+svgin id "SV1_knop_operationeel" event Pumpcellars.Traffictube1.ModeTraffictubeButtons.ButtonOperational.u_push;
+svgout id "SV1_rect_operationeel" attr "visibility" value if Pumpcellars.Traffictube1.ModeTraffictube.operational: "visible" else "hidden" end;
+
+svgin id "SV1_knop_calamiteit" event Pumpcellars.Traffictube1.ModeTraffictubeButtons.ButtonEmergency.u_push;
+svgout id "SV1_rect_calamiteit" attr "visibility" value if Pumpcellars.Traffictube1.ModeTraffictube.emergency: "visible" else "hidden" end;
+
+svgin id "SV1_knop_herstel" event Pumpcellars.Traffictube1.ModeTraffictubeButtons.ButtonRecovery.u_push;
+svgout id "SV1_rect_herstel" attr "visibility" value if Pumpcellars.Traffictube1.ModeTraffictube.recovery: "visible" else "hidden" end;
+
+
+// Traffic tube 2
+svgin id "SV2_knop_operationeel" event Pumpcellars.Traffictube2.ModeTraffictubeButtons.ButtonOperational.u_push;
+svgout id "SV2_rect_operationeel" attr "visibility" value if Pumpcellars.Traffictube2.ModeTraffictube.operational: "visible" else "hidden" end;
+
+svgin id "SV2_knop_calamiteit" event Pumpcellars.Traffictube2.ModeTraffictubeButtons.ButtonEmergency.u_push;
+svgout id "SV2_rect_calamiteit" attr "visibility" value if Pumpcellars.Traffictube2.ModeTraffictube.emergency: "visible" else "hidden" end;
+
+svgin id "SV2_knop_herstel" event Pumpcellars.Traffictube2.ModeTraffictubeButtons.ButtonRecovery.u_push;
+svgout id "SV2_rect_herstel" attr "visibility" value if Pumpcellars.Traffictube2.ModeTraffictube.recovery: "visible" else "hidden" end;
+
+
+// HeadPumpcellar 1
+svgin id "HPK1_knop_handmatig" event Pumpcellars.HeadPumpcellar1.Control.ButtonManual.u_push;
+svgout id "HPK1_rect_hand" attr "visibility" value if Pumpcellars.HeadPumpcellar1.Control.Mode.manual: "visible" else "hidden" end;
+
+svgin id "HPK1_knop_automatisch" event Pumpcellars.HeadPumpcellar1.Control.ButtonAuto.u_push;
+svgout id "HPK1_rect_auto" attr "visibility" value if Pumpcellars.HeadPumpcellar1.Control.Mode.auto: "visible" else "hidden" end;
+
+svgin id "HPK1_knop_leeghouden" event Pumpcellars.HeadPumpcellar1.Control.ButtonDrain.u_push;
+svgout id "HPK1_rect_leeghouden" attr "visibility" value if Pumpcellars.HeadPumpcellar1.Mode.drain: "visible" else "hidden" end;
+
+svgin id "HPK1_knop_bergen" event Pumpcellars.HeadPumpcellar1.Control.ButtonStore.u_push;
+svgout id "HPK1_rect_bergen" attr "visibility" value if Pumpcellars.HeadPumpcellar1.Mode.store: "visible" else "hidden" end;
+
+svgin id "HPK1_knop_uit" event Pumpcellars.HeadPumpcellar1.Control.ButtonOff.u_push;
+svgout id "HPK1_rect_uit" attr "visibility" value if Pumpcellars.HeadPumpcellar1.Mode.off: "visible" else "hidden" end;
+
+
+// MiddlePumpcellar
+svgin id "MPK_knop_handmatig" event Pumpcellars.MiddlePumpcellar.Control.ButtonManual.u_push;
+svgout id "MPK_rect_hand" attr "visibility" value if Pumpcellars.MiddlePumpcellar.Control.Mode.manual: "visible" else "hidden" end;
+
+svgin id "MPK_knop_automatisch" event Pumpcellars.MiddlePumpcellar.Control.ButtonAuto.u_push;
+svgout id "MPK_rect_auto" attr "visibility" value if Pumpcellars.MiddlePumpcellar.Control.Mode.auto: "visible" else "hidden" end;
+
+svgin id "MPK_knop_leeghouden" event Pumpcellars.MiddlePumpcellar.Control.ButtonDrain.u_push;
+svgout id "MPK_rect_leeghouden" attr "visibility" value if Pumpcellars.MiddlePumpcellar.Mode.drain: "visible" else "hidden" end;
+
+svgin id "MPK_knop_bergen" event Pumpcellars.MiddlePumpcellar.Control.ButtonStore.u_push;
+svgout id "MPK_rect_bergen" attr "visibility" value if Pumpcellars.MiddlePumpcellar.Mode.store: "visible" else "hidden" end;
+
+svgin id "MPK_knop_uit" event Pumpcellars.MiddlePumpcellar.Control.ButtonOff.u_push;
+svgout id "MPK_rect_uit" attr "visibility" value if Pumpcellars.MiddlePumpcellar.Mode.off: "visible" else "hidden" end;
+
+
+// HeadPumpcellar 2
+svgin id "HPK2_knop_handmatig" event Pumpcellars.HeadPumpcellar2.Control.ButtonManual.u_push;
+svgout id "HPK2_rect_hand" attr "visibility" value if Pumpcellars.HeadPumpcellar2.Control.Mode.manual: "visible" else "hidden" end;
+
+svgin id "HPK2_knop_automatisch" event Pumpcellars.HeadPumpcellar2.Control.ButtonAuto.u_push;
+svgout id "HPK2_rect_auto" attr "visibility" value if Pumpcellars.HeadPumpcellar2.Control.Mode.auto: "visible" else "hidden" end;
+
+svgin id "HPK2_knop_leeghouden" event Pumpcellars.HeadPumpcellar2.Control.ButtonDrain.u_push;
+svgout id "HPK2_rect_leeghouden" attr "visibility" value if Pumpcellars.HeadPumpcellar2.Mode.drain: "visible" else "hidden" end;
+
+svgin id "HPK2_knop_bergen" event Pumpcellars.HeadPumpcellar2.Control.ButtonStore.u_push;
+svgout id "HPK2_rect_bergen" attr "visibility" value if Pumpcellars.HeadPumpcellar2.Mode.store: "visible" else "hidden" end;
+
+svgin id "HPK2_knop_uit" event Pumpcellars.HeadPumpcellar2.Control.ButtonOff.u_push;
+svgout id "HPK2_rect_uit" attr "visibility" value if Pumpcellars.HeadPumpcellar2.Mode.off: "visible" else "hidden" end;

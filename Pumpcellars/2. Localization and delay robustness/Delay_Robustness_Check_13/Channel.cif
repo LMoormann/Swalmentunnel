@@ -1,0 +1,7 @@
+plant def Channel(event eventIn, eventOut):
+	location received:
+		initial; marked;
+		edge eventIn goto sending;
+	location sending:
+		edge eventOut goto received;
+end

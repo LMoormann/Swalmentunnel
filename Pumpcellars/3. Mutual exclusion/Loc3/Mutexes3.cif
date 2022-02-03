@@ -1,0 +1,27 @@
+import "Loc3.cif";
+import "Observers3.cif";
+import "../definitions/Away.cif";
+
+// Mutex 4: HeadPumpCellar2 Mode Store vs TrafficTube Modes
+alg bool HPC2StoreAllowed = not HeadPumpcellar2_Mode.store and (HeadPumpcellar2_Control_Observer.unpressed or HeadPumpcellar2_Control_Mode.manual and not HeadPumpcellar2_Control_Observer.autoPressed) and (HeadPumpcellar2_Control_Mode.auto and not(Traffictube1_Mode_ObserverB.operational and Traffictube2_Mode_ObserverB.operational) or HeadPumpcellar2_Control_Mode.manual and HeadPumpcellar2_Control_Observer.storePressed);
+alg bool Mutex4AwayRequestCondition = HPC2StoreAllowed;
+alg bool Mutex4AwayReturnCondition = not HPC2StoreAllowed;
+Mutex4Away: Away(Mutex4AwayRequestCondition, Mutex4AwayReturnCondition);
+
+requirement HeadPumpcellar2_Mode.c_store needs Mutex4Away.Requester.Received;
+
+// Mutex 5: HeadPumpCellar2 Mode Drain vs TrafficTube Modes
+alg bool HPC2DrainAllowed = not HeadPumpcellar2_Mode.drain and (HeadPumpcellar2_Control_Observer.unpressed or HeadPumpcellar2_Control_Mode.manual and not HeadPumpcellar2_Control_Observer.autoPressed) and (HeadPumpcellar2_Control_Mode.auto and (Traffictube1_Mode_ObserverB.operational and Traffictube2_Mode_ObserverB.operational) or HeadPumpcellar2_Control_Mode.manual and HeadPumpcellar2_Control_Observer.drainPressed);
+alg bool Mutex5AwayRequestCondition = HPC2DrainAllowed;
+alg bool Mutex5AwayReturnCondition = not HPC2DrainAllowed;
+Mutex5Away: Away(Mutex5AwayRequestCondition, Mutex5AwayReturnCondition);
+
+requirement HeadPumpcellar2_Mode.c_drain needs Mutex5Away.Requester.Received;
+
+// Mutex 6: HeadPumpCellar2 Mode Off vs TrafficTube Modes
+alg bool HPC2OffAllowed = not HeadPumpcellar2_Mode.off and (HeadPumpcellar2_Control_Observer.unpressed or HeadPumpcellar2_Control_Mode.manual and not HeadPumpcellar2_Control_Observer.autoPressed) and (HeadPumpcellar2_Control_Mode.manual and HeadPumpcellar2_Control_Observer.offPressed);
+alg bool Mutex6AwayRequestCondition = HPC2OffAllowed;
+alg bool Mutex6AwayReturnCondition = not HPC2OffAllowed;
+Mutex6Away: Away(Mutex6AwayRequestCondition, Mutex6AwayReturnCondition);
+
+requirement HeadPumpcellar2_Mode.c_off needs Mutex6Away.Requester.Received;

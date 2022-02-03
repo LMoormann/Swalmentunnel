@@ -1,0 +1,6 @@
+Traffictube1_ObserverA_c_emergency
+Traffictube1_ObserverA_c_recovery
+Traffictube1_ObserverA_c_operational
+Traffictube2_ObserverA_c_emergency
+Traffictube2_ObserverA_c_recovery
+Traffictube2_ObserverA_c_operational

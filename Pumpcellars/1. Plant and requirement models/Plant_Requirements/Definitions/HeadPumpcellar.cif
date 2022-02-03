@@ -1,0 +1,57 @@
+import "Actuator.cif", "Sensor.cif", "Control.cif";
+
+group def HeadPumpcellar():
+	Pump1: Actuator(true,false);
+  Pump2: Actuator(true,false);
+
+  plant SensorTank:
+    uncontrollable u_S1on, u_S1off, u_S2on, u_S2off, u_S3on, u_S3off, u_S4on, u_S4off, u_S5on, u_S5off;
+    location Empty:
+      initial; marked;
+      edge u_S1on goto S1;
+    location S1:
+      edge u_S1off when (Pump1.on or Pump2.on) goto Empty;
+      edge u_S2on goto S2;
+    location S2:
+      edge u_S2off when (Pump1.on or Pump2.on) goto S1;
+      edge u_S3on goto S3;
+    location S3:
+      edge u_S3off when (Pump1.on or Pump2.on) goto S2;
+      edge u_S4on goto S4;
+    location S4:
+      edge u_S4off when (Pump1.on or Pump2.on) goto S3;
+      edge u_S5on goto S5;
+    location S5:
+      edge u_S5off when (Pump1.on or Pump2.on) goto S4;
+  end
+
+  plant Mode:
+    controllable c_store, c_drain, c_off;
+    location drain:
+      initial; marked;
+      edge c_store goto store;
+      edge c_off goto off;
+    location store:
+      edge c_drain goto drain;
+      edge c_off goto off;
+    location off:
+      edge c_store goto store;
+      edge c_drain goto drain;
+  end
+
+	Control: ^Control(Mode.store, Mode.drain, Mode.off);
+
+  requirement Mode.c_store needs Control.Observer.unpressed or (Control.Mode.manual and not Control.Observer.autoPressed);
+  requirement Mode.c_drain needs Control.Observer.unpressed or (Control.Mode.manual and not Control.Observer.autoPressed);
+  requirement Mode.c_off needs Control.Observer.unpressed or (Control.Mode.manual and not Control.Observer.autoPressed);
+
+  requirement Pump1.c_on needs (Mode.store and SensorTank.S5) or (Mode.drain and (SensorTank.S2 or SensorTank.S3 or SensorTank.S4 or SensorTank.S5));
+  requirement Pump1.c_off needs (Mode.store and (SensorTank.S2 or SensorTank.S3 or SensorTank.S1 or SensorTank.Empty)) or (Mode.drain and SensorTank.Empty) or Mode.off;
+  requirement Pump2.c_on needs (Mode.store and SensorTank.S5) or (Mode.drain and (SensorTank.S3 or SensorTank.S4 or SensorTank.S5));
+  requirement Pump2.c_off needs (Mode.store and (SensorTank.S2 or SensorTank.S3 or SensorTank.S1 or SensorTank.Empty)) or (Mode.drain and SensorTank.Empty) or Mode.off;
+
+  requirement Pump1.c_on needs Control.Observer.unpressed;
+  requirement Pump1.c_off needs Control.Observer.unpressed;
+  requirement Pump2.c_on needs Control.Observer.unpressed;
+  requirement Pump2.c_off needs Control.Observer.unpressed;
+end

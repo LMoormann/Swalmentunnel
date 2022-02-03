@@ -1,0 +1,47 @@
+CONFIGURATION Untitled1
+    VAR_GLOBAL // INPUTS
+        ivar_M_HPC1_HWSensorS1_ON AT %I*: BOOL;
+        ivar_M_HPC1_HWSensorS2_ON AT %I*: BOOL;
+        ivar_M_HPC1_HWSensorS3_ON AT %I*: BOOL;
+        ivar_M_HPC1_HWSensorS4_ON AT %I*: BOOL;
+        ivar_M_HPC1_HWSensorS5_ON AT %I*: BOOL;
+        ivar_M_HPC2_HWSensorS1_ON AT %I*: BOOL;
+        ivar_M_HPC2_HWSensorS2_ON AT %I*: BOOL;
+        ivar_M_HPC2_HWSensorS3_ON AT %I*: BOOL;
+        ivar_M_HPC2_HWSensorS4_ON AT %I*: BOOL;
+        ivar_M_HPC2_HWSensorS5_ON AT %I*: BOOL;
+        ivar_M_HWHPC1ControlButtonAuto_PUSHED AT %I*: BOOL;
+        ivar_M_HWHPC1ControlButtonManual_PUSHED AT %I*: BOOL;
+        ivar_M_HWHPC1ModeButtonDrain_PUSHED AT %I*: BOOL;
+        ivar_M_HWHPC1ModeButtonOff_PUSHED AT %I*: BOOL;
+        ivar_M_HWHPC1ModeButtonStore_PUSHED AT %I*: BOOL;
+        ivar_M_HWHPC2ControlButtonAuto_PUSHED AT %I*: BOOL;
+        ivar_M_HWHPC2ControlButtonManual_PUSHED AT %I*: BOOL;
+        ivar_M_HWHPC2ModeButtonDrain_PUSHED AT %I*: BOOL;
+        ivar_M_HWHPC2ModeButtonOff_PUSHED AT %I*: BOOL;
+        ivar_M_HWHPC2ModeButtonStore_PUSHED AT %I*: BOOL;
+        ivar_M_HWModeTraffictube1ButtonEmergency_PUSHED AT %I*: BOOL;
+        ivar_M_HWModeTraffictube1ButtonOperational_PUSHED AT %I*: BOOL;
+        ivar_M_HWModeTraffictube1ButtonRecovery_PUSHED AT %I*: BOOL;
+        ivar_M_HWModeTraffictube2ButtonEmergency_PUSHED AT %I*: BOOL;
+        ivar_M_HWModeTraffictube2ButtonOperational_PUSHED AT %I*: BOOL;
+        ivar_M_HWModeTraffictube2ButtonRecovery_PUSHED AT %I*: BOOL;
+        ivar_M_HWMPCControlButtonAuto_PUSHED AT %I*: BOOL;
+        ivar_M_HWMPCControlButtonManual_PUSHED AT %I*: BOOL;
+        ivar_M_HWMPCModeButtonDrain_PUSHED AT %I*: BOOL;
+        ivar_M_HWMPCModeButtonOff_PUSHED AT %I*: BOOL;
+        ivar_M_HWMPCModeButtonStore_PUSHED AT %I*: BOOL;
+        ivar_M_MPC_HWSensorS1_ON AT %I*: BOOL;
+        ivar_M_MPC_HWSensorS2_ON AT %I*: BOOL;
+        ivar_M_MPC_HWSensorS3_ON AT %I*: BOOL;
+        ivar_M_MPC_HWSensorS4_ON AT %I*: BOOL;
+        ivar_M_MPC_HWSensorS5_ON AT %I*: BOOL;
+    END_VAR
+    VAR_GLOBAL // TIMERS
+        timer0: TON;
+        timer1: TON;
+        curTimer: INT := 0;
+    END_VAR
+    TASK PlcTask(INTERVAL := t#10ms, PRIORITY := 20);
+    PROGRAM MAIN WITH PlcTask: MAIN;
+END_CONFIGURATION

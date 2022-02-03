@@ -1,0 +1,26 @@
+import "Definitions/MiddlePumpcellar.cif", "Definitions/HeadPumpcellar.cif", "Definitions/Traffictube.cif";
+
+MiddlePumpcellar: ^Def_MiddlePumpcellar();
+HeadPumpcellar1: HeadPumpcellar();
+HeadPumpcellar2: HeadPumpcellar();
+Traffictube1: Traffictube();
+Traffictube2: Traffictube();
+
+requirement MiddlePumpcellar.PumpDirection.c_headPumpcellar2 needs HeadPumpcellar1.SensorTank.S5;
+requirement MiddlePumpcellar.PumpDirection.c_headPumpcellar1 needs HeadPumpcellar1.SensorTank.S4;
+
+group def RequirementsPumpcellar(controllable event c_store, c_drain, c_off; alg bool controlAuto, controlManual, buttonStore, buttonDrain, buttonOff):
+	requirement c_store needs (controlAuto and not (Traffictube1.Mode.operational and Traffictube2.Mode.operational) ) or (controlManual and buttonStore);
+	requirement c_drain needs (controlAuto and (Traffictube1.Mode.operational and Traffictube2.Mode.operational)) or (controlManual and buttonDrain);
+	requirement c_off needs controlManual and buttonOff;
+end
+
+RequirementsMiddlePumpcellar: RequirementsPumpcellar(MiddlePumpcellar.Mode.c_store, MiddlePumpcellar.Mode.c_drain, MiddlePumpcellar.Mode.c_off,
+                                                     MiddlePumpcellar.Control.Mode.auto, MiddlePumpcellar.Control.Mode.manual, MiddlePumpcellar.Control.Observer.storePressed, MiddlePumpcellar.Control.Observer.drainPressed, MiddlePumpcellar.Control.Observer.offPressed);
+
+RequirementsHeadPumpcellar1: RequirementsPumpcellar(HeadPumpcellar1.Mode.c_store, HeadPumpcellar1.Mode.c_drain, HeadPumpcellar1.Mode.c_off,
+                                                    HeadPumpcellar1.Control.Mode.auto, HeadPumpcellar1.Control.Mode.manual, HeadPumpcellar1.Control.Observer.storePressed, HeadPumpcellar1.Control.Observer.drainPressed, HeadPumpcellar1.Control.Observer.offPressed);
+
+RequirementsHeadPumpcellar2: RequirementsPumpcellar(HeadPumpcellar2.Mode.c_store, HeadPumpcellar2.Mode.c_drain, HeadPumpcellar2.Mode.c_off,
+                                                    HeadPumpcellar2.Control.Mode.auto, HeadPumpcellar2.Control.Mode.manual, HeadPumpcellar2.Control.Observer.storePressed, HeadPumpcellar2.Control.Observer.drainPressed, HeadPumpcellar2.Control.Observer.offPressed);
+

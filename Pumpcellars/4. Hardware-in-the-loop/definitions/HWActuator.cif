@@ -1,0 +1,7 @@
+plant def HWActuator(controllable c_on, c_off):
+  disc bool ON = false;
+	location:
+	  initial;
+		edge c_on do ON := true;
+		edge c_off do ON := false;
+end

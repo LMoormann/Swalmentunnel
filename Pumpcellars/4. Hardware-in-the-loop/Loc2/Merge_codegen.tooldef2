@@ -1,0 +1,51 @@
+from "lib:cif3" import *;
+
+// Input file
+string input_file1 = "Loc2.cif";
+string input_file2 = "HWmap2.cif";
+
+// Output file
+string output_file1 = "loc2_adjusted.cif";
+string output_file = "HWLocal2.cif";
+
+string output_path = "PLCcode";
+
+cif3cif(input_file1,
+    "-o", output_file1,
+    "-t elim-comp-def-inst"
+    );
+
+cif3cif(output_file1,
+    "-o", output_file1,
+    "-t elim-groups"
+    );
+
+cif3cif(output_file1,
+    "-o", output_file1,
+    "-t lift-events"
+    );
+
+cif3cif(output_file1,
+    "-o", output_file1,
+    "-t elim-state-evt-excl-invs"
+    );
+
+cif3merge(output_file1, input_file2,
+  "-o", output_file);
+
+cif3cif(output_file,
+    "-o", output_file,
+    "-t elim-alg-vars"
+    );
+
+cif3cif(output_file,
+    "-o", output_file,
+    "-t simplify-values"
+    );
+
+cif3plc(output_file,
+    "--option-dialog=0",
+    "-t iec-61131-3",
+    "-o", output_path,
+    "-b 32",
+    "--elim-enums=1");

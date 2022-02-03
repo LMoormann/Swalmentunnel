@@ -1,0 +1,264 @@
+plant automaton MiddlePumpcellar_Pump1:
+  controllable c_on;
+  controllable c_off;
+  location off:
+    initial;
+    marked;
+    edge c_on goto on;
+  location on:
+    edge c_off goto off;
+end
+plant automaton MiddlePumpcellar_Pump2:
+  controllable c_on;
+  controllable c_off;
+  location off:
+    initial;
+    marked;
+    edge c_on goto on;
+  location on:
+    edge c_off goto off;
+end
+plant automaton MiddlePumpcellar_SensorTank:
+  uncontrollable u_S1on;
+  uncontrollable u_S1off;
+  uncontrollable u_S2on;
+  uncontrollable u_S2off;
+  uncontrollable u_S3on;
+  uncontrollable u_S3off;
+  uncontrollable u_S4on;
+  uncontrollable u_S4off;
+  uncontrollable u_S5on;
+  uncontrollable u_S5off;
+  location Empty:
+    initial;
+    marked;
+    edge u_S1on goto S1;
+  location S1:
+    edge u_S1off when MiddlePumpcellar_Pump1.on or MiddlePumpcellar_Pump2.on goto Empty;
+    edge u_S2on goto S2;
+  location S2:
+    edge u_S2off when MiddlePumpcellar_Pump1.on or MiddlePumpcellar_Pump2.on goto S1;
+    edge u_S3on goto S3;
+  location S3:
+    edge u_S3off when MiddlePumpcellar_Pump1.on or MiddlePumpcellar_Pump2.on goto S2;
+    edge u_S4on goto S4;
+  location S4:
+    edge u_S4off when MiddlePumpcellar_Pump1.on or MiddlePumpcellar_Pump2.on goto S3;
+    edge u_S5on goto S5;
+  location S5:
+    edge u_S5off when MiddlePumpcellar_Pump1.on or MiddlePumpcellar_Pump2.on goto S4;
+end
+plant automaton MiddlePumpcellar_Mode:
+  controllable c_store;
+  controllable c_drain;
+  controllable c_off;
+  location drain:
+    initial;
+    marked;
+    edge c_store goto store;
+    edge c_off goto off;
+  location store:
+    edge c_drain goto drain;
+    edge c_off goto off;
+  location off:
+    edge c_store goto store;
+    edge c_drain goto drain;
+end
+plant automaton MiddlePumpcellar_Control_Mode:
+  controllable c_auto;
+  controllable c_manual;
+  location auto:
+    initial;
+    marked;
+    edge c_manual goto manual;
+  location manual:
+    edge c_auto goto auto;
+end
+plant automaton MiddlePumpcellar_Control_ButtonManual:
+  uncontrollable u_push;
+  location:
+    initial;
+    marked;
+    edge u_push;
+end
+plant automaton MiddlePumpcellar_Control_ButtonAuto:
+  uncontrollable u_push;
+  location:
+    initial;
+    marked;
+    edge u_push;
+end
+plant automaton MiddlePumpcellar_Control_ButtonStore:
+  uncontrollable u_push;
+  location:
+    initial;
+    marked;
+    edge u_push;
+end
+plant automaton MiddlePumpcellar_Control_ButtonDrain:
+  uncontrollable u_push;
+  location:
+    initial;
+    marked;
+    edge u_push;
+end
+plant automaton MiddlePumpcellar_Control_ButtonOff:
+  uncontrollable u_push;
+  location:
+    initial;
+    marked;
+    edge u_push;
+end
+plant automaton MiddlePumpcellar_Control_Observer:
+  monitor MiddlePumpcellar_Control_ButtonManual.u_push, MiddlePumpcellar_Control_ButtonAuto.u_push, MiddlePumpcellar_Control_ButtonStore.u_push, MiddlePumpcellar_Control_ButtonDrain.u_push, MiddlePumpcellar_Control_ButtonOff.u_push;
+  controllable c_done;
+  location unpressed:
+    initial;
+    marked;
+    edge MiddlePumpcellar_Control_ButtonManual.u_push when MiddlePumpcellar_Control_Mode.auto goto manualPressed;
+    edge MiddlePumpcellar_Control_ButtonAuto.u_push when MiddlePumpcellar_Control_Mode.manual goto autoPressed;
+    edge MiddlePumpcellar_Control_ButtonStore.u_push when MiddlePumpcellar_Control_Mode.manual and not MiddlePumpcellar_Mode.store goto storePressed;
+    edge MiddlePumpcellar_Control_ButtonDrain.u_push when MiddlePumpcellar_Control_Mode.manual and not MiddlePumpcellar_Mode.drain goto drainPressed;
+    edge MiddlePumpcellar_Control_ButtonOff.u_push when MiddlePumpcellar_Control_Mode.manual and not MiddlePumpcellar_Mode.off goto offPressed;
+  location autoPressed:
+    edge c_done when MiddlePumpcellar_Control_Mode.auto goto unpressed;
+  location manualPressed:
+    edge c_done when MiddlePumpcellar_Control_Mode.manual goto unpressed;
+  location storePressed:
+    edge c_done when MiddlePumpcellar_Mode.store goto unpressed;
+  location drainPressed:
+    edge c_done when MiddlePumpcellar_Mode.drain goto unpressed;
+  location offPressed:
+    edge c_done when MiddlePumpcellar_Mode.off goto unpressed;
+end
+plant automaton Traffictube1_Mode:
+  controllable c_recovery;
+  controllable c_operational;
+  controllable c_emergency;
+  location operational:
+    initial;
+    marked;
+    edge c_emergency goto emergency;
+    edge c_recovery goto recovery;
+  location emergency:
+    edge c_recovery goto recovery;
+    edge c_operational goto operational;
+  location recovery:
+    edge c_operational goto operational;
+    edge c_emergency goto emergency;
+end
+plant automaton Traffictube1_ModeTraffictubeButtons_ButtonOperational:
+  uncontrollable u_push;
+  location:
+    initial;
+    marked;
+    edge u_push;
+end
+plant automaton Traffictube1_ModeTraffictubeButtons_ButtonEmergency:
+  uncontrollable u_push;
+  location:
+    initial;
+    marked;
+    edge u_push;
+end
+plant automaton Traffictube1_ModeTraffictubeButtons_ButtonRecovery:
+  uncontrollable u_push;
+  location:
+    initial;
+    marked;
+    edge u_push;
+end
+plant automaton Traffictube1_ModeTraffictubeButtons_Observer:
+  monitor Traffictube1_ModeTraffictubeButtons_ButtonOperational.u_push, Traffictube1_ModeTraffictubeButtons_ButtonEmergency.u_push, Traffictube1_ModeTraffictubeButtons_ButtonRecovery.u_push;
+  controllable c_done;
+  location unpressed:
+    initial;
+    marked;
+    edge Traffictube1_ModeTraffictubeButtons_ButtonOperational.u_push when Traffictube1_Mode.recovery goto operationalPressed;
+    edge Traffictube1_ModeTraffictubeButtons_ButtonEmergency.u_push when not Traffictube1_Mode.emergency goto emergencyPressed;
+    edge Traffictube1_ModeTraffictubeButtons_ButtonRecovery.u_push when not Traffictube1_Mode.recovery goto recoveryPressed;
+  location operationalPressed:
+    edge c_done when Traffictube1_Mode.operational goto unpressed;
+  location emergencyPressed:
+    edge c_done when Traffictube1_Mode.emergency goto unpressed;
+  location recoveryPressed:
+    edge c_done when Traffictube1_Mode.recovery goto unpressed;
+end
+plant automaton Traffictube2_Mode:
+  controllable c_recovery;
+  controllable c_operational;
+  controllable c_emergency;
+  location operational:
+    initial;
+    marked;
+    edge c_emergency goto emergency;
+    edge c_recovery goto recovery;
+  location emergency:
+    edge c_recovery goto recovery;
+    edge c_operational goto operational;
+  location recovery:
+    edge c_operational goto operational;
+    edge c_emergency goto emergency;
+end
+plant automaton Traffictube2_ModeTraffictubeButtons_ButtonOperational:
+  uncontrollable u_push;
+  location:
+    initial;
+    marked;
+    edge u_push;
+end
+plant automaton Traffictube2_ModeTraffictubeButtons_ButtonEmergency:
+  uncontrollable u_push;
+  location:
+    initial;
+    marked;
+    edge u_push;
+end
+plant automaton Traffictube2_ModeTraffictubeButtons_ButtonRecovery:
+  uncontrollable u_push;
+  location:
+    initial;
+    marked;
+    edge u_push;
+end
+plant automaton Traffictube2_ModeTraffictubeButtons_Observer:
+  monitor Traffictube2_ModeTraffictubeButtons_ButtonOperational.u_push, Traffictube2_ModeTraffictubeButtons_ButtonEmergency.u_push, Traffictube2_ModeTraffictubeButtons_ButtonRecovery.u_push;
+  controllable c_done;
+  location unpressed:
+    initial;
+    marked;
+    edge Traffictube2_ModeTraffictubeButtons_ButtonOperational.u_push when Traffictube2_Mode.recovery goto operationalPressed;
+    edge Traffictube2_ModeTraffictubeButtons_ButtonEmergency.u_push when not Traffictube2_Mode.emergency goto emergencyPressed;
+    edge Traffictube2_ModeTraffictubeButtons_ButtonRecovery.u_push when not Traffictube2_Mode.recovery goto recoveryPressed;
+  location operationalPressed:
+    edge c_done when Traffictube2_Mode.operational goto unpressed;
+  location emergencyPressed:
+    edge c_done when Traffictube2_Mode.emergency goto unpressed;
+  location recoveryPressed:
+    edge c_done when Traffictube2_Mode.recovery goto unpressed;
+end
+
+requirement invariant MiddlePumpcellar_Mode.c_store needs MiddlePumpcellar_Control_Observer.unpressed or MiddlePumpcellar_Control_Mode.manual and not MiddlePumpcellar_Control_Observer.autoPressed;
+requirement invariant MiddlePumpcellar_Mode.c_drain needs MiddlePumpcellar_Control_Observer.unpressed or MiddlePumpcellar_Control_Mode.manual and not MiddlePumpcellar_Control_Observer.autoPressed;
+requirement invariant MiddlePumpcellar_Mode.c_off needs MiddlePumpcellar_Control_Observer.unpressed or MiddlePumpcellar_Control_Mode.manual and not MiddlePumpcellar_Control_Observer.autoPressed;
+requirement invariant MiddlePumpcellar_Pump1.c_on needs MiddlePumpcellar_Mode.store and MiddlePumpcellar_SensorTank.S5 or MiddlePumpcellar_Mode.drain and (MiddlePumpcellar_SensorTank.S2 or MiddlePumpcellar_SensorTank.S3 or MiddlePumpcellar_SensorTank.S4 or MiddlePumpcellar_SensorTank.S5);
+requirement invariant MiddlePumpcellar_Pump1.c_off needs MiddlePumpcellar_Mode.store and (MiddlePumpcellar_SensorTank.S2 or MiddlePumpcellar_SensorTank.S3 or MiddlePumpcellar_SensorTank.S1 or MiddlePumpcellar_SensorTank.Empty) or MiddlePumpcellar_Mode.drain and MiddlePumpcellar_SensorTank.Empty or MiddlePumpcellar_Mode.off;
+requirement invariant MiddlePumpcellar_Pump2.c_on needs MiddlePumpcellar_Mode.store and MiddlePumpcellar_SensorTank.S5 or MiddlePumpcellar_Mode.drain and (MiddlePumpcellar_SensorTank.S3 or MiddlePumpcellar_SensorTank.S4 or MiddlePumpcellar_SensorTank.S5);
+requirement invariant MiddlePumpcellar_Pump2.c_off needs MiddlePumpcellar_Mode.store and (MiddlePumpcellar_SensorTank.S2 or MiddlePumpcellar_SensorTank.S3 or MiddlePumpcellar_SensorTank.S1 or MiddlePumpcellar_SensorTank.Empty) or MiddlePumpcellar_Mode.drain and MiddlePumpcellar_SensorTank.Empty or MiddlePumpcellar_Mode.off;
+requirement invariant MiddlePumpcellar_Pump1.c_on needs MiddlePumpcellar_Control_Observer.unpressed;
+requirement invariant MiddlePumpcellar_Pump1.c_off needs MiddlePumpcellar_Control_Observer.unpressed;
+requirement invariant MiddlePumpcellar_Pump2.c_on needs MiddlePumpcellar_Control_Observer.unpressed;
+requirement invariant MiddlePumpcellar_Pump2.c_off needs MiddlePumpcellar_Control_Observer.unpressed;
+requirement invariant MiddlePumpcellar_Control_Mode.c_manual needs MiddlePumpcellar_Control_Observer.manualPressed;
+requirement invariant MiddlePumpcellar_Control_Mode.c_auto needs MiddlePumpcellar_Control_Observer.autoPressed;
+requirement invariant Traffictube1_Mode.c_operational needs Traffictube1_Mode.recovery;
+requirement invariant Traffictube1_Mode.c_operational needs Traffictube1_ModeTraffictubeButtons_Observer.operationalPressed;
+requirement invariant Traffictube1_Mode.c_emergency needs Traffictube1_ModeTraffictubeButtons_Observer.emergencyPressed;
+requirement invariant Traffictube1_Mode.c_recovery needs Traffictube1_ModeTraffictubeButtons_Observer.recoveryPressed;
+requirement invariant Traffictube2_Mode.c_operational needs Traffictube2_Mode.recovery;
+requirement invariant Traffictube2_Mode.c_operational needs Traffictube2_ModeTraffictubeButtons_Observer.operationalPressed;
+requirement invariant Traffictube2_Mode.c_emergency needs Traffictube2_ModeTraffictubeButtons_Observer.emergencyPressed;
+requirement invariant Traffictube2_Mode.c_recovery needs Traffictube2_ModeTraffictubeButtons_Observer.recoveryPressed;
+requirement invariant MiddlePumpcellar_Mode.c_store needs MiddlePumpcellar_Control_Mode.auto and not(Traffictube1_Mode.operational and Traffictube2_Mode.operational) or MiddlePumpcellar_Control_Mode.manual and MiddlePumpcellar_Control_Observer.storePressed;
+requirement invariant MiddlePumpcellar_Mode.c_drain needs MiddlePumpcellar_Control_Mode.auto and (Traffictube1_Mode.operational and Traffictube2_Mode.operational) or MiddlePumpcellar_Control_Mode.manual and MiddlePumpcellar_Control_Observer.drainPressed;
+requirement invariant MiddlePumpcellar_Mode.c_off needs MiddlePumpcellar_Control_Mode.manual and MiddlePumpcellar_Control_Observer.offPressed;

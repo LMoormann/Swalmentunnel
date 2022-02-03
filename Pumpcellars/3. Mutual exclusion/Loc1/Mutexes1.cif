@@ -1,0 +1,79 @@
+import "Loc1.cif";
+import "Observers1.cif";
+import "../definitions/Home.cif";
+
+// Allowed Booleans
+alg bool TT1OperationalAllowed = not Traffictube1_Mode.operational and (Traffictube1_Mode.recovery) and (Traffictube1_ModeTraffictubeButtons_Observer.operationalPressed);
+alg bool TT1EmergencyAllowed = not Traffictube1_Mode.emergency and (Traffictube1_ModeTraffictubeButtons_Observer.emergencyPressed);
+alg bool TT1RecoveryAllowed = not Traffictube1_Mode.recovery and (Traffictube1_ModeTraffictubeButtons_Observer.recoveryPressed);
+
+alg bool TT2OperationalAllowed = not Traffictube2_Mode.operational and (Traffictube2_Mode.recovery) and (Traffictube2_ModeTraffictubeButtons_Observer.operationalPressed);
+alg bool TT2EmergencyAllowed = not Traffictube2_Mode.emergency and (Traffictube2_ModeTraffictubeButtons_Observer.emergencyPressed);
+alg bool TT2RecoveryAllowed = not Traffictube2_Mode.recovery and (Traffictube2_ModeTraffictubeButtons_Observer.recoveryPressed);
+
+// Mutex 1: HeadPumpCellar1 Mode Store vs TrafficTube Modes
+alg bool Mutex1HomeSendCondition = not TT1OperationalAllowed and not TT1EmergencyAllowed and not TT1RecoveryAllowed and
+                                   not TT2OperationalAllowed and not TT2EmergencyAllowed and not TT2RecoveryAllowed;
+Mutex1Home: Home(Mutex1HomeSendCondition);
+
+requirement Traffictube1_Mode.c_operational needs Mutex1Home.TokenTracker.Home;
+requirement Traffictube1_Mode.c_emergency needs Mutex1Home.TokenTracker.Home;
+requirement Traffictube1_Mode.c_recovery needs Mutex1Home.TokenTracker.Home;
+requirement Traffictube2_Mode.c_operational needs Mutex1Home.TokenTracker.Home;
+requirement Traffictube2_Mode.c_emergency needs Mutex1Home.TokenTracker.Home;
+requirement Traffictube2_Mode.c_recovery needs Mutex1Home.TokenTracker.Home;
+
+// Mutex 2: HeadPumpCellar1 Mode Drain vs TrafficTube Modes
+alg bool Mutex2HomeSendCondition = Mutex1HomeSendCondition;
+Mutex2Home: Home(Mutex2HomeSendCondition);
+
+requirement Traffictube1_Mode.c_operational needs Mutex2Home.TokenTracker.Home;
+requirement Traffictube1_Mode.c_emergency needs Mutex2Home.TokenTracker.Home;
+requirement Traffictube1_Mode.c_recovery needs Mutex2Home.TokenTracker.Home;
+requirement Traffictube2_Mode.c_operational needs Mutex2Home.TokenTracker.Home;
+requirement Traffictube2_Mode.c_emergency needs Mutex2Home.TokenTracker.Home;
+requirement Traffictube2_Mode.c_recovery needs Mutex2Home.TokenTracker.Home;
+
+// Mutex 3: HeadPumpCellar1 Mode Off vs TrafficTube Modes
+alg bool Mutex3HomeSendCondition = Mutex1HomeSendCondition;
+Mutex3Home: Home(Mutex3HomeSendCondition);
+
+requirement Traffictube1_Mode.c_operational needs Mutex3Home.TokenTracker.Home;
+requirement Traffictube1_Mode.c_emergency needs Mutex3Home.TokenTracker.Home;
+requirement Traffictube1_Mode.c_recovery needs Mutex3Home.TokenTracker.Home;
+requirement Traffictube2_Mode.c_operational needs Mutex3Home.TokenTracker.Home;
+requirement Traffictube2_Mode.c_emergency needs Mutex3Home.TokenTracker.Home;
+requirement Traffictube2_Mode.c_recovery needs Mutex3Home.TokenTracker.Home;
+
+// Mutex 4: HeadPumpCellar2 Mode Store vs TrafficTube Modes
+alg bool Mutex4HomeSendCondition =  Mutex1HomeSendCondition;
+Mutex4Home: Home(Mutex4HomeSendCondition);
+
+requirement Traffictube1_Mode.c_operational needs Mutex4Home.TokenTracker.Home;
+requirement Traffictube1_Mode.c_emergency needs Mutex4Home.TokenTracker.Home;
+requirement Traffictube1_Mode.c_recovery needs Mutex4Home.TokenTracker.Home;
+requirement Traffictube2_Mode.c_operational needs Mutex4Home.TokenTracker.Home;
+requirement Traffictube2_Mode.c_emergency needs Mutex4Home.TokenTracker.Home;
+requirement Traffictube2_Mode.c_recovery needs Mutex4Home.TokenTracker.Home;
+
+// Mutex 5: HeadPumpCellar2 Mode Drain vs TrafficTube Modes
+alg bool Mutex5HomeSendCondition = Mutex1HomeSendCondition;
+Mutex5Home: Home(Mutex5HomeSendCondition);
+
+requirement Traffictube1_Mode.c_operational needs Mutex5Home.TokenTracker.Home;
+requirement Traffictube1_Mode.c_emergency needs Mutex5Home.TokenTracker.Home;
+requirement Traffictube1_Mode.c_recovery needs Mutex5Home.TokenTracker.Home;
+requirement Traffictube2_Mode.c_operational needs Mutex5Home.TokenTracker.Home;
+requirement Traffictube2_Mode.c_emergency needs Mutex5Home.TokenTracker.Home;
+requirement Traffictube2_Mode.c_recovery needs Mutex5Home.TokenTracker.Home;
+
+// Mutex 6: HeadPumpCellar2 Mode Off vs TrafficTube Modes
+alg bool Mutex6HomeSendCondition = Mutex1HomeSendCondition;
+Mutex6Home: Home(Mutex6HomeSendCondition);
+
+requirement Traffictube1_Mode.c_operational needs Mutex6Home.TokenTracker.Home;
+requirement Traffictube1_Mode.c_emergency needs Mutex6Home.TokenTracker.Home;
+requirement Traffictube1_Mode.c_recovery needs Mutex6Home.TokenTracker.Home;
+requirement Traffictube2_Mode.c_operational needs Mutex6Home.TokenTracker.Home;
+requirement Traffictube2_Mode.c_emergency needs Mutex6Home.TokenTracker.Home;
+requirement Traffictube2_Mode.c_recovery needs Mutex6Home.TokenTracker.Home;

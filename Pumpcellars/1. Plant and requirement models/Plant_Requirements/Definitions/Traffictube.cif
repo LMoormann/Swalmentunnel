@@ -1,0 +1,25 @@
+import "ModeTraffictubeButtons.cif";
+
+group def Traffictube():
+
+	plant Mode:
+    controllable c_recovery, c_operational, c_emergency;
+ 	 	location operational:
+	 		initial; marked;
+	 		edge c_emergency goto emergency;
+  		edge c_recovery goto recovery;
+ 	 	location emergency:
+ 	  	edge c_recovery goto recovery;
+ 	  	edge c_operational goto operational;
+ 		location recovery:
+ 	  	edge c_operational goto operational;
+ 	  	edge c_emergency goto emergency;
+  end
+
+	ModeTraffictubeButtons: ^ModeTraffictubeButtons(Mode.operational, Mode.emergency, Mode.recovery);
+
+	requirement Mode.c_operational needs Mode.recovery;
+	requirement Mode.c_operational needs ModeTraffictubeButtons.Observer.operationalPressed;
+  requirement Mode.c_emergency needs ModeTraffictubeButtons.Observer.emergencyPressed;
+  requirement Mode.c_recovery needs ModeTraffictubeButtons.Observer.recoveryPressed;
+end

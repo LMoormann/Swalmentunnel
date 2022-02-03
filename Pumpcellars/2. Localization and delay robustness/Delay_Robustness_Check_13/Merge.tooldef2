@@ -1,0 +1,11 @@
+from "lib:cif3" import *;
+
+string output_file = "delayedsup.cif";
+
+//Merge loc1_adjusted.cif, loc2_adjusted.cif, and Channels.cif
+cif3merge(
+    "../Loc1/Loc1.cif",
+    "../Loc2/Loc2.cif",
+    "Channels.cif",
+    "-o", output_file,
+);

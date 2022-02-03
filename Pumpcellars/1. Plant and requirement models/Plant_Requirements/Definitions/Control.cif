@@ -1,0 +1,70 @@
+group def Control(alg bool store, drain, off):
+	plant Mode:
+		controllable c_auto, c_manual;
+		location auto:
+			initial; marked;
+			edge c_manual goto manual;
+		location manual:
+			edge c_auto goto auto;
+	end
+
+	plant ButtonManual:
+  	uncontrollable u_push;
+  	location:
+  		initial; marked;
+  		edge u_push;
+	end
+
+	plant ButtonAuto:
+  	uncontrollable u_push;
+  	location:
+  		initial; marked;
+  		edge u_push;
+	end
+
+	plant ButtonStore:
+  	uncontrollable u_push;
+  	location:
+  		initial; marked;
+    	edge u_push;
+	end
+
+  plant ButtonDrain:
+    uncontrollable u_push;
+    location:
+    	initial; marked;
+      edge u_push;
+  end
+
+  plant ButtonOff:
+   	uncontrollable u_push;
+   	location:
+   		initial; marked;
+    	edge u_push;
+  end
+
+	plant Observer:
+  	controllable c_done;
+  	monitor ButtonManual.u_push, ButtonAuto.u_push, ButtonStore.u_push, ButtonDrain.u_push, ButtonOff.u_push;
+  	location unpressed:
+  		initial; marked;
+  		edge ButtonManual.u_push when Mode.auto goto manualPressed;
+  		edge ButtonAuto.u_push when Mode.manual goto autoPressed;
+  		edge ButtonStore.u_push when Mode.manual and not store goto storePressed;
+		  edge ButtonDrain.u_push when Mode.manual and not drain goto drainPressed;
+ 			edge ButtonOff.u_push when Mode.manual and not off goto offPressed;
+  	location autoPressed:
+  		edge c_done when Mode.auto goto unpressed;
+  	location manualPressed:
+  		edge c_done when Mode.manual goto unpressed;
+  	location storePressed:
+			edge c_done when store goto unpressed;
+		location drainPressed:
+			edge c_done when drain goto unpressed;
+ 		location offPressed:
+ 			edge c_done when off goto unpressed;
+  end
+
+	requirement Mode.c_manual needs Observer.manualPressed;
+	requirement Mode.c_auto needs Observer.autoPressed;
+end

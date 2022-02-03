@@ -1,0 +1,193 @@
+uncontrollable Traffictube1_ObserverA_c_emergency;
+uncontrollable Traffictube1_ObserverA_c_recovery;
+uncontrollable Traffictube1_ObserverA_c_operational;
+uncontrollable Traffictube2_ObserverA_c_emergency;
+uncontrollable Traffictube2_ObserverA_c_recovery;
+uncontrollable Traffictube2_ObserverA_c_operational;
+controllable MiddlePumpcellar_PumpDirection_c_headPumpcellar1;
+controllable MiddlePumpcellar_PumpDirection_c_headPumpcellar2;
+controllable HeadPumpcellar1_Pump1_c_on;
+controllable HeadPumpcellar1_Pump1_c_off;
+controllable HeadPumpcellar1_Pump2_c_on;
+controllable HeadPumpcellar1_Pump2_c_off;
+uncontrollable HeadPumpcellar1_SensorTank_u_S1on;
+uncontrollable HeadPumpcellar1_SensorTank_u_S1off;
+uncontrollable HeadPumpcellar1_SensorTank_u_S2on;
+uncontrollable HeadPumpcellar1_SensorTank_u_S2off;
+uncontrollable HeadPumpcellar1_SensorTank_u_S3on;
+uncontrollable HeadPumpcellar1_SensorTank_u_S3off;
+uncontrollable HeadPumpcellar1_SensorTank_u_S4on;
+uncontrollable HeadPumpcellar1_SensorTank_u_S4off;
+uncontrollable HeadPumpcellar1_SensorTank_u_S5on;
+uncontrollable HeadPumpcellar1_SensorTank_u_S5off;
+controllable HeadPumpcellar1_Mode_c_store;
+controllable HeadPumpcellar1_Mode_c_drain;
+controllable HeadPumpcellar1_Mode_c_off;
+controllable HeadPumpcellar1_Control_Mode_c_auto;
+controllable HeadPumpcellar1_Control_Mode_c_manual;
+uncontrollable HeadPumpcellar1_Control_ButtonManual_u_push;
+uncontrollable HeadPumpcellar1_Control_ButtonAuto_u_push;
+uncontrollable HeadPumpcellar1_Control_ButtonStore_u_push;
+uncontrollable HeadPumpcellar1_Control_ButtonDrain_u_push;
+uncontrollable HeadPumpcellar1_Control_ButtonOff_u_push;
+controllable HeadPumpcellar1_Control_Observer_c_done;
+plant automaton MiddlePumpcellar_PumpDirection:
+  location headPumpcellar1:
+    initial;
+    marked;
+    edge MiddlePumpcellar_PumpDirection_c_headPumpcellar2 goto headPumpcellar2;
+  location headPumpcellar2:
+    edge MiddlePumpcellar_PumpDirection_c_headPumpcellar1 goto headPumpcellar1;
+end
+plant automaton HeadPumpcellar1_Pump1:
+  location off:
+    initial;
+    marked;
+    edge HeadPumpcellar1_Pump1_c_on goto on;
+  location on:
+    edge HeadPumpcellar1_Pump1_c_off goto off;
+end
+plant automaton HeadPumpcellar1_Pump2:
+  location off:
+    initial;
+    marked;
+    edge HeadPumpcellar1_Pump2_c_on goto on;
+  location on:
+    edge HeadPumpcellar1_Pump2_c_off goto off;
+end
+plant automaton HeadPumpcellar1_SensorTank:
+  location Empty:
+    initial;
+    marked;
+    edge HeadPumpcellar1_SensorTank_u_S1on goto S1;
+  location S1:
+    edge HeadPumpcellar1_SensorTank_u_S1off when HeadPumpcellar1_Pump1.on or HeadPumpcellar1_Pump2.on goto Empty;
+    edge HeadPumpcellar1_SensorTank_u_S2on goto S2;
+  location S2:
+    edge HeadPumpcellar1_SensorTank_u_S2off when HeadPumpcellar1_Pump1.on or HeadPumpcellar1_Pump2.on goto S1;
+    edge HeadPumpcellar1_SensorTank_u_S3on goto S3;
+  location S3:
+    edge HeadPumpcellar1_SensorTank_u_S3off when HeadPumpcellar1_Pump1.on or HeadPumpcellar1_Pump2.on goto S2;
+    edge HeadPumpcellar1_SensorTank_u_S4on goto S4;
+  location S4:
+    edge HeadPumpcellar1_SensorTank_u_S4off when HeadPumpcellar1_Pump1.on or HeadPumpcellar1_Pump2.on goto S3;
+    edge HeadPumpcellar1_SensorTank_u_S5on goto S5;
+  location S5:
+    edge HeadPumpcellar1_SensorTank_u_S5off when HeadPumpcellar1_Pump1.on or HeadPumpcellar1_Pump2.on goto S4;
+end
+plant automaton HeadPumpcellar1_Mode:
+  location drain:
+    initial;
+    marked;
+    edge HeadPumpcellar1_Mode_c_store goto store;
+    edge HeadPumpcellar1_Mode_c_off goto off;
+  location store:
+    edge HeadPumpcellar1_Mode_c_drain goto drain;
+    edge HeadPumpcellar1_Mode_c_off goto off;
+  location off:
+    edge HeadPumpcellar1_Mode_c_store goto store;
+    edge HeadPumpcellar1_Mode_c_drain goto drain;
+end
+plant automaton HeadPumpcellar1_Control_Mode:
+  location auto:
+    initial;
+    marked;
+    edge HeadPumpcellar1_Control_Mode_c_manual goto manual;
+  location manual:
+    edge HeadPumpcellar1_Control_Mode_c_auto goto auto;
+end
+plant automaton HeadPumpcellar1_Control_ButtonManual:
+  location:
+    initial;
+    marked;
+    edge HeadPumpcellar1_Control_ButtonManual_u_push;
+end
+plant automaton HeadPumpcellar1_Control_ButtonAuto:
+  location:
+    initial;
+    marked;
+    edge HeadPumpcellar1_Control_ButtonAuto_u_push;
+end
+plant automaton HeadPumpcellar1_Control_ButtonStore:
+  location:
+    initial;
+    marked;
+    edge HeadPumpcellar1_Control_ButtonStore_u_push;
+end
+plant automaton HeadPumpcellar1_Control_ButtonDrain:
+  location:
+    initial;
+    marked;
+    edge HeadPumpcellar1_Control_ButtonDrain_u_push;
+end
+plant automaton HeadPumpcellar1_Control_ButtonOff:
+  location:
+    initial;
+    marked;
+    edge HeadPumpcellar1_Control_ButtonOff_u_push;
+end
+plant automaton HeadPumpcellar1_Control_Observer:
+  monitor HeadPumpcellar1_Control_ButtonManual_u_push, HeadPumpcellar1_Control_ButtonAuto_u_push, HeadPumpcellar1_Control_ButtonStore_u_push, HeadPumpcellar1_Control_ButtonDrain_u_push, HeadPumpcellar1_Control_ButtonOff_u_push;
+  location unpressed:
+    initial;
+    marked;
+    edge HeadPumpcellar1_Control_ButtonManual_u_push when HeadPumpcellar1_Control_Mode.auto goto manualPressed;
+    edge HeadPumpcellar1_Control_ButtonAuto_u_push when HeadPumpcellar1_Control_Mode.manual goto autoPressed;
+    edge HeadPumpcellar1_Control_ButtonStore_u_push when HeadPumpcellar1_Control_Mode.manual and not HeadPumpcellar1_Mode.store goto storePressed;
+    edge HeadPumpcellar1_Control_ButtonDrain_u_push when HeadPumpcellar1_Control_Mode.manual and not HeadPumpcellar1_Mode.drain goto drainPressed;
+    edge HeadPumpcellar1_Control_ButtonOff_u_push when HeadPumpcellar1_Control_Mode.manual and not HeadPumpcellar1_Mode.off goto offPressed;
+  location autoPressed:
+    edge HeadPumpcellar1_Control_Observer_c_done when HeadPumpcellar1_Control_Mode.auto goto unpressed;
+  location manualPressed:
+    edge HeadPumpcellar1_Control_Observer_c_done when HeadPumpcellar1_Control_Mode.manual goto unpressed;
+  location storePressed:
+    edge HeadPumpcellar1_Control_Observer_c_done when HeadPumpcellar1_Mode.store goto unpressed;
+  location drainPressed:
+    edge HeadPumpcellar1_Control_Observer_c_done when HeadPumpcellar1_Mode.drain goto unpressed;
+  location offPressed:
+    edge HeadPumpcellar1_Control_Observer_c_done when HeadPumpcellar1_Mode.off goto unpressed;
+end
+plant automaton Traffictube1_Mode_ObserverA:
+  location operational:
+    initial;
+    marked;
+    edge Traffictube1_ObserverA_c_emergency goto emergency;
+    edge Traffictube1_ObserverA_c_recovery goto recovery;
+  location emergency:
+    edge Traffictube1_ObserverA_c_recovery goto recovery;
+    edge Traffictube1_ObserverA_c_operational goto operational;
+  location recovery:
+    edge Traffictube1_ObserverA_c_operational goto operational;
+    edge Traffictube1_ObserverA_c_emergency goto emergency;
+end
+plant automaton Traffictube2_Mode_ObserverA:
+  location operational:
+    initial;
+    marked;
+    edge Traffictube2_ObserverA_c_emergency goto emergency;
+    edge Traffictube2_ObserverA_c_recovery goto recovery;
+  location emergency:
+    edge Traffictube2_ObserverA_c_recovery goto recovery;
+    edge Traffictube2_ObserverA_c_operational goto operational;
+  location recovery:
+    edge Traffictube2_ObserverA_c_operational goto operational;
+    edge Traffictube2_ObserverA_c_emergency goto emergency;
+end
+requirement invariant MiddlePumpcellar_PumpDirection_c_headPumpcellar2 needs HeadPumpcellar1_SensorTank.S5;
+requirement invariant MiddlePumpcellar_PumpDirection_c_headPumpcellar1 needs HeadPumpcellar1_SensorTank.S4;
+requirement invariant HeadPumpcellar1_Mode_c_store needs HeadPumpcellar1_Control_Observer.unpressed or HeadPumpcellar1_Control_Mode.manual and not HeadPumpcellar1_Control_Observer.autoPressed;
+requirement invariant HeadPumpcellar1_Mode_c_drain needs HeadPumpcellar1_Control_Observer.unpressed or HeadPumpcellar1_Control_Mode.manual and not HeadPumpcellar1_Control_Observer.autoPressed;
+requirement invariant HeadPumpcellar1_Mode_c_off needs HeadPumpcellar1_Control_Observer.unpressed or HeadPumpcellar1_Control_Mode.manual and not HeadPumpcellar1_Control_Observer.autoPressed;
+requirement invariant HeadPumpcellar1_Pump1_c_on needs HeadPumpcellar1_Mode.store and HeadPumpcellar1_SensorTank.S5 or HeadPumpcellar1_Mode.drain and (HeadPumpcellar1_SensorTank.S2 or HeadPumpcellar1_SensorTank.S3 or HeadPumpcellar1_SensorTank.S4 or HeadPumpcellar1_SensorTank.S5);
+requirement invariant HeadPumpcellar1_Pump1_c_off needs HeadPumpcellar1_Mode.store and (HeadPumpcellar1_SensorTank.S2 or HeadPumpcellar1_SensorTank.S3 or HeadPumpcellar1_SensorTank.S1 or HeadPumpcellar1_SensorTank.Empty) or HeadPumpcellar1_Mode.drain and HeadPumpcellar1_SensorTank.Empty or HeadPumpcellar1_Mode.off;
+requirement invariant HeadPumpcellar1_Pump2_c_on needs HeadPumpcellar1_Mode.store and HeadPumpcellar1_SensorTank.S5 or HeadPumpcellar1_Mode.drain and (HeadPumpcellar1_SensorTank.S3 or HeadPumpcellar1_SensorTank.S4 or HeadPumpcellar1_SensorTank.S5);
+requirement invariant HeadPumpcellar1_Pump2_c_off needs HeadPumpcellar1_Mode.store and (HeadPumpcellar1_SensorTank.S2 or HeadPumpcellar1_SensorTank.S3 or HeadPumpcellar1_SensorTank.S1 or HeadPumpcellar1_SensorTank.Empty) or HeadPumpcellar1_Mode.drain and HeadPumpcellar1_SensorTank.Empty or HeadPumpcellar1_Mode.off;
+requirement invariant HeadPumpcellar1_Pump1_c_on needs HeadPumpcellar1_Control_Observer.unpressed;
+requirement invariant HeadPumpcellar1_Pump1_c_off needs HeadPumpcellar1_Control_Observer.unpressed;
+requirement invariant HeadPumpcellar1_Pump2_c_on needs HeadPumpcellar1_Control_Observer.unpressed;
+requirement invariant HeadPumpcellar1_Pump2_c_off needs HeadPumpcellar1_Control_Observer.unpressed;
+requirement invariant HeadPumpcellar1_Control_Mode_c_manual needs HeadPumpcellar1_Control_Observer.manualPressed;
+requirement invariant HeadPumpcellar1_Control_Mode_c_auto needs HeadPumpcellar1_Control_Observer.autoPressed;
+requirement invariant HeadPumpcellar1_Mode_c_store needs HeadPumpcellar1_Control_Mode.auto and not(Traffictube1_Mode_ObserverA.operational and Traffictube2_Mode_ObserverA.operational) or HeadPumpcellar1_Control_Mode.manual and HeadPumpcellar1_Control_Observer.storePressed;
+requirement invariant HeadPumpcellar1_Mode_c_drain needs HeadPumpcellar1_Control_Mode.auto and (Traffictube1_Mode_ObserverA.operational and Traffictube2_Mode_ObserverA.operational) or HeadPumpcellar1_Control_Mode.manual and HeadPumpcellar1_Control_Observer.drainPressed;
+requirement invariant HeadPumpcellar1_Mode_c_off needs HeadPumpcellar1_Control_Mode.manual and HeadPumpcellar1_Control_Observer.offPressed;

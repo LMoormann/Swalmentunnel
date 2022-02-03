@@ -1,0 +1,7 @@
+plant def HWControlMode(controllable c_auto, c_manual):
+	disc bool AUTO = true;
+	location:
+	  initial;
+		edge c_auto do AUTO := true;
+		edge c_manual do AUTO := false;
+end
