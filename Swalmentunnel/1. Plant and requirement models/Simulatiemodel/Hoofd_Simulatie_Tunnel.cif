@@ -21,10 +21,10 @@ import "Definities/Sim_Slagboom.cif", "Definities/Sim_Verkeerslicht.cif",
 
 import "../Supervisor/Supervisor.cif";
 
-import "Unit Controllers/Verlichting.cif"
-     , "Unit Controllers/Ventilatie.cif"
-//      , "Unit Controllers/Omroep.cif"
-     , "Unit Controllers/CCTV.cif"
+import "Resource Controllers/Verlichting.cif"
+     , "Resource Controllers/Ventilatie.cif"
+//      , "Resource Controllers/Omroep.cif"
+     , "Resource Controllers/CCTV.cif"
        ;
 
 group sim_model:
